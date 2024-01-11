@@ -4,7 +4,7 @@ OBJ_PATH = tmp/
 
 SRC_PATH = SRC/
 
-SRC = #all *.c here
+SRC = minishell.c #all *.c here
 
 SRC_PREFIX = $(addprefix $(SRC_PATH), $(SRC))
 
