@@ -4,6 +4,8 @@ OBJ_PATH = tmp/
 
 SRC_PATH = SRC/
 
+RDLINE_PATH = readline/
+
 SRC = minishell.c #all *.c here
 
 SRC_PREFIX = $(addprefix $(SRC_PATH), $(SRC))
@@ -42,3 +44,5 @@ fclean:	clean libftfclean
 		rm -rf $(NAME)
 
 .PHONY: all re clean fclean 
+
+#### Missing Readline makefile rules ####
