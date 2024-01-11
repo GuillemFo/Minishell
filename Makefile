@@ -6,6 +6,8 @@ SRC_PATH = SRC/
 
 RDLINE_PATH = readline/
 
+LIBFT_PATH = libft/
+
 SRC = minishell.c #all *.c here
 
 SRC_PREFIX = $(addprefix $(SRC_PATH), $(SRC))
@@ -13,6 +15,17 @@ SRC_PREFIX = $(addprefix $(SRC_PATH), $(SRC))
 OBJ = $(addprefix $(OBJ_PATH), $(SRC_PREFIX:.c=.o))
 
 CFLAGS = -Wall -Wextra -Werror -I./Include ./libft/
+
+#### PENDIENTE DE ENTENDER ####
+
+LIB_A		:=	$(RDLINE_PATH)libreadline.a $(RDLINE_PATH)libhistory.a \
+				$(LIBFT_PATH)libft.a
+
+LIB_ADD_DIR	:=	-L$(RDLINE_PATH) -L$(LIBFT_PATH)
+
+LIB_SEARCH	:=	-lreadline -lhistory -ltermcap -lft
+
+################################
 
 all: makelibft tmp $(NAME)
 
