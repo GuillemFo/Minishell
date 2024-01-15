@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 13:57:56 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/15 14:50:34 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:25:49 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void handle_sigint(int sig)
 	(void)sig;
 	ft_printf("\n");
 	rl_on_new_line();
+	rl_replace_line("", 1);
 	rl_redisplay();
 }
 

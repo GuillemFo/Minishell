@@ -13,11 +13,21 @@ https://github.com/jotavare/42-resources#03-minishell
 Guille:
 -- Signals
 -- Expansor
--- Built ins
+-- Builtins
 -- Heredock
 
 
-15/1/2023 ->
-	working signals:ctrl-D kills minishell
-					ctrl-C recalls prompt minihell
-					ctrl-\ does nothing
+15/1/2024 ->
+DONE	working signals: 
+						ctrl-D END OF FILE To RDLINE -> kills minishell
+						ctrl-C recalls prompt minihell
+						ctrl-\ does nothing
+15/1/2024 to 16/1/2024
+		Implement the builtins:
+								◦ echo
+								◦ cd
+								◦ pwd
+								◦ export
+								◦ unset
+								◦ env
+								◦ exit
