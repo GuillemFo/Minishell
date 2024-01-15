@@ -6,13 +6,22 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:40:50 by adanylev          #+#    #+#             */
-/*   Updated: 2024/01/15 15:06:54 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:16:06 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include "minishell.h"
 #include "stdlib.h"
 #include "stdio.h"
+
+int	is_quote(char letter)
+{
+	if (letter == 39)
+		return (39);
+	if(letter == 34)
+		return (34);
+	return (0);
+}
 
 int is_space(char c)
 {
@@ -94,16 +103,7 @@ char **cool_split(char *str, char c)
 	return (split);
 }
 
-int	is_quote(char letter)
-{
-	if (letter == 39)
-		return (39);
-	if(letter == 34)
-		return (34);
-	return (0);
-}
-
-int	main(char *line)
+int	main()
 {
 	int	i;
 	char	*line = "ls -la | grep 'all'";
@@ -113,7 +113,7 @@ int	main(char *line)
 	division = cool_split(line, ' ');
 	while (division[i])
 	{
-		printf ("%s\n");
+		printf ("%s\n", division[i]);
 		i++;
 	}
 	return (0);
