@@ -8,7 +8,7 @@ RDLINE_PATH = readline/
 
 LIBFT_PATH = libft/
 
-SRC = minishell.c #all *.c here
+SRC = minishell.c signals.c #all *.c here
 
 SRC_PREFIX = $(addprefix $(SRC_PATH), $(SRC))
 
@@ -31,11 +31,11 @@ tmp:
 $(NAME): $(OBJ)
 		@cc $(CFLAGS) $(OBJ) $(LIB_ADD_DIR) $(LIB_SEARCH) $(LIB_A) -o $(NAME)
 		@echo "Minishell compiled"
-#rdline:
-		#@echo "Compiling Readline"
-		#@cd ./readline/ &> /dev/null && ./configure &> /dev/null
-		#@make -C ./readline/ &> /dev/null
-		#@echo "Readline compiled"
+rdline:
+		@echo "Compiling Readline"
+		@cd ./readline/ &> /dev/null && ./configure &> /dev/null
+		@make -C ./readline/ &> /dev/null
+		@echo "Readline compiled"
 
 libraries:
 		@$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
@@ -43,7 +43,7 @@ libraries:
 
 $(OBJ_PATH)%.o: %.c Makefile $(LIB_A) ./Include/minishell.h
 		@mkdir	-p $(dir $@)
-		@cc $(CFLAGS) -g -c $< -o $@
+		@gcc $(CFLAGS) -DREADLINE_LIBRARY=1 -I./Include -I./readline -c $< -o $@
 		@echo "Compiling obj $@..."
 
 re: fclean all

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/15 13:17:45 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/15 14:54:24 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ int	main(int ac, char **av)
 	char *str;
 	(void)ac;
 	(void)av;
+	rl_catch_signals = 0;
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, handle_sigquit);
 	str = readline("minishell: ");
 	while (str)
 	{
