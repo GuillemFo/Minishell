@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/15 12:47:38 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/15 13:17:45 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int ac, char **av)
 	str = readline("minishell: ");
 	while (str)
 	{
+		add_history(str);
 		//lexer(str);
 		printf("%s\n", str);
 		str = readline("minishell: ");
