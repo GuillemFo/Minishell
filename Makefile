@@ -31,15 +31,15 @@ tmp:
 $(NAME): $(OBJ)
 		@cc $(CFLAGS) $(OBJ) $(LIB_ADD_DIR) $(LIB_SEARCH) $(LIB_A) -o $(NAME)
 		@echo "Minishell compiled"
-rdline:
-		@echo "Compiling Readline"
-		@cd ./readline/ &> /dev/null && ./configure &> /dev/null
-		@make -C ./readline/ &> /dev/null
-		@echo "Readline compiled"
+#rdline:
+		#@echo "Compiling Readline"
+		#@cd ./readline/ &> /dev/null && ./configure &> /dev/null
+		#@make -C ./readline/ &> /dev/null
+		#@echo "Readline compiled"
 
 libraries:
 		@$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
-		@$(MAKE) rdline --no-print-directory
+		#@$(MAKE) rdline --no-print-directory
 
 $(OBJ_PATH)%.o: %.c Makefile $(LIB_A) ./Include/minishell.h
 		@mkdir	-p $(dir $@)
@@ -57,7 +57,7 @@ fclean:	clean
 		@$(MAKE) -C libft fclean --no-print-directory
 		@rm -rf $(NAME)
 		@echo "Minishell deleted"
-		@$(MAKE) -C readline clean --no-print-directory
+		#@$(MAKE) -C readline clean --no-print-directory
 
 .PHONY: all re clean fclean 
 
