@@ -16,16 +16,12 @@ OBJ = $(addprefix $(OBJ_PATH), $(SRC_PREFIX:.c=.o))
 
 CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft/libft.h
 
-#### PENDIENTE DE ENTENDER ####
-
 LIB_A		:=	$(RDLINE_PATH)libreadline.a $(RDLINE_PATH)libhistory.a \
 				$(LIBFT_PATH)libft.a
 
 LIB_ADD_DIR	:=	-L$(RDLINE_PATH) -L$(LIBFT_PATH)
 
 LIB_SEARCH	:=	-lreadline -lhistory -ltermcap -lft
-
-################################
 
 all: libraries tmp $(NAME)
 
