@@ -62,23 +62,24 @@ CFLAGS = -Wall -Wextra -Werror -I./libft.h
 all: $(NAME)
 
 $(NAME): $(OBJ) 
-	ar -crs $(NAME) $(OBJ)
+	@ar -crs $(NAME) $(OBJ)
+	@echo "Libft compiled"
 
 bonus: .bonus
 
 .bonus: $(OBJ) $(BON) libft.h libft.a get_next_line.h Makefile
-	ar -crs $(NAME) $(OBJ) $(BON)
+	@ar -crs $(NAME) $(OBJ) $(BON)
 	@touch .bonus
 
 %.o: %.c libft.h get_next_line.h Makefile
-	cc $(CFLAGS) -c $< -o $@ 
+	@gcc $(CFLAGS) -c $< -o $@ 
 
 re: fclean all
 
 clean:
-	rm -rf $(OBJ) $(BON) .bonus
+	@rm -rf $(OBJ) $(BON) .bonus
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 .PHONY: all re clean fclean bonus

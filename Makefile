@@ -27,35 +27,42 @@ LIB_SEARCH	:=	-lreadline -lhistory -ltermcap -lft
 
 ################################
 
-all: makelibft tmp $(NAME)
+all: libraries tmp $(NAME)
 
 tmp:
-		mkdir -p $(OBJ_PATH)
+		@mkdir -p $(OBJ_PATH)
 
 $(NAME): $(OBJ)
-		cc $(CFLAGS) $(OBJ) ./libft/libft.a -o $(NAME)
+		@cc $(CFLAGS) $(OBJ) $(LIB_ADD_DIR) $(LIB_SEARCH) $(LIB_A) -o $(NAME)
+		@echo "Minishell compiled"
+rdline:
+		@echo "Compiling Readline"
+		@cd ./readline/ &> /dev/null && ./configure &> /dev/null
+		@make -C ./readline/ &> /dev/null
+		@echo "Readline compiled"
 
-makelibft:
-		$(MAKE) -C ./libft #add command from libft to create the .a
+libraries:
+		@$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
+		@$(MAKE) rdline --no-print-directory
 
-$(OBJ_PATH)%.o: %.c ./libft/libft.h ./Include/minishell.h ./libft/libft.a Makefile
+$(OBJ_PATH)%.o: %.c Makefile $(LIB_A) ./Include/minishell.h
 		@mkdir	-p $(dir $@)
-		cc $(CFLAGS) -g -c $< -o $@
+		@cc $(CFLAGS) -g -c $< -o $@
+		@echo "Compiling obj $@..."
 
 re: fclean all
 
-libftfclean:
-		$(MAKE) -C ./libft fclean
+clean:
+		@$(MAKE) -C libft clean --no-print-directory
+		@rm -rf $(OBJ_PATH)
+		@echo "Objs deleted"
 
-libftclean:
-		$(MAKE) -C ./libft clean
-
-clean:	libftclean
-		rm -rf $(OBJ_PATH)
-
-fclean:	clean libftfclean
-		rm -rf $(NAME)
+fclean:	clean
+		@$(MAKE) -C libft fclean --no-print-directory
+		@rm -rf $(NAME)
+		@echo "Minishell deleted"
+		@$(MAKE) -C readline clean --no-print-directory
 
 .PHONY: all re clean fclean 
 
-#### Missing Readline makefile rules ####
+#### NEED TO CREATE RULES TO DO MAKES IN SILENCE ####
