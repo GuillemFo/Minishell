@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/15 15:17:45 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:30:51 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,17 @@
 # define MINISHELL_H
 
 # include <../libft/libft.h>
-# include <readline.h>
+# include <errno.h>
 # include <history.h>
+# include <readline.h>
 # include <signal.h>
+# include <string.h>
 
-void handle_sigint(int sig);
-void handle_sigquit(int sig);
+void	handle_sigint(int sig);
+void	handle_sigquit(int sig);
+
+//##================BUILTINS==================##
+
+int		bi_gen(char *str);
 
 #endif

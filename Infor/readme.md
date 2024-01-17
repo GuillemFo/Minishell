@@ -10,6 +10,8 @@ https://tiswww.case.edu/php/chet/readline/README
 Info:
 https://github.com/jotavare/42-resources#03-minishell
 
+https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
+
 Guille:
 -- Signals
 -- Expansor
@@ -24,10 +26,10 @@ DONE	working signals:
 						ctrl-\ does nothing
 15/1/2024 to 16/1/2024
 		Implement the builtins:
-								◦ echo
-								◦ cd
-								◦ pwd
-								◦ export
-								◦ unset
-								◦ env
-								◦ exit
+								◦ echo with option -n
+								◦ cd with only a relative or absolute path
+								◦ pwd with no options
+								◦ export with no options
+								◦ unset with no options
+								◦ env with no options or arguments
+								◦ exit with no options
