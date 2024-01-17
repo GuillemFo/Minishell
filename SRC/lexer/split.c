@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer1.c                                           :+:      :+:    :+:   */
+/*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:40:50 by adanylev          #+#    #+#             */
-/*   Updated: 2024/01/15 15:16:06 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/01/17 14:46:47 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "minishell.h"
-#include "stdlib.h"
-#include "stdio.h"
+#include "../../Include/minishell.h"
 
 int	is_quote(char letter)
 {
@@ -51,13 +49,13 @@ int count_words(char *str)
 	return (wc);
 }
 
-char *ft_substr(const char *str, int start, int len)
+char *ft_substri(const char *str, int start, int len)
 {
 	char *palabro;
 	int i;
 
 	i = 0;
-	palabro = malloc(sizeof(char) * (len + 1));
+	palabro = my_malloc(sizeof(char) * (len + 1));
 	while(i < len)
 	{
 		palabro[i] = str[i + start];
@@ -76,9 +74,12 @@ char **cool_split(char *str, char c)
 	int	quotes;
 
 	i = 0;
+	quotes = 0;
 	start = 0;
 	k = 0;
-	split = malloc(sizeof(char *) * (count_words(str) + 1));
+	split = my_malloc(sizeof(char *) * (count_words(str) + 1));
+	if (!split)
+		return (NULL);
 	while (str[i])
 	{
 		if (is_quote(str[i]))
@@ -92,8 +93,7 @@ char **cool_split(char *str, char c)
 			start = i;
 		if(!is_space(str[i]) && (is_space(str[i + 1]) || str[i + 1] == '\0'))
 		{
-			split[k] = ft_substr(str, start, i - start + 1);
-			k++;
+			split[k++] = ft_substri(str, start, i - start + 1);
 		}
 		if (quotes % 2 == 0)
 			c = ' ';
@@ -101,20 +101,4 @@ char **cool_split(char *str, char c)
 	}
 	split[k] = NULL;
 	return (split);
-}
-
-int	main()
-{
-	int	i;
-	char	*line = "ls -la | grep 'all'";
-	char **division;
-	
-	i = 0;
-	division = cool_split(line, ' ');
-	while (division[i])
-	{
-		printf ("%s\n", division[i]);
-		i++;
-	}
-	return (0);
 }

@@ -2,17 +2,17 @@ NAME = minishell
 
 OBJ_PATH = tmp/
 
-SRC_PATH = SRC/
+SRC_PATH = SRC/lexer/
 
 RDLINE_PATH = readline/
 
 LIBFT_PATH = libft/
 
-SRC = minishell.c #all *.c here
+SRC = pars.c split.c #all *.c here
 
-SRC_PREFIX = $(addprefix $(SRC_PATH), $(SRC))
+SRC_PREFIX = $(addprefix $(SRC_PATH),$(SRC))
 
-OBJ = $(addprefix $(OBJ_PATH), $(SRC_PREFIX:.c=.o))
+OBJ = $(addprefix $(OBJ_PATH),$(SRC_PREFIX:.c=.o))
 
 CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft/libft.h
 
@@ -29,21 +29,21 @@ tmp:
 		@mkdir -p $(OBJ_PATH)
 
 $(NAME): $(OBJ)
-		@cc $(CFLAGS) $(OBJ) $(LIB_ADD_DIR) $(LIB_SEARCH) $(LIB_A) -o $(NAME)
+		cc $(CFLAGS) $(OBJ) $(LIB_ADD_DIR) $(LIB_SEARCH) $(LIB_A) -o $(NAME)
 		@echo "Minishell compiled"
-#rdline:
-		#@echo "Compiling Readline"
-		#@cd ./readline/ &> /dev/null && ./configure &> /dev/null
-		#@make -C ./readline/ &> /dev/null
-		#@echo "Readline compiled"
+rdline:
+		@echo "Compiling Readline"
+		@cd ./readline/ &> /dev/null && ./configure &> /dev/null
+		@make -C ./readline/ &> /dev/null
+		@echo "Readline compiled"
 
 libraries:
-		@$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
-		#@$(MAKE) rdline --no-print-directory
+		$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
+#@$(MAKE) rdline --no-print-directory
 
 $(OBJ_PATH)%.o: %.c Makefile $(LIB_A) ./Include/minishell.h
-		@mkdir	-p $(dir $@)
-		@cc $(CFLAGS) -g -c $< -o $@
+		mkdir	-p $(dir $@)
+		cc $(CFLAGS) -g -c $< -o $@
 		@echo "Compiling obj $@..."
 
 re: fclean all
@@ -57,7 +57,7 @@ fclean:	clean
 		@$(MAKE) -C libft fclean --no-print-directory
 		@rm -rf $(NAME)
 		@echo "Minishell deleted"
-		#@$(MAKE) -C readline clean --no-print-directory
+#@$(MAKE) -C readline clean --no-print-directory
 
 .PHONY: all re clean fclean 
 
