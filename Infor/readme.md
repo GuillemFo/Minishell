@@ -12,6 +12,8 @@ https://github.com/jotavare/42-resources#03-minishell
 
 https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
 
+https://github.com/toni-schmitt/minishell
+
 Guille:
 -- Signals
 -- Expansor
