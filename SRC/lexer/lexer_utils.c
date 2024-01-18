@@ -6,12 +6,11 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:50:34 by adanylev          #+#    #+#             */
-/*   Updated: 2024/01/17 14:45:11 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:57:04 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
+#include "../../Include/minishell.h"
 
 char	**free_matrix(char **matrix, size_t p)
 {
@@ -35,4 +34,34 @@ void	*my_malloc(size_t bytes)
 	if (!res)
 		exit(1);
 	return (res);
+}
+
+int	is_quote(char letter)
+{
+	if (letter == 39)
+		return (39);
+	if(letter == 34)
+		return (34);
+	return (0);
+}
+
+int is_space(char c)
+{
+	if (c == ' ')
+		return (1);
+	if (c == '\t')
+		return (1);
+	return (0);
+}
+
+int	is_sign(char c)
+{
+	if (c == '|')
+		return (1);
+	if (c == '>')
+		return (2);
+	if (c == '<')
+		return (3);
+	else
+		return (0);
 }

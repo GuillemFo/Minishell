@@ -1,53 +1,75 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split.c                                            :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:40:50 by adanylev          #+#    #+#             */
-/*   Updated: 2024/01/17 14:46:47 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:19:29 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-int	is_quote(char letter)
+void	lexer(char *line)
 {
-	if (letter == 39)
-		return (39);
-	if(letter == 34)
-		return (34);
-	return (0);
-}
-
-int is_space(char c)
-{
-	if (c == ' ')
-		return (1);
-	if (c == '\t')
-		return (1);
-	return (0);
-}
-int count_words(char *str)
-{
+	t_lexer	lexer;
 	int	i;
 	int	wc;
-	int	b;
+	int	count;
 
 	i = 0;
-	b = 0;
 	wc = 0;
-	while (str[i])
-	{
-		if (i == 0 && !is_space(str[i]))
-			wc++;
-		if (i > 0 && !is_space(str[i]) && is_space(str[i - 1]))
-			wc++;
-		i++;
-	}
-	return (wc);
+	count = arg_count(line, i, wc);
 }
+
+int	arg_count(char *line, int i, int wc)
+{
+	while(line[i])
+	{
+		if (is_space(line[i]))
+			i++;
+		else if (is_sign(line[i]))
+		{
+			if (line[i + 1] && is_sign(line[i]) == is_sign(line[i + 1]))
+				i++;
+			i++;
+			wc++;
+		}
+		else if (quote_situation(&line[i]))
+		{
+			i = i + quote_situation(&line[i]) + 1;
+			wc++;
+		}
+		else
+		{
+			while (line[i] && !is_quote(line[i]) && !is_space(line[i]) && !is_sign(line[i]))
+				i++;
+			wc++;
+		}
+	}
+	return(wc);
+}
+
+int	quote_situation(char *c)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	if (is_quote(c[i]) && c[i + 1])
+	{
+		j = i + 1;
+		while (c[j] && c[i] != c[j])
+			j++;
+		if (is_quote(c[j]) == is_quote(c[i]))
+			return (j);
+		return (0);
+	}
+	return (0);
+}
+
 
 char *ft_substri(const char *str, int start, int len)
 {
@@ -65,7 +87,7 @@ char *ft_substri(const char *str, int start, int len)
 	return (palabro);
 }
 
-char **cool_split(char *str, char c)
+/*char **cool_split(char *str, char c)
 {
 	int	i;
 	int	start;
@@ -101,4 +123,4 @@ char **cool_split(char *str, char c)
 	}
 	split[k] = NULL;
 	return (split);
-}
+}*/
