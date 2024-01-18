@@ -14,6 +14,10 @@ https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
 
 https://github.com/toni-schmitt/minishell
 
+https://www.youtube.com/watch?v=oxuRxtrO2Ag
+
+https://www.youtube.com/@johnalexandersanabriaordon1851/videos
+
 Guille:
 -- Signals
 -- Expansor
