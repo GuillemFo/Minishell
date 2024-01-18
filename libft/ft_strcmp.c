@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/18 08:36:37 by gforns-s         ###   ########.fr       */
+/*   Created: 2024/01/17 09:42:02 by gforns-s          #+#    #+#             */
+/*   Updated: 2024/01/17 09:42:09 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+int	ft_strcmp(char *s1, char *s2)
+{
+	int i;
 
-# include <../libft/libft.h>
-# include <errno.h>
-# include <history.h>
-# include <readline.h>
-# include <signal.h>
-# include <string.h>
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
+}
 
-void	handle_sigint(int sig);
-void	handle_sigquit(int sig);
-
-//##================builtins==================##
-
-int		bi_gen(char *str);
-
-#endif
+/*
+int main(int ac, char **av)
+{
+	if (ac != 3)
+		return (printf("bad\n"));
+	printf("%d\n", ft_strcmp(av[1], av[2]));
+}
+*/

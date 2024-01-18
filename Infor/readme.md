@@ -17,7 +17,7 @@ https://github.com/toni-schmitt/minishell
 Guille:
 -- Signals
 -- Expansor
--- Builtins
+-- builtins
 -- Heredock
 
 
