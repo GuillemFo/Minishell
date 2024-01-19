@@ -6,22 +6,28 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:40:50 by adanylev          #+#    #+#             */
-/*   Updated: 2024/01/18 13:19:29 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:06:21 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-void	lexer(char *line)
+int	main()
 {
-	t_lexer	lexer;
+	//t_lexer	lexer;
 	int	i;
 	int	wc;
-	int	count;
+	char	**c;
+	char	line[]= "lol p| grep -v >helo'bye'";
 
 	i = 0;
 	wc = 0;
-	count = arg_count(line, i, wc);
+	c = new_split(line, arg_count(line, i, wc), i, wc);
+	while (c[i])
+	{
+		printf("%s\n", c[i]);
+		i++;
+	}
 }
 
 int	arg_count(char *line, int i, int wc)
@@ -86,41 +92,3 @@ char *ft_substri(const char *str, int start, int len)
 	palabro[i] = '\0';
 	return (palabro);
 }
-
-/*char **cool_split(char *str, char c)
-{
-	int	i;
-	int	start;
-	int	k;
-	char **split;
-	int	quotes;
-
-	i = 0;
-	quotes = 0;
-	start = 0;
-	k = 0;
-	split = my_malloc(sizeof(char *) * (count_words(str) + 1));
-	if (!split)
-		return (NULL);
-	while (str[i])
-	{
-		if (is_quote(str[i]))
-		{
-			c = is_quote(str[i]);
-			quotes++;
-		}
-		if (i == 0 && !is_space(str[i]))
-			start = i;
-		else if (i > 0 && !is_space(str[i]) && is_space(str[i - 1]))
-			start = i;
-		if(!is_space(str[i]) && (is_space(str[i + 1]) || str[i + 1] == '\0'))
-		{
-			split[k++] = ft_substri(str, start, i - start + 1);
-		}
-		if (quotes % 2 == 0)
-			c = ' ';
-		i++;
-	}
-	split[k] = NULL;
-	return (split);
-}*/
