@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/19 13:00:19 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:44:34 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,28 @@ int	bi_echo(t_lexer *lexer)
 }
 */
 
-int	built_ls()
+int	built_echo(t_parser *token)
 {
-	ft_printf("entered ls\n");
+	int	flag;
+	ft_printf("entered echo\n");
+
+	flag = 1;
+	if (ft_strncmp("-n" ,token->content[1], 2))
+	{
+		flag = 0;
+		ft_putstr_fd(token->content[2], STDOUT_FILENO);
+	}
+	else if (flag == 1)
+	{
+		ft_putstr_fd(token->content[1], STDOUT_FILENO);
+		write(1, "\n", 1);
+	}
 	return (1);
 }
 
-int	built_grep()
+int	built_cd()
 {
-	ft_printf("entered grep\n");
+	ft_printf("entered cd\n");
 	return (2);
 }
 
@@ -45,11 +58,10 @@ int	is_builtin(t_parser *token)
 {
 	while (!(token->content == NULL && token->sign == NONE))
 	{
-		ft_printf("in:{%s}\n", token->content[0]);
-		if (ft_strncmp("ls", token->content[0], 2) == 0)
-			built_ls();
-		else if (ft_strncmp("grep", token->content[0], 4) == 0)
-			built_grep();
+		if (ft_strncmp("echo", token->content[0], 4) == 0)
+			built_echo(token);
+		else if (ft_strncmp("cd", token->content[0], 2) == 0)
+			built_cd();
 		token = token->next;
 	}
 	// else if (token->content == "pwd")
