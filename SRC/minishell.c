@@ -6,38 +6,37 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/19 09:56:04 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/19 12:58:04 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-typedef enum	e_type
-{
-	NONE = 0,
-	PIPE,
-	LESS
-}				t_type;
 
-typedef struct s_lexer
-{
-	char			**content;
-	t_type			sign;
-	struct s_lexer	*next;
-}					t_lexer;
+//the loop: while (token->next != NULL && token->sign == NONE)
 
-t_lexer	*test_load(void) //the loop: while (token->next != NULL && token->sign = NONE)
+t_parser *test_load(void)
 {
-    t_lexer *token = malloc(sizeof(t_lexer));
-    token->content = (char *[]){"ls", "-l", NULL};
+    t_parser *token;
+    token = malloc(sizeof(t_parser));
+    token->content = malloc(3 * sizeof(char*));
+    token->content[0] = strdup("ls");
+    token->content[1] = strdup("-l");
+    token->content[2] = NULL;
     token->sign = NONE;
-    token->next = malloc(sizeof(t_lexer));
-    token->next->content = (char *[]){"grep", "txt", NULL};
+    token->next = malloc(sizeof(t_parser));
+    token->next->content = malloc(3 * sizeof(char*));
+    token->next->content[0] = strdup("grep");
+    token->next->content[1] = strdup("txt");
+    token->next->content[2] = NULL;
     token->next->sign = PIPE;
-    token->next->next = NULL;
-	return (token);
-}
+    token->next->next = malloc(sizeof(t_parser));
+    token->next->next->content = NULL;
+    token->next->next->sign = NONE;
+    token->next->next->next = NULL;
 
+    return (token);
+}
 
 
 
@@ -45,7 +44,7 @@ t_lexer	*test_load(void) //the loop: while (token->next != NULL && token->sign =
 
 int	main(int ac, char **av)
 {
-	t_lexer	*data;
+	t_parser	*data;
 	char *str;
 	(void)ac;
 	(void)av;
@@ -53,12 +52,12 @@ int	main(int ac, char **av)
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
 	data = test_load();
+	ft_printf("content{%s}\n", data->content[0]);
+	is_builtin(data);
 	str = readline("minishell: ");
 	while (str)
 	{
-	//	bi_gen(str);
 		add_history(str);
-		//printf("%s\n", str);
 		str = readline("minishell: ");
 	}
 }

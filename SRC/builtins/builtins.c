@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/19 09:56:43 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:00:19 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,35 @@ int	bi_echo(t_lexer *lexer)
 		write(1, "\n", 1);
 	return (1);
 }
+*/
 
-int	bi_gen(char *str)
+int	built_ls()
 {
-	int	i;
+	ft_printf("entered ls\n");
+	return (1);
+}
 
-	i = 0;
-	if (ft_strncmp("exit", str, 5) == 0)
-		exit(0);
-	else if (ft_strncmp("echo ", str, 5) == 0)
-		bi_echo(str);
-	// else if (lexer->content == "cd")
-	// else if (lexer->content == "pwd")
-	// else if (lexer->content == "export")
-	return (i);
+int	built_grep()
+{
+	ft_printf("entered grep\n");
+	return (2);
+}
+
+
+int	is_builtin(t_parser *token)
+{
+	while (!(token->content == NULL && token->sign == NONE))
+	{
+		ft_printf("in:{%s}\n", token->content[0]);
+		if (ft_strncmp("ls", token->content[0], 2) == 0)
+			built_ls();
+		else if (ft_strncmp("grep", token->content[0], 4) == 0)
+			built_grep();
+		token = token->next;
+	}
+	// else if (token->content == "pwd")
+	// else if (token->content == "export")
+	return (3);
 }
 
 // Implement the builtins:
@@ -50,4 +65,3 @@ int	bi_gen(char *str)
 // 						◦ unset with no options
 // 						◦ env with no options or arguments
 // 						◦ exit with no options
-*/
