@@ -6,19 +6,13 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/18 08:36:36 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/19 09:56:43 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-
-typedef struct s_lexer
-{
-	char			**content;
-
-	struct s_list	*next;
-}					t_lexer;
+/*
 
 int	bi_echo(t_lexer *lexer)
 {
@@ -56,3 +50,4 @@ int	bi_gen(char *str)
 // 						◦ unset with no options
 // 						◦ env with no options or arguments
 // 						◦ exit with no options
+*/

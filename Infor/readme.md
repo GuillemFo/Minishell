@@ -39,3 +39,6 @@ DONE	working signals:
 								◦ unset with no options
 								◦ env with no options or arguments
 								◦ exit with no options
+
+
+								
