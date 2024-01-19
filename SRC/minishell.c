@@ -6,14 +6,14 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/19 14:19:50 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:49:05 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 
-//the loop: while (token->next != NULL && token->sign == NONE)
+//the loop: while (token->next != NULL)
 
 t_parser *test_load(void)
 {
@@ -29,7 +29,7 @@ t_parser *test_load(void)
     return (token);
 }
 
-token->next->content = NULL; if | encountered.
+//token->next->content = NULL; if | encountered.
 
 
 

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/19 13:44:34 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:01:15 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	built_echo(t_parser *token)
 	ft_printf("entered echo\n");
 
 	flag = 1;
-	if (ft_strncmp("-n" ,token->content[1], 2))
+	if (ft_strncmp("-n" ,token->content[1], 3) == 0)
 	{
 		flag = 0;
 		ft_putstr_fd(token->content[2], STDOUT_FILENO);
@@ -56,7 +56,7 @@ int	built_cd()
 
 int	is_builtin(t_parser *token)
 {
-	while (!(token->content == NULL && token->sign == NONE))
+	while (!(token == NULL))
 	{
 		if (ft_strncmp("echo", token->content[0], 4) == 0)
 			built_echo(token);
