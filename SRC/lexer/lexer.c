@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:40:50 by adanylev          #+#    #+#             */
-/*   Updated: 2024/01/19 13:06:21 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:11:50 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,20 @@ int	main()
 	//t_lexer	lexer;
 	int	i;
 	int	wc;
-	char	**c;
-	char	line[]= "lol p| grep -v >helo'bye'";
+	//char	**c;
+	//char	line[]= "lol p| grep -v >helo'bye'";
 
 	i = 0;
 	wc = 0;
-	c = new_split(line, arg_count(line, i, wc), i, wc);
-	while (c[i])
-	{
-		printf("%s\n", c[i]);
-		i++;
-	}
+//	c = new_split(line, arg_count(line, i, wc), i, wc);
+	
 }
 
 int	arg_count(char *line, int i, int wc)
 {
 	while(line[i])
 	{
-		if (is_space(line[i]))
+		if (is_space(line[i++]))
 			i++;
 		else if (is_sign(line[i]))
 		{
