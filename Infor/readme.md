@@ -24,7 +24,7 @@ Guille:
 -- builtins
 -- Heredock
 -- Enviroment Variables (on main)
-
+-- PERROR & return code
 
 15/1/2024 ->
 DONE	working signals: 
