@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/19 15:49:05 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/22 09:52:14 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_parser *test_load(void)
     t_parser *token;
     token = malloc(sizeof(t_parser));
     token->content = malloc(3 * sizeof(char*));
-    token->content[0] = ft_strdup("echo");
-    token->content[1] = ft_strdup("buenas tardes");
+    token->content[0] = ft_strdup("cd");
+    token->content[1] = ft_strdup("/Desktop/Minishell/SRC/builtins/");
     token->content[2] = NULL;
     token->sign = NONE;
     token->next = NULL;
@@ -34,10 +34,11 @@ t_parser *test_load(void)
 
 
 
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **envp)
 {
 	t_parser	*data;
 	char *str;
+	(void)envp;//enviroment vars (need to save them in a list char** and use them to find home path for "cd" "NULL" for example)
 	(void)ac;
 	(void)av;
 	rl_catch_signals = 0;

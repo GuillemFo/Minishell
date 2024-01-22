@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/19 12:12:18 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/22 09:00:14 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <readline.h>
 # include <signal.h>
 # include <string.h>
+# include <sys/param.h>
+# include <sys/types.h>
+# include <dirent.h>
 
 void	handle_sigint(int sig);
 void	handle_sigquit(int sig);

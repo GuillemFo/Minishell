@@ -6,27 +6,12 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/19 16:01:15 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/22 09:09:01 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-/*
-
-int	bi_echo(t_lexer *lexer)
-{
-	int	flag;
-
-	flag = 1;
-	if (lexer->)
-		flag = 0;
-	ft_putstr_fd(lexer->content, STDOUT_FILENO);
-	if (flag == 1)
-		write(1, "\n", 1);
-	return (1);
-}
-*/
 
 int	built_echo(t_parser *token)
 {
@@ -47,9 +32,25 @@ int	built_echo(t_parser *token)
 	return (1);
 }
 
-int	built_cd()
+int	built_cd(t_parser *token)
 {
 	ft_printf("entered cd\n");
+	ft_printf("1\n");
+	ft_printf("%s\n", getcwd(NULL, MAXPATHLEN));
+	if (chdir(token->content[1]) == -1)
+		return (ft_printf("Path not found\n")); // temporal error
+	ft_printf("2\n");
+	ft_printf("%s\n", getcwd(NULL, MAXPATHLEN));
+
+	return (2);
+}
+
+int	built_pwd(t_parser *token)
+{
+	if (token->content[1] == NULL)
+		ft_printf("%s\n", getcwd(NULL, MAXPATHLEN));
+	else
+		ft_printf("pwd: too many arguments\n");
 	return (2);
 }
 
@@ -61,7 +62,9 @@ int	is_builtin(t_parser *token)
 		if (ft_strncmp("echo", token->content[0], 4) == 0)
 			built_echo(token);
 		else if (ft_strncmp("cd", token->content[0], 2) == 0)
-			built_cd();
+			built_cd(token);
+		else if (ft_strncmp("pwd", token->content[0], 3) == 0)
+			built_pwd(token);
 		token = token->next;
 	}
 	// else if (token->content == "pwd")
