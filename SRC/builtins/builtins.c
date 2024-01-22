@@ -6,12 +6,17 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/22 09:09:01 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/22 10:41:18 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+int	built_env(t_parser *token)
+{
+	ft_printf("%s\n", getenv(token->content[1]));
+	return (1);
+}
 
 int	built_echo(t_parser *token)
 {
@@ -65,6 +70,8 @@ int	is_builtin(t_parser *token)
 			built_cd(token);
 		else if (ft_strncmp("pwd", token->content[0], 3) == 0)
 			built_pwd(token);
+		else if (ft_strncmp("env", token->content[0], 3) == 0)
+			built_env(token);
 		token = token->next;
 	}
 	// else if (token->content == "pwd")
