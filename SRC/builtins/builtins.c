@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/22 10:41:18 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/24 09:40:54 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	built_env(t_parser *token)
 {
-	ft_printf("%s\n", getenv(token->content[1]));
+	//if (token->content[1] != NULL)
+		ft_printf("%s\n", getenv(token->content[1]));
 	return (1);
 }
 
@@ -39,13 +40,11 @@ int	built_echo(t_parser *token)
 
 int	built_cd(t_parser *token)
 {
-	ft_printf("entered cd\n");
-	ft_printf("1\n");
-	ft_printf("%s\n", getcwd(NULL, MAXPATHLEN));
-	if (chdir(token->content[1]) == -1)
-		return (ft_printf("Path not found\n")); // temporal error
-	ft_printf("2\n");
-	ft_printf("%s\n", getcwd(NULL, MAXPATHLEN));
+	ft_printf("start:%s\n", getcwd(NULL, MAXPATHLEN));
+	if (chdir(token->content[1]) < 0)
+		errno_printer(token->content[0], strerror(errno), token->content[1]);
+		//ft_printf("Minishell: cd: %s: %s\n", strerror(errno), token->content[1]);
+	ft_printf("finish:%s\n", getcwd(NULL, MAXPATHLEN));
 
 	return (2);
 }
@@ -74,7 +73,6 @@ int	is_builtin(t_parser *token)
 			built_env(token);
 		token = token->next;
 	}
-	// else if (token->content == "pwd")
 	// else if (token->content == "export")
 	return (3);
 }

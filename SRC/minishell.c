@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/22 10:41:44 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/24 09:22:49 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_parser *test_load(void)
     t_parser *token;
     token = malloc(sizeof(t_parser));
     token->content = malloc(3 * sizeof(char*));
-    token->content[0] = ft_strdup("env");
-    token->content[1] = ft_strdup("HOME");
+    token->content[0] = ft_strdup("cd");
+    token->content[1] = ft_strdup("/Users/gforns-s/Desktop/Minishell/test");
     token->content[2] = NULL;
     token->sign = NONE;
     token->next = NULL;

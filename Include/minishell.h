@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/22 10:30:19 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/24 09:38:13 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ int	is_builtin(t_parser *token);
 int	built_ls();
 int	built_grep();
 
+//##==================tools===================##
+int	errno_printer(char *com, char *error_txt, char *asked);
 
 #endif

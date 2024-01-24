@@ -8,7 +8,7 @@ RDLINE_PATH = readline/
 
 LIBFT_PATH = libft/
 
-SRC = minishell.c signals.c builtins/builtins.c #all *.c here
+SRC = minishell.c signals.c builtins/builtins.c tools.c #all *.c here
 
 SRC_PREFIX = $(addprefix $(SRC_PATH), $(SRC))
 
