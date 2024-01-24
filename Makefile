@@ -8,7 +8,7 @@ RDLINE_PATH = readline/
 
 LIBFT_PATH = libft/
 
-SRC = lexer_utils.c lexer.c split.c #all *.c here
+SRC = lexer_utils.c lexer.c split.c lexer_utils1.c #all *.c here
 
 SRC_PREFIX = $(addprefix $(SRC_PATH),$(SRC))
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer1.c                                           :+:      :+:    :+:   */
+/*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:21:33 by adanylev          #+#    #+#             */
-/*   Updated: 2024/01/19 13:05:53 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:48:17 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	**new_split(char *line, int wc, int i, int k)
 	int	j;
 	
 	j = -1;
-	split = my_malloc(sizeof(char *) * (wc + 1));
+	split = my_malloc(sizeof(char *) * (wc + 2));
 	while(line[i])
 	{
 		if (is_space(line[i]))

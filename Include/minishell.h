@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/19 13:02:22 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:22:37 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ typedef	struct s_lexer
 {
 	char			*content;
 	char			*sign;
-	struct t_lexer	*next;
-}				t_lexer;
+	struct s_lexer			*next;
+}					t_lexer;
 
 char	**free_matrix(char **matrix, size_t p);
 void	*my_malloc(size_t bytes);
@@ -40,7 +40,7 @@ char	**new_split(char *line, int wc, int i, int k);
 void	sign_situation(char *line, char	**split, int *j, int *i);
 char 	*ft_substri(const char *str, int start, int len);
 void	get_word(int k, int *i, char *line, char **split);
-
-
+t_lexer	*tokenize(t_lexer *lexer, char **split);
+t_lexer	*lexer_creator();
 
 #endif
