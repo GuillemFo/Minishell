@@ -20,7 +20,7 @@ https://www.youtube.com/@johnalexandersanabriaordon1851/videos
 
 Guille:
 -- Signals
--- Expansor
+-- Expansor {1,} // $var // $((1 + 1)) // Wildcard or Globbing Expansion // $(command) or 'command' 
 -- builtins
 -- Heredock
 -- Enviroment Variables (on main)
@@ -37,7 +37,7 @@ DONE	working signals:
 								◦ cd with only a relative or absolute path
 								◦ pwd with no options
 								◦ export with no options
-								◦ unset with no options
+								◦ unset with no options "Delete variables"
 								◦ env with no options or arguments
 								◦ exit with no options
 
