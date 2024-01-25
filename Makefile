@@ -14,7 +14,7 @@ SRC_PREFIX = $(addprefix $(SRC_PATH), $(SRC))
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC_PREFIX:.c=.o))
 
-CFLAGS = -Wall -Wextra -Werror -g -I./Include -I./libft/libft.h
+CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft/libft.h
 
 LIB_A		:=	$(RDLINE_PATH)libreadline.a $(RDLINE_PATH)libhistory.a \
 				$(LIBFT_PATH)libft.a
