@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/25 12:19:43 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:18:46 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,12 @@ int	main(int ac, char **av, char **envp)
 	signal(SIGINT, handle_sigint); //reminder that leaks atexit will kill program if use ctrl + c
 	signal(SIGQUIT, handle_sigquit);
 	data = test_load();
-	//is_builtin(data);
+	is_builtin(data);
 	str = readline("minishell: ");
 	while (str)
 	{
 		add_history(str);
+		free(str);
 		str = readline("minishell: ");
 	}
 }
