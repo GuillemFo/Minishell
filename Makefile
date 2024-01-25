@@ -60,5 +60,3 @@ fclean:	clean
 #@$(MAKE) -C readline clean --no-print-directory
 
 .PHONY: all re clean fclean 
-
-#### NEED TO CREATE RULES TO DO MAKES IN SILENCE ####

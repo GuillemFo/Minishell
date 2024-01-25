@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/24 10:15:51 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/25 14:55:56 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,8 @@ int	built_echo(t_parser *token)
 
 int	built_cd(t_parser *token)
 {
-	ft_printf("start:%s\n", getcwd(NULL, MAXPATHLEN));
 	if (chdir(token->content[1]) < 0)
 		errno_printer(token->content[0], strerror(errno), token->content[1]);
-		//ft_printf("Minishell: cd: %s: %s\n", strerror(errno), token->content[1]);
-	ft_printf("finish:%s\n", getcwd(NULL, MAXPATHLEN));
-
 	return (0);
 }
 
@@ -56,18 +52,19 @@ int	built_pwd()//(t_parser *token)
 }
 
 
-int	is_builtin(t_parser *token)
+int	is_builtin(t_parser *token) 
 {
-	while (!(token == NULL))
+	while (!(token == NULL))//need to check til when we loop.
 	{
-		if (ft_strncmp("echo", token->content[0], 4) == 0)
+		if (ft_strncmp("echo", token->content[0], 5) == 0)
 			built_echo(token);
-		else if (ft_strncmp("cd", token->content[0], 2) == 0)
+		else if (ft_strncmp("cd", token->content[0], 3) == 0)
 			built_cd(token);
-		else if (ft_strncmp("pwd", token->content[0], 3) == 0)
+		else if (ft_strncmp("pwd", token->content[0], 4) == 0)
 			built_pwd();//(token);
-		else if (ft_strncmp("env", token->content[0], 3) == 0)
+		else if (ft_strncmp("env", token->content[0], 4) == 0)
 			built_env(token);
+		else if (ft_strncmp("exit", token->content[0], 5))
 		token = token->next;
 	}
 	// else if (token->content == "export")
