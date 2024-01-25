@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/24 10:38:36 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:21:16 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,17 @@ t_parser *test_load(void)
 int	main(int ac, char **av, char **envp)
 {
 	t_parser	*data;
+	t_env		*env;
 	char *str;
-	(void)envp;//enviroment vars (need to save them in a list char** and use them to find home path for "cd" "NULL" for example)
+	//(void)envp;//enviroment vars (need to save them in a list char** and use them to find home path for "cd" "NULL" for example)
 	(void)ac;
 	(void)av;
+	env = load_env(envp);
 	rl_catch_signals = 0;
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
 	data = test_load();
-	is_builtin(data);
+	//is_builtin(data);
 	str = readline("minishell: ");
 	while (str)
 	{
