@@ -6,19 +6,18 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:40:50 by adanylev          #+#    #+#             */
-/*   Updated: 2024/01/24 12:22:55 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/01/26 20:18:22 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-int	main()
+void	lexer(char *line)
 {
 	t_lexer	*lexer;
 	int	i;
 	int	wc;
 	char	**c;
-	char	line[]= "lol p| grep -v >helo'bye'";
 
 	
 	lexer = NULL;
@@ -32,7 +31,6 @@ int	main()
 		printf("sign: %s\n", lexer->sign);
 		lexer = lexer->next;
 	}
-	return (0);
 }
 
 int	arg_count(char *line, int i, int wc)
@@ -49,13 +47,10 @@ int	arg_count(char *line, int i, int wc)
 			wc++;
 		}
 		else if (quote_situation(&line[i]))
-		{
 			i = i + quote_situation(&line[i]) + 1;
-			wc++;
-		}
 		else
 		{
-			while (line[i] && !is_quote(line[i]) && !is_space(line[i]) && !is_sign(line[i]))
+			while (line[i] && !is_space(line[i]) && !is_sign(line[i]))
 				i++;
 			wc++;
 		}
@@ -79,21 +74,4 @@ int	quote_situation(char *c)
 		return (0);
 	}
 	return (0);
-}
-
-
-char *ft_substri(const char *str, int start, int len)
-{
-	char *palabro;
-	int i;
-
-	i = 0;
-	palabro = my_malloc(sizeof(char) * (len + 1));
-	while(i < len)
-	{
-		palabro[i] = str[i + start];
-		i++;
-	}
-	palabro[i] = '\0';
-	return (palabro);
 }

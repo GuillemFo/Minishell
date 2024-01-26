@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:21:33 by adanylev          #+#    #+#             */
-/*   Updated: 2024/01/24 11:48:17 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/01/26 20:23:27 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,12 @@ void	sign_situation(char *line, char	**split, int *j, int *i)
 void	get_word(int k, int *i, char *line, char **split)
 {
 	k = *i;
-	while (line[*i] && !is_quote(line[*i]) && !is_space(line[*i]) && !is_sign(line[*i]))
-		(*i)++;
+	while (line[*i] && !is_space(line[*i]) && !is_sign(line[*i]))
+	{
+		if (is_quote(line[*i]))
+			*i = quote_situation(&line[*i]);
+		*i = *i + 1;
+	}
 	if (*i > k)
 	{
 		*split = my_malloc(sizeof(char) * (*i - k) + 1);

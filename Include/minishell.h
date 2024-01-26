@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/24 12:22:37 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/01/26 20:08:30 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef	struct s_lexer
 	struct s_lexer			*next;
 }					t_lexer;
 
+void	lexer(char *line);
 char	**free_matrix(char **matrix, size_t p);
 void	*my_malloc(size_t bytes);
 int		is_quote(char letter);
@@ -42,5 +43,9 @@ char 	*ft_substri(const char *str, int start, int len);
 void	get_word(int k, int *i, char *line, char **split);
 t_lexer	*tokenize(t_lexer *lexer, char **split);
 t_lexer	*lexer_creator();
+
+
+/*-=-=-=-=-=-=-==-=-=-==-=-=-=-=-=-=-=-=-PARSER-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
+
 
 #endif
