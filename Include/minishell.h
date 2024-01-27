@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/26 20:08:30 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/01/27 19:06:02 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,27 @@ char	**new_split(char *line, int wc, int i, int k);
 void	sign_situation(char *line, char	**split, int *j, int *i);
 char 	*ft_substri(const char *str, int start, int len);
 void	get_word(int k, int *i, char *line, char **split);
+char 	*ft_strncpy(char *s1, char *s2, int n);
 t_lexer	*tokenize(t_lexer *lexer, char **split);
 t_lexer	*lexer_creator();
 
-
 /*-=-=-=-=-=-=-==-=-=-==-=-=-=-=-=-=-=-=-PARSER-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
+
+typedef	enum
+{
+	GREATER = 1,
+	GREATER2,
+	LESS,
+	LESSLESS
+}		t_sign;
+
+typedef	struct s_parser
+{
+	char			**cmd;
+	t_sign			sign;
+	char			*dest;
+	struct s_parser	*next;
+}				t_parser;
 
 
 #endif

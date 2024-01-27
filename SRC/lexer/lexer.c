@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:40:50 by adanylev          #+#    #+#             */
-/*   Updated: 2024/01/26 20:18:22 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/01/27 19:04:22 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	lexer(char *line)
 	wc = 0;
 	c = new_split(line, arg_count(line, i, wc), i, wc);
 	lexer = tokenize(lexer, c);
-	while (lexer)
-	{
-		printf("content: %s\n", lexer->content);
-		printf("sign: %s\n", lexer->sign);
-		lexer = lexer->next;
-	}
+	// while (lexer)
+	// {
+	// 	printf("content: %s\n", lexer->content);
+	// 	printf("sign: %s\n", lexer->sign);
+	// 	lexer = lexer->next;
+	// }
 }
 
 int	arg_count(char *line, int i, int wc)
@@ -74,4 +74,20 @@ int	quote_situation(char *c)
 		return (0);
 	}
 	return (0);
+}
+
+void	sign_situation(char *line, char	**split, int *j, int *i)
+{
+	if (line + 1 && is_sign(*line) == is_sign(*line + 1))
+		{
+			split[++(*j)] = my_malloc(sizeof(char) * 2 + 1);
+			ft_strncpy(split[(*j)], line, 2);
+			(*i)++;
+		}
+	else
+		{
+			split[++(*j)] = my_malloc(sizeof(char) * 1 + 1);
+			ft_strncpy(split[(*j)], line, 1);
+		}
+		(*i)++;
 }
