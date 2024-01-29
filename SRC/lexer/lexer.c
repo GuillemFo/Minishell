@@ -6,13 +6,13 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:40:50 by adanylev          #+#    #+#             */
-/*   Updated: 2024/01/27 19:04:22 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/01/29 12:24:10 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-void	lexer(char *line)
+void	ft_lexer(char *line)
 {
 	t_lexer	*lexer;
 	int	i;
@@ -25,6 +25,7 @@ void	lexer(char *line)
 	wc = 0;
 	c = new_split(line, arg_count(line, i, wc), i, wc);
 	lexer = tokenize(lexer, c);
+	ft_parser(lexer);
 	// while (lexer)
 	// {
 	// 	printf("content: %s\n", lexer->content);

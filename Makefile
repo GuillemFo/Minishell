@@ -9,7 +9,7 @@ RDLINE_PATH = readline/
 LIBFT_PATH = libft/
 
 SRC = lexer/lexer_utils.c lexer/lexer.c lexer/split.c lexer/lexer_utils1.c \
-		parser/parser.c #all *.c here
+		parser/parser.c parser/parser_utils.c #all *.c here
 
 SRC_PREFIX = $(addprefix $(SRC_PATH),$(SRC))
 
