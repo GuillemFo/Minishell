@@ -26,6 +26,8 @@ Guille:
 -- Enviroment Variables (on main)
 -- PERROR & return code
 
+--reminder to check echo with "$PATH""$PATH" || "$PATH" "$PATH" || "ls""|""cat"
+
 15/1/2024 ->
 DONE	working signals: 
 						ctrl-D END OF FILE To RDLINE -> kills minishell
