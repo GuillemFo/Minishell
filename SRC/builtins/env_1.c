@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/25 13:00:01 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:31:26 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@ bool		env_exist(t_env *env, t_parser *token)
 		return (true);
 
 	return (false);
+}
+
+int	print_env_lst(t_env *env)
+{
+	while (env->name && (env->is_hidden) == false)
+	{
+		ft_printf("%s=%s\n", env->name, env->content);
+		env = env->next;
+	}
+	return (0);
 }
 
 /*
@@ -94,11 +104,10 @@ t_env	*load_env(char **envp)
 		env = malloc(sizeof(t_env));
 		env->name = get_til_equal(envp[y]);
 		env->content = equal_til_end(envp[y]);
-		ft_printf("%s=%s\n", env->name, env->content);
 		env = env->next;
 		y++;
 	}
-	env = malloc(sizeof(t_env));
+	//env = malloc(sizeof(t_env));
 	return (env);
 }
 

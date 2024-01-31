@@ -43,5 +43,7 @@ DONE	working signals:
 								◦ env with no options or arguments
 								◦ exit with no options
 
+31/01/24 load env to a list and be able to add remove and modify its contetn
+
 
 								

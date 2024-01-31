@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/25 12:57:43 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:30:39 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef	struct s_env
 {
 	char			*name;
 	char			*content;
-	int				is_hidden;
+	bool			is_hidden;
 	struct s_env	*next;
 }					t_env;
 
@@ -59,6 +59,7 @@ int	is_builtin(t_parser *token);
 int	built_ls();
 int	built_grep();
 t_env	*load_env(char **envp);
+int		print_env_lst(t_env *env)
 
 /*-=-=-=-=-=-=-=-=-=-=-=TOOLS=-=-=-=-=-=-=-=-=-=-=*/
 int	errno_printer(char *com, char *error_txt, char *asked);

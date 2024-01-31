@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/25 14:55:56 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:25:38 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	built_env(t_parser *token)
 {
-	//if (token->content[1] != NULL)
-		ft_printf("%s\n", getenv(token->content[1]));
+	
 	return (0);
 }
 
@@ -54,7 +53,7 @@ int	built_pwd()//(t_parser *token)
 
 int	is_builtin(t_parser *token) 
 {
-	while (!(token == NULL))//need to check til when we loop.
+	if (token->content)//need to check til when we loop.
 	{
 		if (ft_strncmp("echo", token->content[0], 5) == 0)
 			built_echo(token);
