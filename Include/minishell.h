@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/29 12:21:50 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/01/31 14:15:24 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 
 typedef	struct s_lexer
 {
-	char			*content;
-	char			*sign;
+	char					*content;
+	char					*sign;
 	struct s_lexer			*next;
 }					t_lexer;
 
@@ -51,22 +51,29 @@ t_lexer	*lexer_creator();
 typedef	enum
 {
 	GREATER = 1,
-	GREATER2,
-	LESS,
-	LESSLESS
+	GREATER2 = 2,
+	LESS = 3,
+	LESSLESS = 4
 }		t_sign;
+
+typedef	struct	s_redir
+{
+	t_sign			sign;
+	char			*dest;
+	struct s_redir	*next;
+}				t_redir;
+
 
 typedef	struct s_parser
 {
 	char			**cmd;
-	t_sign			sign;
-	char			*dest;
+	t_redir			redir;
 	struct s_parser	*next;
 }				t_parser;
 
 int		cmd_count(t_lexer *lexer);
 char	**parser_split(t_lexer *lexer, t_parser *parser);
 void	ft_parser(t_lexer *lexer);
-
+t_sign	get_sign(char *sign);
 
 #endif
