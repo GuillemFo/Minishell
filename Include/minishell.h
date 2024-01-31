@@ -6,14 +6,14 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/31 16:30:39 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:42:21 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <../libft/libft.h>
+# include "../libft/libft.h"
 # include <errno.h>
 # include <history.h>
 # include <readline.h>
@@ -59,7 +59,7 @@ int	is_builtin(t_parser *token);
 int	built_ls();
 int	built_grep();
 t_env	*load_env(char **envp);
-int		print_env_lst(t_env *env)
+int		print_env_lst(t_env *env);
 
 /*-=-=-=-=-=-=-=-=-=-=-=TOOLS=-=-=-=-=-=-=-=-=-=-=*/
 int	errno_printer(char *com, char *error_txt, char *asked);

@@ -6,11 +6,11 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/31 16:25:38 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:40:54 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "../../Include/minishell.h"
 
 int	built_env(t_parser *token)
 {
