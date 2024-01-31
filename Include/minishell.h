@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/31 16:42:21 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/31 18:57:49 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	handle_sigquit(int sig);
 
 /*-=-=-=-=-=-=-=-=-=-=-=BUILTINS=-=-=-=-=-=-=-=-=-=-=-=*/
 
-int	is_builtin(t_parser *token);
+int	is_builtin(t_parser *token, t_env *env);
 int	built_ls();
 int	built_grep();
 t_env	*load_env(char **envp);

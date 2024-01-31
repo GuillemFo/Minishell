@@ -6,15 +6,15 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/31 16:40:54 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/31 20:44:49 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-int	built_env(t_parser *token)
+int	built_env(t_env *env)
 {
-	
+	print_env_lst(env);
 	return (0);
 }
 
@@ -51,7 +51,7 @@ int	built_pwd()//(t_parser *token)
 }
 
 
-int	is_builtin(t_parser *token) 
+int	is_builtin(t_parser *token, t_env *env) 
 {
 	if (token->content)//need to check til when we loop.
 	{
@@ -62,7 +62,7 @@ int	is_builtin(t_parser *token)
 		else if (ft_strncmp("pwd", token->content[0], 4) == 0)
 			built_pwd();//(token);
 		else if (ft_strncmp("env", token->content[0], 4) == 0)
-			built_env(token);
+			built_env(env);
 		else if (ft_strncmp("exit", token->content[0], 5))
 		token = token->next;
 	}

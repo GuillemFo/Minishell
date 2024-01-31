@@ -6,21 +6,21 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/31 18:07:20 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/31 20:51:31 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-bool	env_has_value(char *var)
+bool	env_no_value(char *var)
 {
 	int i;
 	i = 0;
-	while (var[i] != '=')
+	while (var[i] != '=' && var[i] != '\0')
 		i++;
-	if (var[i +1] == '\0')
-		return (false);
-	return (true);
+	if (var[i] == '\0' || var[i + 1] == '\0')
+		return (true);
+	return (false);
 }
 
 bool		env_exist(t_env *env, t_parser *token)
@@ -33,12 +33,14 @@ bool		env_exist(t_env *env, t_parser *token)
 
 int	print_env_lst(t_env *env)
 {
-	while (env->name)
+	t_env *iter;
+	iter = env;
+	while (iter->next)
 	{
-		if (env->is_hidden == false)
-			ft_printf("%s=%s\n", env->name, env->content);	//this will always print the = after an enviroment is set. 
-		env = env->next;									//might need a function to check if it has = on it when creating a new one.
-	}														//maybe add a new flag on the t_env struct to??
+		if (iter->is_hidden == false)
+			ft_printf("%s=%s\n", iter->name, iter->content);	//this will always print the = after an enviroment is set. 
+		iter = iter->next;								//might need a function to check if it has = on it when creating a new one.
+	}													//maybe add a new flag on the t_env struct to??
 	return (0);
 }
 
@@ -98,12 +100,12 @@ char	*get_til_equal(char *var)
 	int len;
 	char *name;
 	x = 0;
-	while (var[x] != '=' || var[x] != '\0')
+	while (var[x] != '=')
 		x++;
 	len = x +1;
 	name = malloc(len * sizeof(char));
 	x = 0;
-	while (var[x +1] != '\0' || var[x +1] != '=')
+	while (var[x] != '=')
 	{
 		name[x] = var[x];
 		x++;
@@ -115,19 +117,22 @@ char	*get_til_equal(char *var)
 t_env	*load_env(char **envp)
 {
 	t_env		*env;
+	t_env		*start;
 	int	y;
 	
 	y = 0;
+	env = malloc(sizeof(t_env));
+	start = env;
 	while (envp[y] != NULL)
 	{
-		env = malloc(sizeof(t_env));
 		env->name = get_til_equal(envp[y]);
-		env->is_hidden = env_has_value(envp[y]);
+		env->is_hidden = env_no_value(envp[y]);
 		env->content = equal_til_end(envp[y]);
+		env->next = malloc(sizeof(t_env));
 		env = env->next;
 		y++;
 	}
-	//env = malloc(sizeof(t_env));
-	return (env);
+	env->next = NULL;
+	return (start);
 }
 

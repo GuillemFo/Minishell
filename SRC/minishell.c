@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/31 16:20:54 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/01/31 20:44:20 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_parser *test_load(void)
     token = malloc(sizeof(t_parser));
     token->content = malloc(3 * sizeof(char*));
     token->content[0] = ft_strdup("env");
-    token->content[1] = ft_strdup("_");
-    token->content[2] = NULL;
+    //token->content[1] = ft_strdup("");
+    token->content[1] = NULL;
     token->sign = NONE;
     token->next = NULL;
 
@@ -39,7 +39,6 @@ int	main(int ac, char **av, char **envp)
 	t_parser	*data;
 	t_env		*env;
 	char *str;
-	(void)envp;//enviroment vars (need to save them in a list char** and use them to find home path for "cd" "NULL" for example)
 	(void)ac;
 	(void)av;
 	env = load_env(envp);
@@ -47,7 +46,7 @@ int	main(int ac, char **av, char **envp)
 	signal(SIGINT, handle_sigint); //reminder that leaks atexit will kill program if use ctrl + c
 	signal(SIGQUIT, handle_sigquit);
 	data = test_load();
-	is_builtin(data);
+	is_builtin(data, env);
 	str = readline("minishell: ");
 	while (str)
 	{
