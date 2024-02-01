@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/01 10:31:38 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/01 13:31:57 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ bool	env_no_value(char *var)
 
 bool		env_exist(t_env *env, t_parser *token)
 {
-	t_env *top;
-	top = env;
-	while (top)
+	t_env *iter;
+	iter = env;
+	while (iter)	//might not work due next->next
 	{
-		if (ft_strcmp(top->name, token->content[1]) == 0)
+		if (ft_strcmp(iter->name, token->content[1]) == 0)
 			return (true);
-		top = top->next;
+		iter = iter->next;
 	}
 	return (false);
 }
@@ -40,7 +40,7 @@ int	print_env_lst(t_env *env)
 {
 	t_env *iter;
 	iter = env;
-	while (iter->next)
+	while (iter)	//might not work due next->next
 	{
 		if (iter->is_hidden == false)
 			ft_printf("%s=%s\n", iter->name, iter->content);
@@ -49,18 +49,51 @@ int	print_env_lst(t_env *env)
 	return (0);
 }
 
-/*
-t_env	*del_env()
-{
-	
 
+t_env	*del_env(t_parser *token, t_env *env)
+{
+	t_env	*iter;
+	t_env	*prev;
+	t_env	*next;
+
+	iter = env;
+	if (env_exist(env, token) == true)
+	{
+		while (iter && iter->next)	//might not work due next->next
+		{
+			if (ft_strcmp(iter->next->name, token->content[1]) == 0)
+			{
+				prev = iter;
+				next = iter->next->next;
+				iter = iter->next;
+				free(iter);
+				prev->next = next;
+			}
+			iter = iter->next;
+		}
+	}
+	return (env);
 }
 
-t_env	*add_env()
-{
 
+t_env	*add_env(t_parser *token, t_env *env)
+{
+	t_env *iter;
+	iter = env;
+	while (iter->next)
+	{						//need to add  an exception for when the name already exists
+		iter = iter->next;	//so we only modify the value. Or we can create a new function
+	}						//for when the node exixts, use a new function that search on the list
+							//and allow us to modify it
+	iter->next = malloc(sizeof(t_env));
+	iter->next->name = token->content[0];
+	if (env_no_value(token->content[1]) == true)
+		iter->next->is_hidden = true;
+	iter->next->content = token->content[1];
+	iter->next->next = malloc(sizeof(t_env));
+	iter->next->next = NULL;
+	return (env);
 }
-*/
 
 char	*equal_til_end(char	*var)
 {
