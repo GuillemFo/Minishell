@@ -18,6 +18,12 @@ https://www.youtube.com/watch?v=oxuRxtrO2Ag
 
 https://www.youtube.com/@johnalexandersanabriaordon1851/videos
 
+
+You should limit yourself to the subject description. Anything that
+is not asked is not required.
+If you have any doubt about a requirement, take bash as a reference.
+
+
 Guille:
 -- Signals
 -- Expansor {1,} // $var // $((1 + 1)) // Wildcard or Globbing Expansion // $(command) or 'command' 
