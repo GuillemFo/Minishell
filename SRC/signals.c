@@ -6,11 +6,11 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 13:57:56 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/15 15:25:49 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/01 09:57:29 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 void handle_sigint(int sig) 
 {

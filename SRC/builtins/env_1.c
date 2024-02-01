@@ -6,11 +6,11 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/31 20:51:31 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/01 10:31:38 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 bool	env_no_value(char *var)
 {
@@ -25,9 +25,14 @@ bool	env_no_value(char *var)
 
 bool		env_exist(t_env *env, t_parser *token)
 {
-	if (ft_strcmp(env->name, token->content[1]) == 0)
-		return (true);
-
+	t_env *top;
+	top = env;
+	while (top)
+	{
+		if (ft_strcmp(top->name, token->content[1]) == 0)
+			return (true);
+		top = top->next;
+	}
 	return (false);
 }
 
@@ -38,9 +43,9 @@ int	print_env_lst(t_env *env)
 	while (iter->next)
 	{
 		if (iter->is_hidden == false)
-			ft_printf("%s=%s\n", iter->name, iter->content);	//this will always print the = after an enviroment is set. 
-		iter = iter->next;								//might need a function to check if it has = on it when creating a new one.
-	}													//maybe add a new flag on the t_env struct to??
+			ft_printf("%s=%s\n", iter->name, iter->content);
+		iter = iter->next;
+	}
 	return (0);
 }
 

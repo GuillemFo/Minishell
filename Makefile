@@ -14,9 +14,9 @@ SRC_PREFIX = $(addprefix $(SRC_PATH), $(SRC))
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC_PREFIX:.c=.o))
 
-CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft/libft.h -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I./Include/ -I./libft -fsanitize=address
 
-LIB_A		:=	$(RDLINE_PATH)libreadline.a $(RDLINE_PATH)libhistory.a \
+LIB_A		:=	$(RDLINE_PATH)libreadline.a $(RDLINE_PATH)libhistory.a\
 				$(LIBFT_PATH)libft.a
 
 LIB_ADD_DIR	:=	-L$(RDLINE_PATH) -L$(LIBFT_PATH)
@@ -28,7 +28,7 @@ all: libraries tmp $(NAME)
 tmp:
 		@mkdir -p $(OBJ_PATH)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) libraries
 		@gcc $(CFLAGS) $(OBJ) $(LIB_ADD_DIR) $(LIB_SEARCH) $(LIB_A) -o $(NAME)
 		@echo "Minishell compiled"
 rdline:
