@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 09:40:26 by adanylev          #+#    #+#             */
-/*   Updated: 2024/01/31 14:26:23 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/01 14:54:56 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,18 @@ int	big_count(t_lexer *lexer)
 t_sign	get_sign(char *sign)
 {
 	if (ft_strncmp(sign, "<\0", 2))
-		return (3);
+		return (LESS);
 	if (ft_strncmp(sign, ">\0", 2))
-		return (1);
+		return (GREATER);
 	if (ft_strncmp(sign, "<<\0", 3))
-		return (4);
+		return (LESSLESS);
 	if (ft_strncmp(sign, ">>\0", 2))
-		return (2);
+		return (GREATER2);
+	return (0);
+}
+
+void error_parser(char *msg)
+{
+	write (1, msg, ft_strlen(msg));
+	exit (1);
 }

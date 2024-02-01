@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:40:50 by adanylev          #+#    #+#             */
-/*   Updated: 2024/01/29 12:24:10 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/01 14:07:53 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	ft_lexer(char *line)
 	wc = 0;
 	c = new_split(line, arg_count(line, i, wc), i, wc);
 	lexer = tokenize(lexer, c);
-	ft_parser(lexer);
 	// while (lexer)
 	// {
 	// 	printf("content: %s\n", lexer->content);
 	// 	printf("sign: %s\n", lexer->sign);
 	// 	lexer = lexer->next;
 	// }
+	ft_parser(lexer);
 }
 
 int	arg_count(char *line, int i, int wc)
@@ -48,7 +48,10 @@ int	arg_count(char *line, int i, int wc)
 			wc++;
 		}
 		else if (quote_situation(&line[i]))
+		{
 			i = i + quote_situation(&line[i]) + 1;
+			wc++;
+		}
 		else
 		{
 			while (line[i] && !is_space(line[i]) && !is_sign(line[i]))

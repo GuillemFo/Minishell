@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:21:33 by adanylev          #+#    #+#             */
-/*   Updated: 2024/01/27 19:17:15 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/01 12:39:53 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	**new_split(char *line, int wc, int i, int k)
 	int	j;
 	
 	j = -1;
-	split = my_malloc(sizeof(char *) * (wc + 2));
+	split = my_malloc(sizeof(char *) * (wc + 1));
 	while(line[i])
 	{
 		if (is_space(line[i]))
@@ -48,7 +48,11 @@ void	get_word(int k, int *i, char *line, char **split)
 	while (line[*i] && !is_space(line[*i]) && !is_sign(line[*i]))
 	{
 		if (quote_situation(&line[*i]))
+		{
 			*i += quote_situation(&line[*i]);
+			if (line[*i + 1])
+				*i = *i + 1;
+		}
 		else
 			*i = *i + 1;
 	}
