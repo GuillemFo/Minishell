@@ -52,4 +52,4 @@ DONE	working signals:
 31/01/24 load env to a list and be able to add remove and modify its contetn
 
 
-								
+06/02/24 Expansor->
