@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/01 13:31:57 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/06 08:03:58 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	print_env_lst(t_env *env)
 {
 	t_env *iter;
 	iter = env;
-	while (iter)	//might not work due next->next
+	while (iter->next)
 	{
 		if (iter->is_hidden == false)
 			ft_printf("%s=%s\n", iter->name, iter->content);
