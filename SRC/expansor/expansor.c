@@ -6,13 +6,13 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/06 13:02:08 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/06 13:24:28 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
+/*THIS FUNCTION IS PURE TRASH AND I HAVE TO REDO IT */
 char *expand_str(char *str, t_env *env)
 {
 	int x;
@@ -21,11 +21,12 @@ char *expand_str(char *str, t_env *env)
 	char *content_str;
 	char *tmp1;
 	char *tmp2;
+	char *help;
 	content_str = NULL;
 	tmp1 = NULL;
 	x = 0;
 	i = 0;
-	while (str[x] != '$')
+	while (str[x] != '$' && str[x] != '\0')
 		x++;
 	x++;
 	while (str[x] != '\0' && str[x] != ' ')
@@ -45,7 +46,8 @@ char *expand_str(char *str, t_env *env)
 		x++;
 	}
 	name[i] = '\0';
-	if (env_exist_2(env, name))
+	help = env_exist_2(env, name);
+	if (help[0] != '\0')
 	{
 		content_str = env_exist_2(env, name);
 		tmp1 = ft_strjoinplus(trim_bef(str, '$'), content_str);

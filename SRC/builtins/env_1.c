@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/06 13:01:40 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/06 13:10:55 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ char	*env_exist_2(t_env *env, char *name)
 		}
 		iter = iter->next;
 	}
-	return ("");
+	data = malloc(sizeof(char));
+	data[0] = '\0';
+	return (data);
 }
 
 int	print_env_lst(t_env *env)
