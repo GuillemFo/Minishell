@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/06 08:03:58 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/06 11:19:41 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,31 @@ bool		env_exist(t_env *env, t_parser *token)
 	iter = env;
 	while (iter)	//might not work due next->next
 	{
-		if (ft_strcmp(iter->name, token->content[1]) == 0)
+		if (ft_strcmp(iter->name, token->content[1]) == 0)	//maybe instead of returning true or 
+															//false we can return the node where 
+															//is located or NULL if not found
+			return (true);									//If i do this, i need to modify
+		iter = iter->next;									//the  way i return info  increate and delete env
+	}
+	return (false);
+}
+
+bool		env_exist_2(t_env *env, char *name)
+{
+	t_env *iter;
+	iter = env;
+	while (iter)	//might not work due next->next
+	{
+		if (ft_strcmp(iter->name, name) == 0)
 			return (true);
 		iter = iter->next;
 	}
 	return (false);
+}
+char *ft_env_content(env, name)
+{
+
+
 }
 
 int	print_env_lst(t_env *env)
