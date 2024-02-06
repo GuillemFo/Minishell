@@ -53,3 +53,4 @@ DONE	working signals:
 
 
 06/02/24 Expansor->
+been trying to understand anna's code for 3h now. Been told to focus on my part and then merge the codes.
