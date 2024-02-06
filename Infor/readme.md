@@ -55,3 +55,5 @@ DONE	working signals:
 06/02/24 Expansor->
 been trying to understand anna's code for 3h now. Been told to focus on my part and then merge the codes.
 might need a flag to check if it has a $ so we might need to expand
+
+existencial crisis. Should redo my way to interpret data in order to be more useful in one function or adapt and extend what i have...? I know the answer but dont want to do it :(

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/06 11:06:59 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/06 12:23:13 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,15 @@ int	built_grep();
 t_env	*load_env(char **envp);
 int		print_env_lst(t_env *env);
 bool		env_exist(t_env *env, t_parser *token);
-bool		env_exist_2(t_env *env, char *name);
+char	*env_exist_2(t_env *env, char *name);
 t_env	*del_env(t_parser *token, t_env *env);
 t_env	*add_env(t_parser *token, t_env *env);
+
+/*-=-=-=-=-=-=-=-=EXPANSOR=-=-=-=-=-=-=-=-=-=-=*/
+char	*find_dollar(char *str, t_env *env);
+
 /*-=-=-=-=-=-=-=-=-=-=-=TOOLS=-=-=-=-=-=-=-=-=-=-=*/
 int	errno_printer(char *com, char *error_txt, char *asked);
-
+char *trim_after(char *str, char c);
+char *trim_bef(char *str, char c);
 #endif

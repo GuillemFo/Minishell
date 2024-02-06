@@ -8,13 +8,13 @@ RDLINE_PATH = readline/
 
 LIBFT_PATH = libft/
 
-SRC = minishell.c signals.c builtins/builtins.c tools.c builtins/env_1.c  #all *.c here
+SRC = minishell.c signals.c builtins/builtins.c tools.c builtins/env_1.c expansor/expansor.c #all *.c here
 
 SRC_PREFIX = $(addprefix $(SRC_PATH), $(SRC))
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC_PREFIX:.c=.o))
 
-CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft #-fsanitize=address
 
 LIB_A		:=	$(RDLINE_PATH)libreadline.a $(RDLINE_PATH)libhistory.a\
 				$(LIBFT_PATH)libft.a

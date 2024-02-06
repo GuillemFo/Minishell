@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/01 13:31:30 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/06 12:28:03 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ int	builtin_exit()
 {
 	return (0);
 }
-int		builtin_export(t_parser *token, t_env *env)
-{
-	if (env_exist(env, token) == false)		//might have a chaos of modifiable pointers and directions
-		env = add_env(token, env);			//pending to check :)
-											
-	return (0);
-}
-
-int	builtin_unset(t_parser *token, t_env *env)
-{
-	env  = del_env(token, env);
-	return (0);
-}
+// int		builtin_export(t_parser *token, t_env *env)
+// {
+	// if (env_exist(env, token) == false)		//might have a chaos of modifiable pointers and directions
+		// env = add_env(token, env);			//pending to check :)
+											// 
+	// return (0);
+// }
+// 
+// int	builtin_unset(t_parser *token, t_env *env)
+// {
+	// env  = del_env(token, env);
+	// return (0);
+// }
 
 int	built_env(t_env *env)
 {
@@ -83,10 +83,10 @@ int	is_builtin(t_parser *token, t_env *env)
 			built_env(env);
 		else if (ft_strncmp("exit", token->content[0], 5) == 0)
 			builtin_exit();
-		else if (ft_strncmp("export", token->content[0], 7) == 0)
-			builtin_export(token, env);
-		else if (ft_strncmp("unset", token->content[0], 6) == 0)
-			builtin_unset(token, env);
+		// else if (ft_strncmp("export", token->content[0], 7) == 0)
+		// 	builtin_export(token, env);
+		// else if (ft_strncmp("unset", token->content[0], 6) == 0)
+		// 	builtin_unset(token, env);
 		token = token->next;
 	}
 	return (0);

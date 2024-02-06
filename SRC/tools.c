@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/24 09:43:14 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/06 12:53:31 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,3 +23,56 @@ int	errno_printer(char *com, char *error_txt, char *asked)
 	write(2, "\n", 1);
 	return (0);
 }
+
+char *trim_bef(char *str, char c)
+{
+	int	i;
+	i = 0;
+	char *new_str;
+	while (str[i] != c && str[i] != '\0')
+		i++;
+	new_str = malloc((i + 1) * sizeof(char));
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	while (str[i] != c)
+	{
+		new_str[i] = str[i];
+		i++;
+	}
+	new_str[i] = '\0';
+	return (new_str);
+}
+
+char *trim_after(char *str, char c)
+{
+	int i;
+	int x;
+	char *new_str;
+
+	i = 0;
+	x = 0;
+	while (str[i] != c)
+		i++;
+	while (str[i] != ' ' && str[i] != '\0')
+		i++;
+	i++;
+	while (str[i] != '\0')
+	{
+		x++;
+		i++;
+	}
+	new_str = malloc ((x + 1) * sizeof(char));
+	if (!new_str)
+		return (NULL);
+	i-= (x + 1);
+	x = 0;
+	while (str[++i] != '\0')
+	{
+		new_str[x] = str[i];
+		x++;
+	}
+	new_str[x] = '\0';
+	return (new_str);
+}
+
