@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/01 11:43:17 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/01 15:02:39 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ typedef	struct	s_redir
 	struct s_redir	*next;
 }				t_redir;
 
-
 typedef	struct s_parser
 {
 	char			**cmd;
@@ -78,5 +77,6 @@ t_sign		get_sign(char *sign);
 t_parser	*parser_creator();
 void 		error_parser(char *msg);
 void		parser_content(t_lexer *lexer, t_parser *parser);
+
 
 #endif
