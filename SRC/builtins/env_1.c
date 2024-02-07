@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/06 13:10:55 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/07 12:01:43 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	env_no_value(char *var)
 	// iter = env;
 	// while (iter)	//might not work due next->next
 	// {
-		// if (ft_strcmp(iter->name, token->content[1]) == 0)	//maybe instead of returning true or 
+		// if (ft_strcmp(iter->name, token->cmd[1]) == 0)	//maybe instead of returning true or 
 																//false we can return the node where 
 																//is located or NULL if not found
 			// return (true);									//If i do this, i need to modify
@@ -90,7 +90,7 @@ int	print_env_lst(t_env *env)
 // 	{
 // 		while (iter && iter->next)	//might not work due next->next
 // 		{
-// 			if (ft_strcmp(iter->next->name, token->content[1]) == 0)
+// 			if (ft_strcmp(iter->next->name, token->cmd[1]) == 0)
 // 			{
 // 				prev = iter;
 // 				next = iter->next->next;
@@ -115,10 +115,10 @@ int	print_env_lst(t_env *env)
 // 	}						//for when the node exixts, use a new function that search on the list
 // 							//and allow us to modify it
 // 	iter->next = malloc(sizeof(t_env));
-// 	iter->next->name = token->content[0];
-// 	if (env_no_value(token->content[1]) == true)
+// 	iter->next->name = token->cmd[0];
+// 	if (env_no_value(token->cmd[1]) == true)
 // 		iter->next->is_hidden = true;
-// 	iter->next->content = token->content[1];
+// 	iter->next->cmd = token->cmd[1];
 // 	iter->next->next = malloc(sizeof(t_env));
 // 	iter->next->next = NULL;
 // 	return (env);

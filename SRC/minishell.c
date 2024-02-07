@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/06 13:19:19 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/07 12:09:59 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@
 
 t_parser *test_load(void)
 {
-    t_parser *token;
-    token = malloc(sizeof(t_parser));
-    token->content = malloc(3 * sizeof(char*));
-    token->content[0] = ft_strdup("$USER");
-    //token->content[1] = ft_strdup("");
-    token->content[1] = NULL;
-    token->sign = NONE;
-    token->next = NULL;
+    t_parser *parser;
+    parser = malloc(sizeof(t_parser));
+    parser->cmd = malloc(3 * sizeof(char*));
+    parser->cmd[0] = ft_strdup("echo");
+    parser->cmd[1] = ft_strdup("'expand this $USER '");
+	//parser->cmd[2] = ft_strdup(" ");
+    parser->cmd[2] = NULL;
+    parser->next = NULL;
 
-    return (token);
+    return (parser);
 }
 
-//token->next->content = NULL; if | encountered.
+//token->next->cmd = NULL; if | encountered.
 
 
 
@@ -47,7 +47,7 @@ int	main(int ac, char **av, char **envp)
 	signal(SIGQUIT, handle_sigquit);
 	data = test_load();
 	is_builtin(data, env);
-	printf("Main:%s \n", find_dollar(data->content[0], env));
+	printf("Main:%s \n", find_dollar(data->cmd[0], env));
 	str = readline("minishell: ");
 	while (str)
 	{
