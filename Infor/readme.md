@@ -59,4 +59,4 @@ might need a flag to check if it has a $ so we might need to expand
 existencial crisis. Should redo my way to interpret data in order to be more useful in one function or adapt and extend what i have...? I know the answer but dont want to do it :(
 
 07/02/24 NEEDS TO BE READAPTED TO ANNA'S CODE
-	All info is gonna be stored at parser->cmd[i] and next node when encountering pipes or redirections and so on.
+	All info is gonna be stored at parser->cmd[i] and next node when encountering pipes.
