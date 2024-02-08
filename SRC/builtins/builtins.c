@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/07 11:57:06 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/08 11:38:31 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	built_env(t_env *env)
 int	built_echo(t_parser *token)
 {
 	int	flag;
-	ft_printf("entered echo\n");
 
 	flag = 1;
 	if (ft_strncmp("-n" ,token->cmd[1], 3) == 0)
