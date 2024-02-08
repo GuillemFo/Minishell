@@ -6,13 +6,14 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/07 12:19:06 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/08 05:09:06 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*THIS FUNCTION IS PURE TRASH AND I HAVE TO REDO IT */
+//split this function into 2 different ones??
 char *expand_str(char *str, t_env *env)
 {
 	int x;
