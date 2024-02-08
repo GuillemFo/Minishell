@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:35:16 by adanylev          #+#    #+#             */
-/*   Updated: 2024/01/29 10:43:02 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/08 15:00:49 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_lexer	*tokenize(t_lexer *lexer, char **split)
 		lexer->next = lexer_creator();
 		lexer = lexer->next;
 	}
-	free_matrix(split, i + 1);
+	free_matrix(split, i);
 	return(tmp);
 }
 

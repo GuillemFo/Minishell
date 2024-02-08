@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/01 15:02:39 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/08 15:15:38 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_lexer	*lexer_creator();
 
 /*-=-=-=-=-=-=-==-=-=-==-=-=-=-=-=-=-=-=-PARSER-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
 
+
 typedef	enum
 {
 	GREATER = 1,
@@ -77,6 +78,10 @@ t_sign		get_sign(char *sign);
 t_parser	*parser_creator();
 void 		error_parser(char *msg);
 void		parser_content(t_lexer *lexer, t_parser *parser);
+int			parsing_rest(t_lexer *lexer, t_parser *parser);
+t_redir		*redir_creator();
+
+
 
 
 #endif
