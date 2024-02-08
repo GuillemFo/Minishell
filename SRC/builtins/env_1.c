@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/08 10:11:38 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/08 13:42:22 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	print_env_lst(t_env *env)
 }
 
 
-// t_env	*del_env(t_parser *token, t_env *env)
+// t_env	*del_env(t_parser *token, t_env *env)	//THIS HAS A CHECKER IN ITSELF TO FILTER IF EXISTS OR NOT
 // {
 // 	t_env	*iter;
 // 	t_env	*prev;
@@ -75,25 +75,30 @@ int	print_env_lst(t_env *env)
 // 	return (env);
 // }
 
+t_env	*edit_env(t_parser *parser, t_env *env) //THIS WILL ONLY MODIFY IF EXISTS> HAS TO CHECK IF EXISTS BEFORE
+{
 
-// t_env	*add_env(t_parser *token, t_env *env)
-// {
-// 	t_env *iter;
-// 	iter = env;
-// 	while (iter->next)
-// 	{						//need to add  an exception for when the name already exists
-// 		iter = iter->next;	//so we only modify the value. Or we can create a new function
-// 	}						//for when the node exixts, use a new function that search on the list
-// 							//and allow us to modify it
-// 	iter->next = malloc(sizeof(t_env));
-// 	iter->next->name = token->cmd[0];
-// 	if (env_no_value(token->cmd[1]) == true)
-// 		iter->next->is_hidden = true;
-// 	iter->next->cmd = token->cmd[1];
-// 	iter->next->next = malloc(sizeof(t_env));
-// 	iter->next->next = NULL;
-// 	return (env);
-// }
+}
+
+
+
+t_env	*add_env(t_parser *parser, t_env *env)	//WILL ONLY ADD, HAS TO CHECK IF EXISTS BEFORE
+{
+	t_env *iter;
+	int		len;
+	iter = env;
+	len = ft_strlen(parser->cmd[1]);
+	while (iter->next)
+		iter = iter->next;		
+	iter->next = malloc(sizeof(t_env));
+	iter->next->name =ft_strdup(parser->cmd[0]);
+	if (env_no_value(parser->cmd[1]) == true)
+		iter->next->is_hidden = true;
+	iter->next->content = ft_strdup(parser->cmd[1]);
+	iter->next->next = malloc(sizeof(t_env));
+	iter->next->next = NULL;
+	return (env);
+}
 
 char	*equal_til_end(char	*var)
 {
@@ -158,6 +163,7 @@ t_env	*load_env(char **envp)
 	t_env		*start;
 	int	y;
 	
+	// thinking to add the returns in a env node on the 1st pos and tagged as hidden
 	y = 0;
 	env = malloc(sizeof(t_env));
 	start = env;
