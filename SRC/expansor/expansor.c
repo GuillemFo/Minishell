@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/08 11:52:13 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/08 11:56:15 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	*expand_str(char *name, t_env *env, char *str)
 {
-	char 	*result;
-	t_env 	*iter;
-	char 	*env_cont;
+	char	*result;
+	t_env	*iter;
+	char	*env_cont;
 	char	*tmp;
 	int		len;
 
@@ -36,8 +36,9 @@ char	*expand_str(char *name, t_env *env, char *str)
 
 char	*get_env_name(char *str)
 {
-	int	x;
+	int		x;
 	char	*name;
+
 	x = 0;
 	while (str[x] != ' ' && str[x] != '\0')
 		x++;
@@ -56,12 +57,14 @@ char	*get_env_name(char *str)
 
 char	*find_dollar(char *str, t_env *env)
 {
-	int	x;
-	char *env_name;
-	char *result;
+	int		x;
+	char	*env_name;
+	char	*result;
 
 	x = 0;
 	result = ft_strdup(str);
+	if (!result)
+		return (NULL);
 	while (result[x] != '\0')
 	{
 		if (result[x] == '$' && result[x + 1] != '\0')
@@ -70,7 +73,8 @@ char	*find_dollar(char *str, t_env *env)
 			if (env_exist(env, env_name) == true)
 				result = expand_str(env_name, env, result);
 			else
-				result = ft_strjoin(trim_bef(result, '$'), trim_after(result, '$'));
+				result = ft_strjoin(trim_bef(result, '$'), trim_after(result,
+							'$'));
 		}
 		x++;
 	}

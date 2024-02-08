@@ -60,3 +60,5 @@ existencial crisis. Should redo my way to interpret data in order to be more use
 
 07/02/24 NEEDS TO BE READAPTED TO ANNA'S CODE
 	All info is gonna be stored at parser->cmd[i] and next node when encountering pipes.
+
+08/02/24 Time to get back to builtins and finish the env_add, env_rem, when cd change pwd and oldpwd env, create a new env to store the return value for exit... ???
