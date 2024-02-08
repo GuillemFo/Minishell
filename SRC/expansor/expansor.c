@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/08 05:09:06 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/08 09:24:16 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ char *expand_str(char *str, t_env *env)
 	return (tmp2);
 }
 
+//Idea: search for $ in find dollar and send a memory pointer to the expansor function
+
 
 char	*find_dollar(char *str, t_env *env)
 {
@@ -67,7 +69,7 @@ char	*find_dollar(char *str, t_env *env)
 	char *new_str;
 
 	x = 0;
-	while (str[x])
+	while (str[x])	//this loop allow to expand multiple times the string
 	{
 		new_str = expand_str(str, env);
 		x++;

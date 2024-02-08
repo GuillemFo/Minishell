@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/07 12:09:59 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/08 08:32:57 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_parser *test_load(void)
     parser = malloc(sizeof(t_parser));
     parser->cmd = malloc(3 * sizeof(char*));
     parser->cmd[0] = ft_strdup("echo");
-    parser->cmd[1] = ft_strdup("'expand this $USER '");
+    parser->cmd[1] = ft_strdup("expand this $USER $hola");
 	//parser->cmd[2] = ft_strdup(" ");
     parser->cmd[2] = NULL;
     parser->next = NULL;
@@ -46,14 +46,14 @@ int	main(int ac, char **av, char **envp)
 	signal(SIGINT, handle_sigint); //reminder that leaks atexit will kill program if use ctrl + c
 	signal(SIGQUIT, handle_sigquit);
 	data = test_load();
+	data->cmd[1] = find_dollar(data->cmd[1], env);
 	is_builtin(data, env);
-	printf("Main:%s \n", find_dollar(data->cmd[0], env));
-	str = readline("minishell: ");
+	str = readline(C_G "minishell: " C_RESET);
 	while (str)
 	{
 		add_history(str);
 		free(str);
-		str = readline("minishell: ");
+		str = readline(C_G "minishell: " C_RESET);
 	}
 }
 //Intentar crear un programa que funcione de forma infinita y sea capaz de imprimir lo que le pase
