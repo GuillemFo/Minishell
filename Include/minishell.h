@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/07 12:17:46 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/08 08:32:17 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+/*-=-=-=-=-=-=-=-=LIBRARIES=-=-=-=-=-=-=-=-*/
 
 # include "libft.h"
 # include <errno.h>
@@ -23,6 +25,17 @@
 # include <stdbool.h>
 # include <history.h>
 # include <readline.h>
+
+
+/*-=-=-=-=-=-=-=-=COLOR CODES=-=-=-=-=-=-=-=-*/
+
+# define C_R		"\x1b[31m"	//RED
+# define C_G		"\x1b[32m"	//GREEN
+# define C_B		"\x1b[34m"	//BLUE
+# define C_Y		"\x1b[33m"	//YELLOW
+# define C_M		"\x1b[35m"	//MAGENTA
+# define C_C		"\x1b[36m"	//CYAN
+# define C_RESET	"\x1b[0m"	
 
 /*-=-=-=-=-=-=-=-=STRUCTS=-=-=-=-=-=-=-=-*/
 
@@ -62,6 +75,7 @@ typedef	struct s_parser
 	struct s_parser	*next;
 }					t_parser;
 
+/*-=-=-=-=-=-=-=-=-=-=-=SIGNALS=-=-=-=-=-=-=-=-=-=-=-=*/
 
 void	handle_sigint(int sig);
 void	handle_sigquit(int sig);
@@ -76,7 +90,7 @@ int	built_grep();
 t_env	*load_env(char **envp);
 int		print_env_lst(t_env *env);
 //	bool		env_exist(t_env *env, t_parser *token);
-//	char	*env_exist_2(t_env *env, char *name);
+	char	*env_exist_2(t_env *env, char *name);
 //	t_env	*del_env(t_parser *token, t_env *env);
 //	t_env	*add_env(t_parser *token, t_env *env);
 	
