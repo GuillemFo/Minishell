@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/07 12:01:43 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/08 10:11:38 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,46 +23,17 @@ bool	env_no_value(char *var)
 	return (false);
 }
 
-// bool		env_exist(t_env *env, t_parser *token)
-// {
-	// t_env *iter;
-	// iter = env;
-	// while (iter)	//might not work due next->next
-	// {
-		// if (ft_strcmp(iter->name, token->cmd[1]) == 0)	//maybe instead of returning true or 
-																//false we can return the node where 
-																//is located or NULL if not found
-			// return (true);									//If i do this, i need to modify
-		// iter = iter->next;									//the  way i return info  increate and delete env
-	// }
-	// return (false);
-// }
-
-char	*env_exist_2(t_env *env, char *name)
+bool		env_exist(t_env *env, char *str)
 {
 	t_env *iter;
-	char *data;
-	int	i;
-	i = 0;
 	iter = env;
-	while (iter)	//might not work due next->next
+	while (iter)
 	{
-		if (ft_strcmp(iter->name, name) == 0)
-		{
-			data = malloc((ft_strlen(iter->content) + 1) * sizeof(char));
-			while (iter->content[i] != '\0')
-			{
-				data[i] = iter->content[i];
-				i++;
-			}
-			data[i] = '\0';
-			return (data);
-		}
+		if (ft_strcmp(iter->name, str) == 0)
+			return (true);
 		iter = iter->next;
 	}
-	data = malloc(sizeof(char));
-	data[0] = '\0';
-	return (data);
+	return (false);
 }
 
 int	print_env_lst(t_env *env)
