@@ -44,8 +44,8 @@ DONE	working signals:
 								◦ echo with option -n
 								◦ cd with only a relative or absolute path
 								◦ pwd with no options
-								◦ export with no options
-								◦ unset with no options "Delete variables"
+								◦ export with no options "Create enviroments or modify em"
+								◦ unset with no options "Delete enviroments"
 								◦ env with no options or arguments
 								◦ exit with no options
 
@@ -62,3 +62,6 @@ existencial crisis. Should redo my way to interpret data in order to be more use
 	All info is gonna be stored at parser->cmd[i] and next node when encountering pipes.
 
 08/02/24 Time to get back to builtins and finish the env_add, env_rem, when cd change pwd and oldpwd env, create a new env to store the return value for exit... ???
+
+CD PWD AND OLD PWD prepared, but not tested. Modified env_add and env_del. Still dont
+know how ill manage them. 
