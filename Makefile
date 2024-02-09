@@ -12,9 +12,10 @@ SRC = minishell.c signals.c builtins/builtins.c tools.c builtins/env_1.c expanso
 
 SRC_PREFIX = $(addprefix $(SRC_PATH), $(SRC))
 
-OBJ = $(addprefix $(OBJ_PATH), $(SRC_PREFIX:.c=.o))
+OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 
-CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft 
+CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft -I./$(RDLINE_PATH)
+
 #-fsanitize=address
 
 LIB_A		:=	$(RDLINE_PATH)libreadline.a $(RDLINE_PATH)libhistory.a\
@@ -42,10 +43,14 @@ libraries:
 		@$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
 #@$(MAKE) rdline --no-print-directory
 
-$(OBJ_PATH)%.o: %.c Makefile $(LIB_A) ./Include/minishell.h
-		@mkdir	-p $(dir $@)
-		@gcc $(CFLAGS) -DREADLINE_LIBRARY=1 -I./Include -I./readline -c $< -o $@
-		@echo "Compiling obj $@..."
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c Makefile | $(OBJ_PATH)
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "Compiling obj $@..."
+
+$(OBJ_PATH):
+	@mkdir -p $(OBJ_PATH)
+
+
 
 re: fclean all
 
