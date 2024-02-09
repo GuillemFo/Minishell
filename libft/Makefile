@@ -59,7 +59,7 @@ OBJ = $(SRC:.c=.o)
 
 BON = $(BONUS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -I./libft.h
+CFLAGS = -Wall -Wextra -Werror -I./libft
 all: $(NAME)
 
 $(NAME): $(OBJ) 

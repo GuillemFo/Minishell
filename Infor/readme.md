@@ -65,3 +65,5 @@ existencial crisis. Should redo my way to interpret data in order to be more use
 
 CD PWD AND OLD PWD prepared, but not tested. Modified env_add and env_del. Still dont
 know how ill manage them. 
+
+In this commit i changed libft functions to compile with codespace compiler. Changed minishell.h Makefile libft/Makefile libft/ft_memchr.c and libft/ft_memmove.c
