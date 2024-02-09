@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/08 13:42:22 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/09 14:40:28 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,19 +75,19 @@ int	print_env_lst(t_env *env)
 // 	return (env);
 // }
 
-t_env	*edit_env(t_parser *parser, t_env *env) //THIS WILL ONLY MODIFY IF EXISTS> HAS TO CHECK IF EXISTS BEFORE
-{
-
-}
-
+// t_env	*edit_env(t_parser *parser, t_env *env) //THIS WILL ONLY MODIFY IF EXISTS> HAS TO CHECK IF EXISTS BEFORE
+// {
+// 
+// }
+// 
 
 
 t_env	*add_env(t_parser *parser, t_env *env)	//WILL ONLY ADD, HAS TO CHECK IF EXISTS BEFORE
 {
 	t_env *iter;
-	int		len;
+	// int		len;
 	iter = env;
-	len = ft_strlen(parser->cmd[1]);
+	// len = ft_strlen(parser->cmd[1]);
 	while (iter->next)
 		iter = iter->next;		
 	iter->next = malloc(sizeof(t_env));

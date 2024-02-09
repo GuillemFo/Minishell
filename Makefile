@@ -18,8 +18,8 @@ CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft -I./$(RDLINE_PATH)
 
 #-fsanitize=address
 
-LIB_A		:=	$(RDLINE_PATH)libreadline.a $(RDLINE_PATH)libhistory.a\
-				$(LIBFT_PATH)libft.a
+LIB_A := $(RDLINE_PATH)libreadline.a $(RDLINE_PATH)libhistory.a $(LIBFT_PATH)libft.a
+
 
 LIB_ADD_DIR	:=	-L$(RDLINE_PATH) -L$(LIBFT_PATH)
 
@@ -33,6 +33,7 @@ tmp:
 $(NAME): $(OBJ) libraries
 		@gcc $(CFLAGS) $(OBJ) $(LIB_ADD_DIR) $(LIB_SEARCH) $(LIB_A) -o $(NAME)
 		@echo "Minishell compiled"
+
 rdline:
 		@echo "Compiling Readline"
 		@cd ./readline/ &> /dev/null && ./configure &> /dev/null
@@ -41,15 +42,15 @@ rdline:
 
 libraries:
 		@$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
-#@$(MAKE) rdline --no-print-directory
+		@$(MAKE) rdline --no-print-directory
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c Makefile | $(OBJ_PATH)
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "Compiling obj $@..."
 
 $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH)
-
 
 
 re: fclean all

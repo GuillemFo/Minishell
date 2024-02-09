@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/08 14:09:01 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/09 14:36:10 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ int	built_echo(t_parser *parser)
 int	built_cd(t_parser *parser, t_env *env)
 {	//need a filter to check if exists before cz might be unset
 	t_env	*iter;
-	char *new_pwd;
-	int	len;
 
 	iter = env;
 	while (iter->next && ft_strncmp(iter->name, "OLDPWD", 7) != 0)
@@ -87,7 +85,7 @@ int	is_builtin(t_parser *parser, t_env *env)
 		if (ft_strncmp("echo", parser->cmd[0], 5) == 0)
 			built_echo(parser);
 		else if (ft_strncmp("cd", parser->cmd[0], 3) == 0)
-			built_cd(parser, &env);
+			built_cd(parser, env);
 		else if (ft_strncmp("pwd", parser->cmd[0], 4) == 0)
 			built_pwd();//(parser);
 		else if (ft_strncmp("env", parser->cmd[0], 4) == 0)
