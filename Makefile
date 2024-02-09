@@ -36,9 +36,15 @@ $(NAME): $(OBJ) libraries
 
 rdline:
 		@echo "Compiling Readline"
-		@cd ./readline/ &> /dev/null && ./configure &> /dev/null
-		@make -C ./readline/ &> /dev/null
+		@cd ./readline/ && ./configure
+		@make -C ./readline/
 		@echo "Readline compiled"
+
+#rdline:
+#		@echo "Compiling Readline"
+#		@cd ./readline/ &> /dev/null && ./configure &> /dev/null
+#		@make -C ./readline/ &> /dev/null
+#		@echo "Readline compiled"
 
 libraries:
 		@$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
