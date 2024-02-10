@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annadanylevych <annadanylevych@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:35:16 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/08 15:00:49 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/09 19:45:07 by annadanylev      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ t_lexer	*tokenize(t_lexer *lexer, char **split)
 			lexer->sign = ft_strdup("NONE");
 		}
 		else if (is_sign(split[i][0]))
-		{
-			lexer->content = NULL;
-			lexer->sign = token(lexer->sign, split[i], ft_strlen(split[i]) + 1);
-		}
+			sign(lexer, split[i]);
 		i++;
 		if (!split[i])
 			break ;
@@ -40,6 +37,20 @@ t_lexer	*tokenize(t_lexer *lexer, char **split)
 	}
 	free_matrix(split, i);
 	return(tmp);
+}
+
+void	sign(t_lexer *lexer, char *split)
+{
+	lexer->content = NULL;
+	if (split[1] && is_sign(split[0] == is_sign(split[1])))
+	{
+		if(is_sign(split[0]) == 2)
+			lexer->sign = GREATER2;
+		else if(is_sign(split[0]) == 3)
+			lexer->sign = LESSLESS;
+	}
+	else
+		lexer->sign = is_sign(split[0]);
 }
 
 char	*token(char *dest, char *src, int len)

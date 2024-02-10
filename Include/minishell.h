@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: annadanylevych <annadanylevych@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/08 15:15:38 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/09 19:28:49 by annadanylev      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,18 @@
 
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-LEXER-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
 
+typedef	enum
+{
+	GREATER = 2,
+	GREATER2 = 1,
+	LESS = 3,
+	LESSLESS = 4
+}		t_sign;
+
 typedef	struct s_lexer
 {
 	char					*content;
-	char					*sign;
+	t_sign					sign;
 	struct s_lexer			*next;
 }					t_lexer;
 
@@ -47,15 +55,6 @@ t_lexer	*tokenize(t_lexer *lexer, char **split);
 t_lexer	*lexer_creator();
 
 /*-=-=-=-=-=-=-==-=-=-==-=-=-=-=-=-=-=-=-PARSER-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
-
-
-typedef	enum
-{
-	GREATER = 1,
-	GREATER2 = 2,
-	LESS = 3,
-	LESSLESS = 4
-}		t_sign;
 
 typedef	struct	s_redir
 {
