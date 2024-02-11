@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 09:40:26 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/08 15:05:55 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/11 12:35:58 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ int	cmd_count(t_lexer *lexer)
 	int	i;
 	
 	i = 0;
-	while (lexer && lexer->sign[0] != '|')
+	while (lexer && lexer->sign == 0)
 	{
-		if (lexer->sign[0] !='N')
-			i--;
 		lexer = lexer->next;
 		i++;
 	}
@@ -34,7 +32,7 @@ int	big_count(t_lexer *lexer)
 	i = 0;
 	while (lexer)
 	{
-		if (lexer->sign[0] == '|')
+		if (lexer->sign == 1)
 			i++;
 		lexer = lexer->next;
 	}
@@ -64,7 +62,7 @@ t_redir	*redir_creator()
 {
 	t_redir	*redir;
 	
-	redir = my_malloc(sizeof(t_redir) + 1);
+	redir = my_malloc(sizeof(t_redir));
 	redir->sign = 0;
 	redir->next = NULL;
 	return(redir);

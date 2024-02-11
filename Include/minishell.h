@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: annadanylevych <annadanylevych@student.    +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/09 19:28:49 by annadanylev      ###   ########.fr       */
+/*   Updated: 2024/02/11 12:45:08 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@
 
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-LEXER-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
 
+
 typedef	enum
 {
+	PIPE = 1,
 	GREATER = 2,
-	GREATER2 = 1,
 	LESS = 3,
-	LESSLESS = 4
+	GREATER2 = 4,
+	LESSLESS = 5
 }		t_sign;
 
 typedef	struct s_lexer
@@ -51,6 +53,7 @@ char 	*ft_substri(const char *str, int start, int len);
 void	get_word(int k, int *i, char *line, char **split);
 char 	*ft_strncpy(char *s1, char *s2, int n);
 char	*token(char *dest, char *src, int len);
+void	sign(t_lexer *lexer, char *split);
 t_lexer	*tokenize(t_lexer *lexer, char **split);
 t_lexer	*lexer_creator();
 
@@ -77,7 +80,7 @@ t_sign		get_sign(char *sign);
 t_parser	*parser_creator();
 void 		error_parser(char *msg);
 void		parser_content(t_lexer *lexer, t_parser *parser);
-int			parsing_rest(t_lexer *lexer, t_parser *parser);
+void		parsing_rest(t_lexer *lexer, t_parser *parser);
 t_redir		*redir_creator();
 
 

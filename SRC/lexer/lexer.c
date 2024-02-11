@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:40:50 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/08 15:01:08 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/11 12:32:14 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	ft_lexer(char *line)
 	int	wc;
 	char	**c;
 
-	
 	lexer = NULL;
 	i = 0;
 	wc = 0;
@@ -28,7 +27,7 @@ void	ft_lexer(char *line)
 	// while (lexer)
 	// {
 	// 	printf("content: %s\n", lexer->content);
-	// 	printf("sign: %s\n", lexer->sign);
+	// 	printf("sign: %u\n", lexer->sign);
 	// 	lexer = lexer->next;
 	// }
 	ft_parser(lexer);
@@ -82,7 +81,7 @@ int	quote_situation(char *c)
 
 void	sign_situation(char *line, char	**split, int *j, int *i)
 {
-	if (line + 1 && is_sign(*line) == is_sign(*line + 1))
+	if (line + 1 && is_sign(*line) == is_sign(*(line + 1)))
 		{
 			split[++(*j)] = my_malloc(sizeof(char) * 2 + 1);
 			ft_strncpy(split[(*j)], line, 2);
