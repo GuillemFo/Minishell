@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/11 12:45:08 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:20:29 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,10 @@ void		ft_parser(t_lexer *lexer);
 t_sign		get_sign(char *sign);
 t_parser	*parser_creator();
 void 		error_parser(char *msg);
-void		parser_content(t_lexer *lexer, t_parser *parser);
+void		parser_content(t_lexer *lexer, t_parser *parser, int i);
 void		parsing_rest(t_lexer *lexer, t_parser *parser);
 t_redir		*redir_creator();
-
-
-
+void		first_redir(t_lexer	*lexer, t_parser *parser);
+char		**commands(t_lexer *lexer);
 
 #endif

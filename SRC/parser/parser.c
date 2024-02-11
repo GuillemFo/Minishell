@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/11 15:23:22 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:21:02 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	ft_parser(t_lexer *lexer)
 	parser = NULL;
 	parser = parser_creator();
 	tmp = parser;
-	parser_content(lexer, parser);
-	i = 0;
+	parser_content(lexer, parser, i);
 	while (parser)
 	{
 		i = 0;
@@ -55,32 +54,35 @@ void	parsing_rest(t_lexer *lexer, t_parser *parser)
 	t_redir	*tmp;
 	
 	if (!parser->redir)
-		parser->redir = redir_creator();
+	{
+		first_redir(lexer, parser);
+		return ;
+	}
 	tmp = parser->redir;
 	while (parser->redir && parser->redir->next)
 		parser->redir = parser->redir->next;
 	parser->redir->next = redir_creator();
 	parser->redir->next->sign = lexer->sign;
-	//ft_printf("sign: %d\n", parser->redir->sign);
 	if (!lexer->next)
 		error_parser("syntax error near unexpected token `newline'");
 	lexer = lexer->next;
 	if (lexer->sign != 0)
 	 	error_parser("syntax error near unexpected token");
 	parser->redir->next->dest = token(parser->redir->next->dest, lexer->content, ft_strlen(lexer->content));
-	//ft_printf("dest: %s\n", parser->redir->dest);
 	parser->redir = tmp;
 }
 
-void	parser_content(t_lexer *lexer, t_parser *parser)
+void	first_redir(t_lexer	*lexer, t_parser *parser)
 {
-	int	i;
-	t_parser	*tmp;
+	parser->redir = redir_creator();
+	parser->redir->sign = lexer->sign;
+	lexer = lexer->next;
+	parser->redir->dest = token(parser->redir->dest, lexer->content, ft_strlen(lexer->content));
+}
 
-	i = 0;
-	parser->cmd = my_malloc(sizeof(char *) * (cmd_count(lexer) + 1));
-	tmp = parser;
-	parser->cmd[cmd_count(lexer)] = NULL;
+void	parser_content(t_lexer *lexer, t_parser *parser, int i)
+{
+	parser->cmd = commands(lexer);
 	while (lexer)
 	{
 		if (lexer->sign == 1)
@@ -90,34 +92,20 @@ void	parser_content(t_lexer *lexer, t_parser *parser)
 			i = 0;
 			if (!lexer->next)
 				error_parser("Error: unclosed pipe\n");
-			parser->cmd = my_malloc(sizeof(char *) * (cmd_count(lexer->next) + 1));
-			parser->cmd[cmd_count(lexer->next)] = NULL;
+			parser->cmd = commands(lexer->next);
 		}
 		else if (lexer->sign != 0)
 		{
 			parsing_rest(lexer, parser);
-			parser->redir = parser->redir->next;
 			lexer = lexer->next;
 		}
 		else if (lexer && lexer->content)
 		{
 			parser->cmd[i] = token(parser->cmd[i], lexer->content, ft_strlen(lexer->content) + 1);
-			//ft_printf("cmd: %s\n", parser->cmd[i]);
 			i++;
 		}
 		lexer = lexer->next;
 	}
-	// i = 0;
-	// while(tmp)
-	// {
-	// 	i = 0;
-	// 	while(tmp->cmd[i])
-	// 	{
-	// 		printf("%s\n", tmp->cmd[i]);
-	// 		i++;
-	// 	}
-	// 	tmp = tmp->next;
-	// }
 }
 
 
