@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/11 17:21:02 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/12 09:54:05 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
-
-int	main()
-{
-	char	line[] = " echo 'ls' > out > ik|'cat' grep -v | ls cat |kk << p";
-	ft_lexer(line);
-	
-	return (0);
-}
 
 void	ft_parser(t_lexer *lexer)
 {
