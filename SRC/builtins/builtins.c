@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/12 11:13:21 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/12 12:30:45 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,28 @@ int	built_env(t_env *env)
 int	built_echo(t_parser *parser)
 {
 	int	flag;
+	int	i;
 
+	i = 1;
 	flag = 1;
-	if (ft_strncmp("-n" ,parser->cmd[1], 3) == 0)
+	if (ft_strncmp("-n" ,parser->cmd[i], 3) == 0)
 	{
 		flag = 0;
-		ft_putstr_fd(parser->cmd[2], STDOUT_FILENO);
+		i++;
 	}
-	else if (flag == 1)
+	while(parser->cmd[i])
 	{
-		ft_putstr_fd(parser->cmd[1], STDOUT_FILENO);
-		write(1, "\n", 1);
+		if (!parser->cmd[i + 1])
+			ft_putstr_fd(parser->cmd[i], STDOUT_FILENO);
+		else
+		{
+			ft_putstr_fd(parser->cmd[i], STDOUT_FILENO);
+			ft_putstr_fd(" ", STDOUT_FILENO);
+		}
+		i++;
 	}
+	if (flag == 1)
+		write(1, "\n", 1);
 	return (0);
 }
 
@@ -93,10 +103,10 @@ int	is_builtin(t_parser *parser, t_env *env)
 		else if (ft_strncmp("exit", parser->cmd[0], 5) == 0)
 			builtin_exit();
 		// else if (ft_strncmp("export", parser->cmd[0], 7) == 0)
-		// 	builtin_export(parser, env);
+			// builtin_export(parser, env);
 		// else if (ft_strncmp("unset", parser->cmd[0], 6) == 0)
-		// 	builtin_unset(parser, env);
-		parser = parser->next;
+			// builtin_unset(parser, env);
+		// parser = parser->next;
 	}
 	return (0);
 }

@@ -26,7 +26,7 @@ If you have any doubt about a requirement, take bash as a reference.
 
 Guille:
 -- Signals
--- Expansor $var // $?
+-- Expansor $var // $? redirs heredock
 -- builtins
 -- Heredock
 -- Enviroment Variables (on main)
@@ -71,3 +71,10 @@ In this commit i changed libft functions to compile with codespace compiler. Cha
 Fixed issues with makefile, should work in codespace too.
 Fixed issues with the functions i modified before.
 Imported anna's work to play with her code and start to build the shell itself.
+
+expansor has to expand after redirections and heredock
+
+Expansor env OK
+Expansor wrong X
+Expansor heredock X
+Expansor redirection X

@@ -21,7 +21,7 @@ SRC_PREFIX = $(addprefix $(SRC_PATH), $(SRC))
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 
-CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft -I./$(RDLINE_PATH) #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft -I./$(RDLINE_PATH) -fsanitize=address
 
 LIB_A		:=	$(RDLINE_PATH)libreadline.a $(RDLINE_PATH)libhistory.a $(LIBFT_PATH)libft.a
 
