@@ -2,7 +2,11 @@ NAME = minishell
 
 OBJ_PATH = tmp/
 
+INC = Include/
+
 SRC_PATH = SRC/
+
+TMP_DIR = $(CURDIR)/tmp/
 
 RDLINE_PATH = readline/
 
@@ -14,62 +18,69 @@ SRC_PREFIX = $(addprefix $(SRC_PATH), $(SRC))
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 
-CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft -I./$(RDLINE_PATH)
+CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft -I./$(RDLINE_PATH) #-fsanitize=address
 
-#-fsanitize=address
-
-LIB_A := $(RDLINE_PATH)libreadline.a $(RDLINE_PATH)libhistory.a $(LIBFT_PATH)libft.a
-
+LIB_A		:=	$(RDLINE_PATH)libreadline.a $(RDLINE_PATH)libhistory.a $(LIBFT_PATH)libft.a
 
 LIB_ADD_DIR	:=	-L$(RDLINE_PATH) -L$(LIBFT_PATH)
 
 LIB_SEARCH	:=	-lreadline -lhistory -ltermcap -lft
+#############################################################################
 
-all: libraries tmp $(NAME)
+# Regular Colors
+BLACK := \033[0;30m
+RED := \033[0;31m
+GREEN := \033[0;32m
+YELLOW := \033[0;33m
+BLUE := \033[0;34m
+MAGENTA := \033[0;35m
+CYAN := \033[0;36m
+WHITE := \033[0;37m
+
+# Reset
+RESET := \033[0m
+
+#############################################################################
+
+all: tmp libraries $(NAME)
 
 tmp:
 		@mkdir -p $(OBJ_PATH)
 
 $(NAME): $(OBJ) libraries
 		@gcc $(CFLAGS) $(OBJ) $(LIB_ADD_DIR) $(LIB_SEARCH) $(LIB_A) -o $(NAME)
-		@echo "Minishell compiled"
+		@echo "$(GREEN)Minishell compiled$(RESET)"
 
 rdline:
-		@echo "Compiling Readline"
-		@cd ./readline/ && ./configure
-		@make -C ./readline/
-		@echo "Readline compiled"
-
-#rdline:
-#		@echo "Compiling Readline"
-#		@cd ./readline/ &> /dev/null && ./configure &> /dev/null
-#		@make -C ./readline/ &> /dev/null
-#		@echo "Readline compiled"
+		@echo "$(CYAN)Compiling Readline$(RESET)"
+		@cd ./readline/ &> $(TMP_DIR)rdcfg && ./configure &> $(TMP_DIR)rdcfg
+		@make -C ./readline/ &> $(TMP_DIR)rdcfg
+		@rm ./tmp/rdcfg
+		@echo "$(GREEN)Readline compiled$(RESET)"
 
 libraries:
 		@$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
 		@$(MAKE) rdline --no-print-directory
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c Makefile | $(OBJ_PATH)
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "Compiling obj $@..."
-
-$(OBJ_PATH):
-	@mkdir -p $(OBJ_PATH)
-
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c Makefile $(LIB_A) $(INC)minishell.h	#Check dependencies from libft, relink etc...
+		@mkdir	-p $(dir $@)
+		@gcc $(CFLAGS) -DREADLINE_LIBRARY=1 -I./Include -I./readline -c $< -o $@
+		@echo "$(CYAN)Compiling Minishell:$(YELLOW) $@$(RESET)"
 
 re: fclean all
 
 clean:
 		@$(MAKE) -C libft clean --no-print-directory
+		@echo "$(CYAN)Libft $(YELLOW)- $(RED)Objs deleted$(RESET)"
 		@rm -rf $(OBJ_PATH)
-		@echo "Objs deleted"
+		@echo "$(CYAN)Minishell $(YELLOW)- $(RED)Objs deleted$(RESET)"
 
 fclean:	clean
 		@$(MAKE) -C libft fclean --no-print-directory
+		@echo "$(CYAN)Libft $(RED)deleted$(RESET)"
 		@rm -rf $(NAME)
-		@echo "Minishell deleted"
-#@$(MAKE) -C readline clean --no-print-directory
+		@echo "$(CYAN)Minishell $(RED)deleted$(RESET)"
+		@$(MAKE) -s -C readline clean --no-print-directory
+		@echo "$(CYAN)Readline $(RED)deleted$(RESET)"
 
 .PHONY: all re clean fclean 
