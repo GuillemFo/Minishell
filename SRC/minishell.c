@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/08 11:57:41 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/12 09:51:36 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,14 @@ int	main(int ac, char **av, char **envp)
 	data->cmd[1] = find_dollar(data->cmd[1], env);
 	is_builtin(data, env);
 	str = readline(C_G "minishell: " C_RESET);
+	//ft_lexer(str);
 	while (str)
 	{
 		add_history(str);
 		free(str);
 		str = readline(C_G "minishell: " C_RESET);
+		//ft_lexer(str);
 	}
 }
-//Intentar crear un programa que funcione de forma infinita y sea capaz de imprimir lo que le pase
-//Probar a usar el readline
-//Hay que incluir librerias de readline en makefile y entender como funciona
+
+// Soooo .... ft_lexer has a segfault...

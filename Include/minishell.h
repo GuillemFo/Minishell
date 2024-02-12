@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/12 09:12:13 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/12 09:40:28 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@
 
 /*-=-=-=-=-=-=-=-=STRUCTS=-=-=-=-=-=-=-=-*/
 
+typedef enum
+{
+	PIPE = 1,
+	GREATER,
+	LESS,
+	GREATER2, 
+	LESSLESS,
+}					t_sign;
 typedef struct s_env
 {
 	char			*name;
@@ -49,16 +57,9 @@ typedef struct s_env
 typedef struct s_lexer
 {
 	char			*content;
-	char			*sign;
+	t_sign			sign;
 	struct s_lexer	*next;
 }					t_lexer;
-typedef enum e_sign
-{
-	GREATER = 1,
-	GREATER2 = 2,
-	LESS = 3,
-	LESSLESS = 4
-}					t_sign;
 
 typedef struct s_redir
 {
@@ -122,6 +123,7 @@ char				*ft_substri(const char *str, int start, int len);
 void				get_word(int k, int *i, char *line, char **split);
 char				*ft_strncpy(char *s1, char *s2, int n);
 char				*token(char *dest, char *src, int len);
+void				sign(t_lexer *lexer, char *slpit);
 t_lexer				*tokenize(t_lexer *lexer, char **split);
 t_lexer				*lexer_creator(void);
 
@@ -133,6 +135,9 @@ void				ft_parser(t_lexer *lexer);
 t_sign				get_sign(char *sign);
 t_parser			*parser_creator(void);
 void				error_parser(char *msg);
-void				parser_content(t_lexer *lexer, t_parser *parser);
+void				parser_content(t_lexer *lexer, t_parser *parser, int i);
+t_redir				*redir_creator();
+void				first_redir(t_lexer *lexer, t_parser *parser);
+char				**commands(t_lexer *lexer);
 
 #endif

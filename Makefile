@@ -12,7 +12,10 @@ RDLINE_PATH = readline/
 
 LIBFT_PATH = libft/
 
-SRC = minishell.c signals.c builtins/builtins.c tools.c builtins/env_1.c expansor/expansor.c #all *.c here
+SRC = minishell.c signals.c builtins/builtins.c tools.c builtins/env_1.c \
+	expansor/expansor.c lexer/lexer_utils.c lexer/lexer.c lexer/split.c \
+	lexer/lexer_utils1.c parser/parser.c parser/parser_utils.c \
+	parser/parser_utils1.c
 
 SRC_PREFIX = $(addprefix $(SRC_PATH), $(SRC))
 
@@ -60,7 +63,7 @@ rdline:
 
 libraries:
 		@$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
-		@$(MAKE) rdline --no-print-directory
+#@$(MAKE) rdline --no-print-directory
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c Makefile $(LIB_A) $(INC)minishell.h	#Check dependencies from libft, relink etc...
 		@mkdir	-p $(dir $@)
@@ -80,7 +83,7 @@ fclean:	clean
 		@echo "$(CYAN)Libft $(RED)deleted$(RESET)"
 		@rm -rf $(NAME)
 		@echo "$(CYAN)Minishell $(RED)deleted$(RESET)"
-		@$(MAKE) -s -C readline clean --no-print-directory
-		@echo "$(CYAN)Readline $(RED)deleted$(RESET)"
+#@$(MAKE) -s -C readline clean --no-print-directory
+#@echo "$(CYAN)Readline $(RED)deleted$(RESET)"
 
 .PHONY: all re clean fclean 
