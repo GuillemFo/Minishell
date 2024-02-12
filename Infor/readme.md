@@ -67,3 +67,7 @@ CD PWD AND OLD PWD prepared, but not tested. Modified env_add and env_del. Still
 know how ill manage them. 
 
 In this commit i changed libft functions to compile with codespace compiler. Changed minishell.h Makefile libft/Makefile libft/ft_memchr.c and libft/ft_memmove.c
+
+Fixed issues with makefile, should work in codespace too.
+Fixed issues with the functions i modified before.
+Imported anna's work to play with her code and start to build the shell itself.
