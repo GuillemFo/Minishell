@@ -6,13 +6,13 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:40:50 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/11 12:32:14 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/12 11:24:49 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-void	ft_lexer(char *line)
+t_lexer	*ft_lexer(char *line)
 {
 	t_lexer	*lexer;
 	int	i;
@@ -30,7 +30,7 @@ void	ft_lexer(char *line)
 	// 	printf("sign: %u\n", lexer->sign);
 	// 	lexer = lexer->next;
 	// }
-	ft_parser(lexer);
+	return (lexer);
 }
 
 int	arg_count(char *line, int i, int wc)
