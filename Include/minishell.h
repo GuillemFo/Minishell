@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/12 09:40:28 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/12 11:56:25 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int					is_space(char c);
 int					is_sign(char c);
 int					quote_situation(char *c);
 int					arg_count(char *line, int i, int wc);
-void				ft_lexer(char *line);
+t_lexer				*ft_lexer(char *line);
 char				**new_split(char *line, int wc, int i, int k);
 void				sign_situation(char *line, char **split, int *j, int *i);
 char				*ft_substri(const char *str, int start, int len);
@@ -126,12 +126,13 @@ char				*token(char *dest, char *src, int len);
 void				sign(t_lexer *lexer, char *slpit);
 t_lexer				*tokenize(t_lexer *lexer, char **split);
 t_lexer				*lexer_creator(void);
+void				break_free(t_lexer	*lexer);
 
 /*-=-=-=-=-=-=-==-=-=-==-=-=-PARSER-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
 
 int					cmd_count(t_lexer *lexer);
 char				**parser_split(t_lexer *lexer, t_parser *parser);
-void				ft_parser(t_lexer *lexer);
+t_parser			*ft_parser(t_lexer *lexer);
 t_sign				get_sign(char *sign);
 t_parser			*parser_creator(void);
 void				error_parser(char *msg);

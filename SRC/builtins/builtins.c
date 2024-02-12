@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/09 14:36:10 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/12 11:13:21 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	built_echo(t_parser *parser)
 }
 
 int	built_cd(t_parser *parser, t_env *env)
-{	//need a filter to check if exists before cz might be unset
+{	//need a filter to check if exists the env before cz might be unset and might need to be created.
 	t_env	*iter;
 
 	iter = env;

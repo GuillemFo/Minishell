@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/09 14:40:28 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/12 11:16:15 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,6 @@ t_env	*load_env(char **envp)
 	t_env		*start;
 	int	y;
 	
-	// thinking to add the returns in a env node on the 1st pos and tagged as hidden
 	y = 0;
 	env = malloc(sizeof(t_env));
 	start = env;

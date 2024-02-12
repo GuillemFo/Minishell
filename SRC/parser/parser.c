@@ -6,13 +6,13 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/12 09:54:05 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/12 11:55:43 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-void	ft_parser(t_lexer *lexer)
+t_parser	*ft_parser(t_lexer *lexer)
 {
 	t_parser	*parser;
 	t_parser	*tmp;
@@ -23,22 +23,24 @@ void	ft_parser(t_lexer *lexer)
 	parser = parser_creator();
 	tmp = parser;
 	parser_content(lexer, parser, i);
-	while (parser)
-	{
-		i = 0;
-		while(parser->cmd[i])
-		{
-			ft_printf("cmd: %s\n", parser->cmd[i]);
-			i++;
-		}
-		while (parser->redir)
-		{
-			ft_printf("sign: %d\n", parser->redir->sign);
-			ft_printf("dest: %s\n", parser->redir->dest);
-			parser->redir = parser->redir->next;
-		}
-		parser = parser->next;
-	}
+	break_free(lexer);
+	// while (parser)
+	// {
+	// 	i = 0;
+	// 	while(parser->cmd[i])
+	// 	{
+	// 		ft_printf("cmd: %s\n", parser->cmd[i]);
+	// 		i++;
+	// 	}
+	// 	while (parser->redir)
+	// 	{
+	// 		ft_printf("sign: %d\n", parser->redir->sign);
+	// 		ft_printf("dest: %s\n", parser->redir->dest);
+	// 		parser->redir = parser->redir->next;
+	// 	}
+	// 	parser = parser->next;
+	// }
+	return (parser);
 }
 
 void	parsing_rest(t_lexer *lexer, t_parser *parser)
@@ -59,7 +61,7 @@ void	parsing_rest(t_lexer *lexer, t_parser *parser)
 		error_parser("syntax error near unexpected token `newline'");
 	lexer = lexer->next;
 	if (lexer->sign != 0)
-	 	error_parser("syntax error near unexpected token");
+		error_parser("syntax error near unexpected token");
 	parser->redir->next->dest = token(parser->redir->next->dest, lexer->content, ft_strlen(lexer->content));
 	parser->redir = tmp;
 }

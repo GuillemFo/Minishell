@@ -26,7 +26,7 @@ If you have any doubt about a requirement, take bash as a reference.
 
 Guille:
 -- Signals
--- Expansor {1,} // $var // $((1 + 1)) // Wildcard or Globbing Expansion // $(command) or 'command' 
+-- Expansor $var // $?
 -- builtins
 -- Heredock
 -- Enviroment Variables (on main)
