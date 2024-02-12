@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/12 11:38:58 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/12 11:50:01 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	main()
 {
 	t_lexer	*lexer;
 	t_parser	*parser;
-	int	i;
+	//int	i;
 	
-	char	line[] = " echo 'ls' > out > ik|'cat' grep -v | ls cat |kk << p";
+	char	line[] = " echo 'ls' > | out > ik|'cat' grep -v | ls cat |kk << p";
 	lexer = ft_lexer(line);
 	parser = ft_parser(lexer);
 	// while (parser)
@@ -98,7 +98,11 @@ void	first_redir(t_lexer	*lexer, t_parser *parser)
 {
 	parser->redir = redir_creator();
 	parser->redir->sign = lexer->sign;
+	if (!lexer->next)
+		error_parser("syntax error near unexpected token `newline'");
 	lexer = lexer->next;
+	if (lexer->sign != 0)
+	 	error_parser("syntax error near unexpected token");
 	parser->redir->dest = token(parser->redir->dest, lexer->content, ft_strlen(lexer->content));
 }
 
