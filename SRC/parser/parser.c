@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/12 13:01:27 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:04:17 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,26 @@ int	main()
 	t_parser	*parser;
 	int	i;
 	
-	char	line[] = "echo hola";
+	char	line[] = "echo >> kk";
 	lexer = ft_lexer(line);
 	parser = ft_parser(lexer);
-	while (parser)
-	{
-		i = 0;
-		while(parser->cmd[i])
-		{
-			ft_printf("cmd: %s\n", parser->cmd[i]);
-			i++;
-		}
-		while (parser->redir)
-		{
-			ft_printf("sign: %d\n", parser->redir->sign);
-			ft_printf("dest: %s\n", parser->redir->dest);
-			parser->redir = parser->redir->next;
-		}
-		parser = parser->next;
-	}
+	// while (parser)
+	// {
+	// 	i = 0;
+	// 	while(parser->cmd[i])
+	// 	{
+	// 		ft_printf("cmd: %s\n", parser->cmd[i]);
+	// 		i++;
+	// 	}
+	// 	while (parser->redir)
+	// 	{
+	// 		ft_printf("sign: %d\n", parser->redir->sign);
+	// 		ft_printf("dest: %s\n", parser->redir->dest);
+	// 		parser->redir = parser->redir->next;
+	// 	}
+	// 	printf("next: \n");
+	// 	parser = parser->next;
+	// }
 	break_free(lexer);
 	return (0);
 }

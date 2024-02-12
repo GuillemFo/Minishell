@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:35:16 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/11 12:29:30 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/12 13:24:20 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_lexer	*tokenize(t_lexer *lexer, char **split)
 			lexer->sign = 0;
 		}
 		else if (is_sign(split[i][0]))
-			sign(lexer, split[i]);
+			sign(lexer, &split[i][0]);
 		i++;
 		if (!split[i])
 			break ;
@@ -42,7 +42,7 @@ t_lexer	*tokenize(t_lexer *lexer, char **split)
 void	sign(t_lexer *lexer, char *split)
 {
 	lexer->content = NULL;
-	if (split[1] && is_sign(split[0] == is_sign(split[1])))
+	if (split[1] && is_sign(split[0]) == is_sign(split[1]))
 	{
 		if(is_sign(split[0]) == 2)
 			lexer->sign = GREATER2;
@@ -55,7 +55,7 @@ void	sign(t_lexer *lexer, char *split)
 
 char	*token(char *dest, char *src, int len)
 {
-	dest = my_malloc(sizeof(char) * len);
+	dest = my_malloc(sizeof(char) * (len + 1));
 	dest = ft_strncpy(dest, src, len);
 	return (dest);
 }
