@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 16:27:28 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/09 14:10:06 by codespace        ###   ########.fr       */
+/*   Created: 2024/01/15 13:57:56 by gforns-s          #+#    #+#             */
+/*   Updated: 2024/02/01 09:57:29 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+void handle_sigint(int sig) 
 {
-	size_t			i;
-
-	i = 0;
-	while (i < n)
-	{
-		if (*((unsigned char *)s + i) == (unsigned char)c)
-			return ((void *)((char *)s + i));
-		i++;
-	}
-	return (NULL);
+	(void)sig;
+	ft_printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 1);
+	rl_redisplay();
 }
+
+void handle_sigquit(int sig)
+{
+	(void)sig;
+}
+
+/*void	handle_gen()
+{
+	if (sigint == 2)
+		
+}
+
+*/

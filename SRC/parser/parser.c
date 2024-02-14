@@ -42,36 +42,6 @@ int	main()
 	return (0);
 }
 
-t_parser	*ft_parser(t_lexer *lexer)
-{
-	t_parser	*parser;
-	t_parser	*tmp;
-	int	i;
-
-	i = 0;
-	parser = NULL;
-	parser = parser_creator();
-	tmp = parser;
-	parser_content(lexer, parser, i);
-	// while (parser)
-	// {
-	// 	i = 0;
-	// 	while(parser->cmd[i])
-	// 	{
-	// 		ft_printf("cmd: %s\n", parser->cmd[i]);
-	// 		i++;
-	// 	}
-	// 	while (parser->redir)
-	// 	{
-	// 		ft_printf("sign: %d\n", parser->redir->sign);
-	// 		ft_printf("dest: %s\n", parser->redir->dest);
-	// 		parser->redir = parser->redir->next;
-	// 	}
-	// 	parser = parser->next;
-	// }
-	return (parser);
-}
-
 void	parsing_rest(t_lexer *lexer, t_parser *parser)
 {
 	t_redir	*tmp;
