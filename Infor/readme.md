@@ -7,8 +7,74 @@ Readline library docs
 https://tiswww.case.edu/php/chet/readline/readline.html
 https://tiswww.case.edu/php/chet/readline/README
 
+Info:
+https://github.com/jotavare/42-resources#03-minishell
+
+https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html
+
+https://github.com/toni-schmitt/minishell
+
+https://www.youtube.com/watch?v=oxuRxtrO2Ag
+
+https://www.youtube.com/@johnalexandersanabriaordon1851/videos
+
+
+You should limit yourself to the subject description. Anything that
+is not asked is not required.
+If you have any doubt about a requirement, take bash as a reference.
+
+
 Guille:
--- Señales
--- Expansion
--- Built in
+-- Signals
+-- Expansor $var // $? redirs heredock
+-- builtins
 -- Heredock
+-- Enviroment Variables (on main)
+-- PERROR & return code
+
+--reminder to check echo with "$PATH""$PATH" || "$PATH" "$PATH" || "ls""|""cat"
+
+15/1/2024 ->
+DONE	working signals: 
+						ctrl-D END OF FILE To RDLINE -> kills minishell
+						ctrl-C recalls prompt minihell
+						ctrl-\ does nothing
+15/1/2024 to 16/1/2024
+		Implement the builtins:
+								◦ echo with option -n
+								◦ cd with only a relative or absolute path
+								◦ pwd with no options
+								◦ export with no options "Create enviroments or modify em"
+								◦ unset with no options "Delete enviroments"
+								◦ env with no options or arguments
+								◦ exit with no options
+
+31/01/24 load env to a list and be able to add remove and modify its contetn
+
+
+06/02/24 Expansor->
+been trying to understand anna's code for 3h now. Been told to focus on my part and then merge the codes.
+might need a flag to check if it has a $ so we might need to expand
+
+existencial crisis. Should redo my way to interpret data in order to be more useful in one function or adapt and extend what i have...? I know the answer but dont want to do it :(
+
+07/02/24 NEEDS TO BE READAPTED TO ANNA'S CODE
+	All info is gonna be stored at parser->cmd[i] and next node when encountering pipes.
+
+08/02/24 Time to get back to builtins and finish the env_add, env_rem, when cd change pwd and oldpwd env, create a new env to store the return value for exit... ???
+
+CD PWD AND OLD PWD prepared, but not tested. Modified env_add and env_del. Still dont
+know how ill manage them. 
+
+In this commit i changed libft functions to compile with codespace compiler. Changed minishell.h Makefile libft/Makefile libft/ft_memchr.c and libft/ft_memmove.c
+
+Fixed issues with makefile, should work in codespace too.
+Fixed issues with the functions i modified before.
+Imported anna's work to play with her code and start to build the shell itself.
+
+expansor has to expand after redirections and heredock
+
+Expansor env OK
+Expansor wrong X
+Expansor heredock X
+Expansor redirection X
