@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:35:16 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/12 13:24:20 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/14 15:18:29 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ t_lexer	*lexer_creator()
 	t_lexer	*lexer;
 	
 	lexer = my_malloc(sizeof(t_lexer));
+	lexer->content = NULL;
+	lexer->sign = 0;
 	lexer->next = NULL;
 	return(lexer);
 }

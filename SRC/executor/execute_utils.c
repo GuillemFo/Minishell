@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/14 14:49:10 by adanylev         ###   ########.fr       */
+/*   Created: 2024/02/14 12:22:21 by adanylev          #+#    #+#             */
+/*   Updated: 2024/02/14 14:40:22 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-int	execute(t_parser *parser)
+int	parser_size(t_parser *parser)
 {
-	t_pipe	pipex;
-	
-	pipex.num_cmds = parser_size(parser);
-	
+	int	i;
 
-	
+	i = 0;
+	while (parser != NULL)
+	{
+		parser = parser->next;
+		i++;
+	}
+	return (i);
 }
-

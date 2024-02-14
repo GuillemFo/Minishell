@@ -6,21 +6,53 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/12 14:04:17 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/14 11:33:48 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-int	main()
-{
-	t_lexer	*lexer;
-	t_parser	*parser;
-	int	i;
+// int	main()
+// {
+// 	t_lexer	*lexer;
+// 	t_parser	*parser;
+// 	int	i;
 	
-	char	line[] = "echo >> kk";
-	lexer = ft_lexer(line);
-	parser = ft_parser(lexer);
+// 	char	line[] = "echo >> kk";
+// 	lexer = ft_lexer(line);
+// 	parser = ft_parser(lexer);
+// 	// while (parser)
+// 	// {
+// 	// 	i = 0;
+// 	// 	while(parser->cmd[i])
+// 	// 	{
+// 	// 		ft_printf("cmd: %s\n", parser->cmd[i]);
+// 	// 		i++;
+// 	// 	}
+// 	// 	while (parser->redir)
+// 	// 	{
+// 	// 		ft_printf("sign: %d\n", parser->redir->sign);
+// 	// 		ft_printf("dest: %s\n", parser->redir->dest);
+// 	// 		parser->redir = parser->redir->next;
+// 	// 	}
+// 	// 	printf("next: \n");
+// 	// 	parser = parser->next;
+// 	// }
+// 	break_free(lexer);
+// 	return (0);
+// }
+t_parser	*ft_parser(t_lexer *lexer)
+{
+	t_parser	*parser;
+	t_parser	*tmp;
+	int	i;
+
+	i = 0;
+	parser = NULL;
+	parser = parser_creator();
+	tmp = parser;
+	parser_content(lexer, parser, i);
+	break_free(lexer);
 	// while (parser)
 	// {
 	// 	i = 0;
@@ -35,13 +67,10 @@ int	main()
 	// 		ft_printf("dest: %s\n", parser->redir->dest);
 	// 		parser->redir = parser->redir->next;
 	// 	}
-	// 	printf("next: \n");
 	// 	parser = parser->next;
 	// }
-	break_free(lexer);
-	return (0);
+	return (parser);
 }
-
 void	parsing_rest(t_lexer *lexer, t_parser *parser)
 {
 	t_redir	*tmp;
