@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/14 14:40:51 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/15 13:41:32 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # include <string.h>
 # include <sys/param.h>
 # include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+# include <fcntl.h>
 
 /*-=-=-=-=-=-=-=-=COLOR CODES=-=-=-=-=-=-=-=-*/
 
@@ -46,6 +49,7 @@ typedef enum
 	GREATER2, 
 	LESSLESS,
 }					t_sign;
+
 typedef struct s_env
 {
 	char			*name;
@@ -143,7 +147,8 @@ char				**commands(t_lexer *lexer);
 
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=EXECUTOR-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
 
-int	parser_size(t_parser *parser);
+int		parser_size(t_parser *parser);
+void	exec_error(char	*message);
 
 typedef	struct s_pipe
 {
@@ -152,6 +157,7 @@ typedef	struct s_pipe
 	int		outfile;
 	int		fd[2];
 	char	*path;
+	pid_t	*children;
 }			t_pipe;
 
 #endif
