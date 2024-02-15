@@ -6,13 +6,13 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/15 12:25:46 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/15 12:56:36 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*expand_str(char *name, t_env *env, char *str)
+char	*expand_str(char *name, t_env *env, char *str) //this function has issues. wont coppy correctly
 {
 	char	*result;
 	t_env	*iter;
@@ -72,6 +72,8 @@ char	*find_dollar(char *str, t_env *env)
 			env_name = get_env_name(&result[x + 1]);
 			if (env_exist(env, env_name) == true)
 				result = expand_str(env_name, env, result);
+			//else
+				//cut the non existant env name
 		}
 		x++;
 	}

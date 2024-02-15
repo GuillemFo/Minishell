@@ -78,3 +78,5 @@ Expansor env OK
 Expansor wrong X
 Expansor heredock X
 Expansor redirection X
+
+fighting expansor issues
