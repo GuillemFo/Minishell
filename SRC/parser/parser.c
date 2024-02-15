@@ -6,12 +6,41 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/12 11:55:43 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/15 10:32:43 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
+// int	main()
+// {
+// 	t_lexer	*lexer;
+// 	t_parser	*parser;
+// 	int	i;
+	
+// 	char	line[] = "echo >> kk";
+// 	lexer = ft_lexer(line);
+// 	parser = ft_parser(lexer);
+// 	// while (parser)
+// 	// {
+// 	// 	i = 0;
+// 	// 	while(parser->cmd[i])
+// 	// 	{
+// 	// 		ft_printf("cmd: %s\n", parser->cmd[i]);
+// 	// 		i++;
+// 	// 	}
+// 	// 	while (parser->redir)
+// 	// 	{
+// 	// 		ft_printf("sign: %d\n", parser->redir->sign);
+// 	// 		ft_printf("dest: %s\n", parser->redir->dest);
+// 	// 		parser->redir = parser->redir->next;
+// 	// 	}
+// 	// 	printf("next: \n");
+// 	// 	parser = parser->next;
+// 	// }
+// 	break_free(lexer);
+// 	return (0);
+// }
 t_parser	*ft_parser(t_lexer *lexer)
 {
 	t_parser	*parser;
@@ -42,7 +71,6 @@ t_parser	*ft_parser(t_lexer *lexer)
 	// }
 	return (parser);
 }
-
 void	parsing_rest(t_lexer *lexer, t_parser *parser)
 {
 	t_redir	*tmp;
@@ -70,7 +98,11 @@ void	first_redir(t_lexer	*lexer, t_parser *parser)
 {
 	parser->redir = redir_creator();
 	parser->redir->sign = lexer->sign;
+	if (!lexer->next)
+		error_parser("syntax error near unexpected token `newline'");
 	lexer = lexer->next;
+	if (lexer->sign != 0)
+		error_parser("syntax error near unexpected token");
 	parser->redir->dest = token(parser->redir->dest, lexer->content, ft_strlen(lexer->content));
 }
 

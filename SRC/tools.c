@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/08 11:45:11 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/15 12:40:30 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,22 @@ char *trim_bef(char *str, char c)
 	int	i;
 	i = 0;
 	char *new_str;
-	while (str[i] != c && str[i] != '\0')
-		i++;
-	new_str = malloc((i + 1) * sizeof(char));
-	if (!new_str)
-		return (NULL);
-	i = 0;
-	while (str[i] != c)
+	new_str = ft_strdup(str);
+	if (str[i] != c && str[i] != '\0')
 	{
-		new_str[i] = str[i];
-		i++;
+		while (str[i] != c && str[i] != '\0')
+			i++;
+		new_str = malloc((i + 1) * sizeof(char));
+		if (!new_str)
+			return (NULL);
+		i = 0;
+		while (str[i] != c)
+		{
+			new_str[i] = str[i];
+			i++;
+		}
+		new_str[i] = '\0';
 	}
-	new_str[i] = '\0';
 	return (new_str);
 }
 
@@ -52,8 +56,11 @@ char *trim_after(char *str, char c)
 
 	i = 0;
 	x = 0;
+	if (str[i] != c)
+	{
 	while (str[i] != c)
 		i++;
+	}
 	while (str[i] != ' ' && str[i] != '\0')
 		i++;
 	while (str[i] != '\0')

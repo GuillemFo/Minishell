@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/12 11:16:15 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/15 12:21:40 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool		env_exist(t_env *env, char *str)
 {
 	t_env *iter;
 	iter = env;
-	while (iter)
+	while (iter->next)
 	{
 		if (ft_strcmp(iter->name, str) == 0)
 			return (true);

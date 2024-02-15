@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/08 11:56:15 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/15 12:25:46 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,6 @@ char	*find_dollar(char *str, t_env *env)
 			env_name = get_env_name(&result[x + 1]);
 			if (env_exist(env, env_name) == true)
 				result = expand_str(env_name, env, result);
-			else
-				result = ft_strjoin(trim_bef(result, '$'), trim_after(result,
-							'$'));
 		}
 		x++;
 	}

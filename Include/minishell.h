@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/12 11:56:25 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/15 10:25:52 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,5 +140,18 @@ void				parser_content(t_lexer *lexer, t_parser *parser, int i);
 t_redir				*redir_creator();
 void				first_redir(t_lexer *lexer, t_parser *parser);
 char				**commands(t_lexer *lexer);
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=EXECUTOR-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+
+int	parser_size(t_parser *parser);
+
+typedef	struct s_pipe
+{
+	int		num_cmds;
+	int		infile;
+	int		outfile;
+	int		fd[2];
+	char	*path;
+}			t_pipe;
 
 #endif
