@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/15 12:46:54 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/16 17:50:15 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	env = load_env(envp);
+	
 	rl_catch_signals = 0;
 	signal(SIGINT, handle_sigint); //reminder that leaks atexit will kill program if use ctrl + c
 	signal(SIGQUIT, handle_sigquit);

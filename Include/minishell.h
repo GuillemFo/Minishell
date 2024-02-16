@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/15 13:41:32 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/16 16:16:31 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,10 +149,14 @@ char				**commands(t_lexer *lexer);
 
 int		parser_size(t_parser *parser);
 void	exec_error(char	*message);
+int		env_size(t_env *env);
+char	**env_to_char(t_env	*env);
 
 typedef	struct s_pipe
 {
 	int		num_cmds;
+	int		std_in;
+	int		std_out;
 	int		infile;
 	int		outfile;
 	int		fd[2];
