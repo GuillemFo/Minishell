@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/19 07:38:06 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/19 09:28:38 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ char	*get_env_name(char *str)
 	char	*name;
 
 	x = 0;
-	while (str[x] != ' ' && str[x] != '\0')
+	while (str[x] != '$' && str[x] != ' ' && str[x] != '\0')
 		x++;
 	name = malloc((x + 1) * sizeof(char));
 	if (!name)
 		return (NULL);
 	x = 0;
-	while (str[x] != ' ' && str[x] != '\0')
+	while (str[x] != '$' && str[x] != ' ' && str[x] != '\0')
 	{
 		name[x] = str[x];
 		x++;
@@ -65,17 +65,26 @@ char	*find_dollar(char *str, t_env *env)
 	result = ft_strdup(str);
 	if (!result)
 		return (NULL);
-	while (result[x] != '\0')
+	if (result[x] != '\0')
 	{
-		if (result[x] == '$' && result[x + 1] != '\0')
+		while (result[x] != '\0')
 		{
-			env_name = get_env_name(&result[x + 1]);
-			if (env_exist(env, env_name) == true)
-				result = expand_str(env_name, env, result);
-			//else
-				//cut the non existant env name
+			if (result[x] == '$' && result[x + 1] != '\0')
+			{
+				env_name = get_env_name(&result[x + 1]);
+				if (env_exist(env, env_name) == true)
+				{
+					result = expand_str(env_name, env, result);
+					x = -1;
+				}
+				// 19.02.24 09.28am 
+				else
+				{
+					result = 
+				}
+			}
+			x++;
 		}
-		x++;
 	}
 	return (result);
 }

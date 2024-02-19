@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/19 07:37:24 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/19 09:28:20 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,28 @@ int	errno_printer(char *com, char *error_txt, char *asked)
 	write(2, "\n", 1);
 	return (0);
 }
+
+// 19.02.24 09.28am 
+// char	*clear_dollar(t_env *env, char *str)
+// {
+	// int	i;
+	// int	j;
+	// char *result;
+// 
+	// i = 0;
+	// while (str[i] != '\0' && str[i] != '$')
+		// i++;
+	// if (str[i] != '\0')
+	// {
+		// i++;
+		// if (env_exist(env, str[i]) == false)
+		// {
+			// j = i;
+			// while (str[j] != '$' && str[j] != ' ' && str[j] != '\0')
+		// }
+	// 
+// 
+// }
 
 char *trim_bef(char *str, char c)
 {
@@ -56,29 +78,37 @@ char *trim_after(char *str, char c)
 
 	i = 0;
 	x = 0;
-	if (str[i] != c)
+	new_str = ft_strdup("");
+	while (str[i] != c)
 	{
-	while (str[i] != c)				//ISSUES HERE?? 19.02 at 07.37 am
 		i++;
 	}
-	while (str[i] != ' ' && str[i] != '\0')
-		i++;
-	while (str[i] != '\0')
+	if (str[i] == '$')
 	{
-		x++;
 		i++;
+		while (str[i] != c && str[i] != ' ' && str[i] != '\0')
+			i++;
+		if (str[i] != '\0')
+		{
+			while (str[i] != '\0')
+			{
+				i++;
+				x++;
+			}
+			new_str = malloc ((x + 1) * sizeof(char));
+			if (!new_str)
+				return (NULL);
+			i = i - x;
+			x = 0;
+			while (str[i] != '\0')
+			{
+				new_str[x] = str[i];
+				x++;
+				i++;
+			}
+			new_str[x] = '\0';
+		}
 	}
-	new_str = malloc ((x + 1) * sizeof(char));
-	if (!new_str)
-		return (NULL);
-	i-= (x + 1);
-	x = 0;
-	while (str[++i] != '\0')
-	{
-		new_str[x] = str[i];
-		x++;
-	}
-	new_str[x] = '\0';
 	return (new_str);
 }
 

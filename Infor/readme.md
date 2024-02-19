@@ -80,3 +80,6 @@ Expansor heredock X
 Expansor redirection X
 
 fighting expansor issues
+
+19/02/24 07.46 ---> Lets try to fix expansor or redo it enitrely if needed but today
+					HAS to be working as expected !!!

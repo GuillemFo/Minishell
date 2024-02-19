@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/12 12:07:33 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/19 09:04:47 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,24 @@ int	main(int ac, char **av, char **envp)
 	// data = test_load();
 	// data->cmd[1] = find_dollar(data->cmd[1], env);
 	str = readline(C_G "minishell: " C_RESET);
-	str = find_dollar(str, env);
-	input = ft_lexer(str);
-	data = ft_parser(input);
-	is_builtin(data, env);
+	if (str != NULL)
+	{
+		str = find_dollar(str, env);
+		input = ft_lexer(str);
+		data = ft_parser(input);
+		is_builtin(data, env);
+	}
 	while (str)
 	{
 		add_history(str);
 		free(str);
 		str = readline(C_G "minishell: " C_RESET);
-		str = find_dollar(str, env);
-		input = ft_lexer(str);
-		data = ft_parser(input);
-		is_builtin(data, env);
+		if (str != NULL)
+		{
+			str = find_dollar(str, env);
+			input = ft_lexer(str);
+			data = ft_parser(input);
+			is_builtin(data, env);
+		}
 	}
 }
