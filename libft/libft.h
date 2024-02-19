@@ -6,12 +6,13 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:54:03 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/01/17 09:54:32 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/19 13:12:28 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# include <stddef.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -72,7 +73,7 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
-int					ft_strcmp(char *s1, char *s2);
+int					ft_strcmp(const char *s1, const char *s2);
 
 /* printf */
 
