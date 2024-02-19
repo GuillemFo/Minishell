@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/16 16:16:31 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/19 12:14:40 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ typedef	struct s_pipe
 	int		outfile;
 	int		fd[2];
 	char	*path;
+	char	**paths;
 	pid_t	*children;
 }			t_pipe;
 
