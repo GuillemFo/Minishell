@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/19 09:42:25 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/19 10:18:12 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@ int	builtin_exit()
 {
 	return (0);
 }
+
+
+
 // int		builtin_export(t_parser *parser, t_env *env)
 // {
 	// if (env_exist(env, parser) == false)		//might have a chaos of modifiable pointers and directions
@@ -23,12 +26,16 @@ int	builtin_exit()
 											// 
 	// return (0);
 // }
-// 
+
+
+
 // int	builtin_unset(t_parser *parser, t_env *env)
 // {
 	// env  = del_env(parser, env);
 	// return (0);
 // }
+
+
 
 int	built_env(t_env *env)
 {
@@ -43,13 +50,10 @@ int	built_echo(t_parser *parser)
 
 	i = 1;
 	flag = 1;
-	if(parser->cmd[i])
+	if (ft_strncmp("-n" ,parser->cmd[i], 3) == 0)
 	{
-		if (ft_strncmp("-n" ,parser->cmd[i], 3) == 0)
-		{
-			flag = 0;
-			i++;
-		}
+		flag = 0;
+		i++;
 	}
 	while(parser->cmd[i])
 	{
@@ -96,9 +100,16 @@ int	is_builtin(t_parser *parser, t_env *env)
 	if (parser->cmd)//need to check til when we loop.
 	{
 		if (ft_strncmp("echo", parser->cmd[0], 5) == 0)
+		{
+			if (!parser->cmd[1])
+				return (write(1, "\n", 1));
 			built_echo(parser);
+		}
 		else if (ft_strncmp("cd", parser->cmd[0], 3) == 0)
+		{
+			//check if pwd and old pwd exist;
 			built_cd(parser, env);
+		}
 		else if (ft_strncmp("pwd", parser->cmd[0], 4) == 0)
 			built_pwd();//(parser);
 		else if (ft_strncmp("env", parser->cmd[0], 4) == 0)

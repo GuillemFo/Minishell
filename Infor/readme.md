@@ -75,9 +75,9 @@ Imported anna's work to play with her code and start to build the shell itself.
 expansor has to expand after redirections and heredock
 
 Expansor env OK
-Expansor wrong X
+Expansor wrong OK
 Expansor heredock X
-Expansor redirection X
+Expansor redirection OK
 
 fighting expansor issues
 

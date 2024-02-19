@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/19 09:46:48 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/19 10:01:09 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,22 +112,15 @@ char	*equal_til_end(char	*var)
 		x++;
 	if (var[x + 1] != '\0')
 	{
-		start = x + 1;
-		x = x + 1;
+		start = x;
+		x = x - 1;
 		len = 0;
-		while (var[x] != '\0')
-		{
+		while (var[++x] != '\0')
 			len++;
-			x++;
-		}
 		content = malloc((len + 1) * sizeof(char));
-		x = 0;
-		while (var[start] != '\0')
-		{
-			content[x] = var[start];
-			x++;
-			start++;
-		}
+		x = -1;
+		while (var[++start] != '\0')
+			content[++x] = var[start];
 		content[x] = '\0';
 		return (content);
 	}
