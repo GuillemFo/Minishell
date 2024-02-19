@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/19 09:37:59 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/19 12:14:50 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char *trim_after(char *str, char c)
 	{
 		i++;
 	}
-	if (str[i] == '$')
+	if (str[i] == c)
 	{
 		i++;
 		while (str[i] != c && str[i] != ' ' && str[i] != '\0')
@@ -90,3 +90,49 @@ char *trim_after(char *str, char c)
 	return (new_str);
 }
 
+char	*cont_extract(char *str, char c)
+{
+	int	i;
+	char *result;
+	
+	i = 0;
+	while (str[i] != c && str[i] != '\0')
+	{
+		//write(1, &str[i], 1);
+		i++;
+	}
+	result = malloc ((i + 1) * sizeof(char));
+	ft_strlcpy(result,str, i);
+	result[i] = '\0';
+	return (result);
+}
+
+char	*quotes_pain(char *str)
+{
+	char *tmp;
+	char *result;
+	int	i;
+
+	i = 0;
+	result = ft_strdup(str);
+	while (result[i] != '\0')
+	{
+		if (result[i] == '\"')
+		{
+			i++;
+			write(1, &result[i], 1);
+			tmp = cont_extract(result, '\"');
+			result = ft_strdup(tmp);
+			i = -1;
+		}
+		// else if (str[i] == 27)
+		// {
+			// i++;
+			// tmp = trim_bef(result, 27);
+			// result = ft_strjoin(tmp, trim_after(result, 27));
+			// i = -1;
+		// }
+		i++;
+	}
+	return (result);
+}
