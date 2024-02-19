@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/12 12:30:45 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/19 09:42:25 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,13 @@ int	built_echo(t_parser *parser)
 
 	i = 1;
 	flag = 1;
-	if (ft_strncmp("-n" ,parser->cmd[i], 3) == 0)
+	if(parser->cmd[i])
 	{
-		flag = 0;
-		i++;
+		if (ft_strncmp("-n" ,parser->cmd[i], 3) == 0)
+		{
+			flag = 0;
+			i++;
+		}
 	}
 	while(parser->cmd[i])
 	{

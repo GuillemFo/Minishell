@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/19 09:28:20 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/19 09:37:59 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,6 @@ int	errno_printer(char *com, char *error_txt, char *asked)
 	write(2, "\n", 1);
 	return (0);
 }
-
-// 19.02.24 09.28am 
-// char	*clear_dollar(t_env *env, char *str)
-// {
-	// int	i;
-	// int	j;
-	// char *result;
-// 
-	// i = 0;
-	// while (str[i] != '\0' && str[i] != '$')
-		// i++;
-	// if (str[i] != '\0')
-	// {
-		// i++;
-		// if (env_exist(env, str[i]) == false)
-		// {
-			// j = i;
-			// while (str[j] != '$' && str[j] != ' ' && str[j] != '\0')
-		// }
-	// 
-// 
-// }
 
 char *trim_bef(char *str, char c)
 {
