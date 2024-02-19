@@ -6,19 +6,19 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/15 12:56:36 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/19 07:38:06 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*expand_str(char *name, t_env *env, char *str) //this function has issues. wont coppy correctly
+char	*expand_str(char *name, t_env *env, char *str) // looking at it and the tools for trimming
 {
-	char	*result;
 	t_env	*iter;
+	int		len;
 	char	*env_cont;
 	char	*tmp;
-	int		len;
+	char	*result;
 
 	iter = env;
 	len = ft_strlen(name);
