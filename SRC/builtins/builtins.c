@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/19 13:15:26 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/20 08:46:12 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	is_builtin(t_parser *parser, t_env *env)
 {
 	if (parser->cmd)//need to check til when we loop.
 	{
-		if (ft_strncmp("echo", parser->cmd[0], 5) == 0)
+		if (ft_strncmp("echo", parser->cmd[0], 5) == 0) 
 		{
 			if (!parser->cmd[1])
 				return (write(1, "\n", 1));
