@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/21 10:58:59 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/21 11:55:35 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ bool	closed_quotes(char *str)
 //maybe iterate and check if it has quotes before trying to clean them??
 void	clear_quotes(char *str)
 {
-	int	i;
-	char *res;
+	int		i;
+	char	*bef_q;
+	char	*cont_q;
+	char	*after_q;
 
 	i = 0;
 	if (closed_quotes(str) == false)
@@ -63,6 +65,11 @@ void	clear_quotes(char *str)
 	while (str[i] != '\0')
 	{
 		while ((str[i] != '\"' && str[i] != '\'') || str[i] != '\0')
+			i++;
+		if (str[i] == '\0')
+		{
+			
+		}
 		
 	}
 	
