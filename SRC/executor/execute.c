@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/19 15:19:23 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/21 12:32:00 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,22 @@ int	execute(t_parser *parser, t_env	*envi)
 void	child_process(t_pipe *pipex, t_parser *parser, char **env)
 {
 	fd_situation(pipex, parser);
-	if (access(parser->cmd[0], R_OK) >= 0)
-		pipex->path = parser->cmd[0];
-	//check the relative path as well
+	if (ft_strchr(parser->cmd[0], '/'))
+	{
+		if (access(parser->cmd[0], R_OK) >= 0)
+			pipex->path = parser->cmd[0];
+		else
+			exec_error("Error: No path found\n");
+	}
 	else
 		pipex->path = find_command(pipex);
+	if (parser->redir)
+	{
+		
+	}
+	if (access(pipex->path, X_OK) >= 0)
+		execve(pipex->path, parser->cmd, env);
+	exec_error("Error: execution error\n");
 }
 
 void	fd_situation(t_pipe *pipex, t_parser *parser)
@@ -61,7 +72,6 @@ void	fd_situation(t_pipe *pipex, t_parser *parser)
 		dup2(pipex->fd[1], STDOUT_FILENO);
 	close(pipex->fd[0]);
 	close(pipex->fd[1]);
-	
 }
 
 
