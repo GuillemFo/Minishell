@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/21 09:53:41 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/21 14:03:32 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char				*find_dollar(char *str, t_env *env);
 int					errno_printer(char *com, char *error_txt, char *asked);
 char				*trim_after(char *str, char c);
 char				*trim_bef(char *str, char c);
-char				*clear_quotes(char *str);
+void				clear_quotes(char *str);
 
 /*==============================ANNA======================================*/
 
