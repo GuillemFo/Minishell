@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 12:19:38 by gforns-s          #+#    #+#             */
-/*   Updated: 2023/05/18 12:50:18 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/22 12:58:32 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strdup(const char *s1)
 
 	i = 0;
 	s1l = ft_strlen(s1);
-	str = malloc (s1l + 1 * sizeof(char));
+	str = malloc ((s1l + 1) * sizeof(char));
 	if (!str)
 		return (0);
 	while (s1[i] != '\0')
