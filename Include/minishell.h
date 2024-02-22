@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/19 12:14:40 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/22 14:42:18 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,11 +147,6 @@ char				**commands(t_lexer *lexer);
 
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=EXECUTOR-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
 
-int		parser_size(t_parser *parser);
-void	exec_error(char	*message);
-int		env_size(t_env *env);
-char	**env_to_char(t_env	*env);
-
 typedef	struct s_pipe
 {
 	int		num_cmds;
@@ -164,5 +159,21 @@ typedef	struct s_pipe
 	char	**paths;
 	pid_t	*children;
 }			t_pipe;
+
+int		parser_size(t_parser *parser);
+void	exec_error(char	*message);
+int		env_size(t_env *env);
+char	**env_to_char(t_env	*env);
+void	redir_manager(t_parser *parser);
+int		find_last_redir(t_redir *redir);
+int		execute(t_parser *parser, t_env	*envi);
+void	child_process(t_pipe *pipex, t_parser *parser, char **env);
+void	fd_situation(t_pipe *pipex, t_parser *parser);
+void	parse_path(char **envp, t_pipe *pipex);
+char	*find_command(t_pipe *pipex, t_parser *parser);
+int		matrix_size(char **pars_cmds);
+void	free_parser(t_parser *parser);
+
+
 
 #endif

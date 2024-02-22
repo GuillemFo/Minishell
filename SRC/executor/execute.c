@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/21 12:32:00 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/22 13:30:16 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	execute(t_parser *parser, t_env	*envi)
 {
 	t_pipe	pipex;
-	int	status;
+	//int	status;
 	int	i;
 	char	**env;
 	
@@ -43,6 +43,7 @@ int	execute(t_parser *parser, t_env	*envi)
 		i++;
 		parser = parser->next;
 	}
+	return (0);
 }
 
 void	child_process(t_pipe *pipex, t_parser *parser, char **env)
@@ -56,10 +57,10 @@ void	child_process(t_pipe *pipex, t_parser *parser, char **env)
 			exec_error("Error: No path found\n");
 	}
 	else
-		pipex->path = find_command(pipex);
+		pipex->path = find_command(pipex, parser);
 	if (parser->redir)
 	{
-		
+		redir_manager(parser);
 	}
 	if (access(pipex->path, X_OK) >= 0)
 		execve(pipex->path, parser->cmd, env);

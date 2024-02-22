@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 12:12:44 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/19 12:17:35 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/22 13:26:53 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ void	parse_path(char **envp, t_pipe *pipex)
 			pipex->paths = ft_split(tmp, ':');
 			free(tmp);
 			if (!pipex->paths)
-				error_other("Pipex: Memory issues\n");
+				exec_error("Pipex: Memory issues\n");
 		}
 		envp++;
 	}
 	if (b == 0)
-		error_other("PATH not found\n");
+		exec_error("PATH not found\n");
 }
 
-char	*find_command(t_pipe *pipex)
+char	*find_command(t_pipe *pipex, t_parser *parser)
 {
 	int		i;
 	char	*tmp;
@@ -45,7 +45,7 @@ char	*find_command(t_pipe *pipex)
 	while (pipex->paths[i] != NULL)
 	{
 		tmp = ft_strjoin(pipex->paths[i], "/");
-		tmp2 = ft_strjoin(tmp, pipex->path[0]);
+		tmp2 = ft_strjoin(tmp, parser->cmd[0]);
 		if (access(tmp2, X_OK) == 0)
 		{
 			free(tmp);
@@ -55,6 +55,6 @@ char	*find_command(t_pipe *pipex)
 		free(tmp2);
 		i++;
 	}
-	error(2, pipex->cmd1[0], 127);
+	exec_error("Error: command not found\n");
 	return (0);
 }
