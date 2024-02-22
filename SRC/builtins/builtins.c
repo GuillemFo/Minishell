@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/20 08:46:12 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/22 08:44:49 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	built_echo(t_parser *parser)
 
 	i = 1;
 	flag = 1;
-	if (ft_strncmp("-n" ,parser->cmd[i], 3) == 0)
+	if (ft_strncmp("-n" ,parser->cmd[i], 3) == 0) /// needs to replicate --n and -nnnnnnnnnn or -n -n -n 
 	{
 		flag = 0;
 		i++;

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/21 14:04:06 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/22 12:29:55 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ t_parser	*clean_input(t_parser *parser, t_env *env)
 		{
 			while (iter->cmd[i])
 			{
-			printf("cmd: %s\n", iter->cmd[i]);
-				clear_quotes(iter->cmd[i]);
+				iter->cmd[i] = clear_quotes(iter->cmd[i]);
 				//iter->cmd[i] = find_dollar(iter->cmd[i], env);
 				i++;
 			}
