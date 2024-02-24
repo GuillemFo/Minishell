@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 16:21:15 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/22 15:05:57 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/24 18:38:14 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,25 @@ void	break_free(t_lexer	*lexer)
 		tmp = lexer;
 	}
 }
+void	free_redir(t_redir *redir)
+{
+	t_redir	*temp;
+	
+	temp = redir;
+	while (redir != NULL)
+	{
+		redir = redir->next;
+		if (temp->dest)
+			free(temp->dest);
+		free(temp);
+		temp = redir;
+	}
+}
+
 
 void	free_parser(t_parser *parser)
 {
 	t_parser *tmp;
-	t_redir	*temp;
 
 	tmp = parser;
 	while (parser != NULL)
@@ -48,14 +62,8 @@ void	free_parser(t_parser *parser)
 		parser = parser->next;
 		if (tmp->cmd)
 			free_matrix(tmp->cmd, matrix_size(tmp->cmd));
-		while (tmp->redir)
-		{
-			temp = tmp->redir;
-			tmp->redir = tmp->redir->next;
-			if (tmp->redir)
-				free(tmp->redir);
-			tmp->redir = temp;
-		}
+		if (tmp->redir)
+			free_redir(tmp->redir);
 		free(tmp);
 		tmp = parser;
 	}

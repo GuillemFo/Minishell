@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/22 13:30:16 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/24 18:39:58 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	execute(t_parser *parser, t_env	*envi)
 {
 	t_pipe	pipex;
-	//int	status;
+	int	status;
 	int	i;
 	char	**env;
 	
@@ -38,11 +38,25 @@ int	execute(t_parser *parser, t_env	*envi)
 		if (pipex.children[i] == 0)
 			child_process(&pipex, parser, env);
 		dup2(pipex.fd[0], STDIN_FILENO);
-		close(pipex.fd[0]);
+		//dup2(pipex.fd[1], STDOUT_FILENO);
+		close(pipex.fd[0]); 
 		close(pipex.fd[1]);
 		i++;
 		parser = parser->next;
 	}
+	i = 0;
+	while (i < pipex.num_cmds)
+	{
+		waitpid(-1, &status, 0);
+		i++;
+	}
+	dup2(pipex.std_in, STDIN_FILENO);
+	dup2(pipex.std_out, STDOUT_FILENO);
+	close(pipex.std_in);
+	close(pipex.std_out);
+	if (WIFEXITED(status))
+		return(WEXITSTATUS(status));
+	free_parent(&pipex);
 	return (0);
 }
 
@@ -59,9 +73,7 @@ void	child_process(t_pipe *pipex, t_parser *parser, char **env)
 	else
 		pipex->path = find_command(pipex, parser);
 	if (parser->redir)
-	{
 		redir_manager(parser);
-	}
 	if (access(pipex->path, X_OK) >= 0)
 		execve(pipex->path, parser->cmd, env);
 	exec_error("Error: execution error\n");

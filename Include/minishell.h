@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/22 14:42:18 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/24 12:35:00 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,8 +152,6 @@ typedef	struct s_pipe
 	int		num_cmds;
 	int		std_in;
 	int		std_out;
-	int		infile;
-	int		outfile;
 	int		fd[2];
 	char	*path;
 	char	**paths;
@@ -173,7 +171,7 @@ void	parse_path(char **envp, t_pipe *pipex);
 char	*find_command(t_pipe *pipex, t_parser *parser);
 int		matrix_size(char **pars_cmds);
 void	free_parser(t_parser *parser);
-
+void	free_parent(t_pipe *pipex);
 
 
 #endif
