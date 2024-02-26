@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/26 18:43:44 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/26 19:45:16 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	has_quotes(char *str)
 char	*clear_quotes(char *str)
 {
 	int		i;
+	int		j;
 	char	c;
 	char 	*cpy;
 	char	*tmp;
@@ -51,7 +52,10 @@ char	*clear_quotes(char *str)
 		}
 		tmp[i] = '\0';
 		i++;
+		j = i;
 		write(1, &cpy[i], 1);
+		while (cpy[i] != c || cpy[i] != '\0')
+			i++;
 		
 		
 		
