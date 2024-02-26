@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/14 11:33:48 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:55:21 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_parser	*ft_parser(t_lexer *lexer)
 	parser = NULL;
 	parser = parser_creator();
 	tmp = parser;
+	(void)tmp;
 	parser_content(lexer, parser, i);
 	break_free(lexer);
 	// while (parser)

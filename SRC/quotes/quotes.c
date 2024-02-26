@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/22 12:28:12 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:55:06 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,12 @@ char	has_quotes(char *str)
 //maybe iterate and check if it has quotes before trying to clean them??
 char	*clear_quotes(char *str)
 {
-	int		i;
 	char	c;
 	char	*tmp;
 	char	*tmp2;
 	char	*tmp3;
 	
 	tmp3 = ft_strdup(str);
-	i = 0;
 	if (tmp3)
 	{
 		while((c = has_quotes(tmp3)) != '\0')
