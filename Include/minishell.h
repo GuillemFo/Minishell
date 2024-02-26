@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/22 10:59:20 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/24 12:35:00 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # include <string.h>
 # include <sys/param.h>
 # include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+# include <fcntl.h>
 
 /*-=-=-=-=-=-=-=-=COLOR CODES=-=-=-=-=-=-=-=-*/
 
@@ -46,6 +49,7 @@ typedef enum
 	GREATER2, 
 	LESSLESS,
 }					t_sign;
+
 typedef struct s_env
 {
 	char			*name;
@@ -144,15 +148,30 @@ char				**commands(t_lexer *lexer);
 
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=EXECUTOR-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
 
-int	parser_size(t_parser *parser);
-
 typedef	struct s_pipe
 {
 	int		num_cmds;
-	int		infile;
-	int		outfile;
+	int		std_in;
+	int		std_out;
 	int		fd[2];
 	char	*path;
+	char	**paths;
+	pid_t	*children;
 }			t_pipe;
+
+int		parser_size(t_parser *parser);
+void	exec_error(char	*message);
+int		env_size(t_env *env);
+char	**env_to_char(t_env	*env);
+void	redir_manager(t_parser *parser);
+int		find_last_redir(t_redir *redir);
+int		execute(t_parser *parser, t_env	*envi);
+void	child_process(t_pipe *pipex, t_parser *parser, char **env);
+void	fd_situation(t_pipe *pipex, t_parser *parser);
+void	parse_path(char **envp, t_pipe *pipex);
+char	*find_command(t_pipe *pipex, t_parser *parser);
+int		matrix_size(char **pars_cmds);
+void	free_parser(t_parser *parser);
+void	free_parent(t_pipe *pipex);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/22 14:18:02 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/24 18:40:08 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,22 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	env = load_env(envp);
+	
 	rl_catch_signals = 0;
 	signal(SIGINT, handle_sigint); //reminder that leaks atexit will kill program if use ctrl + c
 	signal(SIGQUIT, handle_sigquit);
 	str = readline(C_G "minishell: " C_RESET);
-	if (str != NULL)
-	{
-		input = ft_lexer(str);
-		data = ft_parser(input);
-		data = clean_input(data, env);
-		is_builtin(data, env);
-	}
 	while (str)
 	{
 		add_history(str);
+		if (str)
+		{
+			str = find_dollar(str, env);
+			input = ft_lexer(str);
+			data = ft_parser(input);
+			execute(data, env);
+		}
+		free_parser(data);
 		free(str);
 		str = readline(C_G "minishell: " C_RESET);
 		if (str != NULL)

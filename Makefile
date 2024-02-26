@@ -12,16 +12,19 @@ RDLINE_PATH = readline/
 
 LIBFT_PATH = libft/
 
+
 SRC = minishell.c signals.c builtins/builtins.c tools.c builtins/env_1.c \
 	expansor/expansor.c quotes/quotes.c lexer/lexer_utils.c lexer/lexer.c lexer/split.c \
 	lexer/lexer_utils1.c parser/parser.c parser/parser_utils.c \
-	parser/parser_utils1.c
+	parser/parser_utils1.c executor/execute.c executor/execute_utils.c \
+	executor/path.c executor/redir_handle.c executor/execute_utils1.c
 
-SRC_PREFIX = $(addprefix $(SRC_PATH), $(SRC))
+SRC_PREFIX = $(addprefix $(SRC_PATH),$(SRC))
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 
 CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft -I./$(RDLINE_PATH) -fsanitize=address
+
 
 LIB_A		:=	$(RDLINE_PATH)libreadline.a $(RDLINE_PATH)libhistory.a $(LIBFT_PATH)libft.a
 
@@ -82,6 +85,7 @@ fclean:	clean
 		@$(MAKE) -C libft fclean --no-print-directory
 		@echo "$(CYAN)Libft $(RED)deleted$(RESET)"
 		@rm -rf $(NAME)
+
 		@echo "$(CYAN)Minishell $(RED)deleted$(RESET)"
 #@$(MAKE) -s -C readline clean --no-print-directory
 #@echo "$(CYAN)Readline $(RED)deleted$(RESET)"

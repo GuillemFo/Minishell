@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/15 10:32:43 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/14 11:33:48 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	parsing_rest(t_lexer *lexer, t_parser *parser)
 		error_parser("syntax error near unexpected token `newline'");
 	lexer = lexer->next;
 	if (lexer->sign != 0)
-		error_parser("syntax error near unexpected token");
+	 	error_parser("syntax error near unexpected token");
 	parser->redir->next->dest = token(parser->redir->next->dest, lexer->content, ft_strlen(lexer->content));
 	parser->redir = tmp;
 }
@@ -102,7 +102,7 @@ void	first_redir(t_lexer	*lexer, t_parser *parser)
 		error_parser("syntax error near unexpected token `newline'");
 	lexer = lexer->next;
 	if (lexer->sign != 0)
-		error_parser("syntax error near unexpected token");
+	 	error_parser("syntax error near unexpected token");
 	parser->redir->dest = token(parser->redir->dest, lexer->content, ft_strlen(lexer->content));
 }
 
