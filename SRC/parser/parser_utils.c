@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 09:40:26 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/11 12:35:58 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/26 14:46:36 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,6 @@ t_sign	get_sign(char *sign)
 	return (0);
 }
 
-void error_parser(char *msg)
-{
-	write (1, msg, ft_strlen(msg));
-	exit (1);
-}
-
 t_redir	*redir_creator()
 {
 	t_redir	*redir;
@@ -65,5 +59,5 @@ t_redir	*redir_creator()
 	redir = my_malloc(sizeof(t_redir));
 	redir->sign = 0;
 	redir->next = NULL;
-	return(redir);
+	return (redir);
 }

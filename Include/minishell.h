@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/24 12:35:00 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/26 15:19:23 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ char				*trim_bef(char *str, char c);
 char				*clear_quotes(char *str);
 
 /*==============================ANNA======================================*/
+int	error(int ernu, char *msg, int excode);
 
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-LEXER-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
 
@@ -137,7 +138,7 @@ void				break_free(t_lexer	*lexer);
 
 int					cmd_count(t_lexer *lexer);
 char				**parser_split(t_lexer *lexer, t_parser *parser);
-t_parser			*ft_parser(t_lexer *lexer);
+t_parser			*ft_parser(t_lexer *lexer, int *error);
 t_sign				get_sign(char *sign);
 t_parser			*parser_creator(void);
 void				error_parser(char *msg);
@@ -164,7 +165,8 @@ void	exec_error(char	*message);
 int		env_size(t_env *env);
 char	**env_to_char(t_env	*env);
 void	redir_manager(t_parser *parser);
-int		find_last_redir(t_redir *redir);
+int		find_last_redir_in(t_redir *redir);
+int		find_last_redir_out(t_redir *redir);
 int		execute(t_parser *parser, t_env	*envi);
 void	child_process(t_pipe *pipex, t_parser *parser, char **env);
 void	fd_situation(t_pipe *pipex, t_parser *parser);

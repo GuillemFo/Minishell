@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/24 18:40:08 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/26 15:19:54 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_parser	*clean_input(t_parser *parser, t_env *env)
 		{
 			while (iter->cmd[i])
 			{
-			printf("cmd: %s\n", iter->cmd[i]);
+				//printf("cmd: %s\n", iter->cmd[i]);
 				//clear_quotes(iter->cmd[i]);
 				//iter->cmd[i] = find_dollar(iter->cmd[i], env);
 				i++;
@@ -80,7 +80,7 @@ int	main(int ac, char **av, char **envp)
 		{
 			str = find_dollar(str, env);
 			input = ft_lexer(str);
-			data = ft_parser(input);
+			data = ft_parser(input, &error);
 			execute(data, env);
 		}
 		free_parser(data);

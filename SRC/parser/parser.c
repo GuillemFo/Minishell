@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/14 11:33:48 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/26 15:18:50 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 // 	break_free(lexer);
 // 	return (0);
 // }
-t_parser	*ft_parser(t_lexer *lexer)
+t_parser	*ft_parser(t_lexer *lexer, int *error)
 {
 	t_parser	*parser;
 	t_parser	*tmp;
