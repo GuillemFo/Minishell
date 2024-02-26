@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/24 18:39:58 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/26 10:25:58 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	execute(t_parser *parser, t_env	*envi)
 		if (pipex.children[i] == 0)
 			child_process(&pipex, parser, env);
 		dup2(pipex.fd[0], STDIN_FILENO);
-		//dup2(pipex.fd[1], STDOUT_FILENO);
 		close(pipex.fd[0]); 
 		close(pipex.fd[1]);
 		i++;
