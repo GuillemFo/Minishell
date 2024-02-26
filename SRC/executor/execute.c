@@ -85,14 +85,3 @@ void	fd_situation(t_pipe *pipex, t_parser *parser)
 	close(pipex->fd[0]);
 	close(pipex->fd[1]);
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -107,6 +107,7 @@ char				*find_dollar(char *str, t_env *env);
 int					errno_printer(char *com, char *error_txt, char *asked);
 char				*trim_after(char *str, char c);
 char				*trim_bef(char *str, char c);
+char				*clear_quotes(char *str);
 
 /*==============================ANNA======================================*/
 
@@ -172,6 +173,5 @@ char	*find_command(t_pipe *pipex, t_parser *parser);
 int		matrix_size(char **pars_cmds);
 void	free_parser(t_parser *parser);
 void	free_parent(t_pipe *pipex);
-
 
 #endif
