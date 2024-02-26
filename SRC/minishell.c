@@ -30,7 +30,29 @@
 // }
 
 //token->next->cmd = NULL; if | encountered.
-
+t_parser	*clean_input(t_parser *parser, t_env *env)
+{
+	int	i;
+	(void)env;
+	t_parser	*iter;
+	iter = parser;
+	while (iter)
+	{
+		i = 0;
+		if (iter->cmd[i])
+		{
+			while (iter->cmd[i])
+			{
+			printf("cmd: %s\n", iter->cmd[i]);
+				//clear_quotes(iter->cmd[i]);
+				//iter->cmd[i] = find_dollar(iter->cmd[i], env);
+				i++;
+			}
+		}
+		iter = iter->next;
+	}
+	return (parser);
+}
 
 
 
@@ -50,8 +72,6 @@ int	main(int ac, char **av, char **envp)
 	rl_catch_signals = 0;
 	signal(SIGINT, handle_sigint); //reminder that leaks atexit will kill program if use ctrl + c
 	signal(SIGQUIT, handle_sigquit);
-	// data = test_load();
-	// data->cmd[1] = find_dollar(data->cmd[1], env);
 	str = readline(C_G "minishell: " C_RESET);
 	while (str)
 	{
@@ -66,5 +86,12 @@ int	main(int ac, char **av, char **envp)
 		free_parser(data);
 		free(str);
 		str = readline(C_G "minishell: " C_RESET);
+		if (str != NULL)
+		{
+			input = ft_lexer(str);
+			data = ft_parser(input);
+			data = clean_input(data, env);
+			is_builtin(data, env);
+		}
 	}
 }
