@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/24 12:35:00 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/28 13:01:01 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ char				*find_dollar(char *str, t_env *env);
 int					errno_printer(char *com, char *error_txt, char *asked);
 char				*trim_after(char *str, char c);
 char				*trim_bef(char *str, char c);
-char				*clear_quotes(char *str);
+char				*clear_quotes(char *str, t_env *env);
 
 /*==============================ANNA======================================*/
 

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/28 09:19:15 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/28 13:01:51 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ t_parser	*clean_input(t_parser *parser, t_env *env)			//data = clean_input(data,
 			while (iter->cmd[i])
 			{
 			printf("cmd1: %s\n\n", iter->cmd[i]);
-				iter->cmd[i] = clear_quotes(iter->cmd[i]);
+				iter->cmd[i] = clear_quotes(iter->cmd[i], env);
 			printf("cmd2: %s\n\n", iter->cmd[i]);
-				//iter->cmd[i] = find_dollar(iter->cmd[i], env);
 				i++;
 			}
 		}
@@ -71,12 +70,5 @@ int	main(int ac, char **av, char **envp)
 		free_parser(data);
 		free(str);
 		str = readline(C_G "minishell: " C_RESET);
-		if (str != NULL)
-		{
-			input = ft_lexer(str);
-			data = ft_parser(input);
-			data = clean_input(data, env);
-			is_builtin(data, env);
-		}
 	}
 }

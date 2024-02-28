@@ -89,3 +89,5 @@ fighting expansor issues
 28/02/24 08.49 ---> been dealing with quotes the wrong way. Since i was looping all strings
 					, i was clearing the other quotes i could encounter also due the loop.
 					so need to know if the input / token / parser handles strings separated by quotes.
+28/02/24 12.22 ---> quotes working.
+okay so quotes are working but now i have to implement expansions always except if text is inside single quotes.
