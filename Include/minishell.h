@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/26 15:19:23 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/28 12:48:51 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,9 @@ char				*trim_bef(char *str, char c);
 char				*clear_quotes(char *str);
 
 /*==============================ANNA======================================*/
-int	error(int ernu, char *msg, int excode);
-
+void	ft_error(int ernu, char *msg, int *error);
+void	ft_other_error(char *msg, int *error, int num);
+void	free_all(t_parser *data, char *str);
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-LEXER-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
 
 void				lexer(char *line);
@@ -142,9 +143,9 @@ t_parser			*ft_parser(t_lexer *lexer, int *error);
 t_sign				get_sign(char *sign);
 t_parser			*parser_creator(void);
 void				error_parser(char *msg);
-void				parser_content(t_lexer *lexer, t_parser *parser, int i);
+void				parser_content(t_lexer *lexer, t_parser *parser, int i, int	*error);
 t_redir				*redir_creator();
-void				first_redir(t_lexer *lexer, t_parser *parser);
+void				first_redir(t_lexer *lexer, t_parser *parser, int *error);
 char				**commands(t_lexer *lexer);
 
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=EXECUTOR-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/

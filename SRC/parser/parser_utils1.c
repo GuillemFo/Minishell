@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 16:21:15 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/24 18:38:14 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:09:10 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	free_parser(t_parser *parser)
 	t_parser *tmp;
 
 	tmp = parser;
-	while (parser != NULL)
+	while (parser)
 	{
 		parser = parser->next;
 		if (tmp->cmd)
@@ -67,6 +67,7 @@ void	free_parser(t_parser *parser)
 		free(tmp);
 		tmp = parser;
 	}
+	printf("hohoho\n");
 }
 
 int	matrix_size(char **pars_cmds)
@@ -74,7 +75,10 @@ int	matrix_size(char **pars_cmds)
 	int	i;
 	
 	i = 0;
-	while(pars_cmds[i])
-		i++;
+	if (pars_cmds[i])
+	{	
+		while(pars_cmds[i])
+			i++;
+	}
 	return (i);
 }

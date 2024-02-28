@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/26 15:19:54 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/28 12:53:44 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,11 @@ int	main(int ac, char **av, char **envp)
 			str = find_dollar(str, env);
 			input = ft_lexer(str);
 			data = ft_parser(input, &error);
+			if (error)
+				free_all(data, str);
+			else
 			execute(data, env);
 		}
-		free_parser(data);
-		free(str);
-		str = readline(C_G "minishell: " C_RESET);
-		if (str != NULL)
-		{
-			input = ft_lexer(str);
-			data = ft_parser(input);
-			data = clean_input(data, env);
-			is_builtin(data, env);
-		}
+		free_all(data, str);
 	}
 }
