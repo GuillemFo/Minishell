@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/26 16:55:21 by codespace        ###   ########.fr       */
+/*   Updated: 2024/02/28 08:53:41 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,23 +54,23 @@ t_parser	*ft_parser(t_lexer *lexer)
 	(void)tmp;
 	parser_content(lexer, parser, i);
 	break_free(lexer);
-	// while (parser)
-	// {
-	// 	i = 0;
-	// 	while(parser->cmd[i])
-	// 	{
-	// 		ft_printf("cmd: %s\n", parser->cmd[i]);
-	// 		i++;
-	// 	}
-	// 	while (parser->redir)
-	// 	{
-	// 		ft_printf("sign: %d\n", parser->redir->sign);
-	// 		ft_printf("dest: %s\n", parser->redir->dest);
-	// 		parser->redir = parser->redir->next;
-	// 	}
-	// 	parser = parser->next;
-	// }
-	return (parser);
+	while (parser)
+	{
+		i = 0;
+		while(parser->cmd[i])
+		{
+			ft_printf("cmd: %s\n", parser->cmd[i]);
+			i++;
+		}
+		while (parser->redir)
+		{
+			ft_printf("sign: %d\n", parser->redir->sign);
+			ft_printf("dest: %s\n", parser->redir->dest);
+			parser->redir = parser->redir->next;
+		}
+		parser = parser->next;
+	}
+	return (tmp);
 }
 void	parsing_rest(t_lexer *lexer, t_parser *parser)
 {

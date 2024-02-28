@@ -85,3 +85,7 @@ fighting expansor issues
 					HAS to be working as expected !!!
 
 19/02/24 09.48 ---> Looks like is working so now i migt start with quotes 
+
+28/02/24 08.49 ---> been dealing with quotes the wrong way. Since i was looping all strings
+					, i was clearing the other quotes i could encounter also due the loop.
+					so need to know if the input / token / parser handles strings separated by quotes.
