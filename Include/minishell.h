@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/28 12:48:51 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:22:52 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char				*clear_quotes(char *str);
 /*==============================ANNA======================================*/
 void	ft_error(int ernu, char *msg, int *error);
 void	ft_other_error(char *msg, int *error, int num);
-void	free_all(t_parser *data, char *str);
+void	free_all(t_parser *data, char **str);
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-LEXER-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
 
 void				lexer(char *line);
