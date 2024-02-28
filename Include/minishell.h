@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/28 14:22:52 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:20:41 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ char	**env_to_char(t_env	*env);
 void	redir_manager(t_parser *parser);
 int		find_last_redir_in(t_redir *redir);
 int		find_last_redir_out(t_redir *redir);
-int		execute(t_parser *parser, t_env	*envi);
+int		execute(t_parser *parser, t_env	*envi, int *error);
 void	child_process(t_pipe *pipex, t_parser *parser, char **env);
 void	fd_situation(t_pipe *pipex, t_parser *parser);
 void	parse_path(char **envp, t_pipe *pipex);

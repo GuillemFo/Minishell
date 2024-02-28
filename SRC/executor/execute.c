@@ -6,13 +6,13 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/26 10:25:58 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:23:28 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-int	execute(t_parser *parser, t_env	*envi)
+int	execute(t_parser *parser, t_env	*envi, int *error)
 {
 	t_pipe	pipex;
 	int	status;
@@ -54,12 +54,12 @@ int	execute(t_parser *parser, t_env	*envi)
 	close(pipex.std_in);
 	close(pipex.std_out);
 	if (WIFEXITED(status))
-		return(WEXITSTATUS(status));
+		error = WEXITSTATUS(status);
 	free_parent(&pipex);
-	return (0);
+	return (1);
 }
 
-void	child_process(t_pipe *pipex, t_parser *parser, char **env)
+void	child_process(t_pipe *pipex, t_parser *parser, char **env, int *error)
 {
 	fd_situation(pipex, parser);
 	if (ft_strchr(parser->cmd[0], '/'))

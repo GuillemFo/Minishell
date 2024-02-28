@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/28 14:22:11 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:25:27 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	main(int ac, char **av, char **envp)
 			input = ft_lexer(str);
 			data = ft_parser(input, &error);
 			if (!error)
-				execute(data, env);
+				execute(data, env, &error);
 		}
 		free_all(data, &str);
 	}
