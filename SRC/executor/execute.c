@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/28 15:23:28 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/29 15:25:50 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	execute(t_parser *parser, t_env	*envi, int *error)
 	pipex.std_in = dup(STDIN_FILENO);
 	pipex.std_out = dup(STDOUT_FILENO);
 	env = env_to_char(envi);
-	parse_path(env, &pipex);
+	parse_path(env, &pipex, error);
 	pipex.num_cmds = parser_size(parser);
 	pipex.children = my_malloc(sizeof(pid_t) * pipex.num_cmds);
 	while (parser)
@@ -36,7 +36,7 @@ int	execute(t_parser *parser, t_env	*envi, int *error)
 		if (pipex.children[i] < 0)
 			exec_error("Error: fork\n");
 		if (pipex.children[i] == 0)
-			child_process(&pipex, parser, env);
+			child_process(&pipex, parser, env, error);
 		dup2(pipex.fd[0], STDIN_FILENO);
 		close(pipex.fd[0]); 
 		close(pipex.fd[1]);
@@ -54,7 +54,7 @@ int	execute(t_parser *parser, t_env	*envi, int *error)
 	close(pipex.std_in);
 	close(pipex.std_out);
 	if (WIFEXITED(status))
-		error = WEXITSTATUS(status);
+		*error = WEXITSTATUS(status);
 	free_parent(&pipex);
 	return (1);
 }
@@ -67,15 +67,19 @@ void	child_process(t_pipe *pipex, t_parser *parser, char **env, int *error)
 		if (access(parser->cmd[0], R_OK) >= 0)
 			pipex->path = parser->cmd[0];
 		else
-			exec_error("Error: No path found\n");
+		{
+			ft_other_error("Error: No path found\n", error, 1);
+			exit(1);
+		}
 	}
 	else
-		pipex->path = find_command(pipex, parser);
+		pipex->path = find_command(pipex, parser, error);
 	if (parser->redir)
 		redir_manager(parser);
 	if (access(pipex->path, X_OK) >= 0)
 		execve(pipex->path, parser->cmd, env);
-	exec_error("Error: execution error\n");
+	ft_error(1, parser->cmd[0], error);
+	exit(1);
 }
 
 void	fd_situation(t_pipe *pipex, t_parser *parser)

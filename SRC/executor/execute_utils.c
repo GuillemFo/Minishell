@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 12:22:21 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/16 12:24:18 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/29 15:18:06 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ char	**env_to_char(t_env	*env)
 	{
 		if (env->is_hidden == false)
 		{
-			new_env[i] = ft_strjoin(env->name, "=");
-			new_env[i] = ft_strjoin(new_env[i], env->content);
+			new_env[i] = ft_strjoini(env->name, "=");
+			new_env[i] = ft_strjoini(new_env[i], env->content);
 			i++;
 		}
 		env = env->next;

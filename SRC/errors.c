@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:43:57 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/28 15:24:37 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/29 13:03:07 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_other_error(char *msg, int *error, int num)
 void	free_all(t_parser *data, char **str)
 {
 	free_parser(data);
-	free(*str);
+	if (*str)
+		free(*str);
 	*str = readline(C_G "minishell: " C_RESET);
 }

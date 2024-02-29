@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/28 15:25:27 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/29 13:02:59 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,5 @@ int	main(int ac, char **av, char **envp)
 		}
 		free_all(data, &str);
 	}
+	return (error);
 }

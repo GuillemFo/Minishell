@@ -1,0 +1,11 @@
+Include
+Infor
+Makefile
+SRC
+h
+libft
+minishell
+out
+out1
+readline
+tmp
