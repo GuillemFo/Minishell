@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/29 15:25:50 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/02 18:59:25 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ void	child_process(t_pipe *pipex, t_parser *parser, char **env, int *error)
 		redir_manager(parser);
 	if (access(pipex->path, X_OK) >= 0)
 		execve(pipex->path, parser->cmd, env);
-	ft_error(1, parser->cmd[0], error);
+	if (!*error)
+		ft_error(1, parser->cmd[0], error);
 	exit(1);
 }
 

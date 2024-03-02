@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 16:21:15 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/29 11:31:08 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/02 18:33:31 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**commands(t_lexer *lexer)
 	return(coms);
 }
 
-void	break_free(t_lexer	*lexer)
+void	break_free(t_lexer *lexer)
 {
 	t_lexer *tmp;
 

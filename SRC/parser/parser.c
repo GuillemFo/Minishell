@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/28 14:16:24 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/02 18:39:58 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ void	parsing_rest(t_lexer *lexer, t_parser *parser, int *error)
 	parser->redir->next = redir_creator();
 	parser->redir->next->sign = lexer->sign;
 	if (!lexer->next)
-		ft_other_error("syntax error near unexpected token", error, 2);
+		ft_other_error("syntax error near unexpected token\n", error, 2);
 	else
 	{
 		lexer = lexer->next;
 		if (lexer->sign != 0)
-	 		ft_other_error("syntax error near unexpected token", error, 2);
+	 		ft_other_error("syntax error near unexpected token\n", error, 2);
 		else 
 		{
 			parser->redir->next->dest = token(parser->redir->next->dest, lexer->content, ft_strlen(lexer->content));
@@ -76,12 +76,12 @@ void	first_redir(t_lexer	*lexer, t_parser *parser, int *error)
 	parser->redir = redir_creator();
 	parser->redir->sign = lexer->sign;
 	if (!lexer->next)
-		ft_other_error("syntax error near unexpected token", error, 2);
+		ft_other_error("syntax error near unexpected token\n", error, 2);
 	else
 	{	
 		lexer = lexer->next;
 		if (lexer->sign != 0)
-	 		ft_other_error("syntax error near unexpected token", error, 2);
+	 		ft_other_error("syntax error near unexpected token\n", error, 2);
 		else
 			parser->redir->dest = token(parser->redir->dest, lexer->content, ft_strlen(lexer->content));
 	}
@@ -107,13 +107,15 @@ void	parser_content(t_lexer *lexer, t_parser *parser, int i, int *error)
 		else if (lexer->sign != 0)
 		{
 			parsing_rest(lexer, parser, error);
-			lexer = lexer->next;
+			if (lexer->next)
+				lexer = lexer->next;
 		}
 		else if (lexer && lexer->content)
 		{
 			parser->cmd[i] = token(parser->cmd[i], lexer->content, ft_strlen(lexer->content) + 1);
 			i++;
 		}
+		//if (lexer && lexer->next)
 		lexer = lexer->next;
 	}
 }

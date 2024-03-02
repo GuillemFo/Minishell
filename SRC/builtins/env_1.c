@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/19 10:01:09 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/02 17:26:28 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ char	*equal_til_end(char	*var)
 		x = -1;
 		while (var[++start] != '\0')
 			content[++x] = var[start];
-		content[x] = '\0';
+		content[++x] = '\0';
 		return (content);
 	}
 	else
