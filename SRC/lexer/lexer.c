@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:40:50 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/14 15:23:48 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/03 17:50:13 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,10 @@ t_lexer	*ft_lexer(char *line)
 	lexer = NULL;
 	i = 0;
 	wc = 0;
+	if (line[0] == '\0')
+		return (NULL);
 	c = new_split(line, arg_count(line, i, wc), i, wc);
 	lexer = tokenize(lexer, c);
-	// while (lexer)
-	// {
-	// 	printf("content: %s\n", lexer->content);
-	// 	printf("sign: %u\n", lexer->sign);
-	// 	lexer = lexer->next;
-	// }
 	return (lexer);
 }
 

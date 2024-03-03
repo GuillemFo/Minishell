@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:34:29 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/02 19:15:48 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/03 17:35:02 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ void	redir_manager(t_parser *parser)
      {
         f = find_last_redir_out(parser->redir);
         if (f < 0)
-		    exec_error("Error: problem with the file\n");
+	        error_child(1, parser->redir->dest, 1);
         dup2(f, STDOUT_FILENO);
      }
 	if (parser->redir->sign == 3 || parser->redir->sign == 5)
 	{
         f = find_last_redir_in(parser->redir);
         if (f < 0)
-		    exec_error("Error: problem with the file\n");
+		    error_child(1, parser->redir->dest, 1);
         dup2(f, STDIN_FILENO);
     }
     close(f);
@@ -37,7 +37,7 @@ void	redir_manager(t_parser *parser)
 int find_last_redir_out(t_redir *redir) 
 {
     int fd;
-	
+    
 	fd = -1;
     while (redir != NULL) 
 	{
@@ -62,6 +62,8 @@ int		find_last_redir_in(t_redir *redir)
 	fd = -1;
     while (redir != NULL) 
 	{
+        if (access(redir->dest, F_OK) == -1)
+            error_child(3, redir->dest, 1);
         if ((redir->sign == 3 || redir->sign == 5) && redir->dest != NULL) 
 		{
             fd = open(redir->dest, O_RDONLY);

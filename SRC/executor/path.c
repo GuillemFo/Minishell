@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 12:12:44 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/29 11:46:38 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/03 17:34:15 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	parse_path(char **envp, t_pipe *pipex, int *error)
 		ft_other_error("PATH not found\n", error, 1);
 }
 
-char	*find_command(t_pipe *pipex, t_parser *parser, int *error)
+char	*find_command(t_pipe *pipex, t_parser *parser)
 {
 	int		i;
 	char	*tmp;
@@ -55,6 +55,6 @@ char	*find_command(t_pipe *pipex, t_parser *parser, int *error)
 		free(tmp2);
 		i++;
 	}
-	ft_error(2, parser->cmd[0], error);
+	error_child(2, parser->cmd[0], 127);
 	return (0);
 }

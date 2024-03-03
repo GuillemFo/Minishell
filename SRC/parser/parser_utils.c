@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 09:40:26 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/02 18:33:25 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/03 18:20:57 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,13 @@ t_redir	*redir_creator()
 	redir->dest = NULL;
 	redir->next = NULL;
 	return (redir);
+}
+
+t_parser	*ahorramos_lineas(t_parser *parser, int *i, t_lexer *lexer)
+{
+	parser->next = parser_creator();
+	parser = parser->next;
+	*i = 0;
+	parser->cmd = commands(lexer->next);
+	return (parser);
 }

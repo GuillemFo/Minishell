@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/29 15:17:46 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/03 18:20:35 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,21 +161,23 @@ typedef	struct s_pipe
 	pid_t	*children;
 }			t_pipe;
 
-int		parser_size(t_parser *parser);
-char	*ft_strjoini(char const *s1, char const *s2);
-void	exec_error(char	*message);
-int		env_size(t_env *env);
-char	**env_to_char(t_env	*env);
-void	redir_manager(t_parser *parser);
-int		find_last_redir_in(t_redir *redir);
-int		find_last_redir_out(t_redir *redir);
-int		execute(t_parser *parser, t_env	*envi, int *error);
-void	child_process(t_pipe *pipex, t_parser *parser, char **env, int *error);
-void	fd_situation(t_pipe *pipex, t_parser *parser);
-void	parse_path(char **envp, t_pipe *pipex, int *error);
-char	*find_command(t_pipe *pipex, t_parser *parser, int *error);
-int		matrix_size(char **pars_cmds);
-void	free_parser(t_parser *parser);
-void	free_parent(t_pipe *pipex);
+int			parser_size(t_parser *parser);
+char		*ft_strjoini(char const *s1, char const *s2);
+void		exec_error(char	*message);
+int			env_size(t_env *env);
+char		**env_to_char(t_env	*env);
+void		redir_manager(t_parser *parser);
+int			find_last_redir_in(t_redir *redir);
+int			find_last_redir_out(t_redir *redir);
+int			execute(t_parser *parser, t_env	*envi, int *error);
+void		child_process(t_pipe *pipex, t_parser *parser, char **env, int *error);
+void		fd_situation(t_pipe *pipex, t_parser *parser);
+void		parse_path(char **envp, t_pipe *pipex, int *error);
+char		*find_command(t_pipe *pipex, t_parser *parser);
+int			matrix_size(char **pars_cmds);
+void		free_parser(t_parser *parser);
+void		free_parent(t_pipe *pipex);
+int			error_child(int ernu, char *msg, int excode);
+t_parser 	*ahorramos_lineas(t_parser *parser, int *i, t_lexer *lexer);
 
 #endif

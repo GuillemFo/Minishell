@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/02 18:59:25 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/03 17:49:49 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@ int	execute(t_parser *parser, t_env	*envi, int *error)
 	char	**env;
 	
 	i = 0;
-	// here to check if there is oly one command and it is a built in; if yes - no fork needed, just execute and bye
-		
+	if (!parser)
+		return (0);
+	if (is_builtin(parser, envi) && !parser->next)
+	{
+		//execute the built in and return back;
+	}
 	pipex.std_in = dup(STDIN_FILENO);
 	pipex.std_out = dup(STDOUT_FILENO);
 	env = env_to_char(envi);
@@ -53,9 +57,9 @@ int	execute(t_parser *parser, t_env	*envi, int *error)
 	dup2(pipex.std_out, STDOUT_FILENO);
 	close(pipex.std_in);
 	close(pipex.std_out);
-	if (WIFEXITED(status))
-		*error = WEXITSTATUS(status);
 	free_parent(&pipex);
+	if (WIFEXITED(status))
+		return(WEXITSTATUS(status));
 	return (1);
 }
 
@@ -73,14 +77,12 @@ void	child_process(t_pipe *pipex, t_parser *parser, char **env, int *error)
 		}
 	}
 	else
-		pipex->path = find_command(pipex, parser, error);
+		pipex->path = find_command(pipex, parser);
 	if (parser->redir)
 		redir_manager(parser);
 	if (access(pipex->path, X_OK) >= 0)
 		execve(pipex->path, parser->cmd, env);
-	if (!*error)
-		ft_error(1, parser->cmd[0], error);
-	exit(1);
+	error_child(1, parser->cmd[0], 126);
 }
 
 void	fd_situation(t_pipe *pipex, t_parser *parser)

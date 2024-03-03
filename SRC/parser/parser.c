@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/02 18:39:58 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/03 18:23:36 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,12 @@ t_parser	*ft_parser(t_lexer *lexer, int *error)
 
 	i = 0;
 	parser = NULL;
+	if (!lexer)
+		return (NULL);
 	parser = parser_creator();
 	tmp = parser;
 	parser_content(lexer, parser, i, error);
 	break_free(lexer);
-	// while (parser)
-	// {
-	// 	i = 0;
-	// 	while(parser->cmd[i])
-	// 	{
-	// 		ft_printf("cmd: %s\n", parser->cmd[i]);
-	// 		i++;
-	// 	}
-	// 	while (parser->redir)
-	// 	{
-	// 		ft_printf("sign: %d\n", parser->redir->sign);
-	// 		ft_printf("dest: %s\n", parser->redir->dest);
-	// 		parser->redir = parser->redir->next;
-	// 	}
-	// 	parser = parser->next;
-	// }
 	return (parser);
 }
 void	parsing_rest(t_lexer *lexer, t_parser *parser, int *error)
@@ -97,12 +83,7 @@ void	parser_content(t_lexer *lexer, t_parser *parser, int i, int *error)
 			if (!lexer->next)
 				ft_other_error("Error: unclosed pipe\n", error, 1);
 			else
-			{
-				parser->next = parser_creator();
-				parser = parser->next;
-				i = 0;
-				parser->cmd = commands(lexer->next);
-			}
+				parser = ahorramos_lineas(parser, &i, lexer);
 		}
 		else if (lexer->sign != 0)
 		{
@@ -110,12 +91,8 @@ void	parser_content(t_lexer *lexer, t_parser *parser, int i, int *error)
 			if (lexer->next)
 				lexer = lexer->next;
 		}
-		else if (lexer && lexer->content)
-		{
-			parser->cmd[i] = token(parser->cmd[i], lexer->content, ft_strlen(lexer->content) + 1);
-			i++;
-		}
-		//if (lexer && lexer->next)
+		else if (lexer && lexer->content && ++i)
+			parser->cmd[i - 1] = token(parser->cmd[i - 1], lexer->content, ft_strlen(lexer->content) + 1);
 		lexer = lexer->next;
 	}
 }
