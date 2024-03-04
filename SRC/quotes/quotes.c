@@ -6,87 +6,11 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/22 12:28:12 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/02/28 10:27:39 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*after_q(char *str, char c)
-{
-	int	i;
-	int	start;
-	char	*ret;
-	
-	i = 0;
-	while (str[i] != c)
-		i++;
-	i++;
-	while (str[i] != c)
-		i++;
-	if (str[i] == '\0')
-		return (ft_strdup("?"));
-	start = i + 1;
-	while (str[i] != '\0')
-		i++;
-	ret = malloc(((i - start) + 1) * sizeof(char));
-	i = 0;
-	while (str[start] != '\0')
-	{
-		ret[i] = str[start];
-		start++;
-		i++;
-	}
-	ret[i] = '\0';
-	printf("aft:%s:\n", ret);
-	return(ret);
-}
-
-char	*content_q(char *str, char c)
-{
-	int	i;
-	int	j;
-	int	start;
-	char *ret;
-	i = 0;
-	while (str[i] != c)
-		i++;
-	if (str[++i] == c)
-		return (ft_strdup(""));
-	start = i;
-	while (str[i] != c && str[i] != '\0')
-		i++;
-	if (i < 1)
-		i = 1;
-	ret = malloc (((i - start) + 1) * sizeof(char));
-	j = i - start;
-	i = 0;
-	while (str[start] != c && j > i)
-	{
-		ret[i] = str[start];
-		i++;
-		start++;
-	}
-	ret[i] = '\0';
-	printf("cont:%s:\n", ret);
-	return (ret);
-}
-
-
-char	*before_q(char *str, char c)
-{
-	int	i;
-	char	*ret;
-	i = 0;
-	while (str[i] != c)
-		i++;
-	if (i < 1)
-		return(ft_strdup(""));
-	ret = malloc((i + 1) * sizeof(char));
-	ft_strncpy(ret, str, i);
-	printf("bef:%s:\n", ret);
-	return (ret);
-}
 
 char	has_quotes(char *str)
 {
@@ -101,29 +25,208 @@ char	has_quotes(char *str)
 	return (str[i]);
 }
 
+char	*cont_after_q(char *str, char c)
+{
+	int i;
+	int	len;
+	char *res;
 
-//maybe iterate and check if it has quotes before trying to clean them??
+	i = 0;
+	while (str[i] != c && str[i] != '\0')
+		i++;
+	if (str[i] == c)
+		i++;
+	while (str[i] != c && str[i] != '\0')
+		i++;
+	if (str[i] == c)
+		i++;
+	len = ft_strlen(&str[i]);
+	res = malloc((len + 1) * sizeof(char));
+	ft_strncpy(res, &str[i], len);
+	return (res);
+}
+
+char	*cont_in_q(char *str, char c)
+{
+	int i;
+	int	j;
+	char *cont;
+	
+	i = 0;
+	while (str[i] != c)
+		i++;
+	i++;
+	j = i;
+	while (str[i] != c && str[i] != '\0')
+		i++;
+	cont = malloc((i - j + 1) * sizeof(char));
+	i = j;
+	j = 0;
+	while (str[i] != c && str[i] != '\0')
+	{
+		cont[j] = str[i];
+		i++;
+		j++;
+	}
+	cont[j] = '\0';
+	return (cont);
+}
+
+char *cont_bef_q(char *str, char c)
+{
+	int i;
+	char *res;
+
+	i = 0;
+	res = ft_strdup(str);
+	if (str[i] != c && str[i] != '\0')
+	{	
+		while (str[i] != c && str[i] != '\0')
+			i++;
+		res = malloc ((i + 1) * sizeof(char));
+		i = 0;
+		while (str[i] != c && str[i] != '\0')
+		{
+			res[i] = str[i];
+			i++;
+		}
+		res[i] = '\0';
+	}
+	else
+		res = ft_strdup("");
+	return (res);
+}
+
 char	*clear_quotes(char *str)
 {
-	int		i;
+	char 	*tmp_bef;
+	char	*tmp_cont;
+	char	*tmp_after;
+	char	*res;
 	char	c;
-	char	*tmp;
-	char	*tmp2;
-	char	*tmp3;
-	
-	tmp3 = ft_strdup(str);
-	i = 0;
-	if (tmp3)
+
+	res = ft_strdup(str);
+	c = has_quotes(res);
+	if (c != '\0')
 	{
-		while((c = has_quotes(tmp3)) != '\0')
+		tmp_bef = cont_bef_q(res, c);
+		tmp_cont = ft_strjoinplus(tmp_bef, cont_in_q(res, c));
+		tmp_after = cont_after_q(res, c);
+		while ((c = has_quotes(tmp_after)) != '\0') // do the tmp_bef and tmp_cont and add it to old tmp_cont?? so it wont redo the other string and clean possible ' or " might encounter?
 		{
-			if (c == '\0')
-				return (tmp3);
-			tmp = before_q(tmp3, c);
-			tmp2 = ft_strjoin(tmp, content_q(tmp3, c));
-			tmp3 = ft_strjoin(tmp2, after_q(tmp3, c));
+			tmp_bef = ft_strjoinplus(tmp_cont, cont_bef_q(tmp_after, c));
+			tmp_cont = ft_strjoinplus(tmp_bef, cont_in_q(tmp_after, c));
+			tmp_after = cont_after_q(tmp_after, c);
 		}
-		return (tmp3);
+		
+		res = ft_strjoinplus(tmp_cont, tmp_after);
 	}
-	return (ft_strdup("ERROR?????\n"));
+	return (res);
 }
+
+
+// 28/02 09.34 --> stressed af. 
+// Back again restructuring quotes. I need to trim before and after but not redo the content i already worked with.
+// Need to find a way to work with before quotes and quotes content but when clearing again the data i work only with the after data.
+// Maybe saving the before and contetn apart from the new string so i work only with left data on the loops?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// char	has_quotes(char *str)
+// {
+// 	int	i;
+// 	i = 0;
+// 	while (str[i] != '\0')
+// 	{
+// 		if (str[i] == '\"' || str[i] == '\'')
+// 			return (str[i]);
+// 		i++;
+// 	}
+// 	return (str[i]);
+// }
+
+// char	*clear_quotes(char *str)
+// {
+// 	int		i;
+// 	int		j;
+// 	char	c;
+// 	char 	*cpy;
+// 	char	*tmp;
+// 	char	*tmp2;
+// 	char	*tmp3;
+// 	char	*tmp4;
+
+// 	i = 0;
+// 	cpy = ft_strdup(str);
+// 	c = has_quotes(cpy);
+	
+// 	if (c != '\0')
+// 	{
+// 		while (cpy[i] != c)
+// 			i++;
+// 		tmp = malloc(i + 1 *sizeof(char));
+// 		i = 0;
+// 		while (cpy[i] != c)
+// 		{
+// 			tmp[i] = cpy[i];
+// 			i++;
+// 		}
+// 		tmp[i] = '\0';
+// 		i++;
+// 		j = i;
+// 		while (cpy[i] != c && cpy[i] != '\0')
+// 			i++;
+// 		tmp2 = malloc((i - j + 1) *sizeof(char));
+// 		i = j;
+// 		j = 0;
+// 		while (cpy[i] != c && cpy[i] != '\0')
+// 		{
+// 			tmp2[j] = cpy[i];
+// 			i++;
+// 			j++;
+// 		}
+// 		tmp2[j] = '\0';
+// 		if (cpy[i] == '\0')
+// 		{
+// 			free(cpy);
+// 			cpy = ft_strjoinplus(tmp, tmp2);
+// 			return (cpy);
+// 		}
+// 		i++;
+// 		j = i;
+// 		while (cpy[i] != '\0')
+// 			i++;
+// 		tmp3 = malloc((i - j + 1) * sizeof(char));
+// 		i = j;
+// 		j = 0;
+// 		while (cpy[i] != '\0')
+// 		{
+// 			tmp3[j] = cpy[i];
+// 			i++;
+// 			j++;
+// 		}
+// 		tmp3[j] = '\0';
+// 		tmp4 = ft_strjoinplus(tmp, tmp2);
+// 		cpy = ft_strjoinplus(tmp4, tmp3);
+// 	}
+// 	else
+// 		return (cpy);
+// 	return (str);
+// }

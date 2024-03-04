@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
 /*   Updated: 2024/03/03 18:23:36 by adanylev         ###   ########.fr       */
@@ -15,7 +15,6 @@
 t_parser	*ft_parser(t_lexer *lexer, int *error)
 {
 	t_parser	*parser;
-	t_parser	*tmp;
 	int	i;
 
 	i = 0;
@@ -23,7 +22,6 @@ t_parser	*ft_parser(t_lexer *lexer, int *error)
 	if (!lexer)
 		return (NULL);
 	parser = parser_creator();
-	tmp = parser;
 	parser_content(lexer, parser, i, error);
 	break_free(lexer);
 	return (parser);

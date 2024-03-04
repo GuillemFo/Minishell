@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
 /*   Updated: 2024/03/03 15:21:48 by adanylev         ###   ########.fr       */
@@ -12,25 +12,8 @@
 
 #include "minishell.h"
 
-
-//the loop: while (token->next != NULL)
-
-// t_parser *test_load(void)
-// {
-    // t_parser *parser;
-    // parser = malloc(sizeof(t_parser));
-    // parser->cmd = malloc(3 * sizeof(char*));
-    // parser->cmd[0] = ft_strdup("env");
-    // parser->cmd[1] = ft_strdup("expand this $USER");
-	// //parser->cmd[2] = ft_strdup(" ");
-    // parser->cmd[2] = NULL;
-    // parser->next = NULL;
-// 
-    // return (parser);
-// }
-
-//token->next->cmd = NULL; if | encountered.
-t_parser	*clean_input(t_parser *parser, t_env *env)
+// This function will be used to clean the data from all nodes with info.
+t_parser	*clean_input(t_parser *parser, t_env *env)			//data = clean_input(data, env);
 {
 	int	i;
 	(void)env;
@@ -43,9 +26,9 @@ t_parser	*clean_input(t_parser *parser, t_env *env)
 		{
 			while (iter->cmd[i])
 			{
-				//printf("cmd: %s\n", iter->cmd[i]);
-				//clear_quotes(iter->cmd[i]);
-				//iter->cmd[i] = find_dollar(iter->cmd[i], env);
+			printf("cmd1: %s\n\n", iter->cmd[i]);
+				iter->cmd[i] = clear_quotes(iter->cmd[i], env);
+			printf("cmd2: %s\n\n", iter->cmd[i]);
 				i++;
 			}
 		}
@@ -63,10 +46,11 @@ int	main(int ac, char **av, char **envp)
 	t_env		*env;
 	int			error;
 	
-	error = 0;
+	(void)error;
 	char *str;
-	(void)ac;
 	(void)av;
+	if (ac != 1)
+		return(1);
 	env = load_env(envp);
 	
 	rl_catch_signals = 0;
@@ -78,9 +62,9 @@ int	main(int ac, char **av, char **envp)
 		add_history(str);
 		if (str)
 		{
-			str = find_dollar(str, env);
 			input = ft_lexer(str);
 			data = ft_parser(input, &error);
+      data = clean_input(data, env);
 			if (!error)
 				execute(data, env, &error);
 		}
