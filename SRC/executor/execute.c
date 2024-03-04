@@ -6,13 +6,13 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/24 18:39:58 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/03 17:49:49 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-int	execute(t_parser *parser, t_env	*envi)
+int	execute(t_parser *parser, t_env	*envi, int *error)
 {
 	t_pipe	pipex;
 	int	status;
@@ -20,12 +20,16 @@ int	execute(t_parser *parser, t_env	*envi)
 	char	**env;
 	
 	i = 0;
-	// here to check if there is oly one command and it is a built in; if yes - no fork needed, just execute and bye
-		
+	if (!parser)
+		return (0);
+	if (is_builtin(parser, envi) && !parser->next)
+	{
+		//execute the built in and return back;
+	}
 	pipex.std_in = dup(STDIN_FILENO);
 	pipex.std_out = dup(STDOUT_FILENO);
 	env = env_to_char(envi);
-	parse_path(env, &pipex);
+	parse_path(env, &pipex, error);
 	pipex.num_cmds = parser_size(parser);
 	pipex.children = my_malloc(sizeof(pid_t) * pipex.num_cmds);
 	while (parser)
@@ -36,9 +40,8 @@ int	execute(t_parser *parser, t_env	*envi)
 		if (pipex.children[i] < 0)
 			exec_error("Error: fork\n");
 		if (pipex.children[i] == 0)
-			child_process(&pipex, parser, env);
+			child_process(&pipex, parser, env, error);
 		dup2(pipex.fd[0], STDIN_FILENO);
-		//dup2(pipex.fd[1], STDOUT_FILENO);
 		close(pipex.fd[0]); 
 		close(pipex.fd[1]);
 		i++;
@@ -54,13 +57,13 @@ int	execute(t_parser *parser, t_env	*envi)
 	dup2(pipex.std_out, STDOUT_FILENO);
 	close(pipex.std_in);
 	close(pipex.std_out);
+	free_parent(&pipex);
 	if (WIFEXITED(status))
 		return(WEXITSTATUS(status));
-	free_parent(&pipex);
-	return (0);
+	return (1);
 }
 
-void	child_process(t_pipe *pipex, t_parser *parser, char **env)
+void	child_process(t_pipe *pipex, t_parser *parser, char **env, int *error)
 {
 	fd_situation(pipex, parser);
 	if (ft_strchr(parser->cmd[0], '/'))
@@ -68,7 +71,10 @@ void	child_process(t_pipe *pipex, t_parser *parser, char **env)
 		if (access(parser->cmd[0], R_OK) >= 0)
 			pipex->path = parser->cmd[0];
 		else
-			exec_error("Error: No path found\n");
+		{
+			ft_other_error("Error: No path found\n", error, 1);
+			exit(1);
+		}
 	}
 	else
 		pipex->path = find_command(pipex, parser);
@@ -76,7 +82,7 @@ void	child_process(t_pipe *pipex, t_parser *parser, char **env)
 		redir_manager(parser);
 	if (access(pipex->path, X_OK) >= 0)
 		execve(pipex->path, parser->cmd, env);
-	exec_error("Error: execution error\n");
+	error_child(1, parser->cmd[0], 126);
 }
 
 void	fd_situation(t_pipe *pipex, t_parser *parser)

@@ -6,13 +6,13 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 12:12:44 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/22 13:26:53 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/03 17:34:15 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-void	parse_path(char **envp, t_pipe *pipex)
+void	parse_path(char **envp, t_pipe *pipex, int *error)
 {
 	int		b;
 	char	*tmp;
@@ -32,7 +32,7 @@ void	parse_path(char **envp, t_pipe *pipex)
 		envp++;
 	}
 	if (b == 0)
-		exec_error("PATH not found\n");
+		ft_other_error("PATH not found\n", error, 1);
 }
 
 char	*find_command(t_pipe *pipex, t_parser *parser)
@@ -55,6 +55,6 @@ char	*find_command(t_pipe *pipex, t_parser *parser)
 		free(tmp2);
 		i++;
 	}
-	exec_error("Error: command not found\n");
+	error_child(2, parser->cmd[0], 127);
 	return (0);
 }

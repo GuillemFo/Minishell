@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:19:06 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/24 15:22:09 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/03 18:12:05 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,27 @@ void	free_parent(t_pipe *pipex)
 		free(pipex->paths[i]);
 		i++;
 	}
-	if (pipex->path)
-		free(pipex->path);
+}
+char	*ft_strjoini(char const *s1, char const *s2)
+{
+	size_t	i;
+	char	*join;
+	i = 0;
+	join = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!join)
+		return (NULL);
+	while (*s1)
+	{
+		join[i] = *s1;
+		i++;
+		s1++;
+	}
+	while (*s2)
+	{
+		join[i] = *s2;
+		i++;
+		s2++;
+	}
+	join[i] = '\0';
+	return (join);
 }

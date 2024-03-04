@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/28 13:01:51 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/03 15:21:48 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ int	main(int ac, char **av, char **envp)
 		if (str)
 		{
 			input = ft_lexer(str);
-			data = ft_parser(input);
-			data = clean_input(data, env);
-			execute(data, env);
+			data = ft_parser(input, &error);
+      data = clean_input(data, env);
+			if (!error)
+				execute(data, env, &error);
 		}
-		free_parser(data);
-		free(str);
-		str = readline(C_G "minishell: " C_RESET);
+		free_all(data, &str);
 	}
+	return (error);
 }

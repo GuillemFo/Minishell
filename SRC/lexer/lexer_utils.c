@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:50:34 by adanylev          #+#    #+#             */
-/*   Updated: 2024/01/31 14:03:13 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/02/28 13:00:44 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ char	**free_matrix(char **matrix, size_t p)
 		free(matrix[i]);
 		i++;
 	}
-	free(matrix);
 	return (NULL);
 }
 
