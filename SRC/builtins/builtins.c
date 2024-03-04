@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/03 17:44:36 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/04 15:24:24 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,31 +97,27 @@ int	built_pwd()//(t_parser *parser)
 
 int	is_builtin(t_parser *parser, t_env *env) 
 {
-	if (parser->cmd)//need to check til when we loop.
+	if (ft_strncmp("echo", parser->cmd[0], 5) == 0) 
 	{
-		if (ft_strncmp("echo", parser->cmd[0], 5) == 0) 
-		{
-			if (!parser->cmd[1])
-				return (write(1, "\n", 1));
-			built_echo(parser);
-		}
-		else if (ft_strncmp("cd", parser->cmd[0], 3) == 0)
-		{
-			//check if pwd and old pwd exist;
-			built_cd(parser, env);
-		}
-		else if (ft_strncmp("pwd", parser->cmd[0], 4) == 0)
-			built_pwd();//(parser);
-		else if (ft_strncmp("env", parser->cmd[0], 4) == 0)
-			built_env(env);
-		else if (ft_strncmp("exit", parser->cmd[0], 5) == 0)
-			builtin_exit();
-		// else if (ft_strncmp("export", parser->cmd[0], 7) == 0)
-			// builtin_export(parser, env);
-		// else if (ft_strncmp("unset", parser->cmd[0], 6) == 0)
-			// builtin_unset(parser, env);
-		// parser = parser->next;
+		if (!parser->cmd[1])
+			return (write(1, "\n", 1));
+		return(built_echo(parser));
 	}
-	return (0);
+	else if (ft_strncmp("cd", parser->cmd[0], 3) == 0)
+	{
+		//check if pwd and old pwd exist;
+		return(built_cd(parser, env));
+	}
+	else if (ft_strncmp("pwd", parser->cmd[0], 4) == 0)
+		return(built_pwd());//(parser);
+	else if (ft_strncmp("env", parser->cmd[0], 4) == 0)
+		return(built_env(env));
+	else if (ft_strncmp("exit", parser->cmd[0], 5) == 0)
+		return(builtin_exit());
+	// else if (ft_strncmp("export", parser->cmd[0], 7) == 0)
+		// return(builtin_export(parser, env));
+	// else if (ft_strncmp("unset", parser->cmd[0], 6) == 0)
+		// return(builtin_unset(parser, env));
+	return (-1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/03 18:23:36 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/04 15:21:27 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	parser_content(t_lexer *lexer, t_parser *parser, int i, int *error)
 		else if (lexer->sign != 0)
 		{
 			parsing_rest(lexer, parser, error);
-			if (lexer->next)
+			if (lexer->next && lexer->next->sign!= 1)
 				lexer = lexer->next;
 		}
 		else if (lexer && lexer->content && ++i)

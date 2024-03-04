@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/03 15:21:48 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/04 15:21:36 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ t_parser	*clean_input(t_parser *parser, t_env *env)			//data = clean_input(data,
 		{
 			while (iter->cmd[i])
 			{
-			printf("cmd1: %s\n\n", iter->cmd[i]);
-				iter->cmd[i] = clear_quotes(iter->cmd[i], env);
-			printf("cmd2: %s\n\n", iter->cmd[i]);
+			//printf("cmd1: %s\n\n", iter->cmd[i]);
+				iter->cmd[i] = clear_quotes(iter->cmd[i]);
+			//printf("cmd2: %s\n\n", iter->cmd[i]);
 				i++;
 			}
 		}
@@ -59,14 +59,17 @@ int	main(int ac, char **av, char **envp)
 	str = readline(C_G "minishell: " C_RESET);
 	while (str)
 	{
+		error = 0;
 		add_history(str);
 		if (str)
 		{
 			input = ft_lexer(str);
 			data = ft_parser(input, &error);
-      data = clean_input(data, env);
 			if (!error)
+    		{
+				data = clean_input(data, env);
 				execute(data, env, &error);
+			}
 		}
 		free_all(data, &str);
 	}
