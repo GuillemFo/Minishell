@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/02 17:26:28 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/05 10:25:09 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ bool	env_no_value(char *var)
 bool		env_exist(t_env *env, char *str)
 {
 	t_env *iter;
+	int		len;
 	iter = env;
 	while (iter->next)
 	{
-		if (ft_strcmp(iter->name, str) == 0)
+		len = ft_strlen(str);
+		if (ft_strncmp(iter->name, str, len) == 0)
 			return (true);
 		iter = iter->next;
 	}
@@ -50,39 +52,50 @@ int	print_env_lst(t_env *env)
 }
 
 
-// t_env	*del_env(t_parser *token, t_env *env)	//THIS HAS A CHECKER IN ITSELF TO FILTER IF EXISTS OR NOT
-// {
-// 	t_env	*iter;
-// 	t_env	*prev;
-// 	t_env	*next;
-
-// 	iter = env;
-// 	if (env_exist(env, token) == true)
-// 	{
-// 		while (iter && iter->next)	//might not work due next->next
-// 		{
-// 			if (ft_strcmp(iter->next->name, token->cmd[1]) == 0)
-// 			{
-// 				prev = iter;
-// 				next = iter->next->next;
-// 				iter = iter->next;
-// 				free(iter);
-// 				prev->next = next;
-// 			}
-// 			iter = iter->next;
-// 		}
-// 	}
-// 	return (env);
-// }
-
-// t_env	*edit_env(t_parser *parser, t_env *env) //THIS WILL ONLY MODIFY IF EXISTS> HAS TO CHECK IF EXISTS BEFORE
-// {
-// 
-// }
-// 
+t_env	*del_env(t_parser *parser, t_env *env)	// NOT WORKING
+{
+	t_env	*iter;
+	t_env	*prev;
+	t_env	*next;
+	int		len;
+	
+	iter = env;
+	while (iter->next)	//might not work due next->next
+	{
+		len = ft_strlen(get_til_equal(parser->cmd[1]));
+		if (ft_strncmp(iter->next->name, parser->cmd[1], len) == 0)
+		{
+			prev = iter;
+			if (iter->next->next)
+				next = iter->next->next;
+			else
+				next = NULL;
+			iter = iter->next;
+			free(iter);
+			prev->next = next;
+		}
+		iter = iter->next;
+	}
+	return (env);
+}
 
 
-t_env	*add_env(t_parser *parser, t_env *env)	//WILL ONLY ADD, HAS TO CHECK IF EXISTS BEFORE
+//THIS WILL ONLY MODIFY IF EXISTS> HAS TO CHECK IF EXISTS BEFORE
+t_env	*edit_env(t_parser *parser, t_env *env)
+{
+	t_env *iter;
+	iter = env;
+	char	*name;
+	name = get_til_equal(parser->cmd[1]);
+	while (iter->next && (strcmp(name, iter->name) != 0))
+		iter = iter->next;
+	iter->content = equal_til_end(parser->cmd[1]);
+	return(env);
+}
+
+
+	//WILL ONLY ADD, HAS TO CHECK IF EXISTS BEFORE
+t_env	*add_env(t_parser *parser, t_env *env)
 {
 	t_env *iter;
 	// int		len;
@@ -100,6 +113,7 @@ t_env	*add_env(t_parser *parser, t_env *env)	//WILL ONLY ADD, HAS TO CHECK IF EX
 	return (env);
 }
 
+// NOT WORKIG PROPERLY
 char	*equal_til_end(char	*var)
 {
 	int		x;
@@ -108,7 +122,7 @@ char	*equal_til_end(char	*var)
 	char	*content;
 	
 	x = 0;
-	while (var[x] != '=')
+	while (var[x] != '\0' && var[x] != '=' )
 		x++;
 	if (var[x + 1] != '\0')
 	{
@@ -125,7 +139,7 @@ char	*equal_til_end(char	*var)
 		return (content);
 	}
 	else
-		content = NULL;
+		content = ft_strdup("empty");
 	return (content);
 }
 
@@ -136,12 +150,12 @@ char	*get_til_equal(char *var)
 	int len;
 	char *name;
 	x = 0;
-	while (var[x] != '=')
+	while (var[x] != '=' && var[x] != '\0')
 		x++;
 	len = x +1;
 	name = malloc(len * sizeof(char));
 	x = 0;
-	while (var[x] != '=')
+	while (var[x] != '=' && var[x] != '\0')
 	{
 		name[x] = var[x];
 		x++;

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/28 10:27:39 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/05 07:51:59 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char *cont_bef_q(char *str, char c)
 	return (res);
 }
 
-char	*clear_quotes(char *str)
+char	*clear_quotes(char *str, t_env *env)
 {
 	char 	*tmp_bef;
 	char	*tmp_cont;
@@ -105,6 +105,7 @@ char	*clear_quotes(char *str)
 	char	*res;
 	char	c;
 
+	(void)env;
 	res = ft_strdup(str);
 	c = has_quotes(res);
 	if (c != '\0')

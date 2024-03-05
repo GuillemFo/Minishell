@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/04 15:24:24 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/05 10:19:26 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,27 @@ int	builtin_exit()
 
 
 
-// int		builtin_export(t_parser *parser, t_env *env)
-// {
-	// if (env_exist(env, parser) == false)		//might have a chaos of modifiable pointers and directions
-		// env = add_env(parser, env);			//pending to check :)
-											// 
-	// return (0);
-// }
+int		builtin_export(t_parser *parser, t_env *env)
+{
+	//check first if it has arguments. if no, need to print the list with hidden env
+	//check if characters are valid.
+	if (env_exist(env, get_til_equal(parser->cmd[1])) == false)	//if we have multiple args, will set all. Some characters are not valid!!
+		env = add_env(parser, env);			//pending to check :)
+	env = edit_env(parser, env);								
+	return (0);
+}
 
 
 
-// int	builtin_unset(t_parser *parser, t_env *env)
-// {
-	// env  = del_env(parser, env);
-	// return (0);
-// }
+int	builtin_unset(t_parser *parser, t_env *env)
+{
+	//check if characters are valid.
+	if (env_exist(env, get_til_equal(parser->cmd[1])) == false)
+		return (0);//will not do anything if does not exists;
+	else if (env_exist(env, get_til_equal(parser->cmd[1])) == true)
+	env  = del_env(parser, env);
+	return (0);
+}
 
 
 
@@ -114,10 +120,10 @@ int	is_builtin(t_parser *parser, t_env *env)
 		return(built_env(env));
 	else if (ft_strncmp("exit", parser->cmd[0], 5) == 0)
 		return(builtin_exit());
-	// else if (ft_strncmp("export", parser->cmd[0], 7) == 0)
-		// return(builtin_export(parser, env));
-	// else if (ft_strncmp("unset", parser->cmd[0], 6) == 0)
-		// return(builtin_unset(parser, env));
+	else if (ft_strncmp("export", parser->cmd[0], 7) == 0)
+		return(builtin_export(parser, env));
+	else if (ft_strncmp("unset", parser->cmd[0], 6) == 0)
+		return(builtin_unset(parser, env));
 	return (-1);
 }
 

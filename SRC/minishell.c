@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/04 15:21:36 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/05 08:32:05 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_parser	*clean_input(t_parser *parser, t_env *env)			//data = clean_input(data,
 			while (iter->cmd[i])
 			{
 			//printf("cmd1: %s\n\n", iter->cmd[i]);
-				iter->cmd[i] = clear_quotes(iter->cmd[i]);
+				iter->cmd[i] = clear_quotes(iter->cmd[i], env);
 			//printf("cmd2: %s\n\n", iter->cmd[i]);
 				i++;
 			}
