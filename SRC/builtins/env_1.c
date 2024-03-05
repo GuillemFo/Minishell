@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/05 10:25:09 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/05 12:04:10 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 bool	env_no_value(char *var)
 {
-	int i;
+	int	i;
+
 	i = 0;
 	while (var[i] != '=' && var[i] != '\0')
 		i++;
@@ -23,10 +24,10 @@ bool	env_no_value(char *var)
 	return (false);
 }
 
-bool		env_exist(t_env *env, char *str)
+bool	env_exist(t_env *env, char *str) // this works fine
 {
 	t_env *iter;
-	int		len;
+	int len;
 	iter = env;
 	while (iter->next)
 	{
@@ -40,7 +41,8 @@ bool		env_exist(t_env *env, char *str)
 
 int	print_env_lst(t_env *env)
 {
-	t_env *iter;
+	t_env	*iter;
+
 	iter = env;
 	while (iter->next)
 	{
@@ -51,60 +53,67 @@ int	print_env_lst(t_env *env)
 	return (0);
 }
 
-
-t_env	*del_env(t_parser *parser, t_env *env)	// NOT WORKING
+// NOT WORKING
+t_env	*del_env(t_parser *parser, t_env *env)
 {
-	t_env	*iter;
 	t_env	*prev;
-	t_env	*next;
+	t_env	*iter;
 	int		len;
-	
+
+	prev = NULL;
 	iter = env;
-	while (iter->next)	//might not work due next->next
+	len = ft_strlen(get_til_equal(parser->cmd[1]));
+	while (iter != NULL)
 	{
-		len = ft_strlen(get_til_equal(parser->cmd[1]));
-		if (ft_strncmp(iter->next->name, parser->cmd[1], len) == 0)
+		if (iter->name != NULL && strncmp(iter->name, parser->cmd[1], len) == 0)
 		{
-			prev = iter;
-			if (iter->next->next)
-				next = iter->next->next;
+			if (prev == NULL)
+				env = iter->next;
 			else
-				next = NULL;
-			iter = iter->next;
+				prev->next = iter->next;
+			free(iter->name);
+			free(iter->content);
 			free(iter);
-			prev->next = next;
+			break ;
 		}
+		prev = iter;
 		iter = iter->next;
 	}
 	return (env);
 }
 
-
-//THIS WILL ONLY MODIFY IF EXISTS> HAS TO CHECK IF EXISTS BEFORE
+// THIS WILL ONLY MODIFY IF EXISTS> HAS TO CHECK IF EXISTS BEFORE
 t_env	*edit_env(t_parser *parser, t_env *env)
 {
-	t_env *iter;
-	iter = env;
-	char	*name;
-	name = get_til_equal(parser->cmd[1]);
-	while (iter->next && (strcmp(name, iter->name) != 0))
-		iter = iter->next;
-	iter->content = equal_til_end(parser->cmd[1]);
-	return(env);
+	int	len;
+
+	len = strlen(parser->cmd[1]);
+	while (env != NULL)
+	{
+		if (env->name != NULL && strncmp(env->name,
+				get_til_equal(parser->cmd[1]), len) == 0)
+		{
+			free(env->content);
+			env->content = strdup(equal_til_end(parser->cmd[1]));
+			break ;
+		}
+		env = env->next;
+	}
+	return (env);
 }
 
-
-	//WILL ONLY ADD, HAS TO CHECK IF EXISTS BEFORE
-t_env	*add_env(t_parser *parser, t_env *env)
+// WILL ONLY ADD, HAS TO CHECK IF EXISTS BEFORE
+t_env	*add_env(t_parser *parser, t_env *env)		// NOT WORKING
 {
-	t_env *iter;
+	t_env	*iter;
+
 	// int		len;
 	iter = env;
 	// len = ft_strlen(parser->cmd[1]);
 	while (iter->next)
-		iter = iter->next;		
+		iter = iter->next;
 	iter->next = malloc(sizeof(t_env));
-	iter->next->name =ft_strdup(parser->cmd[0]);
+	iter->next->name = ft_strdup(parser->cmd[0]);
 	if (env_no_value(parser->cmd[1]) == true)
 		iter->next->is_hidden = true;
 	iter->next->content = ft_strdup(parser->cmd[1]);
@@ -114,17 +123,17 @@ t_env	*add_env(t_parser *parser, t_env *env)
 }
 
 // NOT WORKIG PROPERLY
-char	*equal_til_end(char	*var)
+char	*equal_til_end(char *var)
 {
 	int		x;
 	int		start;
-	int 	len;
+	int		len;
 	char	*content;
-	
+
 	x = 0;
-	while (var[x] != '\0' && var[x] != '=' )
+	while (var[x] != '\0' && var[x] != '=')
 		x++;
-	if (var[x + 1] != '\0')
+	if (var[x] == '=' && var[x + 1] != '\0')
 	{
 		start = x;
 		x = x - 1;
@@ -143,16 +152,16 @@ char	*equal_til_end(char	*var)
 	return (content);
 }
 
-
 char	*get_til_equal(char *var)
 {
-	int	x;
-	int len;
-	char *name;
+	int		x;
+	int		len;
+	char	*name;
+
 	x = 0;
 	while (var[x] != '=' && var[x] != '\0')
 		x++;
-	len = x +1;
+	len = x + 1;
 	name = malloc(len * sizeof(char));
 	x = 0;
 	while (var[x] != '=' && var[x] != '\0')
@@ -166,10 +175,10 @@ char	*get_til_equal(char *var)
 
 t_env	*load_env(char **envp)
 {
-	t_env		*env;
-	t_env		*start;
-	int	y;
-	
+	t_env	*env;
+	t_env	*start;
+	int		y;
+
 	y = 0;
 	env = malloc(sizeof(t_env));
 	start = env;
@@ -185,4 +194,3 @@ t_env	*load_env(char **envp)
 	env->next = NULL;
 	return (start);
 }
-
