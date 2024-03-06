@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/06 12:27:46 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/06 13:26:08 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ bool	env_exist(t_env *env, char *str) // this works fine
 	return (false);
 }
 
+
 int	print_hidden_lst(t_env *env)
 {
 	t_env	*iter;
 
 	iter = env;
-	while (iter != NULL)
+	while (iter->next)	//if iter->next, will not crash but iter != NULL will
 	{
 		ft_printf("%s=%s\n", iter->name, iter->content);
 		iter = iter->next;
@@ -57,7 +58,7 @@ int	print_env_lst(t_env *env)
 	t_env	*iter;
 
 	iter = env;
-	while (iter != NULL)
+	while (iter->next)	//if iter->next, will not crash but iter != NULL will
 	{
 		if (iter->is_hidden == false)
 			ft_printf("%s=%s\n", iter->name, iter->content);
@@ -71,14 +72,12 @@ t_env	*del_env(t_parser *parser, t_env *env)
 {
 	t_env	*prev;
 	t_env	*iter;
-	int		len;
 
 	prev = NULL;
 	iter = env;
-	len = ft_strlen(get_til_equal(parser->cmd[1]));
 	while (iter != NULL)
 	{
-		if (iter->name != NULL && strncmp(iter->name, parser->cmd[1], len) == 0)
+		if (iter->name != NULL && ft_strcmp(iter->name, get_til_equal(parser->cmd[1])) == 0)
 		{
 			if (prev == NULL)
 				env = iter->next;
@@ -101,7 +100,7 @@ t_env	*edit_env(t_parser *parser, t_env *env)
 	int	len;
 
 	len = strlen(parser->cmd[1]);
-	while (env != NULL)
+	while (env)
 	{
 		if (env->name != NULL && strncmp(env->name,
 				get_til_equal(parser->cmd[1]), len) == 0)
@@ -121,7 +120,7 @@ t_env	*add_env(t_parser *parser, t_env *env)
 	t_env	*iter;
 
 	iter = env;
-	while (iter)
+	while (iter->next)
 		iter = iter->next;
 	iter->next = malloc(sizeof(t_env));
 	iter->next->name = ft_strdup(get_til_equal(parser->cmd[1]));
@@ -183,6 +182,8 @@ char	*get_til_equal(char *var)
 	return (name);
 }
 
+
+//creando nodo fantasma!!!
 t_env	*load_env(char **envp)
 {
 	t_env	*env;
@@ -192,7 +193,7 @@ t_env	*load_env(char **envp)
 	y = 0;
 	env = malloc(sizeof(t_env));
 	start = env;
-	while (envp[y] != NULL)
+	while (envp[y] != NULL )
 	{
 		env->name = get_til_equal(envp[y]);
 		env->is_hidden = env_no_value(envp[y]);

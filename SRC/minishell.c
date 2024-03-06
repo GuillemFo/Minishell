@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/06 12:43:13 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/06 13:28:29 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ int	main(int ac, char **av, char **envp)
 			if (!error)
     		{
 				data = clean_input(data, env);
-				is_builtin(data, env);
-				//execute(data, env, &error);
+				execute(data, env, &error);
 			}
 		}
 		free_all(data, &str);
