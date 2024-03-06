@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/06 13:04:35 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/06 13:51:19 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	built_pwd()//(t_parser *parser)
 }
 
 
-int	is_builtin(t_parser *parser, t_env *env) 
+int	is_builtin_execute(t_parser *parser, t_env *env) 
 {
 	if (ft_strncmp("echo", parser->cmd[0], 5) == 0) 
 	{
@@ -128,4 +128,6 @@ int	is_builtin(t_parser *parser, t_env *env)
 		return(builtin_unset(parser, env));
 	return (-1);
 }
+
+
 
