@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/06 11:33:44 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:26:39 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	main(int ac, char **av, char **envp)
 	t_lexer		*input;		
 	t_env		*env;
 	int			error;
+	int			exit_code;
 	
 	(void)error;
 	char *str;
@@ -67,11 +68,13 @@ int	main(int ac, char **av, char **envp)
 			data = ft_parser(input, &error);
 			if (!error)
     		{
+				//////////////////////////////
 				data = clean_input(data, env);
 				error = execute(data, env, &error);
 			}
+			exit_code = error;
 		}
 		free_all(data, &str);
 	}
-	return (error);
+	return (exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/06 11:22:31 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/06 13:51:19 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	is_builtin_execute(t_parser *parser, t_env *env)
 		// return(builtin_export(parser, env));
 	// else if (ft_strncmp("unset", parser->cmd[0], 6) == 0)
 		// return(builtin_unset(parser, env));
-	return (-1);
+	return (1);
 }
 
 

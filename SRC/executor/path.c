@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 12:12:44 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/03 17:34:15 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:05:40 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,3 +58,4 @@ char	*find_command(t_pipe *pipex, t_parser *parser)
 	error_child(2, parser->cmd[0], 127);
 	return (0);
 }
+

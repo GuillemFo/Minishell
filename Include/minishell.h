@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/06 11:23:51 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:13:46 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void		redir_manager(t_parser *parser);
 int			find_last_redir_in(t_redir *redir);
 int			find_last_redir_out(t_redir *redir);
 int			execute(t_parser *parser, t_env	*envi, int *error);
-void		child_process(t_pipe *pipex, t_parser *parser, char **env, int *error);
+void		child_process(t_pipe *pipex, t_parser *parser, t_env *envi, int *error);
 void		fd_situation(t_pipe *pipex, t_parser *parser);
 void		parse_path(char **envp, t_pipe *pipex, int *error);
 char		*find_command(t_pipe *pipex, t_parser *parser);
@@ -179,8 +179,9 @@ void		free_parser(t_parser *parser);
 void		free_parent(t_pipe *pipex);
 int			error_child(int ernu, char *msg, int excode);
 t_parser 	*ahorramos_lineas(t_parser *parser, int *i, t_lexer *lexer);
-int			builtin_situation(t_parser *parser, t_env *env);
 int			is_builtin_or_not(t_parser *parser);
-
+void		exec_start(t_pipe *pipex, t_parser *parser);
+void		exec_finish(t_pipe *pipex);
+void		waiting(t_pipe *pipex, int *status, int num_cmds);
 
 #endif
