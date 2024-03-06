@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/05 08:32:05 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/06 09:34:09 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 t_parser	*clean_input(t_parser *parser, t_env *env)			//data = clean_input(data, env);
 {
 	int	i;
-	(void)env;
 	t_parser	*iter;
 	iter = parser;
 	while (iter)
@@ -68,7 +67,8 @@ int	main(int ac, char **av, char **envp)
 			if (!error)
     		{
 				data = clean_input(data, env);
-				execute(data, env, &error);
+				is_builtin(data, env);
+				//execute(data, env, &error);
 			}
 		}
 		free_all(data, &str);

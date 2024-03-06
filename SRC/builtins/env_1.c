@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/05 12:04:10 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/06 10:06:48 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,20 @@ bool	env_exist(t_env *env, char *str) // this works fine
 		iter = iter->next;
 	}
 	return (false);
+}
+
+int	print_hidden_lst(t_env *env)
+{
+	t_env	*iter;
+
+	iter = env;
+	while (iter->next)
+	{
+		if (iter->name)
+			ft_printf("%s=%s\n", iter->name, iter->content);
+		iter = iter->next;
+	}
+	return (0);
 }
 
 int	print_env_lst(t_env *env)
@@ -110,15 +124,19 @@ t_env	*add_env(t_parser *parser, t_env *env)		// NOT WORKING
 	// int		len;
 	iter = env;
 	// len = ft_strlen(parser->cmd[1]);
-	while (iter->next)
-		iter = iter->next;
+	while (iter->next->next)
+		iter = iter->next;	//Need to check if there is any content
 	iter->next = malloc(sizeof(t_env));
-	iter->next->name = ft_strdup(parser->cmd[0]);
-	if (env_no_value(parser->cmd[1]) == true)
-		iter->next->is_hidden = true;
-	iter->next->content = ft_strdup(parser->cmd[1]);
+	printf("phase1\n");
+	iter->next->name = ft_strdup(get_til_equal(parser->cmd[1]));
+	printf("phase2:%s:\n", iter->next->name);
+	iter->next->is_hidden = env_no_value(parser->cmd[1]);
+	printf("phase3:%d:\n", iter->next->is_hidden);
+	iter->next->content = ft_strdup(equal_til_end(parser->cmd[1]));
+	printf("phase4:%s:\n", iter->next->content);
 	iter->next->next = malloc(sizeof(t_env));
-	iter->next->next = NULL;
+	iter->next->next->name = NULL;
+	printf("phase5:%s:\n", iter->next->next->name);
 	return (env);
 }
 
@@ -194,3 +212,7 @@ t_env	*load_env(char **envp)
 	env->next = NULL;
 	return (start);
 }
+
+
+
+

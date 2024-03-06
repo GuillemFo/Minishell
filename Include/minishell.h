@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/05 09:57:59 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/06 09:27:36 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int					built_ls(void);
 int					built_grep(void);
 t_env				*load_env(char **envp);
 int					print_env_lst(t_env *env);
+int					print_hidden_lst(t_env *env);
 bool				env_exist(t_env *env, char *str);
 bool		env_exist_2(t_env *env, char *str);
 char	*get_til_equal(char *var);
