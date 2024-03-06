@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/03 17:49:49 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/06 11:23:40 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ int	execute(t_parser *parser, t_env	*envi, int *error)
 	i = 0;
 	if (!parser)
 		return (0);
-	if (is_builtin(parser, envi) && !parser->next)
-	{
-		//execute the built in and return back;
-	}
+	
 	pipex.std_in = dup(STDIN_FILENO);
 	pipex.std_out = dup(STDOUT_FILENO);
 	env = env_to_char(envi);
@@ -91,4 +88,10 @@ void	fd_situation(t_pipe *pipex, t_parser *parser)
 		dup2(pipex->fd[1], STDOUT_FILENO);
 	close(pipex->fd[0]);
 	close(pipex->fd[1]);
+}
+int	builtin_situation(t_parser *parser, t_env *env)
+{
+	int	b;
+
+	
 }

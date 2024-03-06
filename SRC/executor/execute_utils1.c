@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:19:06 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/03 18:12:05 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/06 11:31:16 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,23 @@ char	*ft_strjoini(char const *s1, char const *s2)
 	}
 	join[i] = '\0';
 	return (join);
+}
+
+int	is_builtin_or_not(t_parser *parser)
+{
+	if (ft_strncmp("echo", parser->cmd[0], 5) == 0) 
+		return(1);
+	else if (ft_strncmp("cd", parser->cmd[0], 3) == 0)
+		return(1);
+	else if (ft_strncmp("pwd", parser->cmd[0], 4) == 0)
+		return(1);
+	else if (ft_strncmp("env", parser->cmd[0], 4) == 0)
+		return(1);
+	else if (ft_strncmp("exit", parser->cmd[0], 5) == 0)
+		return(builtin_exit());
+	// else if (ft_strncmp("export", parser->cmd[0], 7) == 0)
+		// return(builtin_export(parser, env));
+	// else if (ft_strncmp("unset", parser->cmd[0], 6) == 0)
+		// return(builtin_unset(parser, env));
+	return (-1);
 }
