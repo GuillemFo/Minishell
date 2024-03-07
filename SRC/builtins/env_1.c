@@ -6,12 +6,12 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/06 13:26:08 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 08:07:03 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+ // this works fine
 bool	env_no_value(char *var)
 {
 	int	i;
@@ -23,8 +23,8 @@ bool	env_no_value(char *var)
 		return (true);
 	return (false);
 }
-
-bool	env_exist(t_env *env, char *str) // this works fine
+ // this works fine
+bool	env_exist(t_env *env, char *str)
 {
 	t_env *iter;
 	int len;
@@ -40,12 +40,13 @@ bool	env_exist(t_env *env, char *str) // this works fine
 }
 
 
+ // this works fine
 int	print_hidden_lst(t_env *env)
 {
 	t_env	*iter;
 
 	iter = env;
-	while (iter->next)	//if iter->next, will not crash but iter != NULL will
+	while (iter->next)
 	{
 		ft_printf("%s=%s\n", iter->name, iter->content);
 		iter = iter->next;
@@ -53,12 +54,13 @@ int	print_hidden_lst(t_env *env)
 	return (0);
 }
 
+ // this works fine
 int	print_env_lst(t_env *env)
 {
 	t_env	*iter;
 
 	iter = env;
-	while (iter->next)	//if iter->next, will not crash but iter != NULL will
+	while (iter->next)
 	{
 		if (iter->is_hidden == false)
 			ft_printf("%s=%s\n", iter->name, iter->content);
@@ -75,7 +77,7 @@ t_env	*del_env(t_parser *parser, t_env *env)
 
 	prev = NULL;
 	iter = env;
-	while (iter != NULL)
+	while (iter->next)
 	{
 		if (iter->name != NULL && ft_strcmp(iter->name, get_til_equal(parser->cmd[1])) == 0)
 		{
@@ -114,7 +116,7 @@ t_env	*edit_env(t_parser *parser, t_env *env)
 	return (env);
 }
 
-
+// NOT WORKING
 t_env	*add_env(t_parser *parser, t_env *env)
 {
 	t_env	*iter;
@@ -126,39 +128,53 @@ t_env	*add_env(t_parser *parser, t_env *env)
 	iter->next->name = ft_strdup(get_til_equal(parser->cmd[1]));
 	iter->next->is_hidden = env_no_value(parser->cmd[1]);
 	iter->next->content = ft_strdup(equal_til_end(parser->cmd[1]));
-	iter->next->next = malloc(sizeof(t_env));
 	iter->next->next = NULL;
 	return (env);
 }
 
-char	*equal_til_end(char *var)
-{
-	int		x;
-	int		start;
-	int		len;
-	char	*content;
 
-	x = 0;
-	while (var[x] != '\0' && var[x] != '=')
-		x++;
-	if (var[x] == '=' && var[x + 1] != '\0')
-	{
-		start = x;
-		x = x - 1;
-		len = 0;
-		while (var[++x] != '\0')
-			len++;
-		content = malloc((len + 1) * sizeof(char));
-		x = -1;
-		while (var[++start] != '\0')
-			content[++x] = var[start];
-		content[++x] = '\0';
-		return (content);
-	}
+// Pending to test with export creatig empty nodes;
+char *equal_til_end(char *var)
+{
+    int x = 0;
+    while (var[x] != '\0' && var[x] != '=')
+        x++;
+    if (var[x] == '=' && var[x + 1] != '\0')
+		return (ft_strdup(var + x + 1));
 	else
-		content = ft_strdup("\"\"");
-	return (content);
+		return (ft_strdup("\"\""));
 }
+
+
+
+// char	*equal_til_end(char *var)
+// {
+	// int		x;
+	// int		start;
+	// int		len;
+	// char	*content;
+// 
+	// x = 0;
+	// while (var[x] != '\0' && var[x] != '=')
+		// x++;
+	// if (var[x] == '=' && var[x + 1] != '\0')
+	// {
+		// start = x;
+		// x = x - 1;
+		// len = 0;
+		// while (var[++x] != '\0')
+			// len++;
+		// content = malloc((len + 1) * sizeof(char));
+		// x = -1;
+		// while (var[++start] != '\0')
+			// content[++x] = var[start];
+		// content[++x] = '\0';
+		// return (content);
+	// }
+	// else
+		// content = ft_strdup("\"\"");
+	// return (content);
+// }
 
 
 char	*get_til_equal(char *var)
