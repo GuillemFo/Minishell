@@ -6,34 +6,51 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/07 14:01:58 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:24:01 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-//This has to return the proper value
+// CHECK AND REDO
+bool	check_is_all_number(char *num)
+{
+    if (*num == '\0')
+		return false;
+    if (*num == '+' || *num == '-')
+    	num++;
+    while (*num != '\0')
+	{
+    	if (!ft_isdigit(*num))
+            return false;
+		num++;
+    }
+    return true;
+}
+
+//	!!! Reminder that exit will round values every 255 reached !!!
+//	and val cant exceed __LONG_LONG_MAX__
 int	builtin_exit(t_parser *parser)
 {
-	int	val;
+	u_long	val;
+
+	val = 0;
 	if (!parser->cmd[1])
-		exit(0);
+		exit(val);
 	else if (parser->cmd[1])
 	{
-		if (check_is_all_numbers(parser->cmd[1]) == 1)	//Need to build this function
+		if (check_is_all_number(parser->cmd[1]) == true)	//Need to build this function
 		{
 			val = ft_atoi(parser->cmd[1]);
-			if (val < 0 || val > 255)
+			if (val > __LONG_LONG_MAX__)
 			{
 				errno_printer("exit", "numeric argument required", parser->cmd[1]);
-				exit(0);
 			}
-			else if (val >= 0 && val <= 255)
-				exit(val);
+			exit(val);
 		}
 	}
-		exit(255);
-	return (0);
+	exit(val);
+	return (val);
 }
 
 
