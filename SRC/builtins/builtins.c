@@ -6,14 +6,16 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/06 13:51:19 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/07 10:39:50 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+//This has to return the proper value
 int	builtin_exit()
 {
+	exit(0);
 	return (0);
 }
 
@@ -82,13 +84,22 @@ int	built_echo(t_parser *parser)
 int	built_cd(t_parser *parser, t_env *env)
 {	//need a filter to check if exists the env before cz might be unset and might need to be created.
 	t_env	*iter;
+	char	*homedir;
 
 	iter = env;
 	while (iter->next && ft_strncmp(iter->name, "OLDPWD", 7) != 0)
 		iter = iter->next;
 	iter->content = ft_strdup(getcwd(NULL, MAXPATHLEN));
 	iter = env;
-	if (chdir(parser->cmd[1]) < 0)
+	if (!parser->cmd[1])
+	{
+		homedir = get_home(env);
+		if (ft_strcmp(homedir, "ERROR") == 0)
+			errno_printer(parser->cmd[0], strerror(errno), "HOME not set\n");
+		if (chdir(homedir) < 0)
+			errno_printer(parser->cmd[0], strerror(errno), "homedir\n");
+	}
+	else if (chdir(parser->cmd[1]) < 0)
 		errno_printer(parser->cmd[0], strerror(errno), parser->cmd[1]);
 	while (iter->next && ft_strncmp(iter->name, "PWD", 4) != 0)
 		iter = iter->next;

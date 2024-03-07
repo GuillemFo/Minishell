@@ -6,11 +6,25 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/07 08:19:05 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 10:43:00 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*get_home(t_env *env)
+{
+	t_env *iter;
+
+	iter = env;
+	while (iter != NULL)
+	{
+		if (ft_strcmp(iter->name, "HOME") == 0)
+			return (ft_strdup(iter->content));
+		iter = iter->next;
+	}
+	return (ft_strdup("ERROR"));
+}
 
 // this works fine
 bool	env_no_value(char *var)
