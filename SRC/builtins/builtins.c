@@ -6,16 +6,33 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/07 13:26:57 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:01:58 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 //This has to return the proper value
-int	builtin_exit()
+int	builtin_exit(t_parser *parser)
 {
-	exit(0);
+	int	val;
+	if (!parser->cmd[1])
+		exit(0);
+	else if (parser->cmd[1])
+	{
+		if (check_is_all_numbers(parser->cmd[1]) == 1)	//Need to build this function
+		{
+			val = ft_atoi(parser->cmd[1]);
+			if (val < 0 || val > 255)
+			{
+				errno_printer("exit", "numeric argument required", parser->cmd[1]);
+				exit(0);
+			}
+			else if (val >= 0 && val <= 255)
+				exit(val);
+		}
+	}
+		exit(255);
 	return (0);
 }
 
@@ -134,7 +151,7 @@ int	is_builtin_execute(t_parser *parser, t_env *env)
 	else if (ft_strncmp("env", parser->cmd[0], 4) == 0)
 		return(built_env(env));
 	else if (ft_strncmp("exit", parser->cmd[0], 5) == 0)
-		return(builtin_exit());
+		return(builtin_exit(parser));
 	else if (ft_strncmp("export", parser->cmd[0], 7) == 0)
 		return(builtin_export(parser, env));
 	else if (ft_strncmp("unset", parser->cmd[0], 6) == 0)
