@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/06 14:13:46 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:33:50 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,5 +183,6 @@ int			is_builtin_or_not(t_parser *parser);
 void		exec_start(t_pipe *pipex, t_parser *parser);
 void		exec_finish(t_pipe *pipex);
 void		waiting(t_pipe *pipex, int *status, int num_cmds);
+void		execute_fin(t_parser *parser);
 
 #endif

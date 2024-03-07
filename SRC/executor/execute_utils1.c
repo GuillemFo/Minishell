@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:19:06 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/06 14:04:15 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:23:09 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	exec_start(t_pipe *pipex, t_parser *parser)
 	pipex->std_out = dup(STDOUT_FILENO);
 	pipex->num_cmds = parser_size(parser);
 	pipex->children = my_malloc(sizeof(pid_t) * pipex->num_cmds);
+	pipex->path = NULL;
 }
 
 void	exec_finish(t_pipe *pipex)

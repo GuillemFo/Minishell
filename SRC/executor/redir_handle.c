@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:34:29 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/03 17:35:02 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:26:24 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 void	redir_manager(t_parser *parser)
 {
     int f;
-
+    if (!parser->redir)
+        return ;    
 	if (parser->redir->sign == 2 || parser->redir->sign == 4)
-     {
+    {
         f = find_last_redir_out(parser->redir);
         if (f < 0)
 	        error_child(1, parser->redir->dest, 1);
         dup2(f, STDOUT_FILENO);
-     }
+    }
 	if (parser->redir->sign == 3 || parser->redir->sign == 5)
 	{
         f = find_last_redir_in(parser->redir);

@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/06 14:26:39 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:57:18 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int ac, char **av, char **envp)
 			if (!error)
     		{
 				//////////////////////////////
-				data = clean_input(data, env);
+				//data = clean_input(data, env);
 				error = execute(data, env, &error);
 			}
 			exit_code = error;
