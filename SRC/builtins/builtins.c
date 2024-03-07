@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/07 12:43:12 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 13:26:57 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int	is_builtin_execute(t_parser *parser, t_env *env)
 		return(builtin_export(parser, env));
 	else if (ft_strncmp("unset", parser->cmd[0], 6) == 0)
 		return(builtin_unset(parser, env));
-	return (-1);
+	return (0);
 }
 
 
