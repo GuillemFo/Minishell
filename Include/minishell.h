@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
 /*   Updated: 2024/03/07 14:33:50 by adanylev         ###   ########.fr       */
@@ -94,11 +94,15 @@ int					built_ls(void);
 int					built_grep(void);
 t_env				*load_env(char **envp);
 int					print_env_lst(t_env *env);
+int					print_hidden_lst(t_env *env);
 bool				env_exist(t_env *env, char *str);
+bool		env_exist_2(t_env *env, char *str);
+char	*get_til_equal(char *var);
+char	*equal_til_end(char	*var);
 
-//	t_env	*del_env(t_parser *token, t_env *env);
-//	t_env	*add_env(t_parser *token, t_env *env);
-
+t_env	*del_env(t_parser *parser, t_env *env);
+t_env	*add_env(t_parser *parser, t_env *env);
+t_env	*edit_env(t_parser *parser, t_env *env);
 /*-=-=-=-=-=-=-=-=EXPANSOR=-=-=-=-=-=-=-=-=-=-=*/
 
 char				*find_dollar(char *str, t_env *env);
@@ -107,7 +111,7 @@ char				*find_dollar(char *str, t_env *env);
 int					errno_printer(char *com, char *error_txt, char *asked);
 char				*trim_after(char *str, char c);
 char				*trim_bef(char *str, char c);
-char				*clear_quotes(char *str);
+char				*clear_quotes(char *str, t_env *env);
 
 /*==============================ANNA======================================*/
 void	ft_error(int ernu, char *msg, int *error);
