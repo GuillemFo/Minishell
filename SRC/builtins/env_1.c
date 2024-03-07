@@ -6,12 +6,13 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/07 08:07:03 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 08:19:05 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
- // this works fine
+
+// this works fine
 bool	env_no_value(char *var)
 {
 	int	i;
@@ -23,11 +24,12 @@ bool	env_no_value(char *var)
 		return (true);
 	return (false);
 }
- // this works fine
+// this works fine
 bool	env_exist(t_env *env, char *str)
 {
-	t_env *iter;
-	int len;
+	t_env	*iter;
+	int		len;
+
 	iter = env;
 	while (iter->next)
 	{
@@ -39,14 +41,13 @@ bool	env_exist(t_env *env, char *str)
 	return (false);
 }
 
-
- // this works fine
+// this works fine
 int	print_hidden_lst(t_env *env)
 {
 	t_env	*iter;
 
 	iter = env;
-	while (iter->next)
+	while (iter != NULL)
 	{
 		ft_printf("%s=%s\n", iter->name, iter->content);
 		iter = iter->next;
@@ -54,13 +55,13 @@ int	print_hidden_lst(t_env *env)
 	return (0);
 }
 
- // this works fine
+// this works fine
 int	print_env_lst(t_env *env)
 {
 	t_env	*iter;
 
 	iter = env;
-	while (iter->next)
+	while (iter != NULL)
 	{
 		if (iter->is_hidden == false)
 			ft_printf("%s=%s\n", iter->name, iter->content);
@@ -69,7 +70,7 @@ int	print_env_lst(t_env *env)
 	return (0);
 }
 
-// NOT WORKING
+// NOT WORKING WHEN LAST NODE ??!! and what about first node?
 t_env	*del_env(t_parser *parser, t_env *env)
 {
 	t_env	*prev;
@@ -79,7 +80,8 @@ t_env	*del_env(t_parser *parser, t_env *env)
 	iter = env;
 	while (iter->next)
 	{
-		if (iter->name != NULL && ft_strcmp(iter->name, get_til_equal(parser->cmd[1])) == 0)
+		if (iter->name != NULL && ft_strcmp(iter->name,
+				get_til_equal(parser->cmd[1])) == 0)
 		{
 			if (prev == NULL)
 				env = iter->next;
@@ -96,16 +98,13 @@ t_env	*del_env(t_parser *parser, t_env *env)
 	return (env);
 }
 
-// THIS WILL ONLY MODIFY IF EXISTS> HAS TO CHECK IF EXISTS BEFORE
+
 t_env	*edit_env(t_parser *parser, t_env *env)
 {
-	int	len;
-
-	len = strlen(parser->cmd[1]);
 	while (env)
 	{
-		if (env->name != NULL && strncmp(env->name,
-				get_til_equal(parser->cmd[1]), len) == 0)
+		if (env->name != NULL && ft_strcmp(env->name,
+				get_til_equal(parser->cmd[1])) == 0)
 		{
 			free(env->content);
 			env->content = strdup(equal_til_end(parser->cmd[1]));
@@ -116,7 +115,7 @@ t_env	*edit_env(t_parser *parser, t_env *env)
 	return (env);
 }
 
-// NOT WORKING
+// Works fine
 t_env	*add_env(t_parser *parser, t_env *env)
 {
 	t_env	*iter;
@@ -133,48 +132,18 @@ t_env	*add_env(t_parser *parser, t_env *env)
 }
 
 
-// Pending to test with export creatig empty nodes;
-char *equal_til_end(char *var)
+char	*equal_til_end(char *var)
 {
-    int x = 0;
-    while (var[x] != '\0' && var[x] != '=')
-        x++;
-    if (var[x] == '=' && var[x + 1] != '\0')
+	int	x;
+
+	x = 0;
+	while (var[x] != '\0' && var[x] != '=')
+		x++;
+	if (var[x] == '=' && var[x + 1] != '\0')
 		return (ft_strdup(var + x + 1));
 	else
 		return (ft_strdup("\"\""));
 }
-
-
-
-// char	*equal_til_end(char *var)
-// {
-	// int		x;
-	// int		start;
-	// int		len;
-	// char	*content;
-// 
-	// x = 0;
-	// while (var[x] != '\0' && var[x] != '=')
-		// x++;
-	// if (var[x] == '=' && var[x + 1] != '\0')
-	// {
-		// start = x;
-		// x = x - 1;
-		// len = 0;
-		// while (var[++x] != '\0')
-			// len++;
-		// content = malloc((len + 1) * sizeof(char));
-		// x = -1;
-		// while (var[++start] != '\0')
-			// content[++x] = var[start];
-		// content[++x] = '\0';
-		// return (content);
-	// }
-	// else
-		// content = ft_strdup("\"\"");
-	// return (content);
-// }
 
 
 char	*get_til_equal(char *var)
@@ -198,30 +167,30 @@ char	*get_til_equal(char *var)
 	return (name);
 }
 
-
-//creando nodo fantasma!!!
 t_env	*load_env(char **envp)
 {
 	t_env	*env;
 	t_env	*start;
 	int		y;
 
-	y = 0;
 	env = malloc(sizeof(t_env));
 	start = env;
-	while (envp[y] != NULL )
+	y = 0;
+	while (envp[y] != NULL)
 	{
 		env->name = get_til_equal(envp[y]);
 		env->is_hidden = env_no_value(envp[y]);
 		env->content = equal_til_end(envp[y]);
-		env->next = malloc(sizeof(t_env));
-		env = env->next;
+		if (envp[y + 1] != NULL)
+		{
+			env->next = malloc(sizeof(t_env));
+			env = env->next;
+		}
+		else
+		{
+			env->next = NULL;
+		}
 		y++;
 	}
-	env->next = NULL;
 	return (start);
 }
-
-
-
-
