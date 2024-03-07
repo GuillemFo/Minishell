@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/07 10:39:50 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:43:12 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	builtin_exit()
 
 
 //if we have multiple args, will set all. Some characters are not valid!!
-//check if characters are valid.
+//check if has equial in order to actually rewrite it empty;
 int		builtin_export(t_parser *parser, t_env *env)
 {
 	if (!parser->cmd[1])
@@ -35,11 +35,12 @@ int		builtin_export(t_parser *parser, t_env *env)
 
 
 
+//check if characters are valid.
+//will not do anything if does not exists;
 int	builtin_unset(t_parser *parser, t_env *env)
 {
-	//check if characters are valid.
 	if (env_exist(env, get_til_equal(parser->cmd[1])) == false)
-		return (0);//will not do anything if does not exists;
+		return (0);
 	else if (env_exist(env, get_til_equal(parser->cmd[1])) == true)
 	env  = del_env(parser, env);
 	return (1);
@@ -60,7 +61,7 @@ int	built_echo(t_parser *parser)
 
 	i = 1;
 	flag = 1;
-	if (ft_strncmp("-n" ,parser->cmd[i], 3) == 0) /// needs to replicate --n and -nnnnnnnnnn or -n -n -n 
+	if (ft_strncmp("-n" ,parser->cmd[i], 3) == 0) /// needs to replicate -nnnnnnnnnn or -n -n -n 
 	{
 		flag = 0;
 		i++;
@@ -81,8 +82,9 @@ int	built_echo(t_parser *parser)
 	return (0);
 }
 
+//need a filter to check if exists the env before cz might be unset and might need to be created.
 int	built_cd(t_parser *parser, t_env *env)
-{	//need a filter to check if exists the env before cz might be unset and might need to be created.
+{
 	t_env	*iter;
 	char	*homedir;
 

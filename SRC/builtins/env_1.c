@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/07 10:43:00 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:53:36 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	env_exist(t_env *env, char *str)
 	int		len;
 
 	iter = env;
-	while (iter->next)
+	while (iter != NULL)
 	{
 		len = ft_strlen(str);
 		if (ft_strncmp(iter->name, str, len) == 0)
@@ -92,7 +92,7 @@ t_env	*del_env(t_parser *parser, t_env *env)
 
 	prev = NULL;
 	iter = env;
-	while (iter->next)
+	while (iter != NULL)
 	{
 		if (iter->name != NULL && ft_strcmp(iter->name,
 				get_til_equal(parser->cmd[1])) == 0)
@@ -135,7 +135,7 @@ t_env	*add_env(t_parser *parser, t_env *env)
 	t_env	*iter;
 
 	iter = env;
-	while (iter->next)
+	while (iter->next != NULL)
 		iter = iter->next;
 	iter->next = malloc(sizeof(t_env));
 	iter->next->name = ft_strdup(get_til_equal(parser->cmd[1]));
