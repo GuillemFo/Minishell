@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:08:51 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/06 14:12:24 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:38:45 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,11 @@ void	waiting(t_pipe *pipex, int *status, int num_cmds)
 		i++;
 	}
 	exec_finish(pipex);
+}
+
+void	execute_fin(t_parser *parser)
+{
+	if (parser->cmd)
+		error_child(1, parser->cmd[0], 126);
+	exit (1);
 }

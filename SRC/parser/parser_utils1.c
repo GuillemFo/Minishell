@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 16:21:15 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/07 07:43:01 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:59:15 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ char	**commands(t_lexer *lexer)
 {
 	char	**coms;
 
-	
+	if (cmd_count(lexer) == 0)
+		return (NULL);
 	coms = my_malloc(sizeof(char *) * (cmd_count(lexer) + 1));
 	coms[cmd_count(lexer)] = NULL;
 	return(coms);

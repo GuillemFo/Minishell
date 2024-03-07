@@ -68,7 +68,7 @@ int	main(int ac, char **av, char **envp)
 			if (!error)
     		{
 				//////////////////////////////
-				data = clean_input(data, env);
+				//data = clean_input(data, env);
 				error = execute(data, env, &error);
 			}
 			exit_code = error;
