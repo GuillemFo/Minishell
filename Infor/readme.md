@@ -91,3 +91,16 @@ fighting expansor issues
 					so need to know if the input / token / parser handles strings separated by quotes.
 28/02/24 12.22 ---> quotes working.
 okay so quotes are working but now i have to implement expansions always except if text is inside single quotes.
+
+
+
+MISSING TODAY 07/02/24 -->>
+Heredock	(create files on ./tmp/ and name change with ft_strjoin of name and int number changing)
+Export	(need to fix if edit_env and add_env to confirm a proper management of first nodes, last nodes and existing nodes)
+Unset	(confirm deletes top and bottom nodes correctly and links to proper next nodes);
+ShellLVL	(every time we execute the program we will increase the shell level on the env and can do up to 100 so when over that level, we restart to level 1)
+Expansion in clear_input if no quotes and if double quotes;
+Exit	(get the execute codes return values)
+
+Norminette
+MPANIC tester??

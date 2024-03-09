@@ -99,6 +99,7 @@ bool				env_exist(t_env *env, char *str);
 bool		env_exist_2(t_env *env, char *str);
 char	*get_til_equal(char *var);
 char	*equal_til_end(char	*var);
+char	*get_home(t_env *env);
 
 t_env	*del_env(t_parser *parser, t_env *env);
 t_env	*add_env(t_parser *parser, t_env *env);
