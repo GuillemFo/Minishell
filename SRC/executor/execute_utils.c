@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 12:22:21 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/07 11:19:17 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:49:19 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	parser_size(t_parser *parser)
 	return (i);
 }
 
-char	**env_to_char(t_env	*env)
+char	**env_to_char(t_env *env)
 {
 	char	**new_env;
 	int		i;
@@ -44,14 +44,14 @@ char	**env_to_char(t_env	*env)
 	}
 	new_env[i] = NULL;
 	return (new_env);
-}	
+}
 
 int	env_size(t_env *env)
 {
 	int	i;
-	
+
 	i = 0;
-	while(env->next)
+	while (env->next)
 	{
 		if (env->is_hidden == false)
 			i++;
@@ -60,7 +60,7 @@ int	env_size(t_env *env)
 	return (i);
 }
 
-void	exec_error(char	*message)
+void	exec_error(char *message)
 {
 	write(2, message, ft_strlen(message));
 	exit(1);

@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:35:16 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/14 15:18:29 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:26:50 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_lexer	*tokenize(t_lexer *lexer, char **split)
 {
-	int	i;
+	int		i;
 	t_lexer	*tmp;
 
 	i = 0;
@@ -24,7 +24,8 @@ t_lexer	*tokenize(t_lexer *lexer, char **split)
 	{
 		if (!is_sign(split[i][0]))
 		{
-			lexer->content = token(lexer->content, split[i], ft_strlen(split[i]) + 1);
+			lexer->content = token(lexer->content, split[i], ft_strlen(split[i])
+					+ 1);
 			lexer->sign = 0;
 		}
 		else if (is_sign(split[i][0]))
@@ -36,7 +37,7 @@ t_lexer	*tokenize(t_lexer *lexer, char **split)
 		lexer = lexer->next;
 	}
 	free_matrix(split, i);
-	return(tmp);
+	return (tmp);
 }
 
 void	sign(t_lexer *lexer, char *split)
@@ -44,9 +45,9 @@ void	sign(t_lexer *lexer, char *split)
 	lexer->content = NULL;
 	if (split[1] && is_sign(split[0]) == is_sign(split[1]))
 	{
-		if(is_sign(split[0]) == 2)
+		if (is_sign(split[0]) == 2)
 			lexer->sign = GREATER2;
-		else if(is_sign(split[0]) == 3)
+		else if (is_sign(split[0]) == 3)
 			lexer->sign = LESSLESS;
 	}
 	else
@@ -60,13 +61,13 @@ char	*token(char *dest, char *src, int len)
 	return (dest);
 }
 
-t_lexer	*lexer_creator()
+t_lexer	*lexer_creator(void)
 {
 	t_lexer	*lexer;
-	
+
 	lexer = my_malloc(sizeof(t_lexer));
 	lexer->content = NULL;
 	lexer->sign = 0;
 	lexer->next = NULL;
-	return(lexer);
+	return (lexer);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/07 14:33:50 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:42:32 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	free_all(t_parser *data, char **str);
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-LEXER-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
 
 void				lexer(char *line);
-char				**free_matrix(char **matrix, size_t p);
+void				free_matrix(char **matrix, size_t p);
 void				*my_malloc(size_t bytes);
 int					is_quote(char letter);
 int					is_space(char c);
@@ -176,7 +176,7 @@ int			find_last_redir_out(t_redir *redir);
 int			execute(t_parser *parser, t_env	*envi, int *error);
 void		child_process(t_pipe *pipex, t_parser *parser, t_env *envi, int *error);
 void		fd_situation(t_pipe *pipex, t_parser *parser);
-void		parse_path(char **envp, t_pipe *pipex, int *error);
+void		parse_path(char **envp, t_pipe *pipex);
 char		*find_command(t_pipe *pipex, t_parser *parser);
 int			matrix_size(char **pars_cmds);
 void		free_parser(t_parser *parser);
@@ -188,5 +188,9 @@ void		exec_start(t_pipe *pipex, t_parser *parser);
 void		exec_finish(t_pipe *pipex);
 void		waiting(t_pipe *pipex, int *status, int num_cmds);
 void		execute_fin(t_parser *parser);
+int			is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env *envi);
+void		making_kids(t_parser *parser, t_pipe *pipex, t_env *envi, int *error);
+void		get_token(t_parser *parser, t_lexer *lexer, t_redir *tmp);
+
 
 #endif

@@ -6,19 +6,19 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 12:12:44 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/06 14:05:40 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:50:24 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-void	parse_path(char **envp, t_pipe *pipex, int *error)
+void	parse_path(char **envp, t_pipe *pipex)
 {
 	int		b;
 	char	*tmp;
 
 	b = 0;
-	while (*envp)
+	while (envp && *envp)
 	{
 		if (ft_strncmp("PATH=", *envp, 5) == 0)
 		{
@@ -31,8 +31,6 @@ void	parse_path(char **envp, t_pipe *pipex, int *error)
 		}
 		envp++;
 	}
-	if (b == 0)
-		ft_other_error("PATH not found\n", error, 1);
 }
 
 char	*find_command(t_pipe *pipex, t_parser *parser)
@@ -42,7 +40,7 @@ char	*find_command(t_pipe *pipex, t_parser *parser)
 	char	*tmp2;
 
 	i = 0;
-	while (pipex->paths[i] != NULL)
+	while (pipex->paths && pipex->paths[i] != NULL)
 	{
 		tmp = ft_strjoin(pipex->paths[i], "/");
 		tmp2 = ft_strjoin(tmp, parser->cmd[0]);
@@ -58,4 +56,3 @@ char	*find_command(t_pipe *pipex, t_parser *parser)
 	error_child(2, parser->cmd[0], 127);
 	return (0);
 }
-
