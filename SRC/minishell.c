@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/06 14:44:43 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:31:40 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ int	main(int ac, char **av, char **envp)
 	{
 		error = 0;
 		add_history(str);
-		if (str && ft_strlen(str))
+		if (str) 
 		{
 			input = ft_lexer(str);
 			data = ft_parser(input, &error);
-			if (!error)
+			if (!error && data)
     		{
 				//////////////////////////////
 				//data = clean_input(data, env);

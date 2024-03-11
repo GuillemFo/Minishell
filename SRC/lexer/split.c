@@ -6,16 +6,17 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:21:33 by adanylev          #+#    #+#             */
-/*   Updated: 2024/02/14 15:07:01 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:27:00 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-char *ft_strncpy(char *s1, char *s2, int n)
+char	*ft_strncpy(char *s1, char *s2, int n)
 {
-	int i = -1;
+	int	i;
 
+	i = -1;
 	while (++i < n && s2[i])
 		s1[i] = s2[i];
 	s1[i] = '\0';
@@ -25,11 +26,11 @@ char *ft_strncpy(char *s1, char *s2, int n)
 char	**new_split(char *line, int wc, int i, int k)
 {
 	char	**split;
-	int	j;
-	
+	int		j;
+
 	j = -1;
 	split = my_malloc(sizeof(char *) * (wc + 1));
-	while(line[i])
+	while (line[i])
 	{
 		if (is_space(line[i]))
 			i++;

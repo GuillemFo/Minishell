@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:40:50 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/07 11:14:38 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:26:12 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 t_lexer	*ft_lexer(char *line)
 {
 	t_lexer	*lexer;
-	int	i;
-	int	wc;
+	int		i;
+	int		wc;
 	char	**c;
 
 	lexer = NULL;
@@ -36,7 +36,7 @@ t_lexer	*ft_lexer(char *line)
 
 int	arg_count(char *line, int i, int wc)
 {
-	while(line[i])
+	while (line[i])
 	{
 		if (is_space(line[i]))
 			i++;
@@ -59,7 +59,7 @@ int	arg_count(char *line, int i, int wc)
 			wc++;
 		}
 	}
-	return(wc);
+	return (wc);
 }
 
 int	quote_situation(char *c)
@@ -80,18 +80,18 @@ int	quote_situation(char *c)
 	return (0);
 }
 
-void	sign_situation(char *line, char	**split, int *j, int *i)
+void	sign_situation(char *line, char **split, int *j, int *i)
 {
 	if (line + 1 && is_sign(*line) == is_sign(*(line + 1)))
-		{
-			split[++(*j)] = my_malloc(sizeof(char) * 2 + 1);
-			ft_strncpy(split[(*j)], line, 2);
-			(*i)++;
-		}
-	else
-		{
-			split[++(*j)] = my_malloc(sizeof(char) * 1 + 1);
-			ft_strncpy(split[(*j)], line, 1);
-		}
+	{
+		split[++(*j)] = my_malloc(sizeof(char) * 2 + 1);
+		ft_strncpy(split[(*j)], line, 2);
 		(*i)++;
+	}
+	else
+	{
+		split[++(*j)] = my_malloc(sizeof(char) * 1 + 1);
+		ft_strncpy(split[(*j)], line, 1);
+	}
+	(*i)++;
 }

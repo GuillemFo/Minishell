@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/07 14:52:43 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:48:09 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_parser	*ft_parser(t_lexer *lexer, int *error)
 {
 	t_parser	*parser;
-	int	i;
+	int			i;
 
 	i = 0;
 	parser = NULL;
@@ -26,10 +26,11 @@ t_parser	*ft_parser(t_lexer *lexer, int *error)
 	break_free(lexer);
 	return (parser);
 }
+
 void	parsing_rest(t_lexer *lexer, t_parser *parser, int *error)
 {
 	t_redir	*tmp;
-	
+
 	if (!parser->redir)
 	{
 		first_redir(lexer, parser, error);
@@ -46,28 +47,26 @@ void	parsing_rest(t_lexer *lexer, t_parser *parser, int *error)
 	{
 		lexer = lexer->next;
 		if (lexer->sign != 0)
-	 		ft_other_error("syntax error near unexpected token\n", error, 2);
-		else 
-		{
-			parser->redir->next->dest = token(parser->redir->next->dest, lexer->content, ft_strlen(lexer->content));
-			parser->redir = tmp;
-		}
+			ft_other_error("syntax error near unexpected token\n", error, 2);
+		else
+			get_token(parser, lexer, tmp);
 	}
 }
 
-void	first_redir(t_lexer	*lexer, t_parser *parser, int *error)
+void	first_redir(t_lexer *lexer, t_parser *parser, int *error)
 {
 	parser->redir = redir_creator();
 	parser->redir->sign = lexer->sign;
 	if (!lexer->next)
 		ft_other_error("syntax error near unexpected token\n", error, 2);
 	else
-	{	
+	{
 		lexer = lexer->next;
 		if (lexer->sign != 0)
-	 		ft_other_error("syntax error near unexpected token\n", error, 2);
+			ft_other_error("syntax error near unexpected token\n", error, 2);
 		else
-			parser->redir->dest = token(parser->redir->dest, lexer->content, ft_strlen(lexer->content));
+			parser->redir->dest = token(parser->redir->dest, lexer->content,
+					ft_strlen(lexer->content));
 	}
 }
 
@@ -90,20 +89,20 @@ void	parser_content(t_lexer *lexer, t_parser *parser, int i, int *error)
 				lexer = lexer->next;
 		}
 		else if (lexer && lexer->content && ++i)
-			parser->cmd[i - 1] = token(parser->cmd[i - 1], lexer->content, ft_strlen(lexer->content) + 1);
+			parser->cmd[i - 1] = token(parser->cmd[i - 1], lexer->content,
+					ft_strlen(lexer->content) + 1);
 		if (*error)
 			return ;
 		lexer = lexer->next;
 	}
 }
 
-
-t_parser	*parser_creator()
+t_parser	*parser_creator(void)
 {
 	t_parser	*parser;
-	
+
 	parser = my_malloc(sizeof(t_parser));
 	parser->next = NULL;
 	parser->redir = NULL;
-	return(parser);
+	return (parser);
 }

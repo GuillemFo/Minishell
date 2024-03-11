@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 09:40:26 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/03 18:20:57 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:29:01 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	cmd_count(t_lexer *lexer)
 {
 	int	i;
-	
+
 	i = 0;
 	while (lexer && lexer->sign == 0)
 	{
@@ -28,7 +28,7 @@ int	cmd_count(t_lexer *lexer)
 int	big_count(t_lexer *lexer)
 {
 	int	i;
-	
+
 	i = 0;
 	while (lexer)
 	{
@@ -52,10 +52,10 @@ t_sign	get_sign(char *sign)
 	return (0);
 }
 
-t_redir	*redir_creator()
+t_redir	*redir_creator(void)
 {
 	t_redir	*redir;
-	
+
 	redir = my_malloc(sizeof(t_redir));
 	redir->sign = 0;
 	redir->dest = NULL;

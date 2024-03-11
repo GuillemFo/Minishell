@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 16:21:15 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/07 14:59:15 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:48:31 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ char	**commands(t_lexer *lexer)
 		return (NULL);
 	coms = my_malloc(sizeof(char *) * (cmd_count(lexer) + 1));
 	coms[cmd_count(lexer)] = NULL;
-	return(coms);
+	return (coms);
 }
 
 void	break_free(t_lexer *lexer)
 {
-	t_lexer *tmp;
+	t_lexer	*tmp;
 
 	tmp = lexer;
 	while (lexer != NULL)
@@ -37,10 +37,11 @@ void	break_free(t_lexer *lexer)
 		tmp = lexer;
 	}
 }
+
 void	free_redir(t_redir *redir)
 {
 	t_redir	*temp;
-	
+
 	temp = redir;
 	while (redir != NULL)
 	{
@@ -52,10 +53,9 @@ void	free_redir(t_redir *redir)
 	}
 }
 
-
 void	free_parser(t_parser *parser)
 {
-	t_parser *tmp;
+	t_parser	*tmp;
 
 	tmp = parser;
 	while (parser->next)
@@ -73,11 +73,11 @@ void	free_parser(t_parser *parser)
 int	matrix_size(char **pars_cmds)
 {
 	int	i;
-	
+
 	i = 0;
 	if (pars_cmds[i])
-	{	
-		while(pars_cmds[i])
+	{
+		while (pars_cmds[i])
 			i++;
 	}
 	return (i);
