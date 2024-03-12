@@ -112,4 +112,6 @@ MPANIC tester??
 12/03/24 10.14 --> Found issues with export and unset.
 	when using unset containing anything else than the name should result in an error. this means we have to check valid characters when trying to create or remove variables from enviroment list.
 	also, when i do unset alone, it crashes the program.
+when export has value wont be shown at env list;
 
+I had to send &env so i can modify the 1st node... had to modify all code for it.

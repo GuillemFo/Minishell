@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/12 10:45:02 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:14:57 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ bool	env_exist(t_env *env, char *str)
 int	print_hidden_lst(t_env *env)
 {
 	t_env	*iter;
-
+	
 	iter = env;
 	while (iter != NULL)
-	{
+	{	
 		ft_printf("%s=%s\n", iter->name, iter->content);
 		iter = iter->next;
 	}
@@ -83,23 +83,20 @@ int	print_env_lst(t_env *env)
 }
 
 // NOT WORKING WHEN FIRST NODE!!
-t_env	*del_env(t_parser *parser, t_env **env)
+void	del_env(t_parser *parser, t_env **env)
 {
 	t_env	*prev;
 	t_env	*iter;
 
+if ((*env)->name != NULL && ft_strcmp((*env)->name, get_til_equal(parser->cmd[1])) == 0)
+	{
+		prev = (*env);
+		(*env) = (*env)->next;
+		free(prev->name);
+		free(prev->content);
+		free(prev);
+	}
 	prev = NULL;
-	if ((*env)->name != NULL && ft_strcmp((*env)->name,
-				get_til_equal(parser->cmd[1])) == 0)
-		{
-			if (prev == NULL)
-				prev = (*env)->next;
-			else
-				prev->next = (*env)->next;
-			free((*env)->name);
-			free((*env)->content);
-			free((*env));
-		}
 	iter = *env;
 	while (iter != NULL)
 	{
@@ -107,7 +104,7 @@ t_env	*del_env(t_parser *parser, t_env **env)
 				get_til_equal(parser->cmd[1])) == 0)
 		{
 			if (prev == NULL)
-				prev = iter->next;
+				(*env) = iter->next;
 			else
 				prev->next = iter->next;
 			free(iter->name);
@@ -118,7 +115,6 @@ t_env	*del_env(t_parser *parser, t_env **env)
 		prev = iter;
 		iter = iter->next;
 	}
-	return (*env);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/12 10:02:40 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:26:03 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void				handle_sigquit(int sig);
 //encountering pipes or redirections and so.
 /*-=-=-=-=-=-=-=-=-=-=-=BUILTINS=-=-=-=-=-=-=-=-=-=-=-=*/
 //
-int					is_builtin_execute(t_parser *token, t_env *env);
+int					is_builtin_execute(t_parser *token, t_env **env);
 int					built_ls(void);
 int					built_grep(void);
 t_env				*load_env(char **envp);
@@ -101,7 +101,7 @@ char	*get_til_equal(char *var);
 char	*equal_til_end(char	*var);
 char	*get_home(t_env *env);
 
-t_env	*del_env(t_parser *parser, t_env **env);
+void	del_env(t_parser *parser, t_env **env);
 t_env	*add_env(t_parser *parser, t_env *env);
 t_env	*edit_env(t_parser *parser, t_env *env);
 /*-=-=-=-=-=-=-=-=EXPANSOR=-=-=-=-=-=-=-=-=-=-=*/
@@ -174,8 +174,8 @@ char		**env_to_char(t_env	*env);
 void		redir_manager(t_parser *parser);
 int			find_last_redir_in(t_redir *redir);
 int			find_last_redir_out(t_redir *redir);
-int			execute(t_parser *parser, t_env	*envi, int *error);
-void		child_process(t_pipe *pipex, t_parser *parser, t_env *envi, int *error);
+int			execute(t_parser *parser, t_env	**envi, int *error);
+void		child_process(t_pipe *pipex, t_parser *parser, t_env **envi, int *error);
 void		fd_situation(t_pipe *pipex, t_parser *parser);
 void		parse_path(char **envp, t_pipe *pipex);
 char		*find_command(t_pipe *pipex, t_parser *parser);
@@ -189,8 +189,8 @@ void		exec_start(t_pipe *pipex, t_parser *parser);
 void		exec_finish(t_pipe *pipex);
 void		waiting(t_pipe *pipex, int *status, int num_cmds);
 void		execute_fin(t_parser *parser);
-int			is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env *envi);
-void		making_kids(t_parser *parser, t_pipe *pipex, t_env *envi, int *error);
+int			is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env **envi);
+void		making_kids(t_parser *parser, t_pipe *pipex, t_env **envi, int *error);
 void		get_token(t_parser *parser, t_lexer *lexer, t_redir *tmp);
 
 
