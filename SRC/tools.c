@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/05 07:54:29 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:27:55 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,68 +24,56 @@ int	errno_printer(char *com, char *error_txt, char *asked)
 	return (0);
 }
 
-char *trim_bef(char *str, char c)
-{
-	int	i;
-	i = 0;
-	char *new_str;
-	new_str = ft_strdup(str);
-	if (str[i] != c && str[i] != '\0')
-	{
-		while (str[i] != c && str[i] != '\0')
-			i++;
-		new_str = malloc((i + 1) * sizeof(char));
-		if (!new_str)
-			return (NULL);
-		i = 0;
-		while (str[i] != c)
-		{
-			new_str[i] = str[i];
-			i++;
-		}
-		new_str[i] = '\0';
-	}
-	return (new_str);
+
+char *trim_bef(char *str, char c) {
+    int i = 0;
+    while (str[i] != c && str[i] != '\0')
+        i++;
+    char *new_str = malloc((i + 1) * sizeof(char));
+    if (!new_str)
+        return NULL;
+    memcpy(new_str, str, i);
+    new_str[i] = '\0';
+    return new_str;
 }
 
-char *trim_after(char *str, char c)
-{
-	int i;
-	int x;
-	char *new_str;
 
-	i = 0;
-	x = 0;
-	new_str = ft_strdup("");
-	while (str[i] != c)
-	{
-		i++;
-	}
-	if (str[i] == c)
-	{
-		i++;
-		while (str[i] != c && str[i] != ' ' && str[i] != '\0')
-			i++;
-		if (str[i] != '\0')
-		{
-			while (str[i] != '\0')
-			{
-				i++;
-				x++;
-			}
-			new_str = malloc ((x + 1) * sizeof(char));
-			if (!new_str)
-				return (NULL);
-			i = i - x;
-			x = 0;
-			while (str[i] != '\0')
-			{
-				new_str[x] = str[i];
-				x++;
-				i++;
-			}
-			new_str[x] = '\0';
-		}
-	}
-	return (new_str);
+char *trim_after(char *str, char c) {
+    int i = 0;
+    
+    // Find the first occurrence of 'c'
+    while (str[i] != c && str[i] != '\0')
+        i++;
+
+    // If 'c' is not found, return an empty string
+    if (str[i] == '\0') {
+        char *empty_str = malloc(sizeof(char));
+        if (!empty_str)
+            return NULL;
+        empty_str[0] = '\0';
+        return empty_str;
+    }
+
+    // Find the length of the substring after 'c'
+    int x = 0;
+    while (str[i] != '\0') {
+        x++;
+        i++;
+    }
+
+    // Allocate memory for the new string
+    char *new_str = malloc((x + 1) * sizeof(char));
+    if (!new_str)
+        return NULL;
+
+    // Copy the substring after 'c'
+    i -= x;
+    x = 0;
+    while (str[++i] != '\0') {
+        new_str[x] = str[i];
+        x++;
+    }
+    new_str[x] = '\0';
+
+    return new_str;
 }

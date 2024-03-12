@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/05 07:51:59 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:43:37 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,23 +105,24 @@ char	*clear_quotes(char *str, t_env *env)
 	char	*res;
 	char	c;
 
-	(void)env;
 	res = ft_strdup(str);
 	c = has_quotes(res);
 	if (c != '\0')
 	{
-		tmp_bef = cont_bef_q(res, c);
-		tmp_cont = ft_strjoinplus(tmp_bef, cont_in_q(res, c));
+		tmp_bef = find_dollar(cont_bef_q(res, c), env);
+		tmp_cont = ft_strjoinplus(tmp_bef, find_dollar(cont_in_q(res, c), env));
 		tmp_after = cont_after_q(res, c);
 		while ((c = has_quotes(tmp_after)) != '\0') // do the tmp_bef and tmp_cont and add it to old tmp_cont?? so it wont redo the other string and clean possible ' or " might encounter?
 		{
-			tmp_bef = ft_strjoinplus(tmp_cont, cont_bef_q(tmp_after, c));
-			tmp_cont = ft_strjoinplus(tmp_bef, cont_in_q(tmp_after, c));
+			tmp_bef = ft_strjoinplus(tmp_cont, find_dollar(cont_bef_q(tmp_after, c), env));
+			tmp_cont = ft_strjoinplus(tmp_bef, find_dollar(cont_in_q(tmp_after, c), env));
 			tmp_after = cont_after_q(tmp_after, c);
 		}
 		
-		res = ft_strjoinplus(tmp_cont, tmp_after);
+		res = ft_strjoinplus(tmp_cont, find_dollar(tmp_after, env));
 	}
+	else
+		res = find_dollar(res, env);
 	return (res);
 }
 

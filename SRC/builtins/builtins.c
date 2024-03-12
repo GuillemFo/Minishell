@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/12 12:06:13 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:01:18 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,14 @@ int		builtin_export(t_parser *parser, t_env *env)
 
 
 //check if characters are valid.
-//will not do anything if does not exists;
 int	builtin_unset(t_parser *parser, t_env **env)
 {
+	if (!parser->cmd[1])
+		return (1);
 	if (env_exist(*env, get_til_equal(parser->cmd[1])) == false)
-		return (0);
+		return (1);
 	else if (env_exist(*env, get_til_equal(parser->cmd[1])) == true)
-	del_env(parser, env);
+		del_env(parser, env);
 	return (0);
 }
 
@@ -133,7 +134,7 @@ int	built_cd(t_parser *parser, t_env *env)
 		if (ft_strcmp(homedir, "ERROR") == 0)
 			errno_printer(parser->cmd[0], strerror(errno), "HOME not set\n");
 		if (chdir(homedir) < 0)
-			errno_printer(parser->cmd[0], strerror(errno), "homedir\n");
+			errno_printer(parser->cmd[0], strerror(errno), homedir);
 	}
 	else if (chdir(parser->cmd[1]) < 0)
 		errno_printer(parser->cmd[0], strerror(errno), parser->cmd[1]);

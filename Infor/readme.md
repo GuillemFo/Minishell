@@ -121,3 +121,11 @@ when export has value wont be shown at env list;
 I had to send &env so i can modify the 1st node... had to modify all code for it.
 check export when has = and no
 
+Fixed buch of non protected functions on libft for null strings.
+
+expansor is pure trash, ill have to redo it entirely
+
+all builtin return and errnos are not okay
+
+export with \a\a \\ etc
+
