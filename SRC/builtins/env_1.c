@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/07 11:53:36 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 09:03:30 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	print_env_lst(t_env *env)
 	return (0);
 }
 
-// NOT WORKING WHEN LAST NODE ??!! and what about first node?
+// NOT WORKING WHEN FIRST NODE!!
 t_env	*del_env(t_parser *parser, t_env *env)
 {
 	t_env	*prev;
@@ -121,7 +121,7 @@ t_env	*edit_env(t_parser *parser, t_env *env)
 				get_til_equal(parser->cmd[1])) == 0)
 		{
 			free(env->content);
-			env->content = strdup(equal_til_end(parser->cmd[1]));
+			env->content = ft_strdup(equal_til_end(parser->cmd[1]));
 			break ;
 		}
 		env = env->next;

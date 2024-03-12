@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/09 18:02:44 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/12 08:51:55 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ int	execute(t_parser *parser, t_env *envi, int *error)
 	{
 		if (is_builtin_or_not(parser) && !parser->next)
 			is_lonely_builtin(parser, &pipex, envi);
+		else{
+		exec_start(&pipex, parser);
+		making_kids(parser, &pipex, envi, error);
+		waiting(&pipex, &status, pipex.num_cmds);
+		if (WIFEXITED(status))
+			return (WEXITSTATUS(status));}
 	}
-	exec_start(&pipex, parser);
-	making_kids(parser, &pipex, envi, error);
-	waiting(&pipex, &status, pipex.num_cmds);
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
 	return (1);
 }
 
