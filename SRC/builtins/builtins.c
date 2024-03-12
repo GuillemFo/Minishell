@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/12 08:46:52 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:10:30 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	builtin_unset(t_parser *parser, t_env *env)
 	if (env_exist(env, get_til_equal(parser->cmd[1])) == false)
 		return (0);
 	else if (env_exist(env, get_til_equal(parser->cmd[1])) == true)
-	env  = del_env(parser, env);
+	env  = del_env(parser, &env);
 	return (0);
 }
 

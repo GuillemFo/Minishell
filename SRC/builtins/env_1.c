@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/12 09:03:30 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:10:41 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,11 @@ bool	env_no_value(char *var)
 bool	env_exist(t_env *env, char *str)
 {
 	t_env	*iter;
-	int		len;
 
 	iter = env;
 	while (iter != NULL)
 	{
-		len = ft_strlen(str);
-		if (ft_strncmp(iter->name, str, len) == 0)
+		if (ft_strcmp(iter->name, str) == 0)
 			return (true);
 		iter = iter->next;
 	}
@@ -85,20 +83,20 @@ int	print_env_lst(t_env *env)
 }
 
 // NOT WORKING WHEN FIRST NODE!!
-t_env	*del_env(t_parser *parser, t_env *env)
+t_env	*del_env(t_parser *parser, t_env **env)
 {
 	t_env	*prev;
 	t_env	*iter;
 
 	prev = NULL;
-	iter = env;
+	iter = *env;
 	while (iter != NULL)
 	{
 		if (iter->name != NULL && ft_strcmp(iter->name,
 				get_til_equal(parser->cmd[1])) == 0)
 		{
 			if (prev == NULL)
-				env = iter->next;
+				(*env) = iter->next;
 			else
 				prev->next = iter->next;
 			free(iter->name);
@@ -109,7 +107,7 @@ t_env	*del_env(t_parser *parser, t_env *env)
 		prev = iter;
 		iter = iter->next;
 	}
-	return (env);
+	return (*env);
 }
 
 

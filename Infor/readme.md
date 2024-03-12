@@ -104,3 +104,12 @@ Exit	(get the execute codes return values)
 
 Norminette
 MPANIC tester??
+
+12/03/24 (unkown) -->Hopefully i solved the loop when only 1 builtin is called and the control + C
+	comand acting twice
+
+
+12/03/24 10.14 --> Found issues with export and unset.
+	when using unset containing anything else than the name should result in an error. this means we have to check valid characters when trying to create or remove variables from enviroment list.
+	also, when i do unset alone, it crashes the program.
+

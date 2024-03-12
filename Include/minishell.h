@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/09 17:42:32 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:02:40 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	*get_til_equal(char *var);
 char	*equal_til_end(char	*var);
 char	*get_home(t_env *env);
 
-t_env	*del_env(t_parser *parser, t_env *env);
+t_env	*del_env(t_parser *parser, t_env **env);
 t_env	*add_env(t_parser *parser, t_env *env);
 t_env	*edit_env(t_parser *parser, t_env *env);
 /*-=-=-=-=-=-=-=-=EXPANSOR=-=-=-=-=-=-=-=-=-=-=*/
