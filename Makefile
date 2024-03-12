@@ -64,7 +64,7 @@ rdline:
 		@make -C ./readline/ &> $(TMP_DIR)rdcfg
 		@rm ./tmp/rdcfg
 		@echo "$(GREEN)Readline compiled$(RESET)"
-
+## ADD a checker of configure.status to compile or not the rdline?
 libraries:
 		@$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
 #@$(MAKE) rdline --no-print-directory
