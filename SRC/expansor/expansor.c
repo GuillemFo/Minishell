@@ -6,13 +6,14 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/05 07:50:20 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:52:21 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*expand_str(char *name, t_env *env, char *str) // looking at it and the tools for trimming
+// looking at it and the tools for trimming
+char	*expand_str(char *name, t_env *env, char *str)
 {
 	t_env	*iter;
 	int		len;

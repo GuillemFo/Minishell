@@ -96,8 +96,12 @@ okay so quotes are working but now i have to implement expansions always except 
 
 MISSING TODAY 07/02/24 -->>
 Heredock	(create files on ./tmp/ and name change with ft_strjoin of name and int number changing)
-Export	(need to fix if edit_env and add_env to confirm a proper management of first nodes, last nodes and existing nodes)
-Unset	(confirm deletes top and bottom nodes correctly and links to proper next nodes);
+
+Export	(need to fix if edit_env and add_env to confirm a proper management of first nodes, last nodes and existing nodes) ------------ THIS OK
+
+Unset	(confirm deletes top and bottom nodes correctly and links to proper next nodes); 
+-----THIS OK
+
 ShellLVL	(every time we execute the program we will increase the shell level on the env and can do up to 100 so when over that level, we restart to level 1)
 Expansion in clear_input if no quotes and if double quotes;
 Exit	(get the execute codes return values)
@@ -115,3 +119,5 @@ MPANIC tester??
 when export has value wont be shown at env list;
 
 I had to send &env so i can modify the 1st node... had to modify all code for it.
+check export when has = and no
+
