@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/12 10:10:41 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 10:45:02 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,17 @@ t_env	*del_env(t_parser *parser, t_env **env)
 	t_env	*iter;
 
 	prev = NULL;
+	if ((*env)->name != NULL && ft_strcmp((*env)->name,
+				get_til_equal(parser->cmd[1])) == 0)
+		{
+			if (prev == NULL)
+				prev = (*env)->next;
+			else
+				prev->next = (*env)->next;
+			free((*env)->name);
+			free((*env)->content);
+			free((*env));
+		}
 	iter = *env;
 	while (iter != NULL)
 	{
@@ -96,7 +107,7 @@ t_env	*del_env(t_parser *parser, t_env **env)
 				get_til_equal(parser->cmd[1])) == 0)
 		{
 			if (prev == NULL)
-				(*env) = iter->next;
+				prev = iter->next;
 			else
 				prev->next = iter->next;
 			free(iter->name);
@@ -120,7 +131,7 @@ t_env	*edit_env(t_parser *parser, t_env *env)
 		{
 			free(env->content);
 			env->content = ft_strdup(equal_til_end(parser->cmd[1]));
-			break ;
+			break;
 		}
 		env = env->next;
 	}
