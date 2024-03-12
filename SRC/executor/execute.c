@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/12 12:28:09 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/12 12:34:38 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ int	execute(t_parser *parser, t_env **envi, int *error)
 			is_lonely_builtin(parser, &pipex, envi);
 		else
 		{
-		exec_start(&pipex, parser);
-		making_kids(parser, &pipex, envi, error);
-		waiting(&pipex, &status, pipex.num_cmds);
-		if (WIFEXITED(status))
-			return (WEXITSTATUS(status));}
+			exec_start(&pipex, parser);
+			making_kids(parser, &pipex, envi, error);
+			waiting(&pipex, &status, pipex.num_cmds);
+			if (WIFEXITED(status))
+				return (WEXITSTATUS(status));
+		}
 	}
 	return (1);
 }
