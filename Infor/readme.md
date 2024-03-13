@@ -169,4 +169,6 @@ when i added the "" to the print function i failed 2 tests.
 so i need to evaluate when i need "" if env has content or not initialized. (check if export something= or something so i add "" or not)
 maybe with a flag on the structure??
 
+echo "|$USER|" Wont expand
+
 
