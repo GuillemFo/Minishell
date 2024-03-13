@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/13 17:36:06 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:46:46 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*find_dollar(char *str, t_env *env)
 				test1 = trim_after(result, '$');
 				tmp = trim_bef(result, '$');
 				free(result); // Free allocated memory
-				result = ft_strjoin(tmp, test1);
+				result = ft_strjoini(tmp, test1);	//FAILING WHEN NO DATA
 				free(tmp); // Free allocated memory
 				x = 0;
 			}

@@ -191,3 +191,18 @@ imma delete "" from env prints , lets see whats the score
   [your]                            0      0      0      0
 
   total                          [0175] [0158] [0055] [0388]
+
+
+
+FOR TOMORROW 14/03/24
+!!!!!!!! fuck
+minishell: echo $USER$ua3
+gforns-s3
+minishell: echo $USER$ua3
+
+hello2=ehho2
+minishell: echo $hello2
+2
+
+So, need to add the filter for numbers on env only if the first char is number,
+$NONEXISTANT wont work if alone or before an existant env.
