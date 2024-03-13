@@ -165,4 +165,8 @@ Added iteration for exort unset.
 
 need to contemplate ~ so expands to home and only works if alone like ~ or ~///////..//
 export wont add "" at start or end!!!
+when i added the "" to the print function i failed 2 tests.
+so i need to evaluate when i need "" if env has content or not initialized. (check if export something= or something so i add "" or not)
+maybe with a flag on the structure??
+
 

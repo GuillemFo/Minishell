@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/13 16:38:16 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 17:15:01 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		builtin_export(t_parser *parser, t_env *env)
 			if ((is_poss_char(parser->cmd[i][1]))== 1)
 				env = add_env(parser, env, i);
 			else
-				errno_printer(parser->cmd[0], "not an identifier", parser->cmd[i]);
+				errno_printer(parser->cmd[0], parser->cmd[i], "not a valid identifier");
 		}
 		else if (equal_til_end(parser->cmd[i]))
 			env = edit_env(parser, env, i);
