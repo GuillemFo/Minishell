@@ -135,6 +135,8 @@ What does:		echo $USER$USER$a$'USER'
 				gforns-sgforns-s$USER
 What should do:	echo $USER$USER$a$'USER'
 					gforns-sgforns-sUSER
-Also	"'$USER'" wont work correctly (missing end)
+Also	"'$USER'" wont work correctly (missing end) 02.50 pm WORKING!!!
 		"'$USER'$PATH" missing ' after $USER 
 		(the env name is correct but its not copying correcly the data)
+
+
