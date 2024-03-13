@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/09 18:02:44 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:27:42 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	execute(t_parser *parser, t_env *envi, int *error)
 	if (parser->cmd)
 	{
 		if (is_builtin_or_not(parser) && !parser->next)
-			is_lonely_builtin(parser, &pipex, envi);
+			return(is_lonely_builtin(parser, &pipex, envi));
 	}
 	exec_start(&pipex, parser);
 	making_kids(parser, &pipex, envi, error);
