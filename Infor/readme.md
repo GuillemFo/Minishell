@@ -163,3 +163,6 @@ with this code:
 
 Added iteration for exort unset.
 
+need to contemplate ~ so expands to home and only works if alone like ~ or ~///////..//
+export wont add "" at start or end!!!
+
