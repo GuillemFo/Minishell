@@ -164,11 +164,30 @@ with this code:
 Added iteration for exort unset.
 
 need to contemplate ~ so expands to home and only works if alone like ~ or ~///////..//
+
 export wont add "" at start or end!!!
 when i added the "" to the print function i failed 2 tests.
 so i need to evaluate when i need "" if env has content or not initialized. (check if export something= or something so i add "" or not)
 maybe with a flag on the structure??
 
-echo "|$USER|" Wont expand
+imma delete "" from env prints , lets see whats the score
 
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [echo]                           12      5      1     18
+  [export]                          2     14      0     16
+  [env]                             2      6      0      8
+  [exit]                           32     23      0     55
+  [directory]                      12     11      0     23
+  [dollars]                        17     12      4     33
+  [quotes]                         43      9      0     52
+  [spaces]                          6      4      0     10
+  [tilde]                           4      5      0      9
+  [syntax_error]                    4     14      9     27
+  [pipe]                           25     15      9     49
+  [redirection]                    13     16     38     67
+  [status]                          5     22      0     27
+  [shlvl]                           0      7      2      9
+  [panic mandatory]                 2      9      1     12
+  [your]                            0      0      0      0
 
+  total                          [0175] [0158] [0055] [0388]
