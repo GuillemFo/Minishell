@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/13 16:00:14 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:36:03 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,12 @@ int	print_env_lst(t_env *env)
 	return (0);
 }
 
-// NOT WORKING WHEN FIRST NODE!!
-void	del_env(t_parser *parser, t_env **env)
+void	del_env(t_parser *parser, t_env **env, int i)
 {
 	t_env	*prev;
 	t_env	*iter;
 
-if ((*env)->name != NULL && ft_strcmp((*env)->name, get_til_equal(parser->cmd[1])) == 0)
+	if ((*env)->name != NULL && ft_strcmp((*env)->name, get_til_equal(parser->cmd[i])) == 0)
 	{
 		prev = (*env);
 		(*env) = (*env)->next;
@@ -110,7 +109,7 @@ if ((*env)->name != NULL && ft_strcmp((*env)->name, get_til_equal(parser->cmd[1]
 	while (iter != NULL)
 	{
 		if (iter->name != NULL && ft_strcmp(iter->name,
-				get_til_equal(parser->cmd[1])) == 0)
+				get_til_equal(parser->cmd[i])) == 0)
 		{
 			if (prev == NULL)
 				(*env) = iter->next;
@@ -127,15 +126,15 @@ if ((*env)->name != NULL && ft_strcmp((*env)->name, get_til_equal(parser->cmd[1]
 }
 
 
-t_env	*edit_env(t_parser *parser, t_env *env)
+t_env	*edit_env(t_parser *parser, t_env *env, int i)
 {
 	while (env)
 	{
 		if (env->name != NULL && ft_strcmp(env->name,
-				get_til_equal(parser->cmd[1])) == 0)
+				get_til_equal(parser->cmd[i])) == 0)
 		{
 			free(env->content);
-			env->content = ft_strdup(equal_til_end(parser->cmd[1]));
+			env->content = ft_strdup(equal_til_end(parser->cmd[i]));
 			break;
 		}
 		env = env->next;
@@ -144,7 +143,7 @@ t_env	*edit_env(t_parser *parser, t_env *env)
 }
 
 // Works fine
-t_env	*add_env(t_parser *parser, t_env *env)
+t_env	*add_env(t_parser *parser, t_env *env, int i)
 {
 	t_env	*iter;
 
@@ -152,9 +151,9 @@ t_env	*add_env(t_parser *parser, t_env *env)
 	while (iter->next != NULL)
 		iter = iter->next;
 	iter->next = malloc(sizeof(t_env));
-	iter->next->name = ft_strdup(get_til_equal(parser->cmd[1]));
-	iter->next->is_hidden = env_no_value(parser->cmd[1]);
-	iter->next->content = ft_strdup(equal_til_end(parser->cmd[1]));
+	iter->next->name = ft_strdup(get_til_equal(parser->cmd[i]));
+	iter->next->is_hidden = env_no_value(parser->cmd[i]);
+	iter->next->content = ft_strdup(equal_til_end(parser->cmd[i]));
 	iter->next->next = NULL;
 	return (env);
 }

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/13 15:40:06 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:36:37 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ char	*get_til_equal(char *var);
 char	*equal_til_end(char	*var);
 char	*get_home(t_env *env);
 
-void	del_env(t_parser *parser, t_env **env);
-t_env	*add_env(t_parser *parser, t_env *env);
-t_env	*edit_env(t_parser *parser, t_env *env);
+void	del_env(t_parser *parser, t_env **env, int i);
+t_env	*add_env(t_parser *parser, t_env *env, int i);
+t_env	*edit_env(t_parser *parser, t_env *env, int i);
 /*-=-=-=-=-=-=-=-=EXPANSOR=-=-=-=-=-=-=-=-=-=-=*/
 
 char				*find_dollar(char *str, t_env *env);

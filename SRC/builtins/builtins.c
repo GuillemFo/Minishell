@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/12 16:01:18 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:38:16 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,24 @@ int	builtin_exit(t_parser *parser)
 //check if has equial in order to actually rewrite it empty;
 int		builtin_export(t_parser *parser, t_env *env)
 {
+	int	i;
+
+	i = 1;
 	if (!parser->cmd[1])
-		print_hidden_lst(env);
-	else if (env_exist(env, get_til_equal(parser->cmd[1])) == false)
-		env = add_env(parser, env);
-	else
-		env = edit_env(parser, env);							
+	print_hidden_lst(env);
+	while (parser->cmd[i])
+	{
+		if (env_exist(env, get_til_equal(parser->cmd[i])) == false)
+		{
+			if ((is_poss_char(parser->cmd[i][1]))== 1)
+				env = add_env(parser, env, i);
+			else
+				errno_printer(parser->cmd[0], "not an identifier", parser->cmd[i]);
+		}
+		else if (equal_til_end(parser->cmd[i]))
+			env = edit_env(parser, env, i);
+		i++;
+	}						
 	return (0);
 }
 
@@ -72,12 +84,19 @@ int		builtin_export(t_parser *parser, t_env *env)
 //check if characters are valid.
 int	builtin_unset(t_parser *parser, t_env **env)
 {
+	int	i;
+
+	i = 1;
 	if (!parser->cmd[1])
 		return (1);
-	if (env_exist(*env, get_til_equal(parser->cmd[1])) == false)
-		return (1);
-	else if (env_exist(*env, get_til_equal(parser->cmd[1])) == true)
-		del_env(parser, env);
+	while (parser->cmd[i])
+	{
+		if (env_exist(*env, get_til_equal(parser->cmd[i])) == false)
+			return (1);
+		else if (env_exist(*env, get_til_equal(parser->cmd[i])) == true)
+			del_env(parser, env, i);
+		i++;
+	}
 	return (0);
 }
 
