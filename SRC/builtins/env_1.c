@@ -6,11 +6,20 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/13 12:33:21 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:00:14 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_poss_char(char c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '_'))
+		return (1);
+	else if (c >= '0' && c <= '9')
+		return (2);
+	return (0);
+}
 
 char	*get_home(t_env *env)
 {

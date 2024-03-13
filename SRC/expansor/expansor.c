@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/13 14:43:17 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:53:03 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ char	*get_env_name(char *str)
 	if (!str)
 		return NULL;
 	x = 0;
-	while (str[x] != '$' && str[x] != ' ' && str[x] != '\'' && str[x] != '\0')
+	while (str[x] != '$' && str[x] != ' ' && str[x] != '\0')
 		x++;
 	name = malloc((x + 1) * sizeof(char));
 	if (!name)
 		return (NULL);
 	x = 0;
-	while (str[x] != '$' && str[x] != ' ' && str[x] != '\'' && str[x] != '\0')
+	while (str[x] != '$' && str[x] != ' ' && str[x] != '\0')
 	{
 		name[x] = str[x];
 		x++;

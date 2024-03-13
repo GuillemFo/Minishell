@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/13 14:47:54 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:08:07 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char *trim_after(char *str, char c)
 	if (str[i] == c)
 	{
 		i++;
-		while (str[i] != c && str[i] != ' ' && str[i] != '\''  && str[i] != '\0')
+		while (str[i] != c && (is_poss_char(str[i]) == 1) && str[i] != '\0')
 			i++;
 		if (str[i] != '\0')
 		{

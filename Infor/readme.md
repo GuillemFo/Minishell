@@ -139,4 +139,27 @@ Also	"'$USER'" wont work correctly (missing end) 02.50 pm WORKING!!!
 		"'$USER'$PATH" missing ' after $USER 
 		(the env name is correct but its not copying correcly the data)
 
+with this code:
+ SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [echo]                           12      5      1     18
+  [export]                          2     14      0     16
+  [env]                             2      6      0      8
+  [exit]                           32     23      0     55
+  [directory]                      12     11      0     23
+  [dollars]                        17     12      4     33
+  [quotes]                         42     10      0     52
+  [spaces]                          6      4      0     10
+  [tilde]                           3      6      0      9
+  [syntax_error]                    4     14      9     27
+  [pipe]                           25     15      9     49
+  [redirection]                    13     16     38     67
+  [status]                          5     22      0     27
+  [shlvl]                           0      7      2      9
+  [panic mandatory]                 2      9      1     12
+  [your]                            0      0      0      0
+
+  total                          [0173] [0160] [0055] [0388]
+
+
+
 
