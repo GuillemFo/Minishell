@@ -129,3 +129,12 @@ all builtin return and errnos are not okay
 
 export with \a\a \\ etc
 
+13/03/24 01.51 pm -->>
+	Working on expansor and quotes situation.
+What does:		echo $USER$USER$a$'USER'
+				gforns-sgforns-s$USER
+What should do:	echo $USER$USER$a$'USER'
+					gforns-sgforns-sUSER
+Also	"'$USER'" wont work correctly (missing end)
+		"'$USER'$PATH" missing ' after $USER 
+		(the env name is correct but its not copying correcly the data)

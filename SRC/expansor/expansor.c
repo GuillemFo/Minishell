@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/12 17:21:00 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 13:58:09 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,22 @@ char	*get_env_name(char *str)
 	int		x;
 	char	*name;
 
-	if (!str) // Check if str is NULL
+	if (!str)
 		return NULL;
 	x = 0;
-	while (str[x] != '$' && str[x] != ' ' && str[x] != '\0')
+	while (str[x] != '$' && str[x] != ' ' && str[x] != '\'' && str[x] != '\0')
 		x++;
 	name = malloc((x + 1) * sizeof(char));
 	if (!name)
 		return (NULL);
 	x = 0;
-	while (str[x] != '$' && str[x] != ' ' && str[x] != '\0')
+	while (str[x] != '$' && str[x] != ' ' && str[x] != '\'' && str[x] != '\0')
 	{
 		name[x] = str[x];
 		x++;
 	}
 	name[x] = '\0';
+	//printf("%s\n", name);
 	return (name);
 }
 
@@ -63,6 +64,7 @@ char	*find_dollar(char *str, t_env *env)
 	char	*env_name;
 	char	*result;
 	char	*tmp;
+	char *test1;
 
 	x = 0;
 	if (!str)
@@ -77,15 +79,17 @@ char	*find_dollar(char *str, t_env *env)
 			env_name = get_env_name(&result[x + 1]);
 			if (env_exist(env, env_name) == true)
 			{
-				result = expand_str(env_name, env, result);
+				result = expand_str(env_name, env, result); // Might be losing the data here. Readme line 132.
 				x = 0;
 			}
 			else
 			{
+				test1 = trim_after(result, '$');
 				tmp = trim_bef(result, '$');
 				free(result); // Free allocated memory
-				result = ft_strjoin(tmp, trim_after(result, '$'));
+				result = ft_strjoin(tmp, test1);
 				free(tmp); // Free allocated memory
+				x = 0;
 			}
 			free(env_name); // Free allocated memory
 		}
