@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/14 11:39:31 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 13:55:16 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	*find_dollar(char *str, t_env *env)
 	char	*env_name;
 	char	*result;
 	char	*tmp;
+	char	*tmp2;
 	char *test1;
 
 	x = 0;
@@ -74,7 +75,7 @@ char	*find_dollar(char *str, t_env *env)
 	result = ft_strdup(str);
 	if (!result)
 		return (NULL);
-	while (result[x] != '\0') // Correct the loop condition
+	while (result[x]!= '\0') // Correct the loop condition
 	{
 		// if (result[x] && result[x] == '$' && result[x + 1] == '?')	//Need to add the status code of last executed commmand
 			// This  will be pulled from exit_code
@@ -85,16 +86,17 @@ char	*find_dollar(char *str, t_env *env)
 			if (env_exist(env, env_name) == true)
 			{
 				result = expand_str(env_name, env, result); // Might be losing the data here. Readme line 132.
-				x = 0;
+				x = -1;
 			}
 			else
 			{
 				test1 = trim_after(result, '$');
 				tmp = trim_bef(result, '$');
 				free(result); // Free allocated memory
-				result = ft_strjoini(tmp, test1);	//FAILING WHEN NO DATA
-				free(tmp); // Free allocated memory
-				x = 0;
+				tmp2 = ft_strjoinplus(tmp, test1);	//FAILING WHEN NO DATA
+				result = ft_strdup(tmp2);
+				//free(tmp); // Free allocated memory
+				x = -1;
 			}
 			free(env_name); // Free allocated memory
 		}

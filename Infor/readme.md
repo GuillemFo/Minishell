@@ -263,3 +263,28 @@ With  this push, this is the score.
 
   total                          [0183] [0151] [0054] [0388]
 
+
+With  this push, this is the score.
+|============================================================|
+
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [echo]                           13      5      0     18
+  [export]                          2     14      0     16
+  [env]                             2      6      0      8
+  [exit]                           32     23      0     55
+  [directory]                      12     11      0     23
+  [dollars]                        22     10      1     33
+  [quotes]                         44      8      0     52
+  [spaces]                          6      4      0     10
+  [tilde]                           4      5      0      9
+  [syntax_error]                    4     14      9     27
+  [pipe]                           25     15      9     49
+  [redirection]                    13     16     38     67
+  [status]                          5     22      0     27
+  [shlvl]                           5      4      0      9
+  [panic mandatory]                 2      9      1     12
+  [your]                            0      0      0      0
+
+  total                          [0187] [0152] [0049] [0388]
+
+
