@@ -196,13 +196,13 @@ imma delete "" from env prints , lets see whats the score
 
 FOR TOMORROW 14/03/24
 !!!!!!!! fuck
-minishell: echo $USER$ua3
-gforns-s3
-minishell: echo $USER$ua3
+minishell: echo $USER$ua3 |
+gforns-s3                 |Fixed
+minishell: echo $USER$ua3 |
 
-hello2=ehho2
-minishell: echo $hello2
-2
+hello2=ehho2              |Fixed
+minishell: echo $hello2   |
+2                         |
 
 So, need to add the filter for numbers on env only if the first char is number,
 $NONEXISTANT wont work if alone or before an existant env.

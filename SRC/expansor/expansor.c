@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/13 19:46:46 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 07:41:16 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,20 @@ char	*get_env_name(char *str)
 		return NULL;
 	x = 0;
 	//while (str[x] != '$' && str[x] != ' ' && str[x] != '\0')  echo "|$USER|" wont work
-	while (str[x] != '$' && (is_poss_char(str[x]) == 1) && str[x] != '\0')
+	while (str[x] != '$' && (is_poss_char(str[x]) != 0) && str[x] != '\0')
 		x++;
 	name = malloc((x + 1) * sizeof(char));
 	if (!name)
 		return (NULL);
 	x = 0;
 	//while (str[x] != '$' && str[x] != ' ' && str[x] != '\0')	echo "|$USER|" wont work
-	while (str[x] != '$' && (is_poss_char(str[x]) == 1) && str[x] != '\0')
+	while (str[x] != '$' && (is_poss_char(str[x]) != 0) && str[x] != '\0')
 	{
 		name[x] = str[x];
 		x++;
 	}
 	name[x] = '\0';
-	//printf("%s\n", name);
+	printf("%s\n", name);
 	return (name);
 }
 
