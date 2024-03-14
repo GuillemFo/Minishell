@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/14 10:22:16 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 11:41:01 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ t_env				*load_env(char **envp);
 int					print_env_lst(t_env *env);
 int					print_hidden_lst(t_env *env);
 bool				env_exist(t_env *env, char *str);
-bool		env_exist_2(t_env *env, char *str);
 char	*get_til_equal(char *var);
 char	*equal_til_end(char	*var);
 char	*get_home(t_env *env);
 /*-=-=-=-=-=-=-=-=-=-=-=ENV_TOOLS=-=-=-=-=-=-=-=-=-=-=-=*/
-void	shell_level(t_env **env);
+t_env	*shell_level(t_env *env);
+t_env	*add_env_shell(t_env *env);
 void	del_env(t_parser *parser, t_env **env, int i);
 t_env	*add_env(t_parser *parser, t_env *env, int i);
 t_env	*edit_env(t_parser *parser, t_env *env, int i);

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/13 17:15:01 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 11:36:49 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		builtin_export(t_parser *parser, t_env *env)
 
 	i = 1;
 	if (!parser->cmd[1])
-	print_hidden_lst(env);
+		print_hidden_lst(env);
 	while (parser->cmd[i])
 	{
 		if (env_exist(env, get_til_equal(parser->cmd[i])) == false)

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/14 10:09:23 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 11:39:31 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,10 @@ char	*find_dollar(char *str, t_env *env)
 		return (NULL);
 	while (result[x] != '\0') // Correct the loop condition
 	{
-		if (result[x] && result[x] == '$' && result[x + 1] == '?')	//Need to add the status code of last executed commmand
-			;
-		else if (result[x] && result[x] == '$'  && (is_poss_char(result[x + 1]) != 0) && result[x + 1] != '\0')
+		// if (result[x] && result[x] == '$' && result[x + 1] == '?')	//Need to add the status code of last executed commmand
+			// This  will be pulled from exit_code
+		// else if (result[x] && result[x] == '$'  && (is_poss_char(result[x + 1]) != 0) && result[x + 1] != '\0')
+		if (result[x] && result[x] == '$'  && (is_poss_char(result[x + 1]) != 0) && result[x + 1] != '\0')
 		{
 			env_name = get_env_name(&result[x + 1]);
 			if (env_exist(env, env_name) == true)

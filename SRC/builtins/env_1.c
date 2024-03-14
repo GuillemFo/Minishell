@@ -6,26 +6,37 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/14 10:29:43 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 12:10:53 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	shell_level(t_env **env)	//reminder cant go over 100
+//	reminder cant go over 100	|| NOT MODIFYIG WHEN LAST NODE (not set before)
+t_env	*shell_level(t_env *env)
 {
-	int	holder;
-	while (env)
+	t_env *iter;
+	iter = env;
+	if (env_exist(env, "SHLVL") == false){
+		printf("FALSE\n");
+		env = add_env_shell(env);}
+	else
 	{
-		if ((*env)->name != NULL && ft_strcmp("SHLVL", (*env)->name))
+		while (iter)
 		{
-			env->content = ;
-			break;
+			if ((ft_strcmp("SHLVL", iter->name))== 0)
+			{
+				iter->content = ft_itoa(ft_atoi(iter->content) + 1);		//need a filter to check if value is gonna be more than 100 to restore it to 1;
+			printf("--%s--\n", iter->content);
+				break;
+			}
+			iter = iter->next;
 		}
-		env = env->next;
 	}
 	return (env);
 }
+
+
 int	is_poss_char(char c)
 {
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '_'))
@@ -139,24 +150,43 @@ void	del_env(t_parser *parser, t_env **env, int i)
 	}
 }
 
-
+//am i returning the env losing before nodes when iterating??
+// Should i start an iter so i can iter = env and iterate the copy and not lose the top?
+// Why i havent seen this before?? Changed envto iter so wont lose first node.
 t_env	*edit_env(t_parser *parser, t_env *env, int i)
 {
-	while (env)
+	t_env *iter;
+
+	iter = env;
+	while (iter)
 	{
-		if (env->name != NULL && ft_strcmp(env->name,
+		if (iter->name != NULL && ft_strcmp(iter->name,
 				get_til_equal(parser->cmd[i])) == 0)
 		{
-			free(env->content);
-			env->content = ft_strdup(equal_til_end(parser->cmd[i]));
+			free(iter->content);
+			iter->content = ft_strdup(equal_til_end(parser->cmd[i]));
 			break;
 		}
-		env = env->next;
+		iter = iter->next;
 	}
 	return (env);
 }
 
 // Works fine
+t_env	*add_env_shell(t_env *env)
+{
+	t_env	*iter;
+
+	iter = env;
+	while (iter->next != NULL)
+		iter = iter->next;
+	iter->next = malloc(sizeof(t_env));
+	iter->next->name = ft_strdup("SHLVL");
+	iter->next->content = ft_strdup("1");
+	iter->next->next = NULL;
+	return (env);
+}
+
 t_env	*add_env(t_parser *parser, t_env *env, int i)
 {
 	t_env	*iter;
