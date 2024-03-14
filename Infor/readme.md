@@ -236,4 +236,30 @@ $NONEXISTANT wont work if alone or before an existant env.
 
 Expansor, line 80. preparing to filter ? but im missing the env or var where i should pull the info from.
 
-Env_1, preparing to set shell level or increase it if exists. Taking care for a possible situation where is the first var of the env list and also if it wont exist.
+Env_1, preparing to set shell level or increase it if exists. Taking care for a possible situation where is the first var of the env list and also if it wont exist. 
+
+(aparently is kinda hard t obe teh first only so i went fully skiping that fact. might be an issue in the future and we will need to send &env and work with **env  in its function: t_env	*shell_level(t_env *env))
+
+With  this push, this is the score.
+|============================================================|
+
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [echo]                           12      5      1     18
+  [export]                          2     14      0     16
+  [env]                             2      6      0      8
+  [exit]                           32     23      0     55
+  [directory]                      12     11      0     23
+  [dollars]                        19     10      4     33
+  [quotes]                         44      8      0     52
+  [spaces]                          6      4      0     10
+  [tilde]                           4      5      0      9
+  [syntax_error]                    4     14      9     27
+  [pipe]                           25     15      9     49
+  [redirection]                    13     16     38     67
+  [status]                          5     22      0     27
+  [shlvl]                           5      3      1      9
+  [panic mandatory]                 2      9      1     12
+  [your]                            0      0      0      0
+
+  total                          [0183] [0151] [0054] [0388]
+

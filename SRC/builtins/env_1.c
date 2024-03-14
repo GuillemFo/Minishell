@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/14 12:10:53 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 12:14:17 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_env	*shell_level(t_env *env)
 	t_env *iter;
 	iter = env;
 	if (env_exist(env, "SHLVL") == false){
-		printf("FALSE\n");
+		//printf("FALSE\n");
 		env = add_env_shell(env);}
 	else
 	{
@@ -27,7 +27,7 @@ t_env	*shell_level(t_env *env)
 			if ((ft_strcmp("SHLVL", iter->name))== 0)
 			{
 				iter->content = ft_itoa(ft_atoi(iter->content) + 1);		//need a filter to check if value is gonna be more than 100 to restore it to 1;
-			printf("--%s--\n", iter->content);
+			//printf("--%s--\n", iter->content);
 				break;
 			}
 			iter = iter->next;
