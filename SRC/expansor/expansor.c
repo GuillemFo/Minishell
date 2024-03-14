@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/14 07:51:53 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 08:19:41 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ char	*expand_str(char *name, t_env *env, char *str)
 	if (!iter) // Check if iter is NULL
 		return ft_strdup(str); // Return a copy of str if name is not found
 	env_cont = ft_strdup(iter->content); // No need to allocate memory separately
-	tmp = ft_strjoin(trim_bef(str, '$'), env_cont);
-	result = ft_strjoin(tmp, trim_after(str, '$'));
+	tmp = ft_strjoini(trim_bef(str, '$'), env_cont);
+	result = ft_strjoini(tmp, trim_after(str, '$'));
 	free(env_cont); // Free allocated memory
 	free(tmp); // Free allocated memory
 	return (result);

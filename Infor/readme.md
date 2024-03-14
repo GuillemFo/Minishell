@@ -204,5 +204,12 @@ hello2=ehho2              |Fixed
 minishell: echo $hello2   |
 2                         |
 
+How should be
+echo "'$'"
+'$'
+How it is
+echo "'$'"
+''
+
 So, need to add the filter for numbers on env only if the first char is number,
 $NONEXISTANT wont work if alone or before an existant env.
