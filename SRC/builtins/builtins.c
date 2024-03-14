@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/14 11:36:49 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 15:41:12 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,32 +108,33 @@ int	built_env(t_env *env)
 	return (0);
 }
 
-int	built_echo(t_parser *parser)
-{
-	int	flag;
-	int	i;
 
+int built_echo(t_parser *parser)
+{
+    int suppress_newline;
+    int i;
 	i = 1;
-	flag = 1;
-	if (ft_strncmp("-n" ,parser->cmd[i], 3) == 0) /// needs to replicate -nnnnnnnnnn or -n -n -n 
+	suppress_newline = 0;
+
+    while (parser->cmd[i] != NULL && (ft_strncmp("-n", parser->cmd[i], 2) == 0 || ft_strncmp("n", parser->cmd[i], 2) == 0))
 	{
-		flag = 0;
-		i++;
-	}
-	while(parser->cmd[i])
+        if (ft_strncmp("-n", parser->cmd[i], 2) == 0)
+            suppress_newline = 1;
+        i++;
+    }
+
+    while (parser->cmd[i] != NULL)
 	{
-		if (!parser->cmd[i + 1])
-			ft_putstr_fd(parser->cmd[i], STDOUT_FILENO);
-		else
-		{
-			ft_putstr_fd(parser->cmd[i], STDOUT_FILENO);
-			ft_putstr_fd(" ", STDOUT_FILENO);
-		}
-		i++;
-	}
-	if (flag == 1)
-		write(1, "\n", 1);
-	return (0);
+        ft_putstr_fd(parser->cmd[i], STDOUT_FILENO);
+        if (parser->cmd[i + 1] != NULL)
+            write(1, " ", 1);
+        i++;
+    }
+
+    if (!suppress_newline)
+        write(1, "\n", 1);
+
+    return 0;
 }
 
 //need a filter to check if exists the env before cz might be unset and might need to be created.

@@ -6,16 +6,17 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/14 12:14:17 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 15:24:11 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//	reminder cant go over 100	|| NOT MODIFYIG WHEN LAST NODE (not set before)
+//	reminder cant go over 1000	|| NOT MODIFYIG WHEN LAST NODE (not set before)
 t_env	*shell_level(t_env *env)
 {
 	t_env *iter;
+	int	holder;
 	iter = env;
 	if (env_exist(env, "SHLVL") == false){
 		//printf("FALSE\n");
@@ -26,7 +27,15 @@ t_env	*shell_level(t_env *env)
 		{
 			if ((ft_strcmp("SHLVL", iter->name))== 0)
 			{
-				iter->content = ft_itoa(ft_atoi(iter->content) + 1);		//need a filter to check if value is gonna be more than 100 to restore it to 1;
+				holder = ft_atoi(iter->content);
+				if (holder <= 0 || holder > 1000)
+				{
+					if (holder <= 0)
+						holder = -1;
+					else
+						holder = 0;
+				}
+				iter->content = ft_itoa(holder + 1);		//need a filter to check if value is gonna be more than 1000 to restore it to 1;
 			//printf("--%s--\n", iter->content);
 				break;
 			}
