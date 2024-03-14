@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/14 13:52:09 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:50:48 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ char *trim_after(char *str, char c)
 	x = 0;
 	new_str = ft_strdup("");
 	while (str[i] != c && str[i] != '\0')
-	{
 		i++;
-	}
 	if (str[i] == c)
 	{
 		i++;
@@ -61,6 +59,8 @@ char *trim_after(char *str, char c)
 			i++;
 		if (str[i] != '\0')
 		{
+			if (str[i] == '?')
+				i++;
 			while (str[i] != '\0')
 			{
 				i++;

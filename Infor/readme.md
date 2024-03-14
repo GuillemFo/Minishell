@@ -309,3 +309,43 @@ With  this push, this is the score.
   [your]                            0      0      0      0
 
   total                          [0190] [0149] [0049] [0388]
+
+
+Strarts to be pretty clean. 
+
+Main issues to focus on:
+
+bash-3.2$ echo $USER $?       minishell: echo $USER $?                   
+gforns-s 0                    gforns-s 0?       
+bash-3.2$ echo $              minishell: echo $             
+$                             $
+bash-3.2$ echo $k             minishell: echo $k               
+
+bash-3.2$ echo $" t hi t "    minishell: echo $" t hi t "      
+ t hi t                       $ t hi t 
+
+
+With  this push, this is the score.
+ |============================================================|
+
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [echo]                           14      4      0     18
+  [export]                          2     14      0     16
+  [env]                             2      6      0      8
+  [exit]                           32     23      0     55
+  [directory]                      12     11      0     23
+  [dollars]                        23      9      1     33
+  [quotes]                         44      8      0     52
+  [spaces]                          6      4      0     10
+  [tilde]                           4      5      0      9
+  [syntax_error]                    4     14      9     27
+  [pipe]                           25     15      9     49
+  [redirection]                    13     16     38     67
+  [status]                         15     12      0     27
+  [shlvl]                           6      3      0      9
+  [panic mandatory]                 2      9      1     12
+  [your]                            0      0      0      0
+
+  total                          [0200] [0139] [0049] [0388]
+
+  echo $" t hi t " Still an issue;

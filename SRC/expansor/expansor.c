@@ -6,13 +6,26 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/14 13:55:16 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:46:19 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+char	*expand_str_extra(char *str, int exit_code)
+{
+	char	*cont;
+	char	*tmp;
+	char	*result;
 
+	cont = ft_itoa(exit_code);
+	tmp = ft_strjoini(trim_bef(str, '$'), cont);
+	result = ft_strjoini(tmp, trim_after(str, '$'));	//im getting the damn '?'
+	//printf("%s\n", result);
+	free(cont);
+	free(tmp);
+	return (result);
+}
 
 char	*expand_str(char *name, t_env *env, char *str)
 {
@@ -60,7 +73,7 @@ char	*get_env_name(char *str)
 	return (name);
 }
 
-char	*find_dollar(char *str, t_env *env)
+char	*find_dollar(char *str, t_env *env, int exit_code)
 {
 	int		x;
 	char	*env_name;
@@ -76,11 +89,14 @@ char	*find_dollar(char *str, t_env *env)
 	if (!result)
 		return (NULL);
 	while (result[x]!= '\0') // Correct the loop condition
-	{
-		// if (result[x] && result[x] == '$' && result[x + 1] == '?')	//Need to add the status code of last executed commmand
-			// This  will be pulled from exit_code
-		// else if (result[x] && result[x] == '$'  && (is_poss_char(result[x + 1]) != 0) && result[x + 1] != '\0')
-		if (result[x] && result[x] == '$'  && (is_poss_char(result[x + 1]) != 0) && result[x + 1] != '\0')
+	{	
+		if (result[x] && result[x] == '$' && result[x + 1] == '?')
+		{
+			//printf("ENTER>>??\n");
+			result = expand_str_extra(result, exit_code);
+			x = -1;
+		}
+		else if (result[x] && result[x] == '$'  && (is_poss_char(result[x + 1]) != 0) && result[x + 1] != '\0')
 		{
 			env_name = get_env_name(&result[x + 1]);
 			if (env_exist(env, env_name) == true)

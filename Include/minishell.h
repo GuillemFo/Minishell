@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/14 11:41:01 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:22:20 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,13 @@ t_env	*add_env(t_parser *parser, t_env *env, int i);
 t_env	*edit_env(t_parser *parser, t_env *env, int i);
 /*-=-=-=-=-=-=-=-=EXPANSOR=-=-=-=-=-=-=-=-=-=-=*/
 
-char				*find_dollar(char *str, t_env *env);
+char				*find_dollar(char *str, t_env *env, int	exit_code);
 
 /*-=-=-=-=-=-=-=-=-=-=-=TOOLS=-=-=-=-=-=-=-=-=-=-=*/
 int					errno_printer(char *com, char *error_txt, char *asked);
 char				*trim_after(char *str, char c);
 char				*trim_bef(char *str, char c);
-char				*clear_quotes(char *str, t_env *env);
+char				*clear_quotes(char *str, t_env *env, int exit_code);
 int					is_poss_char(char c);
 
 /*==============================ANNA======================================*/

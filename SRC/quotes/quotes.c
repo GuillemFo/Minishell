@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/13 19:43:16 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:24:07 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char *cont_bef_q(char *str, char c)
 	return (res);
 }
 
-char	*clear_quotes(char *str, t_env *env)
+char	*clear_quotes(char *str, t_env *env, int exit_code)
 {
 	char 	*tmp_bef;
 	char	*tmp_cont;
@@ -113,26 +113,26 @@ char	*clear_quotes(char *str, t_env *env)
 	c = has_quotes(res);
 	if (c != '\0')
 	{
-		tmp_bef = find_dollar(cont_bef_q(res, c), env);
+		tmp_bef = find_dollar(cont_bef_q(res, c), env, exit_code);
 		if (c == '\"')
-			tmp_cont = ft_strjoini(tmp_bef, find_dollar(cont_in_q(res, c), env));
+			tmp_cont = ft_strjoini(tmp_bef, find_dollar(cont_in_q(res, c), env, exit_code));
 		else if (c == '\'')
 				tmp_cont = ft_strjoini(tmp_bef, cont_in_q(res, c));
 		tmp_after = cont_after_q(res, c);
 		while ((c = has_quotes(tmp_after)) != '\0') // do the tmp_bef and tmp_cont and add it to old tmp_cont?? so it wont redo the other string and clean possible ' or " might encounter?
 		{
-			tmp_bef = ft_strjoini(tmp_cont, find_dollar(cont_bef_q(tmp_after, c),env));
+			tmp_bef = ft_strjoini(tmp_cont, find_dollar(cont_bef_q(tmp_after, c),env, exit_code));
 			if (c == '\"')
-				tmp_cont = ft_strjoini(tmp_bef, find_dollar(cont_in_q(tmp_after, c), env));
+				tmp_cont = ft_strjoini(tmp_bef, find_dollar(cont_in_q(tmp_after, c), env, exit_code));
 			else if (c == '\'')
 				tmp_cont = ft_strjoini(tmp_bef, cont_in_q(tmp_after, c));
 			tmp_after = cont_after_q(tmp_after, c);
 		}
 		
-		res = ft_strjoini(tmp_cont, find_dollar(tmp_after, env));
+		res = ft_strjoini(tmp_cont, find_dollar(tmp_after, env, exit_code));
 	}
 	else
-		res = find_dollar(res, env);
+		res = find_dollar(res, env, exit_code);
 	return (res);
 }
 
