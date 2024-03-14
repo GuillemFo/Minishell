@@ -204,12 +204,31 @@ hello2=ehho2              |Fixed
 minishell: echo $hello2   |
 2                         |
 
-How should be
-echo "'$'"
-'$'
-How it is
-echo "'$'"
-''
+How should be |
+echo "'$'"    |FIXED
+'$'           |
+How it is     |
+echo "'$'"    |
+''            |
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [echo]                           12      5      1     18
+  [export]                          2     14      0     16
+  [env]                             2      6      0      8
+  [exit]                           32     23      0     55
+  [directory]                      12     11      0     23
+  [dollars]                        19     10      4     33
+  [quotes]                         44      8      0     52
+  [spaces]                          6      4      0     10
+  [tilde]                           4      5      0      9
+  [syntax_error]                    4     14      9     27
+  [pipe]                           25     15      9     49
+  [redirection]                    13     16     38     67
+  [status]                          5     22      0     27
+  [shlvl]                           0      7      2      9
+  [panic mandatory]                 2      9      1     12
+  [your]                            0      0      0      0
+
+  total                          [0178] [0155] [0055] [0388]
 
 So, need to add the filter for numbers on env only if the first char is number,
 $NONEXISTANT wont work if alone or before an existant env.
