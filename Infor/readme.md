@@ -232,3 +232,8 @@ echo "'$'"    |
 
 So, need to add the filter for numbers on env only if the first char is number,
 $NONEXISTANT wont work if alone or before an existant env.
+
+
+Expansor, line 80. preparing to filter ? but im missing the env or var where i should pull the info from.
+
+Env_1, preparing to set shell level or increase it if exists. Taking care for a possible situation where is the first var of the env list and also if it wont exist.

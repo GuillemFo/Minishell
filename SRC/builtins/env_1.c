@@ -6,12 +6,26 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/13 17:48:23 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 10:29:43 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	shell_level(t_env **env)	//reminder cant go over 100
+{
+	int	holder;
+	while (env)
+	{
+		if ((*env)->name != NULL && ft_strcmp("SHLVL", (*env)->name))
+		{
+			env->content = ;
+			break;
+		}
+		env = env->next;
+	}
+	return (env);
+}
 int	is_poss_char(char c)
 {
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '_'))
