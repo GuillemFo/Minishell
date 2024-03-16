@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:19:06 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/09 17:51:20 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:41:52 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ char	*ft_strjoini(char const *s1, char const *s2)
 	size_t	i;
 	char	*join;
 
+
+	if (!s1 || !s2)
+		return (NULL);
 	i = 0;
 	join = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!join)

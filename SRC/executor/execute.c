@@ -12,7 +12,7 @@
 
 #include "../../Include/minishell.h"
 
-int	execute(t_parser *parser, t_env *envi, int *error)
+int	execute(t_parser *parser, t_env **envi, int *error)
 {
 	t_pipe	pipex;
 	int		status;
@@ -22,6 +22,7 @@ int	execute(t_parser *parser, t_env *envi, int *error)
 	if (parser->cmd)
 	{
 		if (is_builtin_or_not(parser) && !parser->next)
+
 			return(is_lonely_builtin(parser, &pipex, envi));
 	}
 	exec_start(&pipex, parser);
@@ -32,13 +33,13 @@ int	execute(t_parser *parser, t_env *envi, int *error)
 	return (1);
 }
 
-void	child_process(t_pipe *pipex, t_parser *parser, t_env *envi, int *error)
+void	child_process(t_pipe *pipex, t_parser *parser, t_env **envi, int *error)
 {
 	char	**env;
 
 	env = NULL;
 	fd_situation(pipex, parser);
-	env = env_to_char(envi);
+	env = env_to_char(*envi);
 	parse_path(env, pipex);
 	if (parser->cmd && ft_strchr(parser->cmd[0], '/'))
 	{
@@ -69,7 +70,8 @@ void	fd_situation(t_pipe *pipex, t_parser *parser)
 	close(pipex->fd[1]);
 }
 
-int	is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env *envi)
+
+int	is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env **envi)
 {
 	int	i;
 
@@ -83,7 +85,8 @@ int	is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env *envi)
 	return (i);
 }
 
-void	making_kids(t_parser *parser, t_pipe *pipex, t_env *envi, int *error)
+
+void	making_kids(t_parser *parser, t_pipe *pipex, t_env **envi, int *error)
 {
 	int	i;
 

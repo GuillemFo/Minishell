@@ -89,10 +89,8 @@ void	parser_content(t_lexer *lexer, t_parser *parser, int i, int *error)
 				lexer = lexer->next;
 		}
 		else if (lexer && lexer->content && ++i)
-		{
 			parser->cmd[i - 1] = token(parser->cmd[i - 1], lexer->content,
 					ft_strlen(lexer->content) + 1);
-		}
 		if (*error)
 			return ;
 		lexer = lexer->next;
