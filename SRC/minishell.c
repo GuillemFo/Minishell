@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/09 18:31:40 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/16 16:43:10 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // This function will be used to clean the data from all nodes with info.
-t_parser	*clean_input(t_parser *parser, t_env *env)			//data = clean_input(data, env);
+t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 {
 	int	i;
 	t_parser	*iter;
@@ -25,9 +25,7 @@ t_parser	*clean_input(t_parser *parser, t_env *env)			//data = clean_input(data,
 		{
 			while (iter->cmd[i])
 			{
-			//printf("cmd1: %s\n\n", iter->cmd[i]);
-				iter->cmd[i] = clear_quotes(iter->cmd[i], env);
-			//printf("cmd2: %s\n\n", iter->cmd[i]);
+				iter->cmd[i] = clear_quotes(iter->cmd[i], env, exit_code);
 				i++;
 			}
 		}
@@ -46,12 +44,14 @@ int	main(int ac, char **av, char **envp)
 	int			error;
 	int			exit_code;
 	
+	exit_code = 0;
 	(void)error;
 	char *str;
 	(void)av;
 	if (ac != 1)
 		return(1);
 	env = load_env(envp);
+	env = shell_level(env);
 	
 	rl_catch_signals = 0;
 	signal(SIGINT, handle_sigint); //reminder that leaks atexit will kill program if use ctrl + c
@@ -68,12 +68,12 @@ int	main(int ac, char **av, char **envp)
 			if (!error && data)
     		{
 				//////////////////////////////
-				//data = clean_input(data, env);
-				error = execute(data, env, &error);
+				data = clean_input(data, env, exit_code);
+				error = execute(data, &env, &error);
 			}
 			exit_code = error;
-		}
 		free_all(data, &str);
+		}
 	}
 	return (exit_code);
 }

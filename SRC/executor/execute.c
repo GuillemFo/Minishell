@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/13 11:27:42 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/16 16:40:58 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../Include/minishell.h"
 
-int	execute(t_parser *parser, t_env *envi, int *error)
+int	execute(t_parser *parser, t_env **envi, int *error)
 {
 	t_pipe	pipex;
 	int		status;
@@ -32,13 +32,13 @@ int	execute(t_parser *parser, t_env *envi, int *error)
 	return (1);
 }
 
-void	child_process(t_pipe *pipex, t_parser *parser, t_env *envi, int *error)
+void	child_process(t_pipe *pipex, t_parser *parser, t_env **envi, int *error)
 {
 	char	**env;
 
 	env = NULL;
 	fd_situation(pipex, parser);
-	env = env_to_char(envi);
+	env = env_to_char(*envi);
 	parse_path(env, pipex);
 	if (parser->cmd && ft_strchr(parser->cmd[0], '/'))
 	{
@@ -69,7 +69,7 @@ void	fd_situation(t_pipe *pipex, t_parser *parser)
 	close(pipex->fd[1]);
 }
 
-int	is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env *envi)
+int	is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env **envi)
 {
 	int	i;
 
@@ -83,7 +83,7 @@ int	is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env *envi)
 	return (i);
 }
 
-void	making_kids(t_parser *parser, t_pipe *pipex, t_env *envi, int *error)
+void	making_kids(t_parser *parser, t_pipe *pipex, t_env **envi, int *error)
 {
 	int	i;
 

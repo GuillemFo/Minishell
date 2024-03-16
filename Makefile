@@ -24,7 +24,7 @@ SRC_PREFIX = $(addprefix $(SRC_PATH),$(SRC))
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 
-CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft -I./$(RDLINE_PATH) -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft -I./$(RDLINE_PATH)  -g #-fsanitize=address
 
 
 LIB_A		:=	$(RDLINE_PATH)libreadline.a $(RDLINE_PATH)libhistory.a $(LIBFT_PATH)libft.a
@@ -64,7 +64,7 @@ rdline:
 		@make -C ./readline/ &> $(TMP_DIR)rdcfg
 		@rm ./tmp/rdcfg
 		@echo "$(GREEN)Readline compiled$(RESET)"
-
+## ADD a checker of configure.status to compile or not the rdline?
 libraries:
 		@$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
 #@$(MAKE) rdline --no-print-directory

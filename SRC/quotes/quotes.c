@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/05 07:51:59 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:24:07 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	has_quotes(char *str)
 			return (str[i]);
 		i++;
 	}
-	return (str[i]);
+	return ('\0');
 }
 
 char	*cont_after_q(char *str, char c)
@@ -60,6 +60,8 @@ char	*cont_in_q(char *str, char c)
 	while (str[i] != c && str[i] != '\0')
 		i++;
 	cont = malloc((i - j + 1) * sizeof(char));
+	if (!cont)
+		return (NULL);
 	i = j;
 	j = 0;
 	while (str[i] != c && str[i] != '\0')
@@ -84,6 +86,8 @@ char *cont_bef_q(char *str, char c)
 		while (str[i] != c && str[i] != '\0')
 			i++;
 		res = malloc ((i + 1) * sizeof(char));
+		if (!res)
+			return (NULL);
 		i = 0;
 		while (str[i] != c && str[i] != '\0')
 		{
@@ -97,7 +101,7 @@ char *cont_bef_q(char *str, char c)
 	return (res);
 }
 
-char	*clear_quotes(char *str, t_env *env)
+char	*clear_quotes(char *str, t_env *env, int exit_code)
 {
 	char 	*tmp_bef;
 	char	*tmp_cont;
@@ -105,23 +109,30 @@ char	*clear_quotes(char *str, t_env *env)
 	char	*res;
 	char	c;
 
-	(void)env;
 	res = ft_strdup(str);
 	c = has_quotes(res);
 	if (c != '\0')
 	{
-		tmp_bef = cont_bef_q(res, c);
-		tmp_cont = ft_strjoinplus(tmp_bef, cont_in_q(res, c));
+		tmp_bef = find_dollar(cont_bef_q(res, c), env, exit_code);
+		if (c == '\"')
+			tmp_cont = ft_strjoini(tmp_bef, find_dollar(cont_in_q(res, c), env, exit_code));
+		else if (c == '\'')
+				tmp_cont = ft_strjoini(tmp_bef, cont_in_q(res, c));
 		tmp_after = cont_after_q(res, c);
 		while ((c = has_quotes(tmp_after)) != '\0') // do the tmp_bef and tmp_cont and add it to old tmp_cont?? so it wont redo the other string and clean possible ' or " might encounter?
 		{
-			tmp_bef = ft_strjoinplus(tmp_cont, cont_bef_q(tmp_after, c));
-			tmp_cont = ft_strjoinplus(tmp_bef, cont_in_q(tmp_after, c));
+			tmp_bef = ft_strjoini(tmp_cont, find_dollar(cont_bef_q(tmp_after, c),env, exit_code));
+			if (c == '\"')
+				tmp_cont = ft_strjoini(tmp_bef, find_dollar(cont_in_q(tmp_after, c), env, exit_code));
+			else if (c == '\'')
+				tmp_cont = ft_strjoini(tmp_bef, cont_in_q(tmp_after, c));
 			tmp_after = cont_after_q(tmp_after, c);
 		}
 		
-		res = ft_strjoinplus(tmp_cont, tmp_after);
+		res = ft_strjoini(tmp_cont, find_dollar(tmp_after, env, exit_code));
 	}
+	else
+		res = find_dollar(res, env, exit_code);
 	return (res);
 }
 

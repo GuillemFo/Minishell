@@ -96,11 +96,256 @@ okay so quotes are working but now i have to implement expansions always except 
 
 MISSING TODAY 07/02/24 -->>
 Heredock	(create files on ./tmp/ and name change with ft_strjoin of name and int number changing)
-Export	(need to fix if edit_env and add_env to confirm a proper management of first nodes, last nodes and existing nodes)
-Unset	(confirm deletes top and bottom nodes correctly and links to proper next nodes);
+
+Export	(need to fix if edit_env and add_env to confirm a proper management of first nodes, last nodes and existing nodes) ------------ THIS OK
+
+Unset	(confirm deletes top and bottom nodes correctly and links to proper next nodes); 
+-----THIS OK
+
 ShellLVL	(every time we execute the program we will increase the shell level on the env and can do up to 100 so when over that level, we restart to level 1)
 Expansion in clear_input if no quotes and if double quotes;
 Exit	(get the execute codes return values)
 
 Norminette
 MPANIC tester??
+
+12/03/24 (unkown) -->Hopefully i solved the loop when only 1 builtin is called and the control + C
+	comand acting twice
+
+
+12/03/24 10.14 --> Found issues with export and unset.
+	when using unset containing anything else than the name should result in an error. this means we have to check valid characters when trying to create or remove variables from enviroment list.
+	also, when i do unset alone, it crashes the program.
+when export has value wont be shown at env list;
+
+I had to send &env so i can modify the 1st node... had to modify all code for it.
+check export when has = and no
+
+Fixed buch of non protected functions on libft for null strings.
+
+expansor is pure trash, ill have to redo it entirely
+
+all builtin return and errnos are not okay
+
+export with \a\a \\ etc
+
+13/03/24 01.51 pm -->>
+	Working on expansor and quotes situation.
+What does:		echo $USER$USER$a$'USER'
+				gforns-sgforns-s$USER
+What should do:	echo $USER$USER$a$'USER'
+					gforns-sgforns-sUSER
+Also	"'$USER'" wont work correctly (missing end) 02.50 pm WORKING!!!
+		"'$USER'$PATH" missing ' after $USER 
+		(the env name is correct but its not copying correcly the data)
+
+with this code:
+ SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [echo]                           12      5      1     18
+  [export]                          2     14      0     16
+  [env]                             2      6      0      8
+  [exit]                           32     23      0     55
+  [directory]                      12     11      0     23
+  [dollars]                        17     12      4     33
+  [quotes]                         42     10      0     52
+  [spaces]                          6      4      0     10
+  [tilde]                           3      6      0      9
+  [syntax_error]                    4     14      9     27
+  [pipe]                           25     15      9     49
+  [redirection]                    13     16     38     67
+  [status]                          5     22      0     27
+  [shlvl]                           0      7      2      9
+  [panic mandatory]                 2      9      1     12
+  [your]                            0      0      0      0
+
+  total                          [0173] [0160] [0055] [0388]
+
+
+Added iteration for exort unset.
+
+need to contemplate ~ so expands to home and only works if alone like ~ or ~///////..//
+
+export wont add "" at start or end!!!
+when i added the "" to the print function i failed 2 tests.
+so i need to evaluate when i need "" if env has content or not initialized. (check if export something= or something so i add "" or not)
+maybe with a flag on the structure??
+
+imma delete "" from env prints , lets see whats the score
+
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [echo]                           12      5      1     18
+  [export]                          2     14      0     16
+  [env]                             2      6      0      8
+  [exit]                           32     23      0     55
+  [directory]                      12     11      0     23
+  [dollars]                        17     12      4     33
+  [quotes]                         43      9      0     52
+  [spaces]                          6      4      0     10
+  [tilde]                           4      5      0      9
+  [syntax_error]                    4     14      9     27
+  [pipe]                           25     15      9     49
+  [redirection]                    13     16     38     67
+  [status]                          5     22      0     27
+  [shlvl]                           0      7      2      9
+  [panic mandatory]                 2      9      1     12
+  [your]                            0      0      0      0
+
+  total                          [0175] [0158] [0055] [0388]
+
+
+
+FOR TOMORROW 14/03/24
+!!!!!!!! fuck
+minishell: echo $USER$ua3 |
+gforns-s3                 |Fixed
+minishell: echo $USER$ua3 |
+
+hello2=ehho2              |Fixed
+minishell: echo $hello2   |
+2                         |
+
+How should be |
+echo "'$'"    |FIXED
+'$'           |
+How it is     |
+echo "'$'"    |
+''            |
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [echo]                           12      5      1     18
+  [export]                          2     14      0     16
+  [env]                             2      6      0      8
+  [exit]                           32     23      0     55
+  [directory]                      12     11      0     23
+  [dollars]                        19     10      4     33
+  [quotes]                         44      8      0     52
+  [spaces]                          6      4      0     10
+  [tilde]                           4      5      0      9
+  [syntax_error]                    4     14      9     27
+  [pipe]                           25     15      9     49
+  [redirection]                    13     16     38     67
+  [status]                          5     22      0     27
+  [shlvl]                           0      7      2      9
+  [panic mandatory]                 2      9      1     12
+  [your]                            0      0      0      0
+
+  total                          [0178] [0155] [0055] [0388]
+
+So, need to add the filter for numbers on env only if the first char is number,
+$NONEXISTANT wont work if alone or before an existant env.
+
+
+Expansor, line 80. preparing to filter ? but im missing the env or var where i should pull the info from.
+
+Env_1, preparing to set shell level or increase it if exists. Taking care for a possible situation where is the first var of the env list and also if it wont exist. 
+
+(aparently is kinda hard t obe teh first only so i went fully skiping that fact. might be an issue in the future and we will need to send &env and work with **env  in its function: t_env	*shell_level(t_env *env))
+
+With  this push, this is the score.
+|============================================================|
+
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [echo]                           12      5      1     18
+  [export]                          2     14      0     16
+  [env]                             2      6      0      8
+  [exit]                           32     23      0     55
+  [directory]                      12     11      0     23
+  [dollars]                        19     10      4     33
+  [quotes]                         44      8      0     52
+  [spaces]                          6      4      0     10
+  [tilde]                           4      5      0      9
+  [syntax_error]                    4     14      9     27
+  [pipe]                           25     15      9     49
+  [redirection]                    13     16     38     67
+  [status]                          5     22      0     27
+  [shlvl]                           5      3      1      9
+  [panic mandatory]                 2      9      1     12
+  [your]                            0      0      0      0
+
+  total                          [0183] [0151] [0054] [0388]
+
+
+With  this push, this is the score.
+|============================================================|
+
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [echo]                           13      5      0     18
+  [export]                          2     14      0     16
+  [env]                             2      6      0      8
+  [exit]                           32     23      0     55
+  [directory]                      12     11      0     23
+  [dollars]                        22     10      1     33
+  [quotes]                         44      8      0     52
+  [spaces]                          6      4      0     10
+  [tilde]                           4      5      0      9
+  [syntax_error]                    4     14      9     27
+  [pipe]                           25     15      9     49
+  [redirection]                    13     16     38     67
+  [status]                          5     22      0     27
+  [shlvl]                           5      4      0      9
+  [panic mandatory]                 2      9      1     12
+  [your]                            0      0      0      0
+
+  total                          [0187] [0152] [0049] [0388]
+
+
+With  this push, this is the score.
+|============================================================|
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [echo]                           14      4      0     18
+  [export]                          2     14      0     16
+  [env]                             2      6      0      8
+  [exit]                           32     23      0     55
+  [directory]                      12     11      0     23
+  [dollars]                        23      9      1     33
+  [quotes]                         44      8      0     52
+  [spaces]                          6      4      0     10
+  [tilde]                           4      5      0      9
+  [syntax_error]                    4     14      9     27
+  [pipe]                           25     15      9     49
+  [redirection]                    13     16     38     67
+  [status]                          5     22      0     27
+  [shlvl]                           6      3      0      9
+  [panic mandatory]                 2      9      1     12
+  [your]                            0      0      0      0
+
+  total                          [0190] [0149] [0049] [0388]
+
+
+Strarts to be pretty clean. 
+
+Main issues to focus on:
+
+bash-3.2$ echo $USER $?       minishell: echo $USER $?                   
+gforns-s 0                    gforns-s 0?       
+bash-3.2$ echo $              minishell: echo $             
+$                             $
+bash-3.2$ echo $k             minishell: echo $k               
+
+bash-3.2$ echo $" t hi t "    minishell: echo $" t hi t "      
+ t hi t                       $ t hi t 
+
+
+With  this push, this is the score.
+ |============================================================|
+
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [echo]                           14      4      0     18
+  [export]                          2     14      0     16
+  [env]                             2      6      0      8
+  [exit]                           32     23      0     55
+  [directory]                      12     11      0     23
+  [dollars]                        23      9      1     33
+  [quotes]                         44      8      0     52
+  [spaces]                          6      4      0     10
+  [tilde]                           4      5      0      9
+  [syntax_error]                    4     14      9     27
+  [pipe]                           25     15      9     49
+  [redirection]                    13     16     38     67
+  [status]                         15     12      0     27
+  [shlvl]                           6      3      0      9
+  [panic mandatory]                 2      9      1     12
+  [your]                            0      0      0      0
+
+  total                          [0200] [0139] [0049] [0388]
+
+  echo $" t hi t " Still an issue;
