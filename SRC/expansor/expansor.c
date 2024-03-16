@@ -6,11 +6,29 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/14 16:46:19 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/16 20:14:00 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*expand_str_plus(char *str, t_env *env)
+{
+	char	*cont;
+	char	*tmp;
+	char	*result;
+
+	if (env_exist(env, "HOME"))
+	{
+		get_env_name
+	}
+	tmp = ft_strjoini(trim_bef(str, '~'), cont);
+	result = ft_strjoini(tmp, trim_after(str, '~'));
+	//printf("%s\n", result);
+	free(cont);
+	free(tmp);
+	return (result);
+}
 
 char	*expand_str_extra(char *str, int exit_code)
 {
@@ -49,7 +67,7 @@ char	*expand_str(char *name, t_env *env, char *str)
 
 char	*get_env_name(char *str)
 {
-	int		x;
+	int		x; 
 	char	*name;
 
 	if (!str)
@@ -89,8 +107,13 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 	if (!result)
 		return (NULL);
 	while (result[x]!= '\0') // Correct the loop condition
-	{	
-		if (result[x] && result[x] == '$' && result[x + 1] == '?')
+	{
+		if (result[x] && result[x] == '~')
+		{
+			result = expand_str_plus(result, env);
+			x = -1;
+		}
+		else if (result[x] && result[x] == '$' && result[x + 1] == '?')
 		{
 			//printf("ENTER>>??\n");
 			result = expand_str_extra(result, exit_code);
