@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 09:40:26 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/09 17:29:01 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/13 13:03:58 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@ int	cmd_count(t_lexer *lexer)
 	int	i;
 
 	i = 0;
-	while (lexer && lexer->sign == 0)
+	while (lexer && lexer->sign != 1)
 	{
+		if (lexer->sign != 0 && lexer->next)
+			lexer = lexer->next;
+		else if (lexer->sign == 0)
+			i++;
 		lexer = lexer->next;
-		i++;
 	}
 	return (i);
 }

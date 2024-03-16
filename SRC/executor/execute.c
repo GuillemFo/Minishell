@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/12 12:34:38 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/13 11:27:42 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,14 @@ int	execute(t_parser *parser, t_env **envi, int *error)
 	if (parser->cmd)
 	{
 		if (is_builtin_or_not(parser) && !parser->next)
-			is_lonely_builtin(parser, &pipex, envi);
-		else
-		{
-			exec_start(&pipex, parser);
-			making_kids(parser, &pipex, envi, error);
-			waiting(&pipex, &status, pipex.num_cmds);
-			if (WIFEXITED(status))
-				return (WEXITSTATUS(status));
-		}
+
+			return(is_lonely_builtin(parser, &pipex, envi));
 	}
+	exec_start(&pipex, parser);
+	making_kids(parser, &pipex, envi, error);
+	waiting(&pipex, &status, pipex.num_cmds);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
 	return (1);
 }
 
@@ -72,6 +70,7 @@ void	fd_situation(t_pipe *pipex, t_parser *parser)
 	close(pipex->fd[1]);
 }
 
+
 int	is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env **envi)
 {
 	int	i;
@@ -85,6 +84,7 @@ int	is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env **envi)
 	dup2(pipex->std_out, STDOUT_FILENO);
 	return (i);
 }
+
 
 void	making_kids(t_parser *parser, t_pipe *pipex, t_env **envi, int *error)
 {

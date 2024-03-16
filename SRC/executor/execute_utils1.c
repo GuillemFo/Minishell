@@ -28,6 +28,7 @@ char	*ft_strjoini(char const *s1, char const *s2)
 	size_t	i;
 	char	*join;
 
+
 	if (!s1 || !s2)
 		return (NULL);
 	i = 0;
