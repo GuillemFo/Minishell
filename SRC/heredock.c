@@ -6,14 +6,30 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 08:21:01 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/17 08:40:37 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/17 09:02:54 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	build_heredock(char *path, char *where) // what else???
-
+{
+	int fd;
+	char *str;
+	// so i saved a fd[2] for io and now i cant access ... better build new one so no mallocs involved 
+	fd = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	str = readline("> ");
+	while (str && ft_strcmp(where, str) != 0)
+	{
+		str = ft_strjoini(str, "\n");
+		ft_putstr_fd(str, fd);
+		free(str);
+		str = readline("> ");
+	}
+	close(fd);
+	free(str);
+	return (0); //signals??
+}
 
 int	start_heredock(t_redir *sup,int i)
 {
@@ -24,22 +40,25 @@ int	start_heredock(t_redir *sup,int i)
 	path = ft_strjoini("/tmp/cache", num);
 	//free(numb);	issues???
 	build_heredock(path, sup->dest);
-	
+	//free(sup->dest); really needed?
+	sup->dest = ft_strdup(path);
+	//free??
+	retun (0);//what returns?
 }
 
 
 
 
 
-int	heredock_check(t_redir *redir)
+int	heredock_check(t_parser	*parser)
 {
 	t_redir *sup;
 	int	i;
 
 	i = 0;
-	while (redir)
+	while (parser->cmd)
 	{
-		sup = redir;
+		sup  = ;
 		while (sup)
 		{
 			if (sup->sign == LESSLESS)
@@ -49,7 +68,7 @@ int	heredock_check(t_redir *redir)
 			}
 			sup = sup->next;
 		}
-		redir = redir->next;
+		sup = sup->next;
 	}
-	return (1);
+	return (1);  //what returns?
 }

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/17 08:40:35 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/17 09:00:29 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,9 @@ t_env	*edit_env(t_parser *parser, t_env *env, int i);
 char	*expand_str_plus(char *str, t_env *env);
 
 /*				HEREDOCK		*/
-int	heredock_check(t_redir *redir);
+int	heredock_check(t_parser *parser);
 int	build_heredock(char *path, char *where);
-int	start_heredock(sup, i);
+int	start_heredock(t_redir *sup,int i);
 /*-=-=-=-=-=-=-=-=EXPANSOR=-=-=-=-=-=-=-=-=-=-=*/
 
 char				*find_dollar(char *str, t_env *env, int	exit_code);
