@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/17 05:32:38 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/17 06:32:49 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,21 @@ int	builtin_exit(t_parser *parser)
 
 	val = 0;
 	if (!parser->cmd[1])
-		exit(val);
+		exit(0);
 	else if (parser->cmd[1])
 	{
 		if (check_is_all_number(parser->cmd[1]) == true)	//Need to build this function
 		{
 			val = ft_atoi(parser->cmd[1]);
-			if (val > __LONG_LONG_MAX__)
+			if (val >= __LONG_LONG_MAX__)
 			{
 				errno_printer("exit", "numeric argument required", parser->cmd[1]);
 			}
 			exit(val);
 		}
 	}
+	else if (parser->cmd[1][0] == '\0')
+		return (255);
 	exit(val);
 	return (val);
 }
@@ -122,7 +124,7 @@ int built_echo(t_parser *parser)
 	i = 1;
 	suppress_newline = 0;
 
-    while (parser->cmd[i] != NULL && (ft_strncmp("-n", parser->cmd[i], 2) == 0 || ft_strncmp("n", parser->cmd[i], 2) == 0))
+    while ((parser->cmd[i] != NULL && ((ft_strcmp("-n", parser->cmd[i]) == 0) || ft_strcmp("-nn", parser->cmd[i]) == 0)))
 	{
         if (ft_strncmp("-n", parser->cmd[i], 2) == 0)
             suppress_newline = 1;
@@ -140,7 +142,7 @@ int built_echo(t_parser *parser)
     if (!suppress_newline)
         write(1, "\n", 1);
 
-    return 0;
+    return (0);
 }
 
 //need a filter to check if exists the env before cz might be unset and might need to be created.
@@ -167,13 +169,13 @@ int	built_cd(t_parser *parser, t_env *env)
 	while (iter->next && ft_strncmp(iter->name, "PWD", 4) != 0)
 		iter = iter->next;
 	iter->content = ft_strdup(getcwd(NULL, MAXPATHLEN));
-	return (0);
+	return (1);
 }
 
 int	built_pwd()
 {
 	ft_printf("%s\n", getcwd(NULL, MAXPATHLEN));
-	return (0);
+	return (1);
 }
 
 int	is_builtin_execute(t_parser *parser, t_env **env) 
