@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/17 03:39:07 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/17 04:15:15 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,13 @@ int		builtin_export(t_parser *parser, t_env *env)
 		{
 			if ((is_poss_char(parser->cmd[i][0]))== 1)
 			{
-				while ((is_poss_char(parser->cmd[i][x])) != 0)
+				while (is_poss_char(parser->cmd[i][x]) != 0)
 					x++;
-				if (parser->cmd[i][x] != '\0')
+				//printf("%c\n", parser->cmd[i][x]);
+				if (parser->cmd[i][x] != '\0' && parser->cmd[i][x] != '%')
 					env = add_env(parser, env, i);
+				else
+					errno_printer(parser->cmd[0], parser->cmd[i], "not a valid identifier");
 			}
 			else
 				errno_printer(parser->cmd[0], parser->cmd[i], "not a valid identifier");
