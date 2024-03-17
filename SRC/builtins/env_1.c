@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/17 03:50:21 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/17 04:41:37 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	print_env_lst(t_env *env)
 			ft_printf("%s=%s\n", iter->name, iter->content);
 		iter = iter->next;
 	}
-	return (0);
+	return (1);
 }
 
 void	del_env(t_parser *parser, t_env **env, int i)

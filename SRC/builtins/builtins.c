@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/17 04:31:21 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/17 04:40:00 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,10 @@ int	builtin_unset(t_parser *parser, t_env **env)
 int	built_env(t_env *env)
 {
 	print_env_lst(env);
-	return (0);
+	return (1);
 }
 
-//echo will only print 1 space!!!
+//echo will only print 1 space (wrong whn env set to multiple spaces)
 int built_echo(t_parser *parser)
 {
     int suppress_newline;
@@ -131,7 +131,7 @@ int built_echo(t_parser *parser)
         i++;
     }
 
-    while (parser->cmd[i] != NULL)
+    while (parser->cmd[i] != NULL)	//how can i ad a filter here to protect from trash env values?
 	{
         ft_putstr_fd(parser->cmd[i], STDOUT_FILENO);
         if (parser->cmd[i + 1] != NULL)
