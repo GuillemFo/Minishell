@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 08:21:01 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/17 09:02:54 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/17 10:21:08 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,8 @@ int	start_heredock(t_redir *sup,int i)
 	//free(sup->dest); really needed?
 	sup->dest = ft_strdup(path);
 	//free??
-	retun (0);//what returns?
+	return (0);//what returns?
 }
-
-
-
 
 
 int	heredock_check(t_parser	*parser)
@@ -56,10 +53,10 @@ int	heredock_check(t_parser	*parser)
 	int	i;
 
 	i = 0;
-	while (parser->cmd)
+	while (parser->redir)
 	{
-		sup  = ;
-		while (sup)
+			sup = parser->redir;
+		while (sup->sign)
 		{
 			if (sup->sign == LESSLESS)
 			{
