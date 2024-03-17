@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/16 19:33:39 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/17 03:50:21 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	is_poss_char(char c)
 	return (0);
 }
 
+
 char	*get_home(t_env *env)
 {
 	t_env *iter;
@@ -77,7 +78,7 @@ bool	env_no_value(char *var)
 	i = 0;
 	while (var[i] != '=' && var[i] != '\0')
 		i++;
-	if (var[i] == '\0' || var[i + 1] == '\0')
+	if (var[i] == '\0')
 		return (true);
 	return (false);
 }
@@ -104,7 +105,7 @@ int	print_hidden_lst(t_env *env)
 	iter = env;
 	while (iter != NULL)
 	{	
-		ft_printf("%s=%s\n", iter->name, iter->content);
+		ft_printf("declare -x %s=\"%s\"\n", iter->name, iter->content);
 		iter = iter->next;
 	}
 	return (0);
@@ -222,7 +223,7 @@ char	*equal_til_end(char *var)
 	if (var[x] == '=' && var[x + 1] != '\0')	//need to add a filter so wont coppy ';'
 		return (ft_strdup(var + x + 1));
 	else
-		return (ft_strdup("\"\""));
+		return (ft_strdup(""));
 }
 
 

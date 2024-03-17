@@ -24,7 +24,7 @@ SRC_PREFIX = $(addprefix $(SRC_PATH),$(SRC))
 
 OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
 
-CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft -I./$(RDLINE_PATH)  -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I./Include -I./libft -I./$(RDLINE_PATH)  -g #-fsanitize=address
 
 
 LIB_A		:=	$(RDLINE_PATH)libreadline.a $(RDLINE_PATH)libhistory.a $(LIBFT_PATH)libft.a
@@ -69,7 +69,7 @@ libraries:
 		@$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
 #@$(MAKE) rdline --no-print-directory
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c Makefile $(LIB_A) $(INC)minishell.h	#Check dependencies from libft, relink etc...
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c Makefile $(LIB_A) $(INC)minishell.h
 		@mkdir	-p $(dir $@)
 		@gcc $(CFLAGS) -DREADLINE_LIBRARY=1 -I./Include -I./readline -c $< -o $@
 		@echo "$(CYAN)Compiling Minishell:$(YELLOW) $@$(RESET)"

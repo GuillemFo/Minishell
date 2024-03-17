@@ -349,3 +349,49 @@ With  this push, this is the score.
   total                          [0200] [0139] [0049] [0388]
 
   echo $" t hi t " Still an issue;
+
+
+
+  |============================================================|
+
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [echo]                           14      4      0     18
+  [export]                          1     15      0     16
+  [env]                             2      6      0      8
+  [exit]                           19     36      0     55
+  [directory]                      10     13      0     23
+  [dollars]                        21     12      0     33
+  [quotes]                         42     10      0     52
+  [spaces]                          8      2      0     10
+  [tilde]                           4      5      0      9
+  [syntax_error]                    4     14      9     27
+  [pipe]                           25     15      9     49
+  [redirection]                    37     26      4     67
+  [status]                         15     12      0     27
+  [shlvl]                           6      3      0      9
+  [panic mandatory]                 3      9      0     12
+  [your]                            0      0      0      0
+
+  total                          [0207] [0168] [0013] [0388]
+
+  |============================================================|
+
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [echo]                           14      4      0     18
+  [export]                          2     14      0     16
+  [env]                             2      6      0      8
+  [exit]                           32     23      0     55
+  [directory]                      12     11      0     23
+  [dollars]                        24      8      1     33
+  [quotes]                         44      8      0     52
+  [spaces]                          6      4      0     10
+  [tilde]                           4      5      0      9
+  [syntax_error]                    4     14      9     27
+  [pipe]                           25     15      9     49
+  [redirection]                    46     17      4     67
+  [status]                         15     12      0     27
+  [shlvl]                           6      3      0      9
+  [panic mandatory]                 2     10      0     12
+  [your]                            0      0      0      0
+
+  total                          [0234] [0140] [0014] [0388]
