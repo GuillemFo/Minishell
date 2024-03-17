@@ -475,3 +475,4 @@ while actual bash does nothing...
 
   total                          [0215] [0160] [0013] [0388]
 
+Heredock << 
