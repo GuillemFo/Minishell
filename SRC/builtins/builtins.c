@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/17 05:07:55 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/17 05:32:38 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ int		builtin_export(t_parser *parser, t_env *env)
 }
 
 
-
-//check if characters are valid.
 int	builtin_unset(t_parser *parser, t_env **env)
 {
 	int	i;

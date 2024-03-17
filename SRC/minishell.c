@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:06 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/14 16:23:04 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/17 05:34:46 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// This function will be used to clean the data from all nodes with info.
 t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 {
 	int	i;
@@ -67,7 +66,6 @@ int	main(int ac, char **av, char **envp)
 			data = ft_parser(input, &error);
 			if (!error && data)
     		{
-				//////////////////////////////
 				data = clean_input(data, env, exit_code);
 				error = execute(data, &env, &error);
 			}

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/17 04:28:37 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/17 05:34:26 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*expand_str(char *name, t_env *env, char *str)
 	while (iter && ft_strcmp(name, iter->name) != 0)
 		iter = iter->next;
 	if (!iter)
-		return ft_strdup(str); // Return a copy of str if name is not found;
+		return ft_strdup(str);
 	env_cont = ft_strdup(iter->content);
 	tmp = ft_strjoini(trim_bef(str, '$'), env_cont);
 	result = ft_strjoini(tmp, trim_after(str, '$'));
@@ -118,6 +118,8 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 	return (result);
 }
 
+
+//im scared to delete this part because it might be useful at some point
 
 // looking at it and the tools for trimming
 // char	*expand_str(char *name, t_env *env, char *str)

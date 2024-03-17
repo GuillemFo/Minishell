@@ -6,26 +6,24 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/17 04:58:08 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/17 05:32:05 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//	reminder cant go over 1000	|| NOT MODIFYIG WHEN LAST NODE (not set before)
 t_env	*shell_level(t_env *env)
 {
 	t_env *iter;
 	int	holder;
 	iter = env;
 	if (env_exist(env, "SHLVL") == false){
-		//printf("FALSE\n");
 		env = add_env_shell(env);}
 	else
 	{
 		while (iter)
 		{
-			if ((ft_strcmp("SHLVL", iter->name))== 0)
+			if ((ft_strcmp("SHLVL", iter->name))== 0)	//Instead of this manycheckers maybe just count the amount of chars??
 			{
 				holder = ft_atoi(iter->content);
 				if (holder <= 0 || holder > 1000)
@@ -42,7 +40,6 @@ t_env	*shell_level(t_env *env)
 					holder = 1;
 				}
 				iter->content = ft_lltoa(holder);
-			//printf("--%s--\n", iter->content);
 				break;
 			}
 			iter = iter->next;
@@ -166,9 +163,7 @@ void	del_env(t_parser *parser, t_env **env, int i)
 	}
 }
 
-//am i returning the env losing before nodes when iterating??
-// Should i start an iter so i can iter = env and iterate the copy and not lose the top?
-// Why i havent seen this before?? Changed envto iter so wont lose first node.
+
 t_env	*edit_env(t_parser *parser, t_env *env, int i)
 {
 	t_env *iter;
