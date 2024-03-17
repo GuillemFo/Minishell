@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/17 02:31:50 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/17 04:28:37 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*expand_str(char *name, t_env *env, char *str)
 	char	*result;
 
 	iter = env;
-	while (iter && ft_strncmp(name, iter->name, ft_strlen(name)) != 0)
+	while (iter && ft_strcmp(name, iter->name) != 0)
 		iter = iter->next;
 	if (!iter)
 		return ft_strdup(str); // Return a copy of str if name is not found;
