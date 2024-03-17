@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/17 04:41:37 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/17 04:58:08 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,13 @@ t_env	*shell_level(t_env *env)
 					else
 						holder = 0;
 				}
-				iter->content = ft_itoa(holder + 1);		//need a filter to check if value is gonna be more than 1000 to restore it to 1;
+				holder += 1;		//need a filter to check if value is gonna be more than 1000 to restore it to 1;
+				if (holder > 1000)
+				{
+					errno_printer("warning", "shell level (%d) too high, holder", "resetting to 1");
+					holder = 1;
+				}
+				iter->content = ft_lltoa(holder);
 			//printf("--%s--\n", iter->content);
 				break;
 			}

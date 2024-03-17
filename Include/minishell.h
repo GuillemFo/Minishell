@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/16 20:07:44 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/17 04:58:01 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ char				*trim_after(char *str, char c);
 char				*trim_bef(char *str, char c);
 char				*clear_quotes(char *str, t_env *env, int exit_code);
 int					is_poss_char(char c);
+char	*ft_lltoa(long long n);
 
 /*==============================ANNA======================================*/
 void	ft_error(int ernu, char *msg, int *error);
