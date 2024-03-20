@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/20 11:28:43 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:56:04 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	child_process(t_pipe *pipex, t_parser *parser, t_env **envi, int *error)
 			pipex->path = parser->cmd[0];
 		else
 		{
-			ft_other_error("Error: No such file or directory\n", error, 1);
-			exit(1);
+			ft_other_error("Error: No such file or directory\n", error, 127);
+			exit(127);
 		}
 	}
 	if (parser->redir)
