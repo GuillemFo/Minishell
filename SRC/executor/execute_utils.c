@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 12:22:21 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/09 17:49:19 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:32:39 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**env_to_char(t_env *env)
 
 	i = 0;
 	new_env = my_malloc(sizeof(char *) * (env_size(env) + 1));
-	while (env->next)
+	while (env)
 	{
 		if (env->is_hidden == false)
 		{
