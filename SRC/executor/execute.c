@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/13 11:27:42 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:28:43 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	execute(t_parser *parser, t_env **envi, int *error)
 	if (parser->cmd)
 	{
 		if (is_builtin_or_not(parser) && !parser->next)
-
 			return(is_lonely_builtin(parser, &pipex, envi));
 	}
 	exec_start(&pipex, parser);
@@ -47,7 +46,7 @@ void	child_process(t_pipe *pipex, t_parser *parser, t_env **envi, int *error)
 			pipex->path = parser->cmd[0];
 		else
 		{
-			ft_other_error("Error: No path found\n", error, 1);
+			ft_other_error("Error: No such file or directory\n", error, 1);
 			exit(1);
 		}
 	}
