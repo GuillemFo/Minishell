@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/17 10:09:53 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/20 09:12:21 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int ac, char **av, char **envp)
 			if (!error && data)
     		{
 				data = clean_input(data, env, exit_code);
-				heredock_check(data);
+				
 				error = execute(data, &env, &error);
 			}
 			exit_code = error;
