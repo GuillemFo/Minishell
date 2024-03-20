@@ -476,3 +476,8 @@ while actual bash does nothing...
   total                          [0215] [0160] [0013] [0388]
 
 Heredock << 
+
+To do today 20/03/24 
+    All error returns.
+    word split o expansion for non "" exppansions so wont add extra spaces
+    
