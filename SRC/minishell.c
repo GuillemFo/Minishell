@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/20 09:12:21 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/20 10:07:10 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int ac, char **av, char **envp)
 	if (ac != 1)
 		return(1);
 	env = load_env(envp);
-	env = shell_level(env);
+	shell_level(&env);
 	
 	rl_catch_signals = 0;
 	signal(SIGINT, handle_sigint); //reminder that leaks atexit will kill program if use ctrl + c

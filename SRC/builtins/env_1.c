@@ -6,48 +6,11 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/17 06:14:41 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/20 10:14:42 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_env	*shell_level(t_env *env)
-{
-	t_env *iter;
-	int	holder;
-	iter = env;
-	if (env_exist(env, "SHLVL") == false){
-		env = add_env_shell(env);}
-	else
-	{
-		while (iter)
-		{
-			if ((ft_strcmp("SHLVL", iter->name))== 0)	//Instead of this manycheckers maybe just count the amount of chars??
-			{
-				holder = ft_atoi(iter->content);
-				if (holder <= 0 || holder > 1000)
-				{
-					if (holder <= 0)
-						holder = -1;
-					else
-						holder = 0;
-				}
-				holder += 1;		//need a filter to check if value is gonna be more than 1000 to restore it to 1;
-				if (holder > 1000)
-				{
-					errno_printer("warning", "shell level (%d) too high, holder", "resetting to 1");
-					holder = 1;
-				}
-				iter->content = ft_itoa(holder);
-				break;
-			}
-			iter = iter->next;
-		}
-	}
-	return (env);
-}
-
 
 int	is_poss_char(char c)
 {
@@ -164,11 +127,11 @@ void	del_env(t_parser *parser, t_env **env, int i)
 }
 
 
-t_env	*edit_env(t_parser *parser, t_env *env, int i)
+void	edit_env(t_parser *parser, t_env **env, int i)
 {
 	t_env *iter;
 
-	iter = env;
+	iter = *env;
 	while (iter)
 	{
 		if (iter->name != NULL && ft_strcmp(iter->name,
@@ -180,29 +143,23 @@ t_env	*edit_env(t_parser *parser, t_env *env, int i)
 		}
 		iter = iter->next;
 	}
-	return (env);
 }
 
-// Works fine
-t_env	*add_env_shell(t_env *env)
+
+void	add_env(t_parser *parser, t_env **env, int i)
 {
 	t_env	*iter;
 
-	iter = env;
-	while (iter->next != NULL)
-		iter = iter->next;
-	iter->next = malloc(sizeof(t_env));
-	iter->next->name = ft_strdup("SHLVL");
-	iter->next->content = ft_strdup("1");
-	iter->next->next = NULL;
-	return (env);
-}
-
-t_env	*add_env(t_parser *parser, t_env *env, int i)
-{
-	t_env	*iter;
-
-	iter = env;
+	if (!*env)
+	{
+		(*env) = malloc(sizeof(t_env));
+		(*env)->name = ft_strdup(get_til_equal(parser->cmd[i]));
+		(*env)->is_hidden = env_no_value(parser->cmd[i]);
+		(*env)->content = ft_strdup(equal_til_end(parser->cmd[i]));
+		(*env)->next = NULL;
+		return;
+	}
+	iter = *env;
 	while (iter->next != NULL)
 		iter = iter->next;
 	iter->next = malloc(sizeof(t_env));
@@ -210,7 +167,6 @@ t_env	*add_env(t_parser *parser, t_env *env, int i)
 	iter->next->is_hidden = env_no_value(parser->cmd[i]);
 	iter->next->content = ft_strdup(equal_til_end(parser->cmd[i]));
 	iter->next->next = NULL;
-	return (env);
 }
 
 
@@ -255,6 +211,8 @@ t_env	*load_env(char **envp)
 	t_env	*start;
 	int		y;
 
+	if(envp == NULL || envp[0] == NULL)
+		return (NULL);
 	env = malloc(sizeof(t_env));
 	start = env;
 	y = 0;

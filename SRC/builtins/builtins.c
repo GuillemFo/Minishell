@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/17 06:32:49 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/20 10:02:07 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	builtin_exit(t_parser *parser)
 
 //if we have multiple args, will set all. Some characters are not valid!!
 //check if has equial in order to actually rewrite it empty;
-int		builtin_export(t_parser *parser, t_env *env)
+int		builtin_export(t_parser *parser, t_env **env)
 {
 	int	i;
 	int	x;
@@ -66,10 +66,10 @@ int		builtin_export(t_parser *parser, t_env *env)
 	x = 0;
 	i = 1;
 	if (!parser->cmd[1])
-		print_hidden_lst(env);
+		print_hidden_lst(*env);
 	while (parser->cmd[i])
 	{
-		if (env_exist(env, get_til_equal(parser->cmd[i])) == false)
+		if (env_exist(*env, get_til_equal(parser->cmd[i])) == false)
 		{
 			if ((is_poss_char(parser->cmd[i][0]))== 1)
 			{
@@ -77,13 +77,13 @@ int		builtin_export(t_parser *parser, t_env *env)
 					x++;
 				//printf("%c\n", parser->cmd[i][x]);
 				if (parser->cmd[i][x] != '\0' && parser->cmd[i][x] == '=')
-					env = add_env(parser, env, i);
+					add_env(parser, env, i);
 			}
 			else
 				errno_printer(parser->cmd[0], parser->cmd[i], "not a valid identifier");
 		}
 		else if (equal_til_end(parser->cmd[i]))
-			env = edit_env(parser, env, i);
+				edit_env(parser, env, i);
 		i++;
 	}						
 	return (0);
@@ -195,7 +195,7 @@ int	is_builtin_execute(t_parser *parser, t_env **env)
 	else if (ft_strcmp("exit", parser->cmd[0]) == 0)
 		return(builtin_exit(parser));
 	else if (ft_strcmp("export", parser->cmd[0]) == 0)
-		return(builtin_export(parser, *env));
+		return(builtin_export(parser, env));
 	else if (ft_strcmp("unset", parser->cmd[0]) == 0)
 		return(builtin_unset(parser, env));
 	return (0);
