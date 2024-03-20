@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:12 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/20 13:19:35 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:58:01 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ long long	ft_check_max_min(char *argv)
 	result = 0;
 	i = 0;
 	sign = 1;
-	if (argv[0] == '-' || argv[0] == '+')
+	if (argv[0] == '-' || argv[0] == '+' || argv[0] == ' ')
 	{
 		if (argv[0] == '-')
 			sign = -1;
@@ -47,10 +47,12 @@ long long	ft_check_arg_is_num(char *argv)
 
 	z = 0;
 	i = 1;
-	if (argv[0] == '-' || argv[0] == '+' || (argv[0] >= '0' && argv[0] <= '9'))
+	if (argv[0] == '-' || argv[0] == ' ' || argv[0] == '+' || (argv[0] >= '0' && argv[0] <= '9'))
 	{
 		while (argv[i] != '\0')
 		{
+			if (argv[i] == ' ' && argv[i + 1] == '\0')
+				break;
 			z = ft_isdigit(argv[i]);
 			if (z == 0)
 				return (0);
