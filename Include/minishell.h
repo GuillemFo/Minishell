@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/20 10:06:42 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/20 10:33:31 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ t_env				*load_env(char **envp);
 int					print_env_lst(t_env *env);
 int					print_hidden_lst(t_env *env);
 bool				env_exist(t_env *env, char *str);
+bool	env_no_value(char *var);
 char	*get_til_equal(char *var);
 char	*equal_til_end(char	*var);
 char	*get_home(t_env *env);

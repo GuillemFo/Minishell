@@ -6,48 +6,12 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/20 10:14:42 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/20 10:39:16 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_poss_char(char c)
-{
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '_'))
-		return (1);
-	else if (c >= '0' && c <= '9')
-		return (2);
-	return (0);
-}
-
-
-char	*get_home(t_env *env)
-{
-	t_env *iter;
-
-	iter = env;
-	while (iter != NULL)
-	{
-		if (ft_strcmp(iter->name, "HOME") == 0)
-			return (ft_strdup(iter->content));
-		iter = iter->next;
-	}
-	return (ft_strdup("ERROR"));
-}
-
-// this works fine
-bool	env_no_value(char *var)
-{
-	int	i;
-
-	i = 0;
-	while (var[i] != '=' && var[i] != '\0')
-		i++;
-	if (var[i] == '\0')
-		return (true);
-	return (false);
-}
 // this works fine
 bool	env_exist(t_env *env, char *str)
 {
@@ -61,112 +25,6 @@ bool	env_exist(t_env *env, char *str)
 		iter = iter->next;
 	}
 	return (false);
-}
-
-// this works fine
-int	print_hidden_lst(t_env *env)
-{
-	t_env	*iter;
-	
-	iter = env;
-	while (iter != NULL)
-	{	
-		ft_printf("declare -x %s=\"%s\"\n", iter->name, iter->content);
-		iter = iter->next;
-	}
-	return (0);
-}
-
-// this works fine
-int	print_env_lst(t_env *env)
-{
-	t_env	*iter;
-
-	iter = env;
-	while (iter != NULL)
-	{
-		if (iter->is_hidden == false)
-			ft_printf("%s=%s\n", iter->name, iter->content);
-		iter = iter->next;
-	}
-	return (1);
-}
-
-void	del_env(t_parser *parser, t_env **env, int i)
-{
-	t_env	*prev;
-	t_env	*iter;
-
-	if ((*env)->name != NULL && ft_strcmp((*env)->name, get_til_equal(parser->cmd[i])) == 0)
-	{
-		prev = (*env);
-		(*env) = (*env)->next;
-		free(prev->name);
-		free(prev->content);
-		free(prev);
-	}
-	prev = NULL;
-	iter = *env;
-	while (iter != NULL)
-	{
-		if (iter->name != NULL && ft_strcmp(iter->name,
-				get_til_equal(parser->cmd[i])) == 0)
-		{
-			if (prev == NULL)
-				(*env) = iter->next;
-			else
-				prev->next = iter->next;
-			free(iter->name);
-			free(iter->content);
-			free(iter);
-			break ;
-		}
-		prev = iter;
-		iter = iter->next;
-	}
-}
-
-
-void	edit_env(t_parser *parser, t_env **env, int i)
-{
-	t_env *iter;
-
-	iter = *env;
-	while (iter)
-	{
-		if (iter->name != NULL && ft_strcmp(iter->name,
-				get_til_equal(parser->cmd[i])) == 0)
-		{
-			free(iter->content);
-			iter->content = ft_strdup(equal_til_end(parser->cmd[i]));
-			break;
-		}
-		iter = iter->next;
-	}
-}
-
-
-void	add_env(t_parser *parser, t_env **env, int i)
-{
-	t_env	*iter;
-
-	if (!*env)
-	{
-		(*env) = malloc(sizeof(t_env));
-		(*env)->name = ft_strdup(get_til_equal(parser->cmd[i]));
-		(*env)->is_hidden = env_no_value(parser->cmd[i]);
-		(*env)->content = ft_strdup(equal_til_end(parser->cmd[i]));
-		(*env)->next = NULL;
-		return;
-	}
-	iter = *env;
-	while (iter->next != NULL)
-		iter = iter->next;
-	iter->next = malloc(sizeof(t_env));
-	iter->next->name = ft_strdup(get_til_equal(parser->cmd[i]));
-	iter->next->is_hidden = env_no_value(parser->cmd[i]);
-	iter->next->content = ft_strdup(equal_til_end(parser->cmd[i]));
-	iter->next->next = NULL;
 }
 
 
@@ -215,8 +73,8 @@ t_env	*load_env(char **envp)
 		return (NULL);
 	env = malloc(sizeof(t_env));
 	start = env;
-	y = 0;
-	while (envp[y] != NULL)
+	y = -1;
+	while (envp[++y] != NULL)
 	{
 		env->name = get_til_equal(envp[y]);
 		env->is_hidden = env_no_value(envp[y]);
@@ -227,10 +85,7 @@ t_env	*load_env(char **envp)
 			env = env->next;
 		}
 		else
-		{
 			env->next = NULL;
-		}
-		y++;
 	}
 	return (start);
 }

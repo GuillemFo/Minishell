@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 09:56:09 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/20 10:16:10 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/20 10:29:28 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	add_env_shell(t_env **env)
 		(*env)->name = ft_strdup("SHLVL");
 		(*env)->content = ft_strdup("1");
 		(*env)->next = NULL;
-		return ;
+		return;
 	}
 	iter = *env;
 	while (iter->next != NULL)
@@ -39,8 +39,8 @@ void	shell_level(t_env **env)
 	t_env *iter;
 	int	holder;
 	iter = *env;
-	if (env_exist(*env, "SHLVL") == false){
-		add_env_shell(env);}
+	if (env_exist(*env, "SHLVL") == false)
+		add_env_shell(env);
 	else
 	{
 		while (iter)
