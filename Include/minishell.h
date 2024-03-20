@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/20 10:33:31 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:19:24 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void				handle_sigquit(int sig);
 //encountering pipes or redirections and so.
 /*-=-=-=-=-=-=-=-=-=-=-=BUILTINS=-=-=-=-=-=-=-=-=-=-=-=*/
 //
-int					is_builtin_execute(t_parser *token, t_env **env);
+int					is_builtin_execute(t_parser *token, t_env **env, int *error);
 int					built_ls(void);
 int					built_grep(void);
 t_env				*load_env(char **envp);
@@ -124,6 +124,8 @@ char				*trim_after(char *str, char c);
 char				*trim_bef(char *str, char c);
 char				*clear_quotes(char *str, t_env *env, int exit_code);
 int					is_poss_char(char c);
+long long	ft_check_arg_is_num(char *argv);
+long long	ft_check_max_min(char *argv);
 
 /*==============================ANNA======================================*/
 void	ft_error(int ernu, char *msg, int *error);
@@ -200,7 +202,7 @@ void		exec_start(t_pipe *pipex, t_parser *parser);
 void		exec_finish(t_pipe *pipex);
 void		waiting(t_pipe *pipex, int *status, int num_cmds);
 void		execute_fin(t_parser *parser);
-int			is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env **envi);
+int			is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env **envi, int *error);
 void		making_kids(t_parser *parser, t_pipe *pipex, t_env **envi, int *error);
 void		get_token(t_parser *parser, t_lexer *lexer, t_redir *tmp);
 

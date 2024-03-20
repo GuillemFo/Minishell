@@ -6,53 +6,25 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/20 10:02:07 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:20:37 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-// CHECK AND REDO
-bool	check_is_all_number(char *num)
-{
-    if (*num == '\0')
-		return false;
-    if (*num == '+' || *num == '-')
-    	num++;
-    while (*num != '\0')
-	{
-    	if (!ft_isdigit(*num))
-            return false;
-		num++;
-    }
-    return true;
-}
 
 //	!!! Reminder that exit will round values every 255 reached !!!
 //	and val cant exceed __LONG_LONG_MAX__
-int	builtin_exit(t_parser *parser)
+void	builtin_exit(t_parser *parser, int *error)
 {
-	u_long	val;
-
-	val = 0;
-	if (!parser->cmd[1])
-		exit(0);
-	else if (parser->cmd[1])
+	if (parser->cmd[1] && ft_strcmp(parser->cmd[1], "---") == 0)
+		ft_other_error(" exit: ---: numeric argument required\n", error, 255);
+	else if (parser->cmd[1] && ft_check_arg_is_num(parser->cmd[1]) != 1) // atoi checker
 	{
-		if (check_is_all_number(parser->cmd[1]) == true)	//Need to build this function
-		{
-			val = ft_atoi(parser->cmd[1]);
-			if (val >= __LONG_LONG_MAX__)
-			{
-				errno_printer("exit", "numeric argument required", parser->cmd[1]);
-			}
-			exit(val);
-		}
+		errno_printer(" exit", "numeric argument required", parser->cmd[1]);
+		*error = 255;
 	}
-	else if (parser->cmd[1][0] == '\0')
-		return (255);
-	exit(val);
-	return (val);
+	exit(*error);
 }
 
 
@@ -178,9 +150,9 @@ int	built_pwd()
 	return (1);
 }
 
-int	is_builtin_execute(t_parser *parser, t_env **env) 
+int	is_builtin_execute(t_parser *parser, t_env **env, int *error) 
 {
-	if (ft_strcmp("echo", parser->cmd[0]) == 0) //Capitals EcHo eChO echO
+	if (ft_strcmp("echo", parser->cmd[0]) == 0)
 	{
 		if (!parser->cmd[1])
 			return (write(1, "\n", 1));
@@ -189,11 +161,11 @@ int	is_builtin_execute(t_parser *parser, t_env **env)
 	else if (ft_strcmp("cd", parser->cmd[0]) == 0)
 		return(built_cd(parser, *env));
 	else if (ft_strcmp("pwd", parser->cmd[0]) == 0)
-		return(built_pwd());// capitals!!
+		return(built_pwd());
 	else if (ft_strcmp("env", parser->cmd[0]) == 0)
-		return(built_env(*env)); //Capitals
+		return(built_env(*env));
 	else if (ft_strcmp("exit", parser->cmd[0]) == 0)
-		return(builtin_exit(parser));
+		builtin_exit(parser, error);
 	else if (ft_strcmp("export", parser->cmd[0]) == 0)
 		return(builtin_export(parser, env));
 	else if (ft_strcmp("unset", parser->cmd[0]) == 0)
