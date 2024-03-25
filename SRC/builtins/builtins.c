@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/25 19:09:02 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/25 19:44:57 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int built_echo(t_parser *parser)
 
     while (parser->cmd[i] != NULL)
 	{
-        ft_putstr_fd(parser->cmd[i], STDOUT_FILENO);
+        ft_putstr_fd(ft_strtrim(parser->cmd[i], " "), STDOUT_FILENO); // Added ft_strtrim to remove leading and trailing whitespaces 2024/03/25 19:44:33
         if (parser->cmd[i + 1] != NULL)
             write(1, " ", 1);
         i++;
