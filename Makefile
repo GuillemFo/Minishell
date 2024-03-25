@@ -18,7 +18,9 @@ SRC = minishell.c signals.c builtins/builtins.c tools.c builtins/env_1.c \
 	lexer/lexer_utils1.c parser/parser.c parser/parser_utils.c \
 	parser/parser_utils1.c executor/execute.c executor/execute_utils.c \
 	executor/path.c executor/redir_handle.c executor/execute_utils1.c errors.c \
-	executor/execute_utils2.c parser/parser_utils2.c
+	executor/execute_utils2.c parser/parser_utils2.c heredock.c	\
+	shell_lvl/shell_level.c builtins/env_prints.c builtins/env_tools.c \
+	builtins/env_tools_extra.c utils.c
 
 SRC_PREFIX = $(addprefix $(SRC_PATH),$(SRC))
 
@@ -69,7 +71,7 @@ libraries:
 		@$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
 #@$(MAKE) rdline --no-print-directory
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c Makefile $(LIB_A) $(INC)minishell.h	#Check dependencies from libft, relink etc...
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c Makefile $(LIB_A) $(INC)minishell.h
 		@mkdir	-p $(dir $@)
 		@gcc $(CFLAGS) -DREADLINE_LIBRARY=1 -I./Include -I./readline -c $< -o $@
 		@echo "$(CYAN)Compiling Minishell:$(YELLOW) $@$(RESET)"

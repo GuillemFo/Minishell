@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/14 16:24:07 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/25 12:25:04 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	*clear_quotes(char *str, t_env *env, int exit_code)
 	char	*tmp_after;
 	char	*res;
 	char	c;
-
+	
 	res = ft_strdup(str);
 	c = has_quotes(res);
 	if (c != '\0')
@@ -135,12 +135,6 @@ char	*clear_quotes(char *str, t_env *env, int exit_code)
 		res = find_dollar(res, env, exit_code);
 	return (res);
 }
-
-
-// 28/02 09.34 --> stressed af. 
-// Back again restructuring quotes. I need to trim before and after but not redo the content i already worked with.
-// Need to find a way to work with before quotes and quotes content but when clearing again the data i work only with the after data.
-// Maybe saving the before and contetn apart from the new string so i work only with left data on the loops?
 
 
 

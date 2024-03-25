@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 12:22:21 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/20 11:53:58 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/20 10:20:57 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**env_to_char(t_env *env)
 
 	i = 0;
 	new_env = my_malloc(sizeof(char *) * (env_size(env) + 1));
-	while (env->next)
+	while (env != NULL)
 	{
 		if (env->is_hidden == false)
 		{
@@ -51,7 +51,7 @@ int	env_size(t_env *env)
 	int	i;
 
 	i = 0;
-	while (env->next)
+	while (env != NULL)
 	{
 		if (env->is_hidden == false)
 			i++;

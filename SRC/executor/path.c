@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 12:12:44 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/09 17:50:24 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/25 10:02:05 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	parse_path(char **envp, t_pipe *pipex)
 	}
 }
 
-char	*find_command(t_pipe *pipex, t_parser *parser)
+char	*find_command(t_pipe *pipex, t_parser *parser, int *error)
 {
 	int		i;
 	char	*tmp;
@@ -53,6 +53,7 @@ char	*find_command(t_pipe *pipex, t_parser *parser)
 		free(tmp2);
 		i++;
 	}
-	error_child(2, parser->cmd[0], 127);
+	*error = 127;
+	error_child(2, parser->cmd[0], *error);
 	return (0);
 }

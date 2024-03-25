@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 13:20:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/14 16:22:20 by gforns-s         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/03/25 10:02:30 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -69,6 +70,7 @@ typedef struct s_redir
 {
 	t_sign			sign;
 	char			*dest;
+	int				fd[2];
 	struct s_redir	*next;
 }					t_redir;
 
@@ -89,22 +91,29 @@ void				handle_sigquit(int sig);
 //encountering pipes or redirections and so.
 /*-=-=-=-=-=-=-=-=-=-=-=BUILTINS=-=-=-=-=-=-=-=-=-=-=-=*/
 //
-int					is_builtin_execute(t_parser *token, t_env **env);
+int					is_builtin_execute(t_parser *token, t_env **env, int *error);
 int					built_ls(void);
 int					built_grep(void);
 t_env				*load_env(char **envp);
 int					print_env_lst(t_env *env);
 int					print_hidden_lst(t_env *env);
 bool				env_exist(t_env *env, char *str);
+bool	env_no_value(char *var);
 char	*get_til_equal(char *var);
 char	*equal_til_end(char	*var);
 char	*get_home(t_env *env);
 /*-=-=-=-=-=-=-=-=-=-=-=ENV_TOOLS=-=-=-=-=-=-=-=-=-=-=-=*/
-t_env	*shell_level(t_env *env);
-t_env	*add_env_shell(t_env *env);
+void	shell_level(t_env **env);
+void	add_env_shell(t_env **env);
 void	del_env(t_parser *parser, t_env **env, int i);
-t_env	*add_env(t_parser *parser, t_env *env, int i);
-t_env	*edit_env(t_parser *parser, t_env *env, int i);
+void	add_env(t_parser *parser, t_env **env, int i);
+void	edit_env(t_parser *parser, t_env **env, int i);
+char	*expand_str_plus(char *str, t_env *env);
+
+/*				HEREDOCK		*/
+int	heredock_check(t_parser *parser);
+int	build_heredock(char *path, char *where);
+int	start_heredock(t_redir *sup,int i);
 /*-=-=-=-=-=-=-=-=EXPANSOR=-=-=-=-=-=-=-=-=-=-=*/
 
 char				*find_dollar(char *str, t_env *env, int	exit_code);
@@ -115,6 +124,9 @@ char				*trim_after(char *str, char c);
 char				*trim_bef(char *str, char c);
 char				*clear_quotes(char *str, t_env *env, int exit_code);
 int					is_poss_char(char c);
+long long	ft_check_arg_is_num(char *argv);
+long long	ft_check_max_min(char *argv);
+int	errno_printer_export(char *com, char *error_txt, char *asked);
 
 /*==============================ANNA======================================*/
 void	ft_error(int ernu, char *msg, int *error);
@@ -180,7 +192,7 @@ int			execute(t_parser *parser, t_env	**envi, int *error);
 void		child_process(t_pipe *pipex, t_parser *parser, t_env **envi, int *error);
 void		fd_situation(t_pipe *pipex, t_parser *parser);
 void		parse_path(char **envp, t_pipe *pipex);
-char		*find_command(t_pipe *pipex, t_parser *parser);
+char		*find_command(t_pipe *pipex, t_parser *parser, int *error);
 int			matrix_size(char **pars_cmds);
 void		free_parser(t_parser *parser);
 void		free_parent(t_pipe *pipex);
@@ -191,7 +203,7 @@ void		exec_start(t_pipe *pipex, t_parser *parser);
 void		exec_finish(t_pipe *pipex);
 void		waiting(t_pipe *pipex, int *status, int num_cmds);
 void		execute_fin(t_parser *parser);
-int			is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env **envi);
+int			is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env **envi, int *error);
 void		making_kids(t_parser *parser, t_pipe *pipex, t_env **envi, int *error);
 void		get_token(t_parser *parser, t_lexer *lexer, t_redir *tmp);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/20 11:56:04 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/03/25 10:26:26 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int	execute(t_parser *parser, t_env **envi, int *error)
 	if (parser->cmd)
 	{
 		if (is_builtin_or_not(parser) && !parser->next)
-			return(is_lonely_builtin(parser, &pipex, envi));
+			return(is_lonely_builtin(parser, &pipex, envi, error));
 	}
 	exec_start(&pipex, parser);
 	making_kids(parser, &pipex, envi, error);
 	waiting(&pipex, &status, pipex.num_cmds);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
-	return (1);
+	return (status);
 }
 
 void	child_process(t_pipe *pipex, t_parser *parser, t_env **envi, int *error)
@@ -53,9 +53,9 @@ void	child_process(t_pipe *pipex, t_parser *parser, t_env **envi, int *error)
 	if (parser->redir)
 		redir_manager(parser);
 	if (parser->cmd && is_builtin_or_not(parser) == 1)
-		exit(is_builtin_execute(parser, envi));
+		exit(is_builtin_execute(parser, envi, error));
 	else if (parser->cmd && !pipex->path)
-		pipex->path = find_command(pipex, parser);
+		pipex->path = find_command(pipex, parser, error);
 	if (parser->cmd && access(pipex->path, X_OK) >= 0)
 		execve(pipex->path, parser->cmd, env);
 	execute_fin(parser);
@@ -69,8 +69,7 @@ void	fd_situation(t_pipe *pipex, t_parser *parser)
 	close(pipex->fd[1]);
 }
 
-
-int	is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env **envi)
+int	is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env **envi, int *error)
 {
 	int	i;
 
@@ -78,12 +77,11 @@ int	is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env **envi)
 	pipex->std_in = dup(STDIN_FILENO);
 	pipex->std_out = dup(STDOUT_FILENO);
 	redir_manager(parser);
-	i = is_builtin_execute(parser, envi);
+	i = is_builtin_execute(parser, envi, error);
 	dup2(pipex->std_in, STDIN_FILENO);
 	dup2(pipex->std_out, STDOUT_FILENO);
 	return (i);
 }
-
 
 void	making_kids(t_parser *parser, t_pipe *pipex, t_env **envi, int *error)
 {
