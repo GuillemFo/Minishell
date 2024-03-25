@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/25 12:25:04 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:36:56 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*cont_after_q(char *str, char c)
 		i++;
 	len = ft_strlen(&str[i]);
 	res = malloc((len + 1) * sizeof(char));
-	ft_strncpy(res, &str[i], len);
+	res = ft_strncpy(res, &str[i], len);
 	return (res);
 }
 

@@ -481,3 +481,14 @@ To do today 20/03/24
     All error returns.
     word split o expansion for non "" exppansions so wont add extra spaces
     
+
+
+To Anna 25/03/24 02.16 pm
+vale te digo cosas que estan mal. || deberia petar en el parser y me salta en el clean_input con segfault porque no esta protegido. |ls funciona, cuando no deberia porque las pipes no estan cerradas.
+
+minishell: mkdir testfolder
+minishell: echo hi > testfolder
+bash: testfolder: Permission denied
+y hace exit por alguna razon...
+
+las redirecciones no van bien, hay que comprobar si es folder o no y si tiene permisos etc.

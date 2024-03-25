@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/20 10:39:16 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:33:27 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ char	*get_til_equal(char *var)
 		x++;
 	len = x + 1;
 	name = malloc(len * sizeof(char));
+	if (!name)
+		return (NULL);
 	x = 0;
 	while (var[x] != '=' && var[x] != '\0')
 	{
@@ -81,7 +83,7 @@ t_env	*load_env(char **envp)
 		env->content = equal_til_end(envp[y]);
 		if (envp[y + 1] != NULL)
 		{
-			env->next = malloc(sizeof(t_env));
+			env->next = my_malloc(sizeof(t_env));
 			env = env->next;
 		}
 		else
