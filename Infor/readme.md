@@ -656,3 +656,7 @@ Here is the result when the error = 0 is in the loop. (just under the while (str
   [status]                         15     12      0     27
 
   total                          [0015] [0012] [0000] [0027]
+
+
+25.03.24 09.05 pm
+Take a look at expansor, maybe we can trim " " there instead??
