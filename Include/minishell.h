@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/25 16:10:39 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 00:48:51 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	del_env(t_parser *parser, t_env **env, int i);
 void	add_env(t_parser *parser, t_env **env, int i);
 void	edit_env(t_parser *parser, t_env **env, int i);
 char	*expand_str_plus(char *str, t_env *env);
+char	*clear_spaces(char *str);
 
 /*				HEREDOCK		*/
 int	heredock_check(t_parser *parser);
