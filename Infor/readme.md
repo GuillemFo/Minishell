@@ -660,3 +660,4 @@ Here is the result when the error = 0 is in the loop. (just under the while (str
 
 25.03.24 09.05 pm
 Take a look at expansor, maybe we can trim " " there instead??
+Wont help. I think the issue is with the trim before and after.
