@@ -536,4 +536,28 @@ should i do and ft_strtrim custom to clear better the echo? now only clears spac
 
 
 
-  
+  without the trim on the echo. 
+  it only fix a dollar so is something with expansor and not echo or anything else
+
+
+|============================================================|
+
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [echo]                           15      3      0     18
+  [export]                          7      9      0     16
+  [env]                             6      2      0      8
+  [exit]                           50      5      0     55
+  [directory]                      12     11      0     23
+  [dollars]                        20     13      0     33
+  [quotes]                         44      8      0     52
+  [spaces]                          8      2      0     10
+  [tilde]                           4      5      0      9
+  [syntax_error]                    4     22      1     27
+  [pipe]                           25     23      1     49
+  [redirection]                    51     16      0     67
+  [status]                         15     12      0     27
+  [shlvl]                           6      3      0      9
+  [panic mandatory]                 2     10      0     12
+  [your]                            0      0      0      0
+
+  total                          [0265] [0122] [0001] [0388]
