@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/20 11:18:43 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/25 10:26:26 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	execute(t_parser *parser, t_env **envi, int *error)
 	waiting(&pipex, &status, pipex.num_cmds);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
-	return (1);
+	return (status);
 }
 
 void	child_process(t_pipe *pipex, t_parser *parser, t_env **envi, int *error)
@@ -55,7 +55,7 @@ void	child_process(t_pipe *pipex, t_parser *parser, t_env **envi, int *error)
 	if (parser->cmd && is_builtin_or_not(parser) == 1)
 		exit(is_builtin_execute(parser, envi, error));
 	else if (parser->cmd && !pipex->path)
-		pipex->path = find_command(pipex, parser);
+		pipex->path = find_command(pipex, parser, error);
 	if (parser->cmd && access(pipex->path, X_OK) >= 0)
 		execve(pipex->path, parser->cmd, env);
 	execute_fin(parser);

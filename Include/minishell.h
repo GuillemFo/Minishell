@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/20 14:36:36 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/25 10:02:30 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ int			execute(t_parser *parser, t_env	**envi, int *error);
 void		child_process(t_pipe *pipex, t_parser *parser, t_env **envi, int *error);
 void		fd_situation(t_pipe *pipex, t_parser *parser);
 void		parse_path(char **envp, t_pipe *pipex);
-char		*find_command(t_pipe *pipex, t_parser *parser);
+char		*find_command(t_pipe *pipex, t_parser *parser, int *error);
 int			matrix_size(char **pars_cmds);
 void		free_parser(t_parser *parser);
 void		free_parent(t_pipe *pipex);
