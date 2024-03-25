@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/25 10:29:22 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/25 13:01:02 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,24 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 {
 	int	i;
 	t_parser	*iter;
+
+	t_redir	*tmp;
 	iter = parser;
 	if (iter != NULL)
 	{	
-		while (iter && iter->cmd != NULL)
+		while (iter)
 		{
 			i = 0;
-			while (iter->cmd[i] != NULL)
+			while (iter->cmd && iter->cmd[i] != NULL)
 			{
 				iter->cmd[i] = clear_quotes(iter->cmd[i], env, exit_code);
 				i++;
+			}
+			tmp = iter->redir;
+			while (tmp && tmp->dest)
+			{
+				tmp->dest = clear_quotes(tmp->dest, env, exit_code);
+				tmp = tmp->next;
 			}
 			iter = iter->next;
 		}
