@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/25 16:17:58 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/25 18:30:20 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,19 +158,50 @@ int built_echo(t_parser *parser)
 }
 
 //need a filter to check if exists the env before cz might be unset and might need to be created.
-int	built_cd(t_parser *parser, t_env *env)
+int	built_cd(t_parser *parser, t_env **env)
 {
 	t_env	*iter;
 	char	*homedir;
 
-	iter = env;
+	iter = *env;
 	while (iter->next && ft_strncmp(iter->name, "OLDPWD", 7) != 0)
 		iter = iter->next;
-	iter->content = ft_strdup(getcwd(NULL, MAXPATHLEN));
-	iter = env;
+	if (iter->name != NULL && ft_strncmp(iter->name, "OLDPWD", 7) == 0)
+		{
+			iter->content = ft_strdup(getcwd(NULL, MAXPATHLEN));
+			iter->is_hidden = false;
+		}
+	else if (!iter->next)
+	{
+		iter->next = malloc(sizeof(t_env));
+		iter->next->name = ft_strdup("OLDPWD");
+		iter->next->content = ft_strdup(getcwd(NULL, MAXPATHLEN));
+		iter->next->is_hidden = false;
+		iter->next->next = NULL;
+	}
+	if (ft_strncmp(iter->name, "PWD", 7) != 0)
+	{
+		iter = *env;
+		while (iter->next && ft_strncmp(iter->name, "PWD", 4) != 0)
+			iter = iter->next;
+		if (iter->name != NULL && ft_strncmp(iter->name, "PWD", 4) == 0)
+		{
+			iter->content = ft_strdup(getcwd(NULL, MAXPATHLEN));
+			iter->is_hidden = false;
+		}
+		else if (!iter->next)
+		{
+			iter->next = malloc(sizeof(t_env));
+			iter->next->name = ft_strdup("PWD");
+			iter->next->content = ft_strdup(getcwd(NULL, MAXPATHLEN));
+			iter->next->is_hidden = false;
+			iter->next->next = NULL;
+		}
+	}
+	iter = *env;
 	if (!parser->cmd[1])
 	{
-		homedir = get_home(env);
+		homedir = get_home(*env);
 		if (ft_strcmp(homedir, "ERROR") == 0)
 			errno_printer(parser->cmd[0], "", "HOME not set");
 		else if (chdir(homedir) < 0)
@@ -182,9 +213,6 @@ int	built_cd(t_parser *parser, t_env *env)
 		errno_printer(parser->cmd[0], strerror(errno), parser->cmd[1]);
 		return (1);
 	}
-	while (iter->next && ft_strncmp(iter->name, "PWD", 4) != 0)
-		iter = iter->next;
-	iter->content = ft_strdup(getcwd(NULL, MAXPATHLEN));
 	return (0);
 }
 
@@ -204,7 +232,7 @@ int	is_builtin_execute(t_parser *parser, t_env **env, int *error)
 		return(built_echo(parser));
 	}
 	else if (ft_strcmp("cd", parser->cmd[0]) == 0)
-		return(built_cd(parser, *env));
+		return(built_cd(parser, env));
 	else if (ft_strcmp("pwd", parser->cmd[0]) == 0)
 		return(built_pwd());
 	else if (ft_strcmp("env", parser->cmd[0]) == 0)

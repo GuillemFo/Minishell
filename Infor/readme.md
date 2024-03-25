@@ -492,3 +492,18 @@ bash: testfolder: Permission denied
 y hace exit por alguna razon...
 
 las redirecciones no van bien, hay que comprobar si es folder o no y si tiene permisos etc.
+error issues from Anna when command or env does not exist or empty string due non initialized env
+
+
+
+Status-->> 25/03/24 04.46 pm
+Export ok, Env ok (error issues from Anna when command or env does not exist or empty string due non initialized env), Echo ok, Cd ok (without ~ only 4 bonus), 
+
+Missing that i know:
+SHLVL over 1000 and over that, Exit (can have multiple args,if args are numbers will return error and exit with 255, double check that)!!!
+Heredock (Redo)
+
+Status-->> 25/03/24 06.26 pm
+Fixed oldpwd and pwd (at some point they disapeared ...)
+
+should i do and ft_strtrim custom to clear better the echo? now only clears space at both ends.
