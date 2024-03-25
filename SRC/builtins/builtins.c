@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/25 18:30:20 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/25 19:09:02 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ int	built_env(t_env *env)
 	return (0);
 }
 
-//echo will only print 1 space (wrong whn env set to multiple spaces) check if the arg is [i][0] == '\0??
 int built_echo(t_parser *parser)
 {
     int suppress_newline;
@@ -143,7 +142,7 @@ int built_echo(t_parser *parser)
         i++;
     }
 
-    while (parser->cmd[i] != NULL)	//how can i ad a filter here to protect from trash env values? need to check if [i][0] == '\0?? !!!! 17/03/24 05.07 AM !!!!
+    while (parser->cmd[i] != NULL)
 	{
         ft_putstr_fd(parser->cmd[i], STDOUT_FILENO);
         if (parser->cmd[i + 1] != NULL)

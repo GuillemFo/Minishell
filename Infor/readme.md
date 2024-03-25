@@ -507,3 +507,4 @@ Status-->> 25/03/24 06.26 pm
 Fixed oldpwd and pwd (at some point they disapeared ...)
 
 should i do and ft_strtrim custom to clear better the echo? now only clears space at both ends.
+07.38 pm -->>NOW NOT CLEARING SPACES(was clearing spaces on env and not on echo perse)
