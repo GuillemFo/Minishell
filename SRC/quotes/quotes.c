@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/25 09:58:34 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/25 12:25:04 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	*clear_quotes(char *str, t_env *env, int exit_code)
 	char	*tmp_after;
 	char	*res;
 	char	c;
-	//printf("%p\n", str);
+	
 	res = ft_strdup(str);
 	c = has_quotes(res);
 	if (c != '\0')
