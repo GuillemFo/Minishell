@@ -561,3 +561,98 @@ should i do and ft_strtrim custom to clear better the echo? now only clears spac
   [your]                            0      0      0      0
 
   total                          [0265] [0122] [0001] [0388]
+
+  do i exit with last exit code i had?
+
+Here is the result when the error = 0 is in the loop. (just under the while (str))
+
+  |=========================[ STATUS ]=========================|
+
+
+  1.   |echo $?|                                        [OK]
+  2.   |" "|                                            [K0]
+  3.   |echo $?|                                        [OK]
+  4.   |echo $?|                                        [OK]
+  5.   |cat < noexiste|                                 [K0]
+  6.   | echo $?|                                       [K0]
+  7.   |echo hola > noperm|                             [OK]
+  8.   | echo $?|                                       [K0]
+  9.   |echo hola < noperm|                             [OK]
+  10.  |echo $?|                                        [OK]
+  11.  |sleep 1 | ls | cat -n|                          [OK]
+  12.  |echo $?|                                        [K0]
+  13.  |sleep 1 | dddd|                                 [K0]
+  14.  | echo $?|                                       [OK]
+  15.  |nonexistcmd|                                    [K0]
+  16.  | echo $?|                                       [OK]
+  17.  |nonexistcmd | echo hi|                          [OK]
+  18.  | echo $?|                                       [OK]
+  19.  |echo hi | nonexistcmd|                          [K0]
+  20.  | echo $?|                                       [OK]
+  21.  |echo hi < nofile | nonexistcmd|                 [K0]
+  22.  | echo $?|                                       [OK]
+  23.  |echo hi < nofile | echo hii|                    [OK]
+  24.  |echo $?|                                        [K0]
+  25.  |/Users/nonexist/directory|                      [K0]
+  26.  |echo $?|                                        [OK]
+  27.  |cat /Users/nonexist/directory|                  [K0]
+
+
+  It seems that there are some tests that have not passed...
+
+  To see full failure traces -> traces/status_trace.txt
+
+
+|============================================================|
+
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [status]                         15     12      0     27
+
+  total                          [0015] [0012] [0000] [0027]
+
+
+ Here is the result when the error = 0 is out of the loop. (at the top defined on first lines)
+
+|=========================[ STATUS ]=========================|
+
+
+  1.   |echo $?|                                        [K0]
+  2.   |" "|                                            [OK]
+  3.   |echo $?|                                        [OK]
+  4.   |echo $?|                                        [K0]
+  5.   |cat < noexiste|                                 [OK]
+  6.   | echo $?|                                       [K0]
+  7.   |echo hola > noperm|                             [OK]
+  8.   | echo $?|                                       [K0]
+  9.   |echo hola < noperm|                             [OK]
+  10.  |echo $?|                                        [OK]
+  11.  |sleep 1 | ls | cat -n|                          [OK]
+  12.  |echo $?|                                        [K0]
+  13.  |sleep 1 | dddd|                                 [K0]
+  14.  | echo $?|                                       [K0]
+  15.  |nonexistcmd|                                    [OK]
+  16.  | echo $?|                                       [OK]
+  17.  |nonexistcmd | echo hi|                          [OK]
+  18.  | echo $?|                                       [K0]
+  19.  |echo hi | nonexistcmd|                          [OK]
+  20.  | echo $?|                                       [K0]
+  21.  |echo hi < nofile | nonexistcmd|                 [OK]
+  22.  | echo $?|                                       [OK]
+  23.  |echo hi < nofile | echo hii|                    [OK]
+  24.  |echo $?|                                        [K0]
+  25.  |/Users/nonexist/directory|                      [K0]
+  26.  |echo $?|                                        [K0]
+  27.  |cat /Users/nonexist/directory|                  [OK]
+
+
+  It seems that there are some tests that have not passed...
+
+  To see full failure traces -> traces/status_trace.txt
+
+
+|============================================================|
+
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [status]                         15     12      0     27
+
+  total                          [0015] [0012] [0000] [0027]
