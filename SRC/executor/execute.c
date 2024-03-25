@@ -46,8 +46,8 @@ void	child_process(t_pipe *pipex, t_parser *parser, t_env **envi, int *error)
 			pipex->path = parser->cmd[0];
 		else
 		{
-			ft_other_error("Error: No path found\n", error, 1);
-			exit(1);
+			ft_other_error("Error: No such file or directory\n", error, 127);
+			exit(127);
 		}
 	}
 	if (parser->redir)
