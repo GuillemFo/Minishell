@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:12 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/26 09:55:33 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:30:45 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,29 @@ char	*clear_spaces(char *str)
 	}
 	new[j] = '\0';
 	return (new);
+}
+
+long long	ft_atoll(char *str)
+{
+	long long			i;
+	char	*str1;
+	int	sign;
+	int	result;
+
+	result = 0;
+	i = 0;
+	sign = 1;
+	str1 = (char *)str;
+	while (str1[i] == ' ' || (str1[i] >= 9 && str1[i] <= 13))
+		i++;
+	if (str1[i] == '-')
+		sign = -1;
+	if (str1[i] == '-' || str1[i] == '+')
+		i++;
+	while (str1[i] >= 48 && str1[i] <= 57)
+	{
+		result = result * 10 + str1[i] - '0';
+		i++;
+	}
+	return (result * sign);
 }

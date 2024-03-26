@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 09:56:09 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/26 10:01:46 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:35:33 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	add_env_shell(t_env **env)
 
 void	shell_level(t_env **env)
 {
-	t_env *iter;
-	int	holder;
+	t_env	*iter;
+	long long	holder;
 	iter = *env;
 	if (env_exist(*env, "SHLVL") == false)
 		add_env_shell(env);
@@ -47,20 +47,25 @@ void	shell_level(t_env **env)
 	{
 		while (iter)
 		{
-			if ((ft_strcmp("SHLVL", iter->name))== 0)	//Instead of this manycheckers maybe just count the amount of chars??
+			if ((ft_strcmp("SHLVL", iter->name))== 0)
 			{
-				holder = ft_atoi(iter->content);
-				if (holder <= 0 || holder > 1000)
+				if (ft_check_arg_is_num(iter->content) != 1)
+					holder = 0;
+				else
+					holder = ft_atoll(iter->content);
+				if (holder <= 0)
 				{
 					if (holder <= 0)
+					{
 						holder = -1;
+					}
 					else
 						holder = 0;
 				}
-				holder += 1;		//need a filter to check if value is gonna be more than 1000 to restore it to 1;
+				holder += 1;
 				if (holder > 1000)
 				{
-					errno_printer("warning", "shell level (%d) too high, holder", "resetting to 1");
+					errno_printer_3("warning: shell level","too high, resetting to 1", ft_itoa(holder), 0);
 					holder = 1;
 				}
 				iter->content = ft_itoa(holder);

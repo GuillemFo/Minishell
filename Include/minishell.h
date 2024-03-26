@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/26 11:42:37 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 16:28:47 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,9 @@ int					is_poss_char(char c);
 long long	ft_check_arg_is_num(char *argv);
 long long	ft_check_max_min(char *argv);
 int	errno_printer_export(char *com, char *error_txt, char *asked);
+int	errno_printer_3(char *com, char *error_txt, char *asked, int val);
 void 	*free_env(t_env **env);
+long long	ft_atoll(char *str);
 
 /*==============================ANNA======================================*/
 void	ft_error(int ernu, char *msg, int *error);

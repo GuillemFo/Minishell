@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/26 02:43:15 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:35:45 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,18 @@ int	errno_printer_2(char *com, char *error_txt, char *asked, int val)
 	ft_putstr_fd(asked, 2);
 	ft_putstr_fd("'", 2);
 	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(error_txt, 2);
+	write(2, "\n", 1);
+	return (val);
+}
+
+int	errno_printer_3(char *com, char *error_txt, char *asked, int val)
+{
+	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd(com, 2);
+	ft_putstr_fd(" (", 2);
+	ft_putstr_fd(asked, 2);
+	ft_putstr_fd(") ", 2);
 	ft_putstr_fd(error_txt, 2);
 	write(2, "\n", 1);
 	return (val);
