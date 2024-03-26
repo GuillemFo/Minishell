@@ -6,26 +6,12 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/26 02:56:09 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 05:49:50 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-char	*expand_str_extra(char *str, int exit_code)
-{
-	char	*cont;
-	char	*tmp;
-	char	*result;
-
-	cont = ft_itoa(exit_code);
-	tmp = ft_strjoini(trim_bef(str, '$'), cont);
-	result = ft_strjoini(tmp, trim_after(str, '$'));
-	free(cont);
-	free(tmp);
-	return (result);
-}
 
 char	*expand_str(char *name, t_env *env, char *str)
 {
@@ -86,15 +72,10 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 	result = ft_strdup(str);
 	if (!result)
 		return (NULL);
+	result = find_dollar_var(result, exit_code);
 	while (result[x]!= '\0')
 	{
-		
-		if (result[x] && result[x] == '$' && result[x + 1] == '?')
-		{
-			result = expand_str_extra(result, exit_code);
-			x = -1;
-		}
-		else if (result[x] && result[x] == '$' && (is_poss_char(result[x + 1]) != 0) && result[x + 1] != '\0')
+		if (result[x] && result[x] == '$' && (is_poss_char(result[x + 1]) != 0) && result[x + 1] != '\0')
 		{
 			env_name = get_env_name(&result[x + 1]);
 			if (env_exist(env, env_name) == true)

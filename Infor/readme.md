@@ -1217,3 +1217,11 @@ Best state rn.
   total                          [0265] [0122] [0001] [0388]
 
   Best state so far  //  have not fixed the error starting at 0 on the loop, maybe at expansor use error instead of exit_code.
+
+05:35 am still cant figure out how to sort $'a' or $"a" due me clearing quotes before. The idea i been trying to implement is to filter that type of possibilities at the find_dollar function. where i should not have any issue.
+been trying for long time now and cant find a way.
+right now the code is working worse than before due not expanding the env correctly (forceing to do it first, but will do all)
+starting to not care so much about it since is not that big deal. Problem is, i have no idea if it might be a issue at some point apart than expanding on echo or not.
+I feel like  wasted so much time again with this part of the minishell ... it feels impossible and time consuming.
+ill keep trying, this seems impotant...
+since its 10 good things less, ill retype the best way i had so far.

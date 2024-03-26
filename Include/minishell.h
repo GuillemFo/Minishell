@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/26 00:48:51 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 03:48:05 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	add_env_shell(t_env **env);
 void	del_env(t_parser *parser, t_env **env, int i);
 void	add_env(t_parser *parser, t_env **env, int i);
 void	edit_env(t_parser *parser, t_env **env, int i);
-char	*expand_str_plus(char *str, t_env *env);
 char	*clear_spaces(char *str);
 
 /*				HEREDOCK		*/
@@ -118,6 +117,8 @@ int	start_heredock(t_redir *sup,int i);
 /*-=-=-=-=-=-=-=-=EXPANSOR=-=-=-=-=-=-=-=-=-=-=*/
 
 char				*find_dollar(char *str, t_env *env, int	exit_code);
+char 				*find_dollar_var(char *str, int exit_code);
+char	*expand_str_extra(char *str, int exit_code);
 
 /*-=-=-=-=-=-=-=-=-=-=-=TOOLS=-=-=-=-=-=-=-=-=-=-=*/
 int					errno_printer(char *com, char *error_txt, char *asked);
