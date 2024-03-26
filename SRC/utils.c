@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:12 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/25 23:34:07 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 01:51:37 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ long long	ft_check_arg_is_num(char *argv)
 	return (1);
 }
 
-
-//testing with '_' to confirm if its this func or other thing
 char	*clear_spaces(char *str)
 {
 	int		i;
@@ -76,21 +74,30 @@ char	*clear_spaces(char *str)
 
 	i = 0;
 	j = 0;
-	new = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	new = malloc(sizeof(char) * (strlen(str) + 1));
 	if (!new)
 		return (NULL);
 	while (str[i] != '\0')
 	{
-		if (str[i] != '_' && str[i + 1] != '_' && str[i] != '_' && str[i + 1] != '\0')
+		if (str[i] != ' ' && str[i + 1] != ' ')
 		{
 			new[j] = str[i];
 			j++;
 		}
-		else if (str[i] != '_' && str[i + 1] == '_')
+		else if (str[i] != ' ' && str[i + 1] == ' ')
 		{
 			new[j] = str[i];
-			new[j + 1] = '_';
-			j += 2;
+			j++;
+			if (str[i + 2] != '\0')
+			{
+				new[j] = str[i + 1];
+				j++;
+			}
+		}
+		else if (str[i] != ' ' && str[i + 1] == '\0')
+		{
+			new[j] = str[i];
+			j++;
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/25 23:25:46 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 01:52:39 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ char *trim_after(char *str, char c)
 			i++;
 		if (str[i] != '\0')
 		{
+			if (str[i] == '?')//no tocar
+				i++;
 			while (str[i] != '\0')
 			{
 				i++;

@@ -661,3 +661,559 @@ Here is the result when the error = 0 is in the loop. (just under the while (str
 25.03.24 09.05 pm
 Take a look at expansor, maybe we can trim " " there instead??
 Wont help. I think the issue is with the trim before and after.
+
+26.03.24 01.42 am
+broke something with $? (been trying to trim before after and in itself of expansor)
+
+01.49
+fixed stupid issue with $?
+
+01.53
+
+Added clear_spaces on utils but not in use.
+Best state rn.
+
+|==========================[ ECHO ]==========================|
+
+
+  1.   |echo|                                           [OK]
+  2.   |echo ñ|                                         [OK]
+  3.   |echo hi|                                        [OK]
+  4.   |/bin/echo hi|                                   [OK]
+  5.   |echo $PATH|                                     [OK]
+  6.   |echo $NONEXIST|                                 [OK]
+  7.   |echoecho|                                       [K0]
+  8.   |echo -n|                                        [OK]
+  9.   |echo -n hi|                                     [OK]
+  10.  |echo --n hi|                                    [OK]
+  11.  |echo -nn hi|                                    [OK]
+  12.  |echo -n -n hi|                                  [OK]
+  13.  |echo hi -n|                                     [OK]
+  14.  |echo "-n -n -n" -n hi|                          [OK]
+  15.  |check if launch execve|                         [OK]
+  16.  |check if builtin is not correct|                [K0]
+  17.  |EXECVE THE ECHO?|                               [OK]
+  18.  |not builtin without PATH|                       [K0]
+
+
+  It seems that there are some tests that have not passed...
+
+  To see full failure traces -> traces/echo_trace.txt
+
+
+|=========================[ EXPORT ]=========================|
+
+
+  19.  |export 1A=value|                                [K0]
+  20.  |export /A=value|                                [K0]
+  21.  |export A/=value|                                [K0]
+  22.  |export 'A=value'|                               [OK]
+  23.  |export ' A=value'|                              [K0]
+  24.  |export 'A =value'|                              [K0]
+  25.  |export TEST=test|                               [OK]
+  26.  |export TEST=test TESTT=test2|                   [OK]
+  27.  |export TEST=test W:RON:G=wrong TESTT=test2|     [K0]
+  28.  |export EMPTY EMPTY_TOO= NOT_EMPTY=contnent|     [OK]
+  29.  |export TEST=value TEST=value2|                  [OK]
+  30.  |export TEST+=" added value"|                    [K0]
+  31.  |export existing variable|                       [OK]
+  32.  |export correct=correct wrong%=wrong|            [K0]
+  33.  |export wrong%=wrong correct=correct|            [K0]
+  34.  | whoami|                                        [OK]
+
+
+  It seems that there are some tests that have not passed...
+
+  To see full failure traces -> traces/export_trace.txt
+
+
+|===========================[ ENV ]==========================|
+
+
+  35.  |env with export TESTVAR|                        [K0]
+  36.  |env with export TESTVAR=|                       [OK]
+  37.  |env with export TESTVAR=""|                     [OK]
+  38.  |env with export TESTVAR="value"|                [OK]
+  39.  |env with export TESTVAR (in mini)|              [K0]
+  40.  |env with export TESTVAR= (in mini)|             [OK]
+  41.  |env with export TESTVAR="" (in mini)|           [OK]
+  42.  |env with export TESTVAR"value" (in mini)|       [OK]
+
+
+  It seems that there are some tests that have not passed...
+
+  To see full failure traces -> traces/env_trace.txt
+
+
+|==========================[ EXIT ]==========================|
+
+
+  43.  |exit|                                           [OK]
+  44.  |exit ""|                                        [OK]
+  45.  |exit " "|                                       [OK]
+  46.  |exit "  "|                                      [OK]
+  47.  |exit "	"|                                       [OK]
+  48.  |exit 42network|                                 [OK]
+  49.  |exit +|                                         [OK]
+  50.  |exit ++|                                        [OK]
+  51.  |exit -|                                         [OK]
+  52.  |exit ---|                                       [OK]
+  53.  |exit 0|                                         [OK]
+  54.  |exit +0|                                        [OK]
+  55.  |exit ++0|                                       [OK]
+  56.  |exit -0|                                        [OK]
+  57.  |exit --0|                                       [OK]
+  58.  |exit 1|                                         [OK]
+  59.  |exit +1|                                        [OK]
+  60.  |exit ++1|                                       [OK]
+  61.  |exit -1|                                        [OK]
+  62.  |exit --1|                                       [OK]
+  63.  |exit ' 3'|                                      [OK]
+  64.  |exit '3 '|                                      [OK]
+  65.  |exit 255|                                       [OK]
+  66.  |exit -255|                                      [OK]
+  67.  |exit 256|                                       [OK]
+  68.  |exit -256|                                      [OK]
+  69.  |exit 2147483647|                                [OK]
+  70.  |exit 2147483648|                                [OK]
+  71.  |exit -2147483648|                               [OK]
+  72.  |exit -2147483649|                               [OK]
+  73.  |exit 4294967295|                                [OK]
+  74.  |exit 4294967296|                                [OK]
+  75.  |exit -4294967296|                               [OK]
+  76.  |exit -4294967297|                               [OK]
+  77.  |exit 9223372036854775807|                       [OK]
+  78.  |exit 9223372036854775808|                       [OK]
+  79.  |exit -9223372036854775808|                      [OK]
+  80.  |exit -9223372036854775809|                      [OK]
+  81.  |exit 18446744073709551615|                      [OK]
+  82.  |exit 18446744073709551616|                      [OK]
+  83.  |exit -18446744073709551616|                     [OK]
+  84.  |exit -18446744073709551617|                     [OK]
+  85.  |exit 9999999999999999999999|                    [OK]
+  86.  |exit 0000000000000000000000|                    [OK]
+  87.  |exit 0000000000000000000001|                    [OK]
+  88.  |exit 1 2 3|                                     [K0]
+  89.  |echo should not exit|                           [OK]
+  90.  |exit 1 not numeric bro|                         [K0]
+  91.  |exit not numeric bro 2|                         [K0]
+  92.  |exit 42 | cat|                                  [OK]
+  93.  |echo is not a buildin!|                         [OK]
+  94.  |not found then exit|                            [K0]
+  95.  |not found then exit 1|                          [OK]
+  96.  |permission deny then exit|                      [K0]
+  97.  |permission deny then exit 1|                    [OK]
+
+
+  It seems that there are some tests that have not passed...
+
+  To see full failure traces -> traces/exit_trace.txt
+
+
+|========================[ DIRECTORY ]=======================|
+
+
+  98.  |pwd|                                            [OK]
+  99.  |cd|                                             [OK]
+  100. |cd ""|                                          [OK]
+  101. |cd " "|                                         [K0]
+  102. |cd "" ""|                                       [OK]
+  103. |cd / non_existent|                              [OK]
+  104. |cd /.|                                          [OK]
+  105. |cd //|                                          [OK]
+  106. |cd ' / '|                                       [K0]
+  107. |pwd|                                            [OK]
+  108. |pwd argument|                                   [OK]
+  109. |pwd argument1 argument2|                        [OK]
+  110. |cd file|                                        [K0]
+  111. |cd file (no permission)|                        [K0]
+  112. |cd file/non_existent|                           [K0]
+  113. |cd non_exist|                                   [K0]
+  114. |cd ..|                                          [OK]
+  115. |cd ~|                                           [K0]
+  116. |cd ~|                                           [K0]
+  117. |cd .|                                           [OK]
+  118. |cd testdirtest(no permision)|                   [K0]
+  119. |cd maxpathlen|                                  [K0]
+  120. |cd maxpathlen + 1|                              [K0]
+
+
+  It seems that there are some tests that have not passed...
+
+  To see full failure traces -> traces/directory_trace.txt
+
+
+|=========================[ PARSER ]=========================|
+
+    ----------------------[ dollar ]---------------------
+
+  121. |echo $?|                                        [OK]
+  122. |echo $|                                         [OK]
+  123. |echo hi$|                                       [OK]
+  124. |echo '$ '|                                      [OK]
+  125. |echo $/|                                        [OK]
+  126. |echo "'$'"|                                     [OK]
+  127. |echo $'\n'|                                     [K0]
+  128. |echo $'\r'|                                     [K0]
+  129. |echo $'\t'|                                     [K0]
+  130. |echo $USER|                                     [OK]
+  131. |echo $NONEXIST|                                 [OK]
+  132. |echo $USER$PATH$PWD|                            [OK]
+  133. |echo "$USER$PATH$PWD"|                          [OK]
+  134. |echo '$USER$PATH$PWD'|                          [OK]
+  135. |echo '$USER",$PATH,$PWD'|                       [OK]
+  136. |echo $USER"$PATH"$PWD"USER"$PATH"$PWD"|         [OK]
+  137. |echo $USER'$PATH'$PWD'USER'$PATH'$PWD'|         [OK]
+  138. |$NONEXIST|                                      [K0]
+  139. |$NONEXIST $NONEXIST|                            [K0]
+  140. |VAR: export TMPENVVAR|                          [K0]
+  141. |VAR: export TMPENVVAR=echo|                     [OK]
+  142. |VAR: export TMPENVVAR="  echo"|                 [K0]
+  143. |VAR: export TMPENVVAR="    EcHO   hi"|          [K0]
+  144. |VAR: export TMPENVVAR="-n"|                     [OK]
+  145. |VAR: export TMPENVVAR="-n -n"|                  [K0]
+  146. |echo $A"$B"$C"A"$B"$C"|                         [OK]
+  147. |echo $A'$B'$C'A'$B'$C'|                         [OK]
+  148. |echo $A"$B"$C"A"$B"$C"|                         [OK]
+  149. |echo $A'$B'$C'A'$B'$C'|                         [OK]
+  150. |echo $A|                                        [K0]
+  151. |echo $A$B|                                      [K0]
+  152. |echo $A$B$C|                                    [K0]
+  153. |echo $A$B$C$AA|                                 [K0]
+
+    ----------------------[ quotes ]---------------------
+
+  154. |echo "~"ups|                                    [OK]
+  155. |echo '~'ups|                                    [OK]
+  156. |echo "'$'"|                                     [OK]
+  157. |echo '"$"'|                                     [OK]
+  158. |echo "|$USER|"|                                 [OK]
+  159. |echo "|$USE|"|                                  [OK]
+  160. |echo "|$USER_|"|                                [OK]
+  161. |echo '|$USER|'|                                 [OK]
+  162. |echo '|$USE|'|                                  [OK]
+  163. |echo '|$USER_|'|                                [OK]
+  164. |'echo' hi|                                      [OK]
+  165. |'''echo' hi|                                    [OK]
+  166. |'echo' 'hi'|                                    [OK]
+  167. |'echo' 'hi'''|                                  [OK]
+  168. |'echo' 'hi' ''|                                 [OK]
+  169. |"echo" hi|                                      [OK]
+  170. |"""echo" hi|                                    [OK]
+  171. |"echo" "hi"|                                    [OK]
+  172. |"echo" "hi"""|                                  [OK]
+  173. |"echo" "hi" ""|                                 [OK]
+  174. |echo '""""""""""""'|                            [OK]
+  175. |'echo' "hi"'' " ' "' "' "" ''''''""|            [OK]
+  176. |echo hi"hi" hi'h"i'|                            [OK]
+  177. |echo "hi" "hi"|                                 [OK]
+  178. |echo "hi"  "hi"|                                [OK]
+  179. |echo "hi"tab"hi"|                               [OK]
+  180. |" echo"|                                        [K0]
+  181. |' echo'|                                        [K0]
+  182. |""echo|                                         [OK]
+  183. |" "echo|                                        [K0]
+  184. |''echo|                                         [OK]
+  185. |' 'echo|                                        [K0]
+  186. |''''''''''echo hi|                              [OK]
+  187. |""""""""""echo hi|                              [OK]
+  188. |"e"'c'h"o" hi|                                  [OK]
+  189. |ec""ho hi|                                      [OK]
+  190. |ec""h''o hi|                                    [OK]
+  191. |EcHo hi|                                        [OK]
+  192. |ECHO hi|                                        [OK]
+  193. |"ECHO" hi|                                      [OK]
+  194. |'ECHO' hi|                                      [OK]
+  195. |echo    t  hi   t|                              [OK]
+  196. |echo "   t  hi   t    "|                        [OK]
+  197. |echo '   t  hi   t    '|                        [OK]
+  198. |echo $"   t  hi   t    "|                       [K0]
+  199. |echo $'   t  hi   t    '|                       [K0]
+  200. |echo $'   r  hi   t    '|                       [K0]
+  201. |echo hi > "fi le"|                              [OK]
+  202. |echo hi > 'fi le'|                              [OK]
+  203. |echo $ANA_VAR with spaces in var value|         [K0]
+  204. |echo "$ANA_VAR" with spaces in var value|       [OK]
+  205. |echo '$ANA_VAR' with spaces in var value|       [OK]
+
+    ----------------------[ spaces ]---------------------
+
+  206. |""|                                             [K0]
+  207. |" "|                                            [K0]
+  208. |\techo hi|                                      [OK]
+  209. |echo\thi|                                       [OK]
+  210. |\techo\thi|                                     [OK]
+  211. |\techo\thi|                                     [OK]
+  212. |  \techo\thi|                                   [OK]
+  213. |\techo\t   hi|                                  [OK]
+  214. |many tabs|                                      [OK]
+  215. |many spaces|                                    [OK]
+
+    -----------------------[ tilde ]---------------------
+
+  216. |~|                                              [K0]
+  217. |echo hi~|                                       [OK]
+  218. |echo ~|                                         [K0]
+  219. |echo ~/path|                                    [K0]
+  220. |echo ~$USER|                                    [OK]
+  221. |echo ~false|                                    [OK]
+  222. |echo ~|                                         [K0]
+  223. |echo ~$USER/sdfsfsfdsfs|                        [OK]
+  224. | echo ~|                                        [K0]
+
+    -------------------[ syntax_error ]------------------
+
+  225. |test|                                           [K0]
+  226. ||test|                                          [K0]
+  227. || test|                                         [K0]
+  228. |< | test|                                       [K0]
+  229. |<< | test|                                      [K0]
+  230. |> | test|                                       [K0]
+  231. |>> | test|                                      [K0]
+  232. || < test|                                       [K0]
+  233. || << test|                                      [K0]
+  234. || > test|                                       [K0]
+  235. || >> test|                                      [K0]
+  236. || test|                                         [K0]
+  237. |test | >|                                       [K0]
+  238. |test | >>|                                      [K0]
+  239. |test | <|                                       [K0]
+  240. |echo hiecho hi|                                 [OK]
+  241. |echo hi|echo hi|                                [OK]
+  242. |echo hi |echo hi|                               [OK]
+  243. |echo hi| echo hi|                               [OK]
+  244. |echo hi | | echo hi|                            [K0]
+  245. |echo hi ||| echo hi|                            [SF]
+  246. |echo >|                                         [K0]
+  247. |echo >>|                                        [K0]
+  248. |echo <|                                         [K0]
+  249. |echo >>>|                                       [K0]
+  250. |echo <<<|                                       [K0]
+  251. |echo hi >< file|                                [K0]
+
+
+  It seems that there are some tests that have not passed...
+  and your minishell gives segmentation fault at tests:
+  [ 245 ]
+
+  To see full failure traces -> traces/parse/*.txt
+
+
+|=========================[ PIPES ]==========================|
+
+
+  252. |echo | /bin/cat|                                [OK]
+  253. |echo hi | /bin/cat|                             [OK]
+  254. |cat /etc/shells | head -c 10|                   [OK]
+  255. |cat -e /etc/shells | head -c 10|                [OK]
+  256. |cat -e /etc/shells | cat -e | head -c 10|       [OK]
+  257. |cat -e /etc/shells | cat -e | cat -e | h...|    [OK]
+  258. |echo hola | cat|                                [OK]
+  259. |echo hola | cat -e|                             [OK]
+  260. |echo hola | cat -e | cat -n|                    [OK]
+  261. |echo hola with many pipes cat -e|               [OK]
+  262. |ls | cat -e|                                    [OK]
+  263. |ls -l | cat -e|                                 [OK]
+  264. |ls -l | cat -e | cat | cat | cat|               [OK]
+  265. |ls -l | cat -e | cat -e | cat -e | cat -e|      [OK]
+  266. |echo hola | asdf|                               [K0]
+  267. |asdf | echo hola|                               [OK]
+  268. |cat | cat | cat | ls|                           [OK]
+  269. |sleep 1 | ls | cat -n|                          [OK]
+  270. |cd folder | pwd|                                [OK]
+  271. |ls pipes (255)|                                 [OK]
+  272. |ls pipes (256)|                                 [OK]
+  273. |ls pipes (257)|                                 [OK]
+
+
+  It seems that there are some tests that have not passed...
+
+  To see full failure traces -> traces/pipes_trace.txt
+
+
+|======================[ REDIRECTIONS ]======================|
+
+
+  274. |> no_cmd_file|                                  [OK]
+  275. |>> no_cmd_test|                                 [OK]
+  276. |echo hola | > filepipe|                         [OK]
+  277. |> file_first | > file_second|                   [OK]
+  278. |echo hi > file|                                 [OK]
+  279. |echo hi >> file|                                [OK]
+  280. |echo hi > *.txt|                                [OK]
+  281. |echo >> file hi|                                [OK]
+  282. |echo >> file2 hi|                               [OK]
+  283. |> file echo hi|                                 [OK]
+  284. |>> file echo hi|                                [OK]
+  285. |echo hi > file2 > file hi|                      [OK]
+  286. |echo hi >> file2 > file hi|                     [OK]
+  287. |echo hi > file2 >> file hi|                     [OK]
+  288. |echo hi > file2 > file hi|                      [OK]
+  289. |echo hi >> file2 >> file hi|                    [OK]
+  290. |echo hi>file2>file hi|                          [OK]
+  291. |echo hi>>file2>>file hi|                        [OK]
+  292. |echo hi > file3 > file2 > file hi|              [OK]
+  293. |echo hi > file3 >> file2 > file hi|             [OK]
+  294. |echo hi > file3 > file2 >> file hi|             [OK]
+  295. |echo hi >> file3 > file2 > file hi|             [OK]
+  296. |echo hi >> file3 > file2 >> file hi|            [OK]
+  297. |echo hi >> file3 >> file2 > file hi|            [OK]
+  298. |echo hi>file3>file2>file hi|                    [OK]
+  299. |> file3 echo hi > file2 > file hi|              [OK]
+  300. |> file3 echo hi > file2 >> file hi|             [OK]
+  301. |>> file3 echo hi > file2 > file hi|             [OK]
+  302. |> file3 echo hi >> file2 > file hi|             [OK]
+  303. |>file3 echo hi>file2>file hi|                   [OK]
+  304. |echo hi >filea>fileb>filec hi|                  [OK]
+  305. |echo hi >filea>>fileb>filec hi|                 [OK]
+  306. |echo hi >filea>fileb>>filec hi|                 [OK]
+  307. |echo hi >>filea>fileb>filec hi|                 [OK]
+  308. |echo hi > "doble"quote|                         [OK]
+  309. |echo hi >"doble"quote|                          [OK]
+  310. |echo -n hi >>"doble"quote|                      [OK]
+  311. |echo hi > 'simple'quote|                        [OK]
+  312. |echo hi >'simple'quote|                         [OK]
+  313. |echo -n hi >>'simple'quote|                     [OK]
+  314. |echo hi > 'with spaces'|                        [OK]
+  315. |echo hi >>'with spaces'|                        [OK]
+  316. |echo hi > "mixed"'file 'name|                   [OK]
+  317. |echo hi >> "mixed"'file 'name|                  [OK]
+  318. |echo hi 0> file|                                [OK]
+  319. |4> file|                                        [K0]
+  320. |echo hi > testfolder|                           [K0]
+  321. |echo hi >> testfolder|                          [K0]
+  322. |echo hi 2> testfolder|                          [K0]
+  323. |echo hi 2>> testfolder|                         [K0]
+  324. |echo hi > testfolder|                           [K0]
+  325. |echo hi >> testfolder|                          [K0]
+  326. |echo hi 2> testfolder|                          [K0]
+  327. |echo hi 2>> testfolder|                         [K0]
+  328. |echo > file hi (no permision)|                  [OK]
+  329. |echo >> file2 hi (no permision)|                [OK]
+  330. |> file echo hi (no permision)|                  [OK]
+  331. |>> file3 echo hi (no permision)|                [OK]
+  332. |cat < file|                                     [OK]
+  333. |< file cat < file2|                             [OK]
+  334. |cat < nonexist|                                 [K0]
+  335. |cat < $USER|                                    [K0]
+  336. |cat < file3 (no permision)|                     [K0]
+  337. |echo hi 2> error_outp < non_exist|              [K0]
+  338. |echo hi < non_exist > wrong|                    [K0]
+  339. |< non_exist echo hi > wrong|                    [K0]
+  340. |> correct echo hi < non_exist|                  [K0]
+
+
+  It seems that there are some tests that have not passed...
+
+  To see full failure traces -> traces/redirection_trace.txt
+
+
+|=========================[ STATUS ]=========================|
+
+
+  341. |echo $?|                                        [OK]
+  342. |" "|                                            [K0]
+  343. |echo $?|                                        [OK]
+  344. |echo $?|                                        [OK]
+  345. |cat < noexiste|                                 [K0]
+  346. | echo $?|                                       [K0]
+  347. |echo hola > noperm|                             [OK]
+  348. | echo $?|                                       [K0]
+  349. |echo hola < noperm|                             [OK]
+  350. |echo $?|                                        [OK]
+  351. |sleep 1 | ls | cat -n|                          [OK]
+  352. |echo $?|                                        [K0]
+  353. |sleep 1 | dddd|                                 [K0]
+  354. | echo $?|                                       [OK]
+  355. |nonexistcmd|                                    [K0]
+  356. | echo $?|                                       [OK]
+  357. |nonexistcmd | echo hi|                          [OK]
+  358. | echo $?|                                       [OK]
+  359. |echo hi | nonexistcmd|                          [K0]
+  360. | echo $?|                                       [OK]
+  361. |echo hi < nofile | nonexistcmd|                 [K0]
+  362. | echo $?|                                       [OK]
+  363. |echo hi < nofile | echo hii|                    [OK]
+  364. |echo $?|                                        [K0]
+  365. |/Users/nonexist/directory|                      [K0]
+  366. |echo $?|                                        [OK]
+  367. |cat /Users/nonexist/directory|                  [K0]
+
+
+  It seems that there are some tests that have not passed...
+
+  To see full failure traces -> traces/status_trace.txt
+
+
+|=======================[ SHLVL TESTS ]======================|
+
+
+  368. |echo $SHLVL 'entry value 20'|                   [OK]
+  369. |echo $SHLVL 'entry value 50'|                   [OK]
+  370. |echo $SHLVL 'entry value 99'|                   [OK]
+  371. |echo $SHLVL 'entry value -20'|                  [OK]
+  372. |echo $SHLVL 'entry value 800'|                  [OK]
+  373. |echo $SHLVL 'entry value 1000'|                 [K0]
+  374. |echo $SHLVL 'entry value 5000000'|              [K0]
+  375. |echo $SHLVL 'unset SHLVL before ./minishell'|   [OK]
+  376. |echo $SLVL 'export SHLVL='' before ./minishell'|[K0]
+
+
+  It seems that there are some tests that have not passed...
+
+  To see full failure traces -> traces/shlvl_trace.txt
+
+
+|====================[ PANIC MANDATORY ]=====================|
+
+
+  377. |rm -rf actual dir and cd .|                     [K0]
+  378. |exit --|                                        [K0]
+  379. |echo all &> file|                               [OK]
+  380. |cd - (at start the minishell, OLDPWD sho...|    [K0]
+  381. |cd - (deleted old path dir)|                    [K0]
+  382. |cd -|                                           [K0]
+  383. |echo ~ (without $HOME in env)|                  [K0]
+  384. |playing with PWD an OLD|                        [K0]
+  385. |playing with PWD an OLD|                        [K0]
+  386. |echo <> file|                                   [K0]
+  387. |cat < file 3< file2|                            [K0]
+  388. |file with permission named echo|                [OK]
+
+
+  It seems that there are some tests that have not passed...
+
+  To see full failure traces -> traces/panic/panic_mandatory.txt
+
+
+|=======================[ YOUR TESTS ]=======================|
+
+
+ there goes your tests!
+
+
+  All your test passed successfully!!
+
+|============================================================|
+
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [echo]                           15      3      0     18
+  [export]                          7      9      0     16
+  [env]                             6      2      0      8
+  [exit]                           50      5      0     55
+  [directory]                      12     11      0     23
+  [dollars]                        20     13      0     33
+  [quotes]                         44      8      0     52
+  [spaces]                          8      2      0     10
+  [tilde]                           4      5      0      9
+  [syntax_error]                    4     22      1     27
+  [pipe]                           25     23      1     49
+  [redirection]                    51     16      0     67
+  [status]                         15     12      0     27
+  [shlvl]                           6      3      0      9
+  [panic mandatory]                 2     10      0     12
+  [your]                            0      0      0      0
+
+  total                          [0265] [0122] [0001] [0388]
+
+  Best state so far  //  have not fixed the error starting at 0 on the loop, maybe at expansor use error instead of exit_code.

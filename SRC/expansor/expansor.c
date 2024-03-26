@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/25 23:21:36 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 01:38:30 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*expand_str(char *name, t_env *env, char *str)
 	if (!iter)
 		return ft_strdup(str);
 	env_cont = ft_strdup(iter->content);
-	tmp = ft_strjoini(trim_bef(str, '$'), clear_spaces(env_cont));
+	tmp = ft_strjoini(trim_bef(str, '$'), env_cont);
 	result = ft_strjoini(tmp, trim_after(str, '$'));
 	free(env_cont);
 	free(tmp);
