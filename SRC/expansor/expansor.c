@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/26 01:38:30 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 02:56:09 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 			result = expand_str_extra(result, exit_code);
 			x = -1;
 		}
-		else if (result[x] && result[x] == '$'  && (is_poss_char(result[x + 1]) != 0) && result[x + 1] != '\0')
+		else if (result[x] && result[x] == '$' && (is_poss_char(result[x + 1]) != 0) && result[x + 1] != '\0')
 		{
 			env_name = get_env_name(&result[x + 1]);
 			if (env_exist(env, env_name) == true)

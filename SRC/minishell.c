@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/25 17:26:54 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 02:11:50 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int ac, char **av, char **envp)
 	int			exit_code;
 	
 	exit_code = 0;
-	(void)error;
+	error = 0;
 	char *str;
 	(void)av;
 	if (ac != 1)
