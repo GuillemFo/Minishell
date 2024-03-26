@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/26 07:09:25 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:42:37 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ bool	env_no_value(char *var);
 char	*get_til_equal(char *var);
 char	*equal_til_end(char	*var);
 char	*get_home(t_env *env);
+int		builtin_export(t_parser *parser, t_env **env, int *error);
+int		builtin_unset(t_parser *parser, t_env **env, int *error);
 /*-=-=-=-=-=-=-=-=-=-=-=ENV_TOOLS=-=-=-=-=-=-=-=-=-=-=-=*/
 void	shell_level(t_env **env);
 void	add_env_shell(t_env **env);

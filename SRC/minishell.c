@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/26 09:58:16 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:38:35 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	main(int ac, char **av, char **envp)
 	str = readline(C_G "minishell: " C_RESET);
 	while (str)
 	{
-		error = 0;
 		add_history(str);
 		if (str) 
 		{

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/26 10:09:10 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:48:12 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	builtin_exit(t_parser *parser, int *error)
 }
 
 
-int		builtin_export(t_parser *parser, t_env **env)
+int		builtin_export(t_parser *parser, t_env **env, int *error)
 {
 	int	i;
 	int	x;
@@ -87,21 +87,22 @@ int		builtin_export(t_parser *parser, t_env **env)
 				while (is_poss_char(parser->cmd[i][x]) != 0)
 					x++;
 				if (parser->cmd[i][x] != '\0' && parser->cmd[i][x] != '=')
-					y = errno_printer_2(parser->cmd[0], "not a valid identifier", parser->cmd[i], 1);
+					*error = errno_printer_2(parser->cmd[0], "not a valid identifier", parser->cmd[i], 0);
 				else if (parser->cmd[i][x] == '\0' || parser->cmd[i][x] == '=')
 					add_env(parser, env, i);
 			}
 			else
-				y = errno_printer_2(parser->cmd[0], "not a valid identifier", parser->cmd[i], 1);
+				*error = errno_printer_2(parser->cmd[0], "not a valid identifier", parser->cmd[i], 0);
 		}
 		else if (equal_til_end(parser->cmd[i]))
 				edit_env(parser, env, i);
 		i++;
-	}						
+	}
+	*error = y;
 	return (y);
 }
 
-int	builtin_unset(t_parser *parser, t_env **env)
+int		builtin_unset(t_parser *parser, t_env **env, int *error)
 {
 	int	i;
 
@@ -111,7 +112,10 @@ int	builtin_unset(t_parser *parser, t_env **env)
 	while (parser->cmd[i])
 	{
 		if (env_exist(*env, get_til_equal(parser->cmd[i])) == false)
-			return (1);
+		{
+			*error = 1;
+			return (*error);
+		}
 		else if (env_exist(*env, get_til_equal(parser->cmd[i])) == true)
 			del_env(parser, env, i);
 		i++;
@@ -155,7 +159,7 @@ int built_echo(t_parser *parser)
     return (0);
 }
 
-int	built_cd(t_parser *parser, t_env **env)
+int	built_cd(t_parser *parser, t_env **env, int *error)
 {
 	t_env	*iter;
 	char	*homedir;
@@ -203,12 +207,12 @@ int	built_cd(t_parser *parser, t_env **env)
 			errno_printer(parser->cmd[0], "", "HOME not set");
 		else if (chdir(homedir) < 0)
 			errno_printer(parser->cmd[0], strerror(errno), homedir);
-		return (1);
+			*error = 1;
 	}
 	else if ((parser->cmd[1][0] != '\0') && (chdir(parser->cmd[1]) < 0))
 	{
 		errno_printer(parser->cmd[0], strerror(errno), parser->cmd[1]);
-		return (1);
+		*error = 1;
 	}
 	return (0);
 }
@@ -229,7 +233,7 @@ int	is_builtin_execute(t_parser *parser, t_env **env, int *error)
 		return(built_echo(parser));
 	}
 	else if (ft_strcmp("cd", parser->cmd[0]) == 0)
-		return(built_cd(parser, env));
+		return(built_cd(parser, env, error));
 	else if (ft_strcmp("pwd", parser->cmd[0]) == 0)
 		return(built_pwd());
 	else if (ft_strcmp("env", parser->cmd[0]) == 0)
@@ -237,8 +241,8 @@ int	is_builtin_execute(t_parser *parser, t_env **env, int *error)
 	else if (ft_strcmp("exit", parser->cmd[0]) == 0)
 		return(builtin_exit(parser, error));
 	else if (ft_strcmp("export", parser->cmd[0]) == 0)
-		return(builtin_export(parser, env));
+		return(builtin_export(parser, env, error));
 	else if (ft_strcmp("unset", parser->cmd[0]) == 0)
-		return(builtin_unset(parser, env));
+		return(builtin_unset(parser, env, error));
 	return (0);
 }

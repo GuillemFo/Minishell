@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:36:16 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/26 10:26:52 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:53:20 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,3 +45,4 @@ char	*get_home(t_env *env)
 		iter = iter->next;
 	}
 	return (ft_strdup("ERROR"));//Return proper error ??
+}
