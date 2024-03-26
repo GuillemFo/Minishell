@@ -1236,3 +1236,8 @@ SHLVL, EXIT, ECHO (-n -n *etc) , HEREDOCK & (if affects ill try fix the $'a' and
 Started preparing for leaks. i broke all. if u see this, check if it has 265 ok and 122 ko or might need to pull from before.
 
 Leaks at root from str. readline creates leaks x each command / input it recieves
+ 10:30 am 26.03.24 
+looks more like parser or lexer
+rn only leaks from that and still 265 ok.
+
+still need to do readme line 1231, but is stable
