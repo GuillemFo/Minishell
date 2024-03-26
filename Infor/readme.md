@@ -1241,3 +1241,346 @@ looks more like parser or lexer
 rn only leaks from that and still 265 ok.
 
 still need to do readme line 1231, but is stable
+
+
+
+with error = 0;
+|=========================[ PARSER ]=========================|
+
+    ----------------------[ dollar ]---------------------
+
+  1.   |echo $?|                                        [OK]
+  2.   |echo $|                                         [OK]
+  3.   |echo hi$|                                       [OK]
+  4.   |echo '$ '|                                      [OK]
+  5.   |echo $/|                                        [OK]
+  6.   |echo "'$'"|                                     [OK]
+  7.   |echo $'\n'|                                     [K0]
+  8.   |echo $'\r'|                                     [K0]
+  9.   |echo $'\t'|                                     [K0]
+  10.  |echo $USER|                                     [OK]
+  11.  |echo $NONEXIST|                                 [OK]
+  12.  |echo $USER$PATH$PWD|                            [OK]
+  13.  |echo "$USER$PATH$PWD"|                          [OK]
+  14.  |echo '$USER$PATH$PWD'|                          [OK]
+  15.  |echo '$USER",$PATH,$PWD'|                       [OK]
+  16.  |echo $USER"$PATH"$PWD"USER"$PATH"$PWD"|         [OK]
+  17.  |echo $USER'$PATH'$PWD'USER'$PATH'$PWD'|         [OK]
+  18.  |$NONEXIST|                                      [K0]
+  19.  |$NONEXIST $NONEXIST|                            [K0]
+  20.  |VAR: export TMPENVVAR|                          [K0]
+  21.  |VAR: export TMPENVVAR=echo|                     [OK]
+  22.  |VAR: export TMPENVVAR="  echo"|                 [OK]
+  23.  |VAR: export TMPENVVAR="    EcHO   hi"|          [K0]
+  24.  |VAR: export TMPENVVAR="-n"|                     [OK]
+  25.  |VAR: export TMPENVVAR="-n -n"|                  [K0]
+  26.  |echo $A"$B"$C"A"$B"$C"|                         [K0]
+  27.  |echo $A'$B'$C'A'$B'$C'|                         [K0]
+  28.  |echo $A"$B"$C"A"$B"$C"|                         [K0]
+  29.  |echo $A'$B'$C'A'$B'$C'|                         [K0]
+  30.  |echo $A|                                        [OK]
+  31.  |echo $A$B|                                      [OK]
+  32.  |echo $A$B$C|                                    [OK]
+  33.  |echo $A$B$C$AA|                                 [OK]
+
+    ----------------------[ quotes ]---------------------
+
+  34.  |echo "~"ups|                                    [OK]
+  35.  |echo '~'ups|                                    [OK]
+  36.  |echo "'$'"|                                     [OK]
+  37.  |echo '"$"'|                                     [OK]
+  38.  |echo "|$USER|"|                                 [OK]
+  39.  |echo "|$USE|"|                                  [OK]
+  40.  |echo "|$USER_|"|                                [OK]
+  41.  |echo '|$USER|'|                                 [OK]
+  42.  |echo '|$USE|'|                                  [OK]
+  43.  |echo '|$USER_|'|                                [OK]
+  44.  |'echo' hi|                                      [OK]
+  45.  |'''echo' hi|                                    [OK]
+  46.  |'echo' 'hi'|                                    [OK]
+  47.  |'echo' 'hi'''|                                  [OK]
+  48.  |'echo' 'hi' ''|                                 [OK]
+  49.  |"echo" hi|                                      [OK]
+  50.  |"""echo" hi|                                    [OK]
+  51.  |"echo" "hi"|                                    [OK]
+  52.  |"echo" "hi"""|                                  [OK]
+  53.  |"echo" "hi" ""|                                 [OK]
+  54.  |echo '""""""""""""'|                            [OK]
+  55.  |'echo' "hi"'' " ' "' "' "" ''''''""|            [OK]
+  56.  |echo hi"hi" hi'h"i'|                            [OK]
+  57.  |echo "hi" "hi"|                                 [OK]
+  58.  |echo "hi"  "hi"|                                [OK]
+  59.  |echo "hi"tab"hi"|                               [OK]
+  60.  |" echo"|                                        [K0]
+  61.  |' echo'|                                        [K0]
+  62.  |""echo|                                         [OK]
+  63.  |" "echo|                                        [K0]
+  64.  |''echo|                                         [OK]
+  65.  |' 'echo|                                        [K0]
+  66.  |''''''''''echo hi|                              [OK]
+  67.  |""""""""""echo hi|                              [OK]
+  68.  |"e"'c'h"o" hi|                                  [OK]
+  69.  |ec""ho hi|                                      [OK]
+  70.  |ec""h''o hi|                                    [OK]
+  71.  |EcHo hi|                                        [OK]
+  72.  |ECHO hi|                                        [OK]
+  73.  |"ECHO" hi|                                      [OK]
+  74.  |'ECHO' hi|                                      [OK]
+  75.  |echo    t  hi   t|                              [OK]
+  76.  |echo "   t  hi   t    "|                        [OK]
+  77.  |echo '   t  hi   t    '|                        [OK]
+  78.  |echo $"   t  hi   t    "|                       [K0]
+  79.  |echo $'   t  hi   t    '|                       [K0]
+  80.  |echo $'   r  hi   t    '|                       [K0]
+  81.  |echo hi > "fi le"|                              [OK]
+  82.  |echo hi > 'fi le'|                              [OK]
+  83.  |echo $ANA_VAR with spaces in var value|         [OK]
+  84.  |echo "$ANA_VAR" with spaces in var value|       [OK]
+  85.  |echo '$ANA_VAR' with spaces in var value|       [OK]
+
+    ----------------------[ spaces ]---------------------
+
+  86.  |""|                                             [K0]
+  87.  |" "|                                            [K0]
+  88.  |\techo hi|                                      [OK]
+  89.  |echo\thi|                                       [OK]
+  90.  |\techo\thi|                                     [OK]
+  91.  |\techo\thi|                                     [OK]
+  92.  |  \techo\thi|                                   [OK]
+  93.  |\techo\t   hi|                                  [OK]
+  94.  |many tabs|                                      [OK]
+  95.  |many spaces|                                    [OK]
+
+    -----------------------[ tilde ]---------------------
+
+  96.  |~|                                              [K0]
+  97.  |echo hi~|                                       [OK]
+  98.  |echo ~|                                         [K0]
+  99.  |echo ~/path|                                    [K0]
+  100. |echo ~$USER|                                    [OK]
+  101. |echo ~false|                                    [OK]
+  102. |echo ~|                                         [K0]
+  103. |echo ~$USER/sdfsfsfdsfs|                        [OK]
+  104. | echo ~|                                        [K0]
+
+    -------------------[ syntax_error ]------------------
+
+  105. |test|                                           [K0]
+  106. ||test|                                          [K0]
+  107. || test|                                         [K0]
+  108. |< | test|                                       [K0]
+  109. |<< | test|                                      [K0]
+  110. |> | test|                                       [K0]
+  111. |>> | test|                                      [K0]
+  112. || < test|                                       [K0]
+  113. || << test|                                      [K0]
+  114. || > test|                                       [K0]
+  115. || >> test|                                      [K0]
+  116. || test|                                         [K0]
+  117. |test | >|                                       [K0]
+  118. |test | >>|                                      [K0]
+  119. |test | <|                                       [K0]
+  120. |echo hiecho hi|                                 [OK]
+  121. |echo hi|echo hi|                                [OK]
+  122. |echo hi |echo hi|                               [OK]
+  123. |echo hi| echo hi|                               [OK]
+  124. |echo hi | | echo hi|                            [K0]
+  125. |echo hi ||| echo hi|                            [SF]
+  126. |echo >|                                         [K0]
+  127. |echo >>|                                        [K0]
+  128. |echo <|                                         [K0]
+  129. |echo >>>|                                       [K0]
+  130. |echo <<<|                                       [K0]
+  131. |echo hi >< file|                                [K0]
+
+
+  It seems that there are some tests that have not passed...
+  and your minishell gives segmentation fault at tests:
+  [ 125 ]
+
+  To see full failure traces -> traces/parse/*.txt
+
+
+|============================================================|
+
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [dollars]                        21     12      0     33
+  [quotes]                         45      7      0     52
+  [spaces]                          8      2      0     10
+  [tilde]                           4      5      0      9
+  [syntax_error]                    4     22      1     27
+
+  total                          [0082] [0048] [0001] [0131]
+
+
+without error = 0;
+
+  |=========================[ PARSER ]=========================|
+
+    ----------------------[ dollar ]---------------------
+
+  1.   |echo $?|                                        [OK]
+  2.   |echo $|                                         [OK]
+  3.   |echo hi$|                                       [OK]
+  4.   |echo '$ '|                                      [OK]
+  5.   |echo $/|                                        [OK]
+  6.   |echo "'$'"|                                     [OK]
+  7.   |echo $'\n'|                                     [K0]
+  8.   |echo $'\r'|                                     [K0]
+  9.   |echo $'\t'|                                     [K0]
+  10.  |echo $USER|                                     [OK]
+  11.  |echo $NONEXIST|                                 [OK]
+  12.  |echo $USER$PATH$PWD|                            [OK]
+  13.  |echo "$USER$PATH$PWD"|                          [OK]
+  14.  |echo '$USER$PATH$PWD'|                          [OK]
+  15.  |echo '$USER",$PATH,$PWD'|                       [OK]
+  16.  |echo $USER"$PATH"$PWD"USER"$PATH"$PWD"|         [OK]
+  17.  |echo $USER'$PATH'$PWD'USER'$PATH'$PWD'|         [OK]
+  18.  |$NONEXIST|                                      [K0]
+  19.  |$NONEXIST $NONEXIST|                            [K0]
+  20.  |VAR: export TMPENVVAR|                          [K0]
+  21.  |VAR: export TMPENVVAR=echo|                     [K0]
+  22.  |VAR: export TMPENVVAR="  echo"|                 [K0]
+  23.  |VAR: export TMPENVVAR="    EcHO   hi"|          [K0]
+  24.  |VAR: export TMPENVVAR="-n"|                     [OK]
+  25.  |VAR: export TMPENVVAR="-n -n"|                  [K0]
+  26.  |echo $A"$B"$C"A"$B"$C"|                         [K0]
+  27.  |echo $A'$B'$C'A'$B'$C'|                         [K0]
+  28.  |echo $A"$B"$C"A"$B"$C"|                         [K0]
+  29.  |echo $A'$B'$C'A'$B'$C'|                         [K0]
+  30.  |echo $A|                                        [OK]
+  31.  |echo $A$B|                                      [OK]
+  32.  |echo $A$B$C|                                    [OK]
+  33.  |echo $A$B$C$AA|                                 [OK]
+
+    ----------------------[ quotes ]---------------------
+
+  34.  |echo "~"ups|                                    [OK]
+  35.  |echo '~'ups|                                    [OK]
+  36.  |echo "'$'"|                                     [OK]
+  37.  |echo '"$"'|                                     [OK]
+  38.  |echo "|$USER|"|                                 [OK]
+  39.  |echo "|$USE|"|                                  [OK]
+  40.  |echo "|$USER_|"|                                [OK]
+  41.  |echo '|$USER|'|                                 [OK]
+  42.  |echo '|$USE|'|                                  [OK]
+  43.  |echo '|$USER_|'|                                [OK]
+  44.  |'echo' hi|                                      [OK]
+  45.  |'''echo' hi|                                    [OK]
+  46.  |'echo' 'hi'|                                    [OK]
+  47.  |'echo' 'hi'''|                                  [OK]
+  48.  |'echo' 'hi' ''|                                 [OK]
+  49.  |"echo" hi|                                      [OK]
+  50.  |"""echo" hi|                                    [OK]
+  51.  |"echo" "hi"|                                    [OK]
+  52.  |"echo" "hi"""|                                  [OK]
+  53.  |"echo" "hi" ""|                                 [OK]
+  54.  |echo '""""""""""""'|                            [OK]
+  55.  |'echo' "hi"'' " ' "' "' "" ''''''""|            [OK]
+  56.  |echo hi"hi" hi'h"i'|                            [OK]
+  57.  |echo "hi" "hi"|                                 [OK]
+  58.  |echo "hi"  "hi"|                                [OK]
+  59.  |echo "hi"tab"hi"|                               [OK]
+  60.  |" echo"|                                        [OK]
+  61.  |' echo'|                                        [OK]
+  62.  |""echo|                                         [K0]
+  63.  |" "echo|                                        [OK]
+  64.  |''echo|                                         [K0]
+  65.  |' 'echo|                                        [OK]
+  66.  |''''''''''echo hi|                              [OK]
+  67.  |""""""""""echo hi|                              [OK]
+  68.  |"e"'c'h"o" hi|                                  [OK]
+  69.  |ec""ho hi|                                      [OK]
+  70.  |ec""h''o hi|                                    [OK]
+  71.  |EcHo hi|                                        [OK]
+  72.  |ECHO hi|                                        [OK]
+  73.  |"ECHO" hi|                                      [OK]
+  74.  |'ECHO' hi|                                      [OK]
+  75.  |echo    t  hi   t|                              [OK]
+  76.  |echo "   t  hi   t    "|                        [OK]
+  77.  |echo '   t  hi   t    '|                        [OK]
+  78.  |echo $"   t  hi   t    "|                       [K0]
+  79.  |echo $'   t  hi   t    '|                       [K0]
+  80.  |echo $'   r  hi   t    '|                       [K0]
+  81.  |echo hi > "fi le"|                              [OK]
+  82.  |echo hi > 'fi le'|                              [OK]
+  83.  |echo $ANA_VAR with spaces in var value|         [OK]
+  84.  |echo "$ANA_VAR" with spaces in var value|       [OK]
+  85.  |echo '$ANA_VAR' with spaces in var value|       [OK]
+
+    ----------------------[ spaces ]---------------------
+
+  86.  |""|                                             [K0]
+  87.  |" "|                                            [OK]
+  88.  |\techo hi|                                      [OK]
+  89.  |echo\thi|                                       [OK]
+  90.  |\techo\thi|                                     [OK]
+  91.  |\techo\thi|                                     [OK]
+  92.  |  \techo\thi|                                   [OK]
+  93.  |\techo\t   hi|                                  [OK]
+  94.  |many tabs|                                      [OK]
+  95.  |many spaces|                                    [OK]
+
+    -----------------------[ tilde ]---------------------
+
+  96.  |~|                                              [K0]
+  97.  |echo hi~|                                       [OK]
+  98.  |echo ~|                                         [K0]
+  99.  |echo ~/path|                                    [K0]
+  100. |echo ~$USER|                                    [OK]
+  101. |echo ~false|                                    [OK]
+  102. |echo ~|                                         [K0]
+  103. |echo ~$USER/sdfsfsfdsfs|                        [OK]
+  104. | echo ~|                                        [K0]
+
+    -------------------[ syntax_error ]------------------
+
+  105. |test|                                           [OK]
+  106. ||test|                                          [K0]
+  107. || test|                                         [K0]
+  108. |< | test|                                       [OK]
+  109. |<< | test|                                      [OK]
+  110. |> | test|                                       [OK]
+  111. |>> | test|                                      [OK]
+  112. || < test|                                       [K0]
+  113. || << test|                                      [K0]
+  114. || > test|                                       [K0]
+  115. || >> test|                                      [K0]
+  116. || test|                                         [K0]
+  117. |test | >|                                       [K0]
+  118. |test | >>|                                      [K0]
+  119. |test | <|                                       [K0]
+  120. |echo hiecho hi|                                 [OK]
+  121. |echo hi|echo hi|                                [OK]
+  122. |echo hi |echo hi|                               [OK]
+  123. |echo hi| echo hi|                               [OK]
+  124. |echo hi | | echo hi|                            [K0]
+  125. |echo hi ||| echo hi|                            [SF]
+  126. |echo >|                                         [K0]
+  127. |echo >>|                                        [K0]
+  128. |echo <|                                         [K0]
+  129. |echo >>>|                                       [OK]
+  130. |echo <<<|                                       [K0]
+  131. |echo hi >< file|                                [OK]
+
+
+  It seems that there are some tests that have not passed...
+  and your minishell gives segmentation fault at tests:
+  [ 125 ]
+
+  To see full failure traces -> traces/parse/*.txt
+
+
+|============================================================|
+
+  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
+  [dollars]                        19     14      0     33
+  [quotes]                         47      5      0     52
+  [spaces]                          9      1      0     10
+  [tilde]                           4      5      0      9
+  [syntax_error]                   11     15      1     27
+
+  total                          [0090] [0040] [0001] [0131]
+
+11.53 am
+  Redo errors for --> !NO error = 0 !
