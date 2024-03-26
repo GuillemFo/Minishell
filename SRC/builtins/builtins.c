@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/26 09:59:06 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:09:10 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*value_clear(char *s)
 int	builtin_exit(t_parser *parser, int *error)
 {
 	char *value;
-	if (parser->cmd[1] && parser->cmd[2])
+	if (parser->cmd[1] && parser->cmd[2])	//this is wrong, first check if all args are numbers then check if any non numeric on it, if non numeric return error 255
 	{
 		ft_other_error("exit: too many arguments\n", error, 1);
 		return (1);
@@ -62,6 +62,7 @@ int	builtin_exit(t_parser *parser, int *error)
 		else
 			exit(ft_atoi(parser->cmd[1]));
 	}
+	
 	exit(*error);
 }
 
