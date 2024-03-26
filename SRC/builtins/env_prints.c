@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:30:47 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/25 16:31:13 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:00:45 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	print_hidden_lst(t_env *env)
 	return (0);
 }
 
-// this works fine
 int	print_env_lst(t_env *env)
 {
 	t_env	*iter;

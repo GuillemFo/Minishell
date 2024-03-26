@@ -6,13 +6,13 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 09:56:09 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/25 17:54:07 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:01:46 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Works fine
+
 void	add_env_shell(t_env **env)
 {
 	t_env	*iter;

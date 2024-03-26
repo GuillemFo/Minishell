@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:12 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/26 01:51:37 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 09:55:33 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*clear_spaces(char *str)
 
 	i = 0;
 	j = 0;
-	new = malloc(sizeof(char) * (strlen(str) + 1));
+	new = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	if (!new)
 		return (NULL);
 	while (str[i] != '\0')

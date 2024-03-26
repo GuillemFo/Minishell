@@ -6,13 +6,12 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/25 19:55:02 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:00:00 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// this works fine
 bool	env_exist(t_env *env, char *str)
 {
 	t_env	*iter;
@@ -35,7 +34,7 @@ char	*equal_til_end(char *var)
 	x = 0;
 	while (var[x] != '\0' && var[x] != '=')
 		x++;
-	if (var[x] == '=' && var[x + 1] != '\0')	//need to add a filter so wont coppy ';'
+	if (var[x] == '=' && var[x + 1] != '\0')	//need to add a filter so wont coppy ';' 26/03/2024 10:00 am. i think its actually fixed
 		return (ft_strdup(var + x + 1));
 	else
 		return (ft_strdup(""));
@@ -80,7 +79,7 @@ t_env	*load_env(char **envp)
 	{
 		env->name = get_til_equal(envp[y]);
 		env->is_hidden = env_no_value(envp[y]);
-		env->content = ft_strdup(equal_til_end(envp[y]));
+		env->content = equal_til_end(envp[y]);
 		if (envp[y + 1] != NULL)
 		{
 			env->next = my_malloc(sizeof(t_env));

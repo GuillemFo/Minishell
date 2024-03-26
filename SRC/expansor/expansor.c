@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/26 08:13:11 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:01:10 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*expand_str(char *name, t_env *env, char *str)
 	while (iter && ft_strcmp(name, iter->name) != 0)
 		iter = iter->next;
 	if (!iter)
-		return ft_strdup(str);
+		return (str);
 	env_cont = ft_strdup(iter->content);
 	tmp = ft_strjoini(trim_bef(str, '$'), env_cont);
 	result = ft_strjoini(tmp, trim_after(str, '$'));
@@ -80,7 +80,7 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 			env_name = get_env_name(&result[x + 1]);
 			if (env_exist(env, env_name) == true)
 			{
-				result = expand_str(env_name, env, result); // Might be losing the data here. Readme line 132.
+				result = expand_str(env_name, env, result); 
 				x = -1;
 			}
 			else
@@ -89,10 +89,10 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 				tmp = trim_bef(result, '$');
 				free(result);
 				tmp2 = ft_strjoinplus(tmp, test1);
-				result = ft_strdup(tmp2);
-				x = -1;
 				free(test1);
+				result = ft_strdup(tmp2);
 				free(tmp2);
+				x = -1;
 			}
 			free(env_name);
 		}

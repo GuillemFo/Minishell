@@ -1234,3 +1234,5 @@ SHLVL, EXIT, ECHO (-n -n *etc) , HEREDOCK & (if affects ill try fix the $'a' and
 *ECHO (-n -n, vars containing -n affecting the functionality of it)
 
 Started preparing for leaks. i broke all. if u see this, check if it has 265 ok and 122 ko or might need to pull from before.
+
+Leaks at root from str. readline creates leaks x each command / input it recieves

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/25 19:59:55 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 09:59:06 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ int	builtin_exit(t_parser *parser, int *error)
 }
 
 
-//if we have multiple args, will set all. Some characters are not valid!!
-//check if has equial in order to actually rewrite it empty;
 int		builtin_export(t_parser *parser, t_env **env)
 {
 	int	i;
@@ -156,7 +154,6 @@ int built_echo(t_parser *parser)
     return (0);
 }
 
-//need a filter to check if exists the env before cz might be unset and might need to be created.
 int	built_cd(t_parser *parser, t_env **env)
 {
 	t_env	*iter;
@@ -167,14 +164,14 @@ int	built_cd(t_parser *parser, t_env **env)
 		iter = iter->next;
 	if (iter->name != NULL && ft_strncmp(iter->name, "OLDPWD", 7) == 0)
 		{
-			iter->content = ft_strdup(getcwd(NULL, MAXPATHLEN));
+			iter->content = getcwd(NULL, MAXPATHLEN);
 			iter->is_hidden = false;
 		}
 	else if (!iter->next)
 	{
 		iter->next = malloc(sizeof(t_env));
 		iter->next->name = ft_strdup("OLDPWD");
-		iter->next->content = ft_strdup(getcwd(NULL, MAXPATHLEN));
+		iter->next->content = getcwd(NULL, MAXPATHLEN);
 		iter->next->is_hidden = false;
 		iter->next->next = NULL;
 	}
@@ -185,14 +182,14 @@ int	built_cd(t_parser *parser, t_env **env)
 			iter = iter->next;
 		if (iter->name != NULL && ft_strncmp(iter->name, "PWD", 4) == 0)
 		{
-			iter->content = ft_strdup(getcwd(NULL, MAXPATHLEN));
+			iter->content = getcwd(NULL, MAXPATHLEN);
 			iter->is_hidden = false;
 		}
 		else if (!iter->next)
 		{
 			iter->next = malloc(sizeof(t_env));
 			iter->next->name = ft_strdup("PWD");
-			iter->next->content = ft_strdup(getcwd(NULL, MAXPATHLEN));
+			iter->next->content = getcwd(NULL, MAXPATHLEN);
 			iter->next->is_hidden = false;
 			iter->next->next = NULL;
 		}
