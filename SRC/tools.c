@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/26 02:43:15 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 07:43:23 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char *trim_bef(char *str, char c) {
 	char *new_str = malloc((i + 1) * sizeof(char));
     if (!new_str)
         return NULL;
-    memcpy(new_str, str, i);
+    ft_memcpy(new_str, str, i);
     new_str[i] = '\0';
     return new_str;
 }

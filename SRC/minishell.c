@@ -6,12 +6,14 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/26 02:11:50 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 07:40:45 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
+
+
 
 t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 {

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 09:56:09 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/25 17:54:07 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 07:20:22 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	add_env_shell(t_env **env)
 	{
 		*env = malloc(sizeof(t_env));
 		(*env)->name = ft_strdup("SHLVL");
-		(*env)->content = ft_strdup("1");
+		(*env)->content = ft_strdup("1");	//might cause leaks
 		(*env)->is_hidden = false;
 		(*env)->next = NULL;
 		return;
@@ -31,7 +31,7 @@ void	add_env_shell(t_env **env)
 		iter = iter->next;
 	iter->next = malloc(sizeof(t_env));
 	iter->next->name = ft_strdup("SHLVL");
-	iter->next->content = ft_strdup("1");
+	iter->next->content = ft_strdup("1");	//might cause leaks
 	iter->next->is_hidden = false;
 	iter->next->next = NULL;
 }
