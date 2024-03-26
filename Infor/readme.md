@@ -1225,3 +1225,10 @@ starting to not care so much about it since is not that big deal. Problem is, i 
 I feel like  wasted so much time again with this part of the minishell ... it feels impossible and time consuming.
 ill keep trying, this seems impotant...
 since its 10 good things less, ill retype the best way i had so far.
+
+
+
+To keep doing:
+SHLVL, EXIT, ECHO (-n -n *etc) , HEREDOCK & (if affects ill try fix the $'a' and $"a")
+
+*ECHO (-n -n, vars containing -n affecting the functionality of it)
