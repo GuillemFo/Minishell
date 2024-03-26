@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/26 11:48:12 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:52:15 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ int	built_cd(t_parser *parser, t_env **env, int *error)
 		errno_printer(parser->cmd[0], strerror(errno), parser->cmd[1]);
 		*error = 1;
 	}
-	return (0);
+	return (*error);
 }
 
 int	built_pwd()
