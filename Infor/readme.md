@@ -284,4 +284,8 @@ rn only leaks from that and still 265 ok.
 
 still need to do readme line 1231, but is stable
 
-
+26.03.24 05.08 pm
+MISSING:
+Check exit for failed cd, 
+*ECHO (-n -n, vars containing -n affecting the functionality of it)
+HEREDOCK
