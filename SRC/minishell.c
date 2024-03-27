@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/26 15:02:49 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 11:43:37 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ int	main(int ac, char **av, char **envp)
 		free_all(data, &str);
 		}
 	}
+	free_env(&env);
 	return (exit_code);
 }
