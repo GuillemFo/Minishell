@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/27 10:11:55 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 22:43:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int	errno_printer_export(char *com, char *error_txt, char *asked);
 int	errno_printer_3(char *com, char *error_txt, char *asked, int val);
 void 	*free_env(t_env **env);
 long long	ft_atoll(char *str);
+void	*ft_free_split(char **s);
 
 /*==============================ANNA======================================*/
 void	ft_error(int ernu, char *msg, int *error);
