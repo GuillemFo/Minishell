@@ -289,3 +289,7 @@ MISSING:
 Check exit for failed cd, 
 *ECHO (-n -n, vars containing -n affecting the functionality of it)
 HEREDOCK
+
+27.03.24 8.42 pm
+Trim EXPANSOR ALL SPACES?
+HEREDOCK

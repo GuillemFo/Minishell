@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/27 11:43:37 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 21:04:34 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	main(int ac, char **av, char **envp)
 		add_history(str);
 		if (str) 
 		{
+			//if (ft_strcmp(str, "exit") == 0)
+			//	exit (error);
 			error = 0;
 			input = ft_lexer(str);
 			data = ft_parser(input, &error);

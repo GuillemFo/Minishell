@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/27 19:54:50 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 21:08:40 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,14 @@ char	*value_clear(char *s)
 }
 
 //	!!! Reminder that exit will round values every 255 reached !!!
-//	and val cant exceed __LONG_LONG_MAX__
 int	builtin_exit(t_parser *parser, int *error)
 {
 	char *value;
 	
-	if (parser->cmd[1] && ft_check_arg_is_num(parser->cmd[1]) != 1 && (ft_check_arg_is_num(parser->cmd[1]) != 1)) // atoi checker
+	if (parser->cmd[1] && ft_check_arg_is_num(parser->cmd[1]) != 1) // atoi checker
 	{
 		errno_printer(" exit", "numeric argument required", parser->cmd[1]);
 		*error = 255;
-		exit(*error);
 	}
 	else if (parser->cmd[1] && parser->cmd[2])	//this is wrong, first check if all args are numbers then check if any non numeric on it, if non numeric return error 255
 	{
@@ -48,15 +46,10 @@ int	builtin_exit(t_parser *parser, int *error)
 			ft_other_error("exit: too many arguments\n", error, 1);
 			return (1);
 		}
-		if (parser->cmd[1] && ft_check_arg_is_num(parser->cmd[2]) != 1)
+		else if (parser->cmd[1] && ft_check_arg_is_num(parser->cmd[2]) != 1)
 		{
 			ft_other_error("exit: too many arguments\n", error, 1);
 			exit (1);
-		}
-		else
-		{
-			ft_other_error("exit: too many arguments\n", error, 1);
-			return (1);
 		}
 		
 	}
