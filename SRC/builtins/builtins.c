@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/27 18:44:31 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 19:21:50 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,20 +130,39 @@ int	built_env(t_env *env)
 	return (0);
 }
 
+int	check_is_n(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-' && str[i + 1] == 'n')
+	{
+		while (str[i] == '-' && str[i + 1] == 'n')
+			i++;
+		while (str[i] == 'n')
+			i++;
+		if	(str[i] == '\0')
+			return (i);
+		else
+			return (0);
+	}
+	return (i);
+}
+
+
 int built_echo(t_parser *parser)
 {
     int suppress_newline;
     int i;
+	
 	i = 1;
 	suppress_newline = 0;
-
-    while ((parser->cmd[i] != NULL && ((ft_strcmp("-n", parser->cmd[i]) == 0) || ft_strcmp("-nn", parser->cmd[i]) == 0)))
+    while ((parser->cmd[i] != NULL && (check_is_n(parser->cmd[i]) != 0)))
 	{
-        if (ft_strncmp("-n", parser->cmd[i], 2) == 0)
+        if ((check_is_n(parser->cmd[i]) != 0))
             suppress_newline = 1;
         i++;
     }
-
     while (parser->cmd[i] != NULL)
 	{
         ft_putstr_fd(parser->cmd[i], STDOUT_FILENO);
@@ -151,17 +170,14 @@ int built_echo(t_parser *parser)
             write(1, " ", 1);
         i++;
     }
-
     if (!suppress_newline)
         write(1, "\n", 1);
-
     return (0);
 }
 
-int	built_cd(t_parser *parser, t_env **env, int *error)
+t_env	**get_old_pwd(t_env **env)
 {
-	t_env	*iter;
-	char	*homedir;
+	t_env *iter;
 
 	iter = *env;
 	while (iter->next && ft_strncmp(iter->name, "OLDPWD", 7) != 0)
@@ -181,20 +197,13 @@ int	built_cd(t_parser *parser, t_env **env, int *error)
 		iter->next->is_hidden = false;
 		iter->next->next = NULL;
 	}
-	if (!parser->cmd[1])
-	{
-		homedir = get_home(*env);
-		if (ft_strcmp(homedir, "ERROR") == 0)
-			errno_printer(parser->cmd[0], "", "HOME not set");
-		else if (chdir(homedir) < 0)
-			errno_printer(parser->cmd[0], strerror(errno), homedir);
-			*error = 0;
-	}
-	else if ((parser->cmd[1][0] != '\0') && (chdir(parser->cmd[1]) < 0))
-	{
-		errno_printer(parser->cmd[0], strerror(errno), parser->cmd[1]);
-		*error = 1;
-	}
+	return(env);
+}
+
+t_env	**get_pwd(t_env **env)
+{
+	t_env *iter;
+
 	iter = *env;
 	while (iter->next && ft_strncmp(iter->name, "PWD", 4) != 0)
 		iter = iter->next;
@@ -211,6 +220,29 @@ int	built_cd(t_parser *parser, t_env **env, int *error)
 		iter->next->is_hidden = false;
 		iter->next->next = NULL;
 	}
+	return (env);
+}
+
+int	built_cd(t_parser *parser, t_env **env, int *error)
+{
+	char	*homedir;
+
+	get_old_pwd(env);
+	if (!parser->cmd[1])
+	{
+		homedir = get_home(*env);
+		if (ft_strcmp(homedir, "ERROR") == 0)
+			errno_printer(parser->cmd[0], "", "HOME not set");
+		else if (chdir(homedir) < 0)
+			errno_printer(parser->cmd[0], strerror(errno), homedir);
+			*error = 0;
+	}
+	else if ((parser->cmd[1][0] != '\0') && (chdir(parser->cmd[1]) < 0))
+	{
+		errno_printer(parser->cmd[0], strerror(errno), parser->cmd[1]);
+		*error = 1;
+	}
+	get_pwd(env);
 	return (*error);
 }
 
