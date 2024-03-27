@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/27 22:43:26 by codespace        ###   ########.fr       */
+/*   Updated: 2024/03/27 23:56:39 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	child_process(t_pipe *pipex, t_parser *parser, t_env **envi, int *error)
 	fd_situation(pipex, parser);
 	env = env_to_char(*envi);
 	parse_path(env, pipex);
-	ft_free_split(env);
 	if (parser->cmd && ft_strchr(parser->cmd[0], '/'))
 	{
 		if (access(parser->cmd[0], R_OK) >= 0)
