@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:32:24 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/26 09:15:52 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 09:36:56 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	edit_env(t_parser *parser, t_env **env, int i)
 				get_til_equal(parser->cmd[i])) == 0)
 		{
 			free(iter->content);
-			iter->content = ft_strdup(equal_til_end(parser->cmd[i]));
+			iter->content = equal_til_end(parser->cmd[i]);
 			break;
 		}
 		iter = iter->next;

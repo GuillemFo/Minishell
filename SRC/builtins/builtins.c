@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/26 14:52:15 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 09:32:38 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	builtin_exit(t_parser *parser, int *error)
 		else
 			exit(ft_atoi(parser->cmd[1]));
 	}
-	
 	exit(*error);
 }
 
