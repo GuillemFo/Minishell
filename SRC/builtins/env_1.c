@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/26 10:00:00 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:24:38 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_env	*load_env(char **envp)
 		env->content = equal_til_end(envp[y]);
 		if (envp[y + 1] != NULL)
 		{
-			env->next = my_malloc(sizeof(t_env));
+			env->next = malloc(sizeof(t_env));
 			env = env->next;
 		}
 		else
