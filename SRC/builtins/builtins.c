@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/27 21:08:40 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 20:52:26 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,7 +244,7 @@ int	built_cd(t_parser *parser, t_env **env, int *error)
 			errno_printer(parser->cmd[0], "", "HOME not set");
 		else if (chdir(homedir) < 0)
 			errno_printer(parser->cmd[0], strerror(errno), homedir);
-			*error = 0;
+		*error = 0;
 	}
 	else if ((parser->cmd[1][0] != '\0') && (chdir(parser->cmd[1]) < 0))
 	{

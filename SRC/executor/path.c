@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 12:12:44 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/25 10:02:05 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 20:53:53 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,12 @@
 
 void	parse_path(char **envp, t_pipe *pipex)
 {
-	int		b;
 	char	*tmp;
 
-	b = 0;
 	while (envp && *envp)
 	{
 		if (ft_strncmp("PATH=", *envp, 5) == 0)
 		{
-			b = 1;
 			tmp = ft_substr(*envp, 5, ft_strlen(*envp) - 5);
 			pipex->paths = ft_split(tmp, ':');
 			free(tmp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/26 15:35:45 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 20:53:18 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,15 @@ int	errno_printer_export(char *com, char *error_txt, char *asked)
 	return (0);
 }
 
-char *trim_bef(char *str, char c) {
+char *trim_bef(char *str, char c) 
+{
     int i = 0;
 	if (!str)
 		return (NULL);
     while (str[i] != c && str[i] != '\0')
+	{
         i++;
+	}
 	char *new_str = malloc((i + 1) * sizeof(char));
     if (!new_str)
         return NULL;
