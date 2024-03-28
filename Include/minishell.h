@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/27 22:43:14 by codespace        ###   ########.fr       */
+/*   Updated: 2024/03/28 02:14:33 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,7 @@ void	edit_env(t_parser *parser, t_env **env, int i);
 char	*clear_spaces(char *str);
 
 /*				HEREDOCK		*/
-int	heredock_check(t_parser *parser);
-int	build_heredock(char *path, char *where);
-int	start_heredock(t_redir *sup,int i);
+int	heredock(t_parser *parser, t_env *env, int exit_code);
 /*-=-=-=-=-=-=-=-=EXPANSOR=-=-=-=-=-=-=-=-=-=-=*/
 
 char				*find_dollar(char *str, t_env *env, int	exit_code);

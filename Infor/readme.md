@@ -293,3 +293,5 @@ HEREDOCK
 27.03.24 8.42 pm
 Trim EXPANSOR ALL SPACES?
 HEREDOCK
+
+https://linuxize.com/post/bash-heredoc/
