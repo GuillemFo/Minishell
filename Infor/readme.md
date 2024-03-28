@@ -296,15 +296,36 @@ HEREDOCK
 
 https://linuxize.com/post/bash-heredoc/
 
-28.03.24 03.06 pm
-Exit 1 a 3 should not exit!!
+28.03.24 03.06 pm Exit 1 a 3 should not exit!!
 heredock not working properly.
-when we try to redir a folder, non existing file or no permissions, the program exit or crash.
-The exit code from child process is not working properly.
+when we try to redir a folder, non existing file or no permissions, the program exit or crash. 
+
+The exit code from child process is not working properly. 
+the exit status is wrong, probably because of exit code from child process
+
+
 minishell: " "
-bash:  : command not found
+bash: : command not found
 minishell: echo $?
 0
+====================================
+minishell: cd test.txt
+bash: cd: test.txt: Not a directory
+minishell: exit
+➜  Minishell git:(guille2) ✗ echo $?
+0
+=====================================
+➜  Minishell git:(guille2) ✗ bash
+bash-3.2$ cd test.txt
+bash: cd: test.txt: Not a directory
+bash-3.2$ exit
+exit
+➜  Minishell git:(guille2) ✗ echo $?
+1
+===================================
 
 Leak on lexer
+Leak on parser
+Leak on clear_quotes
 
+Heredock not working properly.

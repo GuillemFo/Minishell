@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:43:57 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/28 15:38:39 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:15:56 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	error_child(int ernu, char *msg, int excode)
 	if (ernu == 1)
 		write(2, ": Permission denied\n", 21);
 	else if (ernu == 2)
-		write(2, ": command not found\n", 21);		//you can try typing here different error to see it clearly.
+		write(2, ": command not found\n", 21);
 	else if (ernu == 3)
 		write(2, ": No such file or directory\n", 29);
 	exit(excode);
