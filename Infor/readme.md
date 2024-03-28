@@ -306,3 +306,5 @@ bash:  : command not found
 minishell: echo $?
 0
 
+Leak on lexer
+

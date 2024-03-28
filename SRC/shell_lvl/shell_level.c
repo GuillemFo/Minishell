@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 09:56:09 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/26 16:35:33 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:51:57 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	shell_level(t_env **env)
 					errno_printer_3("warning: shell level","too high, resetting to 1", ft_itoa(holder), 0);
 					holder = 1;
 				}
+				free(iter->content);
 				iter->content = ft_itoa(holder);
 				break;
 			}

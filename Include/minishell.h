@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/28 14:53:55 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:39:00 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	*ft_free_split(char **s);
 /*==============================ANNA======================================*/
 void	ft_error(int ernu, char *msg, int *error);
 void	ft_other_error(char *msg, int *error, int num);
-void	free_all(t_parser *data, char **str);
+void	free_all(t_parser *data);
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-LEXER-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
 
 void				lexer(char *line);
