@@ -295,3 +295,14 @@ Trim EXPANSOR ALL SPACES?
 HEREDOCK
 
 https://linuxize.com/post/bash-heredoc/
+
+28.03.24 03.06 pm
+Exit 1 a 3 should not exit!!
+heredock not working properly.
+when we try to redir a folder, non existing file or no permissions, the program exit or crash.
+The exit code from child process is not working properly.
+minishell: " "
+bash:  : command not found
+minishell: echo $?
+0
+

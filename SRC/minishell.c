@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/28 02:23:42 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:18:42 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ int	main(int ac, char **av, char **envp)
 			data = ft_parser(input, &error);
 			if (!error && data)
     		{
+				data = clean_input(data, env, error);
 				heredock(data, env, exit_code);
-				data = clean_input(data, env, exit_code);
-				error = execute(data, &env, &error);
-				
+				error = execute(data, &env, &exit_code);
+				error = exit_code;
 			}
 			exit_code = error;
 		free_all(data, &str);
