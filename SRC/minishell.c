@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/28 16:19:05 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:38:41 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ int	main(int ac, char **av, char **envp)
 				str = readline(C_G "minishell: " C_RESET);
 				if (!str)
 					break;
-				break;
 			}
 		}
 	}
