@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/28 02:14:33 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:15:42 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 
 /*-=-=-=-=-=-=-=-=STRUCTS=-=-=-=-=-=-=-=-*/
 
-typedef enum
+typedef enum	e_sign
 {
 	PIPE = 1,
 	GREATER,
@@ -138,7 +138,7 @@ void	*ft_free_split(char **s);
 /*==============================ANNA======================================*/
 void	ft_error(int ernu, char *msg, int *error);
 void	ft_other_error(char *msg, int *error, int num);
-void	free_all(t_parser *data, char **str);
+void	free_all(t_parser *data);
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-LEXER-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
 
 void				lexer(char *line);

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/28 02:23:42 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:21:12 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 {
 	int	i;
 	t_parser	*iter;
-
 	t_redir	*tmp;
+	char	*tmp2;
+	
 	iter = parser;
 	if (iter != NULL)
 	{	
@@ -27,13 +28,17 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 			i = 0;
 			while (iter->cmd && iter->cmd[i] != NULL)
 			{
-				iter->cmd[i] = clear_quotes(iter->cmd[i], env, exit_code);
+				tmp2 = clear_quotes(iter->cmd[i], env, exit_code);
+				free(iter->cmd[i]);
+				iter->cmd[i] = tmp2;
 				i++;
 			}
 			tmp = iter->redir;
 			while (tmp && tmp->dest)
 			{
-				tmp->dest = clear_quotes(tmp->dest, env, exit_code);
+				tmp2 = clear_quotes(tmp->dest, env, exit_code);
+				free(tmp->dest);
+				tmp->dest = tmp2;
 				tmp = tmp->next;
 			}
 			iter = iter->next;
@@ -65,25 +70,34 @@ int	main(int ac, char **av, char **envp)
 	signal(SIGINT, handle_sigint); //reminder that leaks atexit will kill program if use ctrl + c
 	signal(SIGQUIT, handle_sigquit);
 	str = readline(C_G "minishell: " C_RESET);
-	while (str)
+	if (str)
 	{
-		add_history(str);
-		if (str) 
+
+		while (1)
 		{
-			//if (ft_strcmp(str, "exit") == 0)
-			//	exit (error);
-			error = 0;
-			input = ft_lexer(str);
-			data = ft_parser(input, &error);
-			if (!error && data)
-    		{
-				heredock(data, env, exit_code);
-				data = clean_input(data, env, exit_code);
-				error = execute(data, &env, &error);
-				
+			add_history(str);
+			if (str) 
+			{
+				//if (ft_strcmp(str, "exit") == 0)
+				//	exit (error);
+				error = 0;
+				input = ft_lexer(str);
+				data = ft_parser(input, &error);
+				if (!error && data)
+    			{
+					heredock(data, env, exit_code);
+					data = clean_input(data, env, exit_code);
+					error = execute(data, &env, &error);
+					exit_code = error;
+				}
+				exit_code = error;
+				free_all(data);
+				free(str);
+				str = NULL;
+				str = readline(C_G "minishell: " C_RESET);
+				if (!str)
+					break;
 			}
-			exit_code = error;
-		free_all(data, &str);
 		}
 	}
 	free_env(&env);
