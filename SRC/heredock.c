@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   heredock.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 08:21:01 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/28 02:13:32 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:24:15 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// need a way to know the first word so i use it as a key to close the heredock.
+//also i need a way to expand what im typing in the heredock.
+//maybe instead of opening proper fd, create a tmp file to store the text?
 int	heredock(t_parser *parser, t_env *env, int exit_code)
 {
-	int		fd[2];
 	int		i;
 	int		pid;
 	char	*line;
@@ -27,29 +29,29 @@ int	heredock(t_parser *parser, t_env *env, int exit_code)
 	{
 		if (tmp->sign == LESSLESS)
 		{
-			pipe(fd);
+			pipe(tmp->fd);
 			pid = fork();
 			if (pid == 0)
 			{
-				close(fd[0]);
+				close(tmp->fd[0]);
 				while (1)
 				{
 					line = readline("> ");
 					if (!line)
 						break ;
-					write(fd[1], line, ft_strlen(line));
-					write(fd[1], "\n", 1);
+					write(tmp->fd[1], line, ft_strlen(line));
+					write(tmp->fd[1], "\n", 1);
 					free(line);
 				}
-				close(fd[1]);
+				close(tmp->fd[1]);
 				exit(0);
 			}
 			else
 			{
 				waitpid(pid, &exit_code, 0);
-				close(fd[1]);
-				dup2(fd[0], 0);
-				close(fd[0]);
+				close(tmp->fd[1]);
+				dup2(tmp->fd[0], 0);
+				close(tmp->fd[0]);
 			}
 		}
 		tmp = tmp->next;
