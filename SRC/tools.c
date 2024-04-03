@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 12:12:44 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 13:11:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,22 @@ int	errno_printer_export(char *com, char *error_txt, char *asked)
 char	*trim_bef(char *str, char c) 
 {
     int i = 0;
+	char *new_str;
 	if (!str)
 		return (NULL);
     while (str[i] != c && str[i] != '\0')
 	{
         i++;
 	}
-	char *new_str = malloc((i + 1) * sizeof(char));
+	new_str = malloc((i + 1) * sizeof(char));
     if (!new_str)
         return NULL;
-    ft_memcpy(new_str, str, i);
+    ft_strncpy(new_str, str, i);
     new_str[i] = '\0';
     return (new_str);
 }
 
-void	trim_support(char *str, char *new_str, int i, int x)
+char	*trim_support(char *str, char *new_str, int i, int x)
 {
 	if (str[i] == '?')
 		i++;
@@ -99,6 +100,7 @@ void	trim_support(char *str, char *new_str, int i, int x)
 		i++;
 	}
 	new_str[x] = '\0';
+	return (new_str);
 }
 
 char *trim_after(char *str, char c)
@@ -121,7 +123,7 @@ char *trim_after(char *str, char c)
 		if (str[i] != '\0')
 		{
 			free(new_str);
-			trim_support(str, new_str, i , x);
+			new_str = trim_support(str, new_str, i , x);
 		}
 	}
 	return (new_str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 10:55:42 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 13:35:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,36 +74,35 @@ char	*cont_in_q(char *str, char c)
 	return (cont);
 }
 
-char *cont_bef_q(char *str, char c)
+char *cont_bef_q(char *res, char c) /// A CHUPARLA 
 {
 	int i;
-	char *res;
+	char *text;
 
 	i = 0;
-	res = ft_strdup(str);
-	if (str[i] != c && str[i] != '\0')
+	if (res[i] != c && res[i] != '\0')
 	{	
-		while (str[i] != c && str[i] != '\0')
+		while (res[i] != c && res[i] != '\0')
 			i++;
-		res = malloc ((i + 1) * sizeof(char));
-		if (!res)
+		text = malloc ((i + 1) * sizeof(char));
+		if (!text)
 			return (NULL);
 		i = 0;
-		while (str[i] != c && str[i] != '\0')
+		while (res[i] != c && res[i] != '\0')
 		{
-			res[i] = str[i];
+			text[i] = res[i];
 			i++;
 		}
-		res[i] = '\0';
+		text[i] = '\0';
 	}
 	else
-		res = ft_strdup("");
-	return (res);
+		text = ft_strdup("");
+	return (text);
 }
 
 
 // Leaks here!!
-char	*clear_quotes(char *str, t_env *env, int exit_code)
+char	*clear_quotes(char *str, t_env *env, int exit_code, char *tmp_ex)
 {
 	char 	*tmp_bef;
 	char	*tmp_cont;
@@ -117,7 +116,11 @@ char	*clear_quotes(char *str, t_env *env, int exit_code)
 	{
 		tmp_bef = find_dollar(cont_bef_q(res, c), env, exit_code);
 		if (c == '\"')
-			tmp_cont = ft_strjoini(tmp_bef, find_dollar(cont_in_q(res, c), env, exit_code));
+		{
+			tmp_ex = cont_in_q(res, c);
+			tmp_cont = ft_strjoini(tmp_bef, find_dollar(tmp_ex, env, exit_code));
+			//free(tmp_ex);
+		}
 		else if (c == '\'')
 				tmp_cont = ft_strjoini(tmp_bef, cont_in_q(res, c));
 		free(tmp_bef);
@@ -129,15 +132,20 @@ char	*clear_quotes(char *str, t_env *env, int exit_code)
 				tmp_cont = ft_strjoini(tmp_bef, find_dollar(cont_in_q(tmp_after, c), env, exit_code));
 			else if (c == '\'')
 				tmp_cont = ft_strjoini(tmp_bef, cont_in_q(tmp_after, c));
-			tmp_after = cont_after_q(tmp_after, c);
+			tmp_ex = cont_after_q(tmp_after, c);
+			free(tmp_after);
+			tmp_after = tmp_ex;
+			free(tmp_ex);
 			free(tmp_bef);
 		}
-		
+		free(res);
 		res = ft_strjoini(tmp_cont, find_dollar(tmp_after, env, exit_code));
 		free(tmp_cont);
-		free(tmp_after);
+		//free(tmp_after);
 	}
 	else
+	{
 		res = find_dollar(res, env, exit_code);
+	}
 	return (res);
 }
