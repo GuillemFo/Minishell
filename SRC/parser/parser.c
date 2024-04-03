@@ -104,5 +104,6 @@ t_parser	*parser_creator(void)
 	parser = my_malloc(sizeof(t_parser));
 	parser->next = NULL;
 	parser->redir = NULL;
+	parser->cmd = NULL;
 	return (parser);
 }
