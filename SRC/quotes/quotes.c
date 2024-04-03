@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 16:12:52 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 14:33:25 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ char	*clear_quotes(char *str, t_env *env, int exit_code, char *tmp_ex)
 		{
 			tmp_ex = cont_in_q(res, c);
 			tmp_cont = ft_strjoini(tmp_bef, find_dollar(tmp_ex, env, exit_code));
-			//free(tmp_ex);
+			//free(tmp_ex); if i add this free its a double free, but if its not then its leak.
 		}
 		else if (c == '\'')
 				tmp_cont = ft_strjoini(tmp_bef, cont_in_q(res, c));
