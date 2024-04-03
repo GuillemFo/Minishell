@@ -58,13 +58,13 @@ void	free_parser(t_parser *parser)
 	t_parser	*tmp;
 
 	tmp = parser;
-	while (parser->next)
+	while (parser)
 	{
-		parser = parser->next;
 		if (tmp->cmd)
-			free_matrix(tmp->cmd, matrix_size(tmp->cmd));
+		 	free_matrix(tmp->cmd, matrix_size(tmp->cmd));
 		if (tmp->redir)
-			free_redir(tmp->redir);
+		 	free_redir(tmp->redir);
+		parser = parser->next;
 		free(tmp);
 		tmp = parser;
 	}

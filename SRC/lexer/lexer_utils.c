@@ -22,6 +22,7 @@ void	free_matrix(char **matrix, size_t p)
 		free(matrix[i]);
 		i++;
 	}
+	free(matrix);
 }
 
 void	*my_malloc(size_t bytes)

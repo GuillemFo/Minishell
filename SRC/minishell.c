@@ -84,12 +84,12 @@ int	main(int ac, char **av, char **envp)
 				if (!error && data)
 				{
 					data = clean_input(data, env, exit_code);
-					heredock(data, env, exit_code);
+					//heredock(data, env, exit_code);
 					error = execute(data, &env, &error);
 					exit_code = error;
 				}
 				exit_code = error;
-				free_all(data);
+				free_parser(data);
 				free(str);
 				str = NULL;
 				str = readline(C_G "minishell: " C_RESET);

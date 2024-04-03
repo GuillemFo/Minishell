@@ -25,9 +25,9 @@ SRC = minishell.c signals.c builtins/builtins.c tools.c builtins/env_1.c \
 
 SRC_PREFIX = $(addprefix $(SRC_PATH),$(SRC))
 
-OBJ = $(addprefix $(OBJ_PATH), $(SRC:.c=.o))
+OBJ = $(addprefix $(OBJ_PATH), $(SRC_PREFIX:.c=.o))
 
-CFLAGS = -I./Include -I./libft -I./$(RDLINE_PATH) -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS = -I./Include -I./libft -I./$(RDLINE_PATH) -g -fsanitize=address #-Wall -Wextra -Werror 
 
 
 LIB_A		:=	$(RDLINE_PATH)libreadline.a $(RDLINE_PATH)libhistory.a $(LIBFT_PATH)libft.a
@@ -63,16 +63,16 @@ $(NAME): $(OBJ) libraries
 
 rdline:
 		@echo "$(CYAN)Compiling Readline$(RESET)"
-		@cd ./readline/ &> $(TMP_DIR)rdcfg && ./configure &> $(TMP_DIR)rdcfg
-		@make -C ./readline/ &> $(TMP_DIR)rdcfg
-		@rm ./tmp/rdcfg
+		@cd ./readline/ &> ./readline/rdcfg && ./configure &> ./readline/rdcfg
+		@make -C ./readline/ &> ./readline/rdcfg
+		@rm ./readline/rdcfg
 		@echo "$(GREEN)Readline compiled$(RESET)"
 
 libraries:
 		@$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
-#@$(MAKE) rdline --no-print-directory
+		@$(MAKE) rdline --no-print-directory
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c Makefile $(LIB_A) $(INC)minishell.h
+$(OBJ_PATH)%.o:%.c Makefile $(LIB_A) $(INC)minishell.h
 		@mkdir	-p $(dir $@)
 		@gcc $(CFLAGS) -DREADLINE_LIBRARY=1 -I./Include -I./readline -c $< -o $@
 		@echo "$(CYAN)Compiling Minishell:$(YELLOW) $@$(RESET)"
