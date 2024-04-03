@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 13:11:27 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/03 16:07:10 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,7 @@ char *trim_after(char *str, char c)
 		while (str[i] != c && (is_poss_char(str[i]) != 0) && str[i] != '\0')
 			i++;
 		if (str[i] != '\0')
-		{
-			free(new_str);
 			new_str = trim_support(str, new_str, i , x);
-		}
 	}
 	return (new_str);
 }

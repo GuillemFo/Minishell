@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 13:35:39 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/03 16:12:52 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,13 +135,11 @@ char	*clear_quotes(char *str, t_env *env, int exit_code, char *tmp_ex)
 			tmp_ex = cont_after_q(tmp_after, c);
 			free(tmp_after);
 			tmp_after = tmp_ex;
-			free(tmp_ex);
 			free(tmp_bef);
 		}
 		free(res);
 		res = ft_strjoini(tmp_cont, find_dollar(tmp_after, env, exit_code));
 		free(tmp_cont);
-		//free(tmp_after);
 	}
 	else
 	{

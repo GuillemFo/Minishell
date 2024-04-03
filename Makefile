@@ -63,14 +63,13 @@ $(NAME): $(OBJ) libraries
 
 rdline:
 		@echo "$(CYAN)Compiling Readline$(RESET)"
-		@cd ./readline/ &> ./readline/rdcfg && ./configure &> ./readline/rdcfg
-		@make -C ./readline/ &> ./readline/rdcfg
-		@rm ./readline/rdcfg
+		@cd ./readline/ && ./configure
+		@make -C ./readline
 		@echo "$(GREEN)Readline compiled$(RESET)"
 
 libraries:
 		@$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
-		@$(MAKE) rdline --no-print-directory
+#@$(MAKE) rdline --no-print-directory
 
 $(OBJ_PATH)%.o:%.c Makefile $(LIB_A) $(INC)minishell.h
 		@mkdir	-p $(dir $@)
