@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 09:56:09 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/28 17:17:44 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 08:43:28 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,37 @@ void	add_env_shell(t_env **env)
 	iter->next->is_hidden = false;
 	iter->next->next = NULL;
 }
+long long	holder_cal(long long holder, char *content)
+{
+	if (ft_check_arg_is_num(content) != 1)
+		holder = 0;
+	else
+		holder = ft_atoll(content);
+	if (holder <= 0)
+	{
+		if (holder <= 0)
+		{
+			holder = -1;
+		}
+		else
+			holder = 0;
+	}
+	holder += 1;
+	if (holder > 1000)
+	{
+		errno_printer_3("warning: shell level",
+		"too high, resetting to 1", ft_itoa(holder), 0);
+		holder = 1;
+	}
+	return (holder);
+}
 
 void	shell_level(t_env **env)
 {
 	t_env	*iter;
 	long long	holder;
+	
+	holder = 0;
 	iter = *env;
 	if (env_exist(*env, "SHLVL") == false)
 		add_env_shell(env);
@@ -49,32 +75,12 @@ void	shell_level(t_env **env)
 		{
 			if ((ft_strcmp("SHLVL", iter->name))== 0)
 			{
-				if (ft_check_arg_is_num(iter->content) != 1)
-					holder = 0;
-				else
-					holder = ft_atoll(iter->content);
-				if (holder <= 0)
-				{
-					if (holder <= 0)
-					{
-						holder = -1;
-					}
-					else
-						holder = 0;
-				}
-				holder += 1;
-				if (holder > 1000)
-				{
-					errno_printer_3("warning: shell level","too high, resetting to 1", ft_itoa(holder), 0);
-					holder = 1;
-				}
+				holder = holder_cal(holder, iter->content);	
 				free(iter->content);
 				iter->content = ft_itoa(holder);
 				break;
 			}
 			iter = iter->next;
 		}
-
 	}
 }
-

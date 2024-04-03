@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/27 20:53:18 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/03 07:56:31 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char *trim_after(char *str, char c)
 			i++;
 		if (str[i] != '\0')
 		{
-			if (str[i] == '?')//no tocar
+			if (str[i] == '?')
 				i++;
 			while (str[i] != '\0')
 			{

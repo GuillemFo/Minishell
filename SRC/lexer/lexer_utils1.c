@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:35:16 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/17 07:41:44 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 07:54:24 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ t_lexer	*tokenize(t_lexer *lexer, char **split)
 	{
 		if (!is_sign(split[i][0]))
 		{
-			lexer->content = token(lexer->content, split[i], ft_strlen(split[i])
-					+ 1);
+			lexer->content = token(lexer->content, split[i],
+			ft_strlen(split[i]) + 1);
 			lexer->sign = 0;
 		}
 		else if (is_sign(split[i][0]))

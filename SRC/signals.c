@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 13:57:56 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/27 10:12:25 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 07:56:24 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,3 @@ void handle_sigquit(int sig)
 {
 	(void)sig;
 }
-
-/*void	handle_gen()
-{
-	if (sigint == 2)
-		
-}
-
-*/

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/28 17:15:42 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 08:00:26 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ char	*equal_til_end(char	*var);
 char	*get_home(t_env *env);
 int		builtin_export(t_parser *parser, t_env **env, int *error);
 int		builtin_unset(t_parser *parser, t_env **env, int *error);
+int	builtin_exit(t_parser *parser, int *error);
 /*-=-=-=-=-=-=-=-=-=-=-=ENV_TOOLS=-=-=-=-=-=-=-=-=-=-=-=*/
 void	shell_level(t_env **env);
 void	add_env_shell(t_env **env);

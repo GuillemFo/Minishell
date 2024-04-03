@@ -6,18 +6,18 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:32:24 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/27 09:36:56 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 08:05:46 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	del_env(t_parser *parser, t_env **env, int i)
+void	del_env_first(t_parser *parser, t_env **env, int i)
 {
 	t_env	*prev;
-	t_env	*iter;
-
-	if ((*env)->name != NULL && ft_strcmp((*env)->name, get_til_equal(parser->cmd[i])) == 0)
+	
+	if ((*env)->name != NULL && ft_strcmp((*env)->name,
+		get_til_equal(parser->cmd[i])) == 0)
 	{
 		prev = (*env);
 		(*env) = (*env)->next;
@@ -25,6 +25,14 @@ void	del_env(t_parser *parser, t_env **env, int i)
 		free(prev->content);
 		free(prev);
 	}
+}
+
+void	del_env(t_parser *parser, t_env **env, int i)
+{
+	t_env	*prev;
+	t_env	*iter;
+
+	del_env_first(parser, env, i);
 	prev = NULL;
 	iter = *env;
 	while (iter != NULL)

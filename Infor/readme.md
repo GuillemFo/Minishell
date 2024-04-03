@@ -329,3 +329,4 @@ Leak on parser
 Leak on clear_quotes
 
 Heredock not working properly.
+Exit when exit 1 2 3 and exit 1 a 3

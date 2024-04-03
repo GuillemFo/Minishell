@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredock.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 08:21:01 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/02 18:24:15 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/03 08:12:36 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	heredock(t_parser *parser, t_env *env, int exit_code)
 				while (1)
 				{
 					line = readline("> ");
-					if (!line)
-						break ;
+					if (!line)// need a way to know the first word so i use it as a key to close the heredock.
+						break;
 					write(tmp->fd[1], line, ft_strlen(line));
 					write(tmp->fd[1], "\n", 1);
 					free(line);
