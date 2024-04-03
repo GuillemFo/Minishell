@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/25 10:02:30 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 08:00:26 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 
 /*-=-=-=-=-=-=-=-=STRUCTS=-=-=-=-=-=-=-=-*/
 
-typedef enum
+typedef enum	e_sign
 {
 	PIPE = 1,
 	GREATER,
@@ -102,24 +102,28 @@ bool	env_no_value(char *var);
 char	*get_til_equal(char *var);
 char	*equal_til_end(char	*var);
 char	*get_home(t_env *env);
+int		builtin_export(t_parser *parser, t_env **env, int *error);
+int		builtin_unset(t_parser *parser, t_env **env, int *error);
+int	builtin_exit(t_parser *parser, int *error);
 /*-=-=-=-=-=-=-=-=-=-=-=ENV_TOOLS=-=-=-=-=-=-=-=-=-=-=-=*/
 void	shell_level(t_env **env);
 void	add_env_shell(t_env **env);
 void	del_env(t_parser *parser, t_env **env, int i);
 void	add_env(t_parser *parser, t_env **env, int i);
 void	edit_env(t_parser *parser, t_env **env, int i);
-char	*expand_str_plus(char *str, t_env *env);
+char	*clear_spaces(char *str);
 
 /*				HEREDOCK		*/
-int	heredock_check(t_parser *parser);
-int	build_heredock(char *path, char *where);
-int	start_heredock(t_redir *sup,int i);
+int	heredock(t_parser *parser, t_env *env, int exit_code);
 /*-=-=-=-=-=-=-=-=EXPANSOR=-=-=-=-=-=-=-=-=-=-=*/
 
 char				*find_dollar(char *str, t_env *env, int	exit_code);
+char 				*find_dollar_var(char *str, int exit_code);
+char	*expand_str_extra(char *str, int exit_code);
 
 /*-=-=-=-=-=-=-=-=-=-=-=TOOLS=-=-=-=-=-=-=-=-=-=-=*/
 int					errno_printer(char *com, char *error_txt, char *asked);
+int					errno_printer_2(char *com, char *error_txt, char *asked, int val);
 char				*trim_after(char *str, char c);
 char				*trim_bef(char *str, char c);
 char				*clear_quotes(char *str, t_env *env, int exit_code);
@@ -127,11 +131,15 @@ int					is_poss_char(char c);
 long long	ft_check_arg_is_num(char *argv);
 long long	ft_check_max_min(char *argv);
 int	errno_printer_export(char *com, char *error_txt, char *asked);
+int	errno_printer_3(char *com, char *error_txt, char *asked, int val);
+void 	*free_env(t_env **env);
+long long	ft_atoll(char *str);
+void	*ft_free_split(char **s);
 
 /*==============================ANNA======================================*/
 void	ft_error(int ernu, char *msg, int *error);
 void	ft_other_error(char *msg, int *error, int num);
-void	free_all(t_parser *data, char **str);
+void	free_all(t_parser *data);
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-LEXER-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
 
 void				lexer(char *line);

@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:36:16 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/20 10:36:21 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 07:51:38 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	is_poss_char(char c)
 	return (0);
 }
 
-// this works fine
 bool	env_no_value(char *var)
 {
 	int	i;
@@ -45,5 +44,5 @@ char	*get_home(t_env *env)
 			return (ft_strdup(iter->content));
 		iter = iter->next;
 	}
-	return (ft_strdup("ERROR"));//Return proper error
+	return (ft_strdup("ERROR"));
 }

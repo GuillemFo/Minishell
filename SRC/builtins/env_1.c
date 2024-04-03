@@ -6,13 +6,12 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/20 10:39:16 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 07:51:23 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// this works fine
 bool	env_exist(t_env *env, char *str)
 {
 	t_env	*iter;
@@ -35,7 +34,7 @@ char	*equal_til_end(char *var)
 	x = 0;
 	while (var[x] != '\0' && var[x] != '=')
 		x++;
-	if (var[x] == '=' && var[x + 1] != '\0')	//need to add a filter so wont coppy ';'
+	if (var[x] == '=' && var[x + 1] != '\0')
 		return (ft_strdup(var + x + 1));
 	else
 		return (ft_strdup(""));
@@ -53,6 +52,8 @@ char	*get_til_equal(char *var)
 		x++;
 	len = x + 1;
 	name = malloc(len * sizeof(char));
+	if (!name)
+		return (NULL);
 	x = 0;
 	while (var[x] != '=' && var[x] != '\0')
 	{

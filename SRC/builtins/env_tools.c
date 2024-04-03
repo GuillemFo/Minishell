@@ -6,18 +6,18 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:32:24 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/20 15:14:53 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 08:05:46 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	del_env(t_parser *parser, t_env **env, int i)
+void	del_env_first(t_parser *parser, t_env **env, int i)
 {
 	t_env	*prev;
-	t_env	*iter;
-
-	if ((*env)->name != NULL && ft_strcmp((*env)->name, get_til_equal(parser->cmd[i])) == 0)
+	
+	if ((*env)->name != NULL && ft_strcmp((*env)->name,
+		get_til_equal(parser->cmd[i])) == 0)
 	{
 		prev = (*env);
 		(*env) = (*env)->next;
@@ -25,6 +25,14 @@ void	del_env(t_parser *parser, t_env **env, int i)
 		free(prev->content);
 		free(prev);
 	}
+}
+
+void	del_env(t_parser *parser, t_env **env, int i)
+{
+	t_env	*prev;
+	t_env	*iter;
+
+	del_env_first(parser, env, i);
 	prev = NULL;
 	iter = *env;
 	while (iter != NULL)
@@ -46,7 +54,6 @@ void	del_env(t_parser *parser, t_env **env, int i)
 	}
 }
 
-
 void	edit_env(t_parser *parser, t_env **env, int i)
 {
 	t_env *iter;
@@ -58,13 +65,12 @@ void	edit_env(t_parser *parser, t_env **env, int i)
 				get_til_equal(parser->cmd[i])) == 0)
 		{
 			free(iter->content);
-			iter->content = ft_strdup(equal_til_end(parser->cmd[i]));
+			iter->content = equal_til_end(parser->cmd[i]);
 			break;
 		}
 		iter = iter->next;
 	}
 }
-
 
 void	add_env(t_parser *parser, t_env **env, int i)
 {
@@ -73,9 +79,9 @@ void	add_env(t_parser *parser, t_env **env, int i)
 	if (!*env)
 	{
 		(*env) = malloc(sizeof(t_env));
-		(*env)->name = ft_strdup(get_til_equal(parser->cmd[i]));
+		(*env)->name = get_til_equal(parser->cmd[i]);
 		(*env)->is_hidden = env_no_value(parser->cmd[i]);
-		(*env)->content = ft_strdup(equal_til_end(parser->cmd[i]));
+		(*env)->content = equal_til_end(parser->cmd[i]);
 		(*env)->next = NULL;
 		return;
 	}
@@ -83,8 +89,8 @@ void	add_env(t_parser *parser, t_env **env, int i)
 	while (iter->next != NULL)
 		iter = iter->next;
 	iter->next = malloc(sizeof(t_env));
-	iter->next->name = ft_strdup(get_til_equal(parser->cmd[i]));
+	iter->next->name = get_til_equal(parser->cmd[i]);
 	iter->next->is_hidden = env_no_value(parser->cmd[i]);
-	iter->next->content = ft_strdup(equal_til_end(parser->cmd[i]));
+	iter->next->content = equal_til_end(parser->cmd[i]);
 	iter->next->next = NULL;
 }

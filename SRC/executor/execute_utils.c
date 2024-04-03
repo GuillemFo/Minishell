@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 12:22:21 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/20 10:20:57 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/27 22:45:09 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	parser_size(t_parser *parser)
 char	**env_to_char(t_env *env)
 {
 	char	**new_env;
+	char 	*tmp;
 	int		i;
 
 	i = 0;
@@ -36,8 +37,9 @@ char	**env_to_char(t_env *env)
 	{
 		if (env->is_hidden == false)
 		{
-			new_env[i] = ft_strjoini(env->name, "=");
-			new_env[i] = ft_strjoini(new_env[i], env->content);
+			tmp = ft_strjoini(env->name, "=");
+			new_env[i] = ft_strjoini(tmp, env->content);
+			free(tmp);
 			i++;
 		}
 		env = env->next;

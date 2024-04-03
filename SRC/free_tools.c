@@ -1,27 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   free_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 13:57:56 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 07:56:24 by gforns-s         ###   ########.fr       */
+/*   Created: 2024/03/26 06:44:25 by gforns-s          #+#    #+#             */
+/*   Updated: 2024/03/26 06:57:33 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void handle_sigint(int sig) 
+void *free_env(t_env **env)
 {
-	(void)sig;
-	ft_printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 1);
-	rl_redisplay();
+	t_env	*tmp;
+
+	while (*env)
+	{
+		tmp = *env;
+		*env = (*env)->next;
+		free(tmp->name);
+		free(tmp->content);
+		free(tmp);
+	}
+	return (NULL);
 }
 
-void handle_sigquit(int sig)
+void	*ft_free_split(char **s)
 {
-	(void)sig;
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		free(s[i]);
+		i++;
+	}
+	free(s);
+	return (NULL);
 }
+

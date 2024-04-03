@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/03/25 10:29:22 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:53:41 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,29 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 {
 	int	i;
 	t_parser	*iter;
+	t_redir	*tmp;
+	char	*tmp2;
+	
 	iter = parser;
 	if (iter != NULL)
 	{	
-		while (iter && iter->cmd != NULL)
+		while (iter)
 		{
 			i = 0;
-			while (iter->cmd[i] != NULL)
+			while (iter->cmd && iter->cmd[i] != NULL)
 			{
-				iter->cmd[i] = clear_quotes(iter->cmd[i], env, exit_code);
+				tmp2 = clear_quotes(iter->cmd[i], env, exit_code);
+				free(iter->cmd[i]);
+				iter->cmd[i] = tmp2;
 				i++;
+			}
+			tmp = iter->redir;
+			while (tmp && tmp->dest)
+			{
+				tmp2 = clear_quotes(tmp->dest, env, exit_code);
+				free(tmp->dest);
+				tmp->dest = tmp2;
+				tmp = tmp->next;
 			}
 			iter = iter->next;
 		}
@@ -45,7 +58,7 @@ int	main(int ac, char **av, char **envp)
 	int			exit_code;
 	
 	exit_code = 0;
-	(void)error;
+	error = 0;
 	char *str;
 	(void)av;
 	if (ac != 1)
@@ -57,23 +70,34 @@ int	main(int ac, char **av, char **envp)
 	signal(SIGINT, handle_sigint); //reminder that leaks atexit will kill program if use ctrl + c
 	signal(SIGQUIT, handle_sigquit);
 	str = readline(C_G "minishell: " C_RESET);
-	while (str)
+	if (str)
 	{
-		error = 0;
-		add_history(str);
-		if (str) 
+
+		while (1)
 		{
-			input = ft_lexer(str);
-			data = ft_parser(input, &error);
-			if (!error && data)
-    		{
-				data = clean_input(data, env, exit_code);
-				error = execute(data, &env, &error);
-				//printf("error: %d\n", error);
+			add_history(str);
+			if (str) 
+			{
+				error = 0;
+				input = ft_lexer(str);
+				data = ft_parser(input, &error);
+				if (!error && data)
+				{
+					data = clean_input(data, env, exit_code);
+					heredock(data, env, exit_code);
+					error = execute(data, &env, &error);
+					exit_code = error;
+				}
+				exit_code = error;
+				free_all(data);
+				free(str);
+				str = NULL;
+				str = readline(C_G "minishell: " C_RESET);
+				if (!str)
+					break;
 			}
-			exit_code = error;
-		free_all(data, &str);
 		}
 	}
+	free_env(&env);
 	return (exit_code);
 }

@@ -139,28 +139,6 @@ Also	"'$USER'" wont work correctly (missing end) 02.50 pm WORKING!!!
 		"'$USER'$PATH" missing ' after $USER 
 		(the env name is correct but its not copying correcly the data)
 
-with this code:
- SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
-  [echo]                           12      5      1     18
-  [export]                          2     14      0     16
-  [env]                             2      6      0      8
-  [exit]                           32     23      0     55
-  [directory]                      12     11      0     23
-  [dollars]                        17     12      4     33
-  [quotes]                         42     10      0     52
-  [spaces]                          6      4      0     10
-  [tilde]                           3      6      0      9
-  [syntax_error]                    4     14      9     27
-  [pipe]                           25     15      9     49
-  [redirection]                    13     16     38     67
-  [status]                          5     22      0     27
-  [shlvl]                           0      7      2      9
-  [panic mandatory]                 2      9      1     12
-  [your]                            0      0      0      0
-
-  total                          [0173] [0160] [0055] [0388]
-
-
 Added iteration for exort unset.
 
 need to contemplate ~ so expands to home and only works if alone like ~ or ~///////..//
@@ -169,29 +147,6 @@ export wont add "" at start or end!!!
 when i added the "" to the print function i failed 2 tests.
 so i need to evaluate when i need "" if env has content or not initialized. (check if export something= or something so i add "" or not)
 maybe with a flag on the structure??
-
-imma delete "" from env prints , lets see whats the score
-
-  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
-  [echo]                           12      5      1     18
-  [export]                          2     14      0     16
-  [env]                             2      6      0      8
-  [exit]                           32     23      0     55
-  [directory]                      12     11      0     23
-  [dollars]                        17     12      4     33
-  [quotes]                         43      9      0     52
-  [spaces]                          6      4      0     10
-  [tilde]                           4      5      0      9
-  [syntax_error]                    4     14      9     27
-  [pipe]                           25     15      9     49
-  [redirection]                    13     16     38     67
-  [status]                          5     22      0     27
-  [shlvl]                           0      7      2      9
-  [panic mandatory]                 2      9      1     12
-  [your]                            0      0      0      0
-
-  total                          [0175] [0158] [0055] [0388]
-
 
 
 FOR TOMORROW 14/03/24
@@ -210,25 +165,6 @@ echo "'$'"    |FIXED
 How it is     |
 echo "'$'"    |
 ''            |
-  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
-  [echo]                           12      5      1     18
-  [export]                          2     14      0     16
-  [env]                             2      6      0      8
-  [exit]                           32     23      0     55
-  [directory]                      12     11      0     23
-  [dollars]                        19     10      4     33
-  [quotes]                         44      8      0     52
-  [spaces]                          6      4      0     10
-  [tilde]                           4      5      0      9
-  [syntax_error]                    4     14      9     27
-  [pipe]                           25     15      9     49
-  [redirection]                    13     16     38     67
-  [status]                          5     22      0     27
-  [shlvl]                           0      7      2      9
-  [panic mandatory]                 2      9      1     12
-  [your]                            0      0      0      0
-
-  total                          [0178] [0155] [0055] [0388]
 
 So, need to add the filter for numbers on env only if the first char is number,
 $NONEXISTANT wont work if alone or before an existant env.
@@ -239,76 +175,6 @@ Expansor, line 80. preparing to filter ? but im missing the env or var where i s
 Env_1, preparing to set shell level or increase it if exists. Taking care for a possible situation where is the first var of the env list and also if it wont exist. 
 
 (aparently is kinda hard t obe teh first only so i went fully skiping that fact. might be an issue in the future and we will need to send &env and work with **env  in its function: t_env	*shell_level(t_env *env))
-
-With  this push, this is the score.
-|============================================================|
-
-  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
-  [echo]                           12      5      1     18
-  [export]                          2     14      0     16
-  [env]                             2      6      0      8
-  [exit]                           32     23      0     55
-  [directory]                      12     11      0     23
-  [dollars]                        19     10      4     33
-  [quotes]                         44      8      0     52
-  [spaces]                          6      4      0     10
-  [tilde]                           4      5      0      9
-  [syntax_error]                    4     14      9     27
-  [pipe]                           25     15      9     49
-  [redirection]                    13     16     38     67
-  [status]                          5     22      0     27
-  [shlvl]                           5      3      1      9
-  [panic mandatory]                 2      9      1     12
-  [your]                            0      0      0      0
-
-  total                          [0183] [0151] [0054] [0388]
-
-
-With  this push, this is the score.
-|============================================================|
-
-  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
-  [echo]                           13      5      0     18
-  [export]                          2     14      0     16
-  [env]                             2      6      0      8
-  [exit]                           32     23      0     55
-  [directory]                      12     11      0     23
-  [dollars]                        22     10      1     33
-  [quotes]                         44      8      0     52
-  [spaces]                          6      4      0     10
-  [tilde]                           4      5      0      9
-  [syntax_error]                    4     14      9     27
-  [pipe]                           25     15      9     49
-  [redirection]                    13     16     38     67
-  [status]                          5     22      0     27
-  [shlvl]                           5      4      0      9
-  [panic mandatory]                 2      9      1     12
-  [your]                            0      0      0      0
-
-  total                          [0187] [0152] [0049] [0388]
-
-
-With  this push, this is the score.
-|============================================================|
-  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
-  [echo]                           14      4      0     18
-  [export]                          2     14      0     16
-  [env]                             2      6      0      8
-  [exit]                           32     23      0     55
-  [directory]                      12     11      0     23
-  [dollars]                        23      9      1     33
-  [quotes]                         44      8      0     52
-  [spaces]                          6      4      0     10
-  [tilde]                           4      5      0      9
-  [syntax_error]                    4     14      9     27
-  [pipe]                           25     15      9     49
-  [redirection]                    13     16     38     67
-  [status]                          5     22      0     27
-  [shlvl]                           6      3      0      9
-  [panic mandatory]                 2      9      1     12
-  [your]                            0      0      0      0
-
-  total                          [0190] [0149] [0049] [0388]
 
 
 Strarts to be pretty clean. 
@@ -324,104 +190,11 @@ bash-3.2$ echo $k             minishell: echo $k
 bash-3.2$ echo $" t hi t "    minishell: echo $" t hi t "      
  t hi t                       $ t hi t 
 
-
-With  this push, this is the score.
- |============================================================|
-
-  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
-  [echo]                           14      4      0     18
-  [export]                          2     14      0     16
-  [env]                             2      6      0      8
-  [exit]                           32     23      0     55
-  [directory]                      12     11      0     23
-  [dollars]                        23      9      1     33
-  [quotes]                         44      8      0     52
-  [spaces]                          6      4      0     10
-  [tilde]                           4      5      0      9
-  [syntax_error]                    4     14      9     27
-  [pipe]                           25     15      9     49
-  [redirection]                    13     16     38     67
-  [status]                         15     12      0     27
-  [shlvl]                           6      3      0      9
-  [panic mandatory]                 2      9      1     12
-  [your]                            0      0      0      0
-
-  total                          [0200] [0139] [0049] [0388]
-
   echo $" t hi t " Still an issue;
 
 
+All test i bee doing where wrongly executed, its worse thatn that socre.
 
-  |============================================================|
-
-  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
-  [echo]                           14      4      0     18
-  [export]                          1     15      0     16
-  [env]                             2      6      0      8
-  [exit]                           19     36      0     55
-  [directory]                      10     13      0     23
-  [dollars]                        21     12      0     33
-  [quotes]                         42     10      0     52
-  [spaces]                          8      2      0     10
-  [tilde]                           4      5      0      9
-  [syntax_error]                    4     14      9     27
-  [pipe]                           25     15      9     49
-  [redirection]                    37     26      4     67
-  [status]                         15     12      0     27
-  [shlvl]                           6      3      0      9
-  [panic mandatory]                 3      9      0     12
-  [your]                            0      0      0      0
-
-  total                          [0207] [0168] [0013] [0388]
-
-  |============================================================|
-
-  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
-  [echo]                           14      4      0     18
-  [export]                          2     14      0     16
-  [env]                             2      6      0      8
-  [exit]                           32     23      0     55
-  [directory]                      12     11      0     23
-  [dollars]                        24      8      1     33
-  [quotes]                         44      8      0     52
-  [spaces]                          6      4      0     10
-  [tilde]                           4      5      0      9
-  [syntax_error]                    4     14      9     27
-  [pipe]                           25     15      9     49
-  [redirection]                    46     17      4     67
-  [status]                         15     12      0     27
-  [shlvl]                           6      3      0      9
-  [panic mandatory]                 2     10      0     12
-  [your]                            0      0      0      0
-
-  total                          [0234] [0140] [0014] [0388]
-
-
-  All test i bee doing where wrongly executed, its worse thatn that socre.
-
-  Actual status:
-
-|============================================================|
-
-  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
-  [echo]                           14      4      0     18
-  [export]                          6     10      0     16
-  [env]                             6      2      0      8
-  [exit]                           19     36      0     55
-  [directory]                      12     11      0     23
-  [dollars]                        21     12      0     33
-  [quotes]                         42     10      0     52
-  [spaces]                          8      2      0     10
-  [tilde]                           4      5      0      9
-  [syntax_error]                    4     14      9     27
-  [pipe]                           25     15      9     49
-  [redirection]                    37     26      4     67
-  [status]                         15     12      0     27
-  [shlvl]                           6      3      0      9
-  [panic mandatory]                 3      9      0     12
-  [your]                            0      0      0      0
-
-  total                          [0218] [0157] [0013] [0388]
 
 Also, the heck is this issue? @ANNA??
 $NONEXIST $NONEXIST
@@ -429,55 +202,131 @@ bash: : Permission denied
 while actual bash does nothing...
 
 
-
-
-|============================================================|
-
-  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
-  [echo]                           14      4      0     18
-  [export]                          6     10      0     16
-  [env]                             6      2      0      8
-  [exit]                           19     36      0     55
-  [directory]                      12     11      0     23
-  [dollars]                        21     12      0     33
-  [quotes]                         42     10      0     52
-  [spaces]                          8      2      0     10
-  [tilde]                           4      5      0      9
-  [syntax_error]                    4     14      9     27
-  [pipe]                           25     15      9     49
-  [redirection]                    37     26      4     67
-  [status]                         15     12      0     27
-  [shlvl]                           6      3      0      9
-  [panic mandatory]                 3      9      0     12
-  [your]                            0      0      0      0
-
-  total                          [0218] [0157] [0013] [0388]
-
-  |============================================================|
-
-  SUMARY                         [ OK ] [ KO ] [ SF ] [ TT ]
-  [echo]                           14      4      0     18
-  [export]                          6     10      0     16
-  [env]                             6      2      0      8
-  [exit]                           19     36      0     55
-  [directory]                      12     11      0     23
-  [dollars]                        20     13      0     33
-  [quotes]                         42     10      0     52
-  [spaces]                          8      2      0     10
-  [tilde]                           4      5      0      9
-  [syntax_error]                    4     14      9     27
-  [pipe]                           25     15      9     49
-  [redirection]                    37     26      4     67
-  [status]                         13     14      0     27
-  [shlvl]                           6      3      0      9
-  [panic mandatory]                 3      9      0     12
-  [your]                            0      0      0      0
-
-  total                          [0215] [0160] [0013] [0388]
-
 Heredock << 
 
 To do today 20/03/24 
     All error returns.
     word split o expansion for non "" exppansions so wont add extra spaces
     
+
+
+To Anna 25/03/24 02.16 pm
+vale te digo cosas que estan mal. || deberia petar en el parser y me salta en el clean_input con segfault porque no esta protegido. |ls funciona, cuando no deberia porque las pipes no estan cerradas.
+
+minishell: mkdir testfolder
+minishell: echo hi > testfolder
+bash: testfolder: Permission denied
+y hace exit por alguna razon...
+
+las redirecciones no van bien, hay que comprobar si es folder o no y si tiene permisos etc.
+error issues from Anna when command or env does not exist or empty string due non initialized env
+
+
+
+Status-->> 25/03/24 04.46 pm
+Export ok, Env ok (error issues from Anna when command or env does not exist or empty string due non initialized env), Echo ok, Cd ok (without ~ only 4 bonus), 
+
+Missing that i know:
+SHLVL over 1000 and over that, Exit (can have multiple args,if args are numbers will return error and exit with 255, double check that)!!!
+Heredock (Redo)
+
+Status-->> 25/03/24 06.26 pm
+Fixed oldpwd and pwd (at some point they disapeared ...)
+
+should i do and ft_strtrim custom to clear better the echo? now only clears space at both ends.
+07.38 pm -->>NOW NOT CLEARING SPACESre(was clearing spaces on env and not on echo perse)
+
+
+
+// Added ft_strtrim to remove leading and trailing whitespaces 2024/03/25 19:44:33
+
+  without the trim on the echo. 
+  it only fix a dollar so is something with expansor and not echo or anything else
+
+
+25.03.24 09.05 pm
+Take a look at expansor, maybe we can trim " " there instead??
+Wont help. I think the issue is with the trim before and after.
+
+26.03.24 01.42 am
+broke something with $? (been trying to trim before after and in itself of expansor)
+
+01.49
+fixed stupid issue with $?
+
+01.53
+
+Added clear_spaces on utils but not in use.
+
+have not fixed the error starting at 0 on the loop, maybe at expansor use error instead of exit_code.
+
+05:35 am still cant figure out how to sort $'a' or $"a" due me clearing quotes before. The idea i been trying to implement is to filter that type of possibilities at the find_dollar function. where i should not have any issue.
+been trying for long time now and cant find a way.
+right now the code is working worse than before due not expanding the env correctly (forceing to do it first, but will do all)
+starting to not care so much about it since is not that big deal. Problem is, i have no idea if it might be a issue at some point apart than expanding on echo or not.
+I feel like  wasted so much time again with this part of the minishell ... it feels impossible and time consuming.
+ill keep trying, this seems impotant...
+since its 10 good things less, ill retype the best way i had so far.
+
+
+
+To keep doing:
+SHLVL, EXIT, ECHO (-n -n *etc) , HEREDOCK & (if affects ill try fix the $'a' and $"a")
+
+*ECHO (-n -n, vars containing -n affecting the functionality of it)
+
+Started preparing for leaks. i broke all. if u see this, check if it has 265 ok and 122 ko or might need to pull from before.
+
+Leaks at root from str. readline creates leaks x each command / input it recieves
+ 10:30 am 26.03.24 
+looks more like parser or lexer
+rn only leaks from that and still 265 ok.
+
+still need to do readme line 1231, but is stable
+
+26.03.24 05.08 pm
+MISSING:
+Check exit for failed cd, 
+*ECHO (-n -n, vars containing -n affecting the functionality of it)
+HEREDOCK
+
+27.03.24 8.42 pm
+Trim EXPANSOR ALL SPACES?
+HEREDOCK
+
+https://linuxize.com/post/bash-heredoc/
+
+28.03.24 03.06 pm Exit 1 a 3 should not exit!!
+heredock not working properly.
+when we try to redir a folder, non existing file or no permissions, the program exit or crash. 
+
+The exit code from child process is not working properly. 
+the exit status is wrong, probably because of exit code from child process
+
+
+minishell: " "
+bash: : command not found
+minishell: echo $?
+0
+====================================
+minishell: cd test.txt
+bash: cd: test.txt: Not a directory
+minishell: exit
+➜  Minishell git:(guille2) ✗ echo $?
+0
+=====================================
+➜  Minishell git:(guille2) ✗ bash
+bash-3.2$ cd test.txt
+bash: cd: test.txt: Not a directory
+bash-3.2$ exit
+exit
+➜  Minishell git:(guille2) ✗ echo $?
+1
+===================================
+
+Leak on lexer
+Leak on parser
+Leak on clear_quotes
+
+Heredock not working properly.
+Exit when exit 1 2 3 and exit 1 a 3
