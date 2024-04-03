@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 08:16:36 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 10:18:34 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 11:08:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int		builtin_export(t_parser *parser, t_env **env, int *error)
 {
 	int	i;
 	int	y;
+	char *tmp;
 
 	y = 0;
 	i = 1;
@@ -43,11 +44,13 @@ int		builtin_export(t_parser *parser, t_env **env, int *error)
 		print_hidden_lst(*env);
 	while (parser->cmd[i])
 	{
-		if (env_exist(*env, get_til_equal(parser->cmd[i])) == false)
+		tmp = get_til_equal(parser->cmd[i]);
+		if (env_exist(*env, tmp) == false)
 			builtin_helper(parser, i, env, error);
 		else if (equal_til_end(parser->cmd[i]))
 			edit_env(parser, env, i);
 		i++;
+		free(tmp);
 	}
 	*error = y;
 	return (y);

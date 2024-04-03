@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 08:34:56 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 16:10:18 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,21 @@ char	*expand_str(char *name, t_env *env, char *str)
 	while (iter && ft_strcmp(name, iter->name) != 0)
 		iter = iter->next;
 	if (!iter)
-		return (str);
+	{
+		result = ft_strdup(str);
+		free(str);
+		return (result);
+	}
 	env_cont = ft_strdup(iter->content);
-	tmp = ft_strjoini(trim_bef(str, '$'), env_cont);
-	result = ft_strjoini(tmp, trim_after(str, '$'));
+	result = trim_bef(str, '$');
+	tmp = ft_strjoini(result, env_cont);
+	free(result);
+	free(env_cont);
+	env_cont = trim_after(str, '$');
+	result = ft_strjoini(tmp, env_cont);
 	free(env_cont);
 	free(tmp);
+	free(str);
 	return (result);
 }
 
@@ -58,11 +67,12 @@ char	*get_env_name(char *str)
 char	*call_expansion(t_env *env, char *env_name, char *result)
 {
 	char	*tmp;
-	char	*tmp2;
 	char	*test1;
+	char	*tmp2;
+	char *tmp3;
 
 	if (env_exist(env, env_name) == true)
-		result = expand_str(env_name, env, result);
+		tmp3 = expand_str(env_name, env, result);
 	else
 	{
 		test1 = trim_after(result, '$');
@@ -70,10 +80,10 @@ char	*call_expansion(t_env *env, char *env_name, char *result)
 		free(result);
 		tmp2 = ft_strjoinplus(tmp, test1);
 		free(test1);
-		result = ft_strdup(tmp2);
+		tmp3 = ft_strdup(tmp2);
 		free(tmp2);
 	}
-	return (result);
+	return (tmp3);
 }
 
 char	*find_dollar(char *str, t_env *env, int exit_code)
@@ -81,16 +91,17 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 	int		x;
 	char	*env_name;
 	char	*result;
+	char	*tmp;
 
 	x = 0;
 	if (!str)
 		return (NULL);
 	result = ft_strdup(str);
 	if (!result)
-		return (NULL);
+		return (free(str), NULL);
 	while (result[x] != '\0')
 	{
-		result = find_dollar_var(result, exit_code);
+		result = find_dollar_var(result, exit_code);//leak
 		if (result[x] && result[x] == '$' && (is_poss_char(result[x + 1]) != 0)
 			&& result[x + 1] != '\0')
 		{
@@ -101,5 +112,6 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 		}
 		x++;
 	}
+	free(str);
 	return (result);
 }

@@ -64,7 +64,7 @@ $(NAME): $(OBJ) libraries
 rdline:
 		@echo "$(CYAN)Compiling Readline$(RESET)"
 		@cd ./readline/ && ./configure
-		@make -C ./readline/
+		@make -C ./readline
 		@echo "$(GREEN)Readline compiled$(RESET)"
 #@rm ./readline/rdcfg
 
