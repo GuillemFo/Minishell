@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:50:34 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/09 17:26:44 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/03 14:53:03 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,16 @@ int	is_sign(char c)
 {
 	if (c == '|')
 		return (1);
+	if (c == '>')
+		return (2);
+	if (c == '<')
+		return (3);
+	else
+		return (0);
+}
+
+int	is_redir(char c)
+{
 	if (c == '>')
 		return (2);
 	if (c == '<')

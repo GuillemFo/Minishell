@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:35:16 by adanylev          #+#    #+#             */
-/*   Updated: 2024/04/03 07:54:24 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 14:56:24 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_lexer	*tokenize(t_lexer *lexer, char **split)
 void	sign(t_lexer *lexer, char *split)
 {
 	lexer->content = NULL;
-	if (split[1] && is_sign(split[0]) == is_sign(split[1]))
+	if (split[1] && is_redir(split[0]) && is_redir(split[0]) == is_redir(split[1]))
 	{
 		if (is_sign(split[0]) == 2)
 			lexer->sign = GREATER2;

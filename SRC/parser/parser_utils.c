@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 09:40:26 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/17 07:42:01 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 14:59:19 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_redir	*redir_creator(void)
 	return (redir);
 }
 
-t_parser	*ahorramos_lineas(t_parser *parser, int *i, t_lexer *lexer)
+t_parser	*parser_update(t_parser *parser, int *i, t_lexer *lexer)
 {
 	parser->next = parser_creator();
 	parser = parser->next;

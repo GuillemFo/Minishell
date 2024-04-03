@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/03 12:42:33 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/03 14:59:50 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	ft_error(int ernu, char *msg, int *error);
 void	ft_other_error(char *msg, int *error, int num);
 void	free_all(t_parser *data);
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-LEXER-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
-
+int					is_redir(char c);
 void				lexer(char *line);
 void				free_matrix(char **matrix, size_t p);
 void				*my_malloc(size_t bytes);
@@ -205,7 +205,7 @@ int			matrix_size(char **pars_cmds);
 void		free_parser(t_parser *parser);
 void		free_parent(t_pipe *pipex);
 int			error_child(int ernu, char *msg, int excode);
-t_parser 	*ahorramos_lineas(t_parser *parser, int *i, t_lexer *lexer);
+t_parser 	*parser_update(t_parser *parser, int *i, t_lexer *lexer);
 int			is_builtin_or_not(t_parser *parser);
 void		exec_start(t_pipe *pipex, t_parser *parser);
 void		exec_finish(t_pipe *pipex);

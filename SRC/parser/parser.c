@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/17 07:42:31 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 15:04:04 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ t_parser	*ft_parser(t_lexer *lexer, int *error)
 	if (!lexer)
 		return (NULL);
 	parser = parser_creator();
+	if (lexer->sign == PIPE)
+	{
+		ft_other_error("Error: pipe not used correctly\n", error, 1);
+		return (NULL);
+	}
 	parser_content(lexer, parser, i, error);
 	break_free(lexer);
 	return (parser);
@@ -75,17 +80,17 @@ void	parser_content(t_lexer *lexer, t_parser *parser, int i, int *error)
 	parser->cmd = commands(lexer);
 	while (lexer)
 	{
-		if (lexer->sign == 1)
+		if (lexer->sign == PIPE)
 		{
-			if (!lexer->next)
-				ft_other_error("Error: unclosed pipe\n", error, 1);
+			if (!lexer->next || lexer->next->sign == PIPE)
+				ft_other_error("Error: pipe not used correctly\n", error, 1);
 			else
-				parser = ahorramos_lineas(parser, &i, lexer);
+				parser = parser_update(parser, &i, lexer);
 		}
 		else if (lexer->sign != 0)
 		{
 			parsing_rest(lexer, parser, error);
-			if (lexer->next && lexer->next->sign != 1)
+			if (lexer->next && lexer->next->sign != PIPE)
 				lexer = lexer->next;
 		}
 		else if (lexer && lexer->content && ++i)

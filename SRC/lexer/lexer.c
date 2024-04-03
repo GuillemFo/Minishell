@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:40:50 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/27 22:47:15 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/03 14:57:24 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	arg_count(char *line, int i, int wc)
 			i++;
 		else if (is_sign(line[i]))
 		{
-			if (line[i + 1] && is_sign(line[i]) == is_sign(line[i + 1]))
+			if (line[i + 1] && is_redir(line[i]) && is_redir(line[i]) == is_redir(line[i + 1]))
 				i++;
 			i++;
 			wc++;
@@ -82,7 +82,7 @@ int	quote_situation(char *c)
 
 void	sign_situation(char *line, char **split, int *j, int *i)
 {
-	if (line + 1 && is_sign(*line) == is_sign(*(line + 1)))
+	if (line + 1 && is_redir(*line) && is_redir(*line) == is_redir(*(line + 1)))
 	{
 		split[++(*j)] = my_malloc(sizeof(char) * 2 + 1);
 		ft_strncpy(split[(*j)], line, 2);

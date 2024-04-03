@@ -66,6 +66,7 @@ rdline:
 		@cd ./readline/ && ./configure
 		@make -C ./readline
 		@echo "$(GREEN)Readline compiled$(RESET)"
+#@rm ./readline/rdcfg
 
 libraries:
 		@$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
