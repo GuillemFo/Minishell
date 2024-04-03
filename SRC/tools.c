@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 10:26:51 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 12:12:44 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,31 @@ char	*trim_bef(char *str, char c)
 	char *new_str = malloc((i + 1) * sizeof(char));
     if (!new_str)
         return NULL;
-    memcpy(new_str, str, i);
+    ft_memcpy(new_str, str, i);
     new_str[i] = '\0';
     return (new_str);
 }
 
+void	trim_support(char *str, char *new_str, int i, int x)
+{
+	if (str[i] == '?')
+		i++;
+	while (str[i] != '\0')
+	{
+		i++;
+		x++;
+	}
+	new_str = my_malloc ((x + 1) * sizeof(char));
+	i = i - x;
+	x = 0;
+	while (str[i] != '\0')
+	{
+		new_str[x] = str[i];
+		x++;
+		i++;
+	}
+	new_str[x] = '\0';
+}
 
 char *trim_after(char *str, char c)
 {
@@ -100,25 +120,8 @@ char *trim_after(char *str, char c)
 			i++;
 		if (str[i] != '\0')
 		{
-			if (str[i] == '?')
-				i++;
-			while (str[i] != '\0')
-			{
-				i++;
-				x++;
-			}
-			new_str = malloc ((x + 1) * sizeof(char));
-			if (!new_str)
-				return (NULL);
-			i = i - x;
-			x = 0;
-			while (str[i] != '\0')
-			{
-				new_str[x] = str[i];
-				x++;
-				i++;
-			}
-			new_str[x] = '\0';
+			free(new_str);
+			trim_support(str, new_str, i , x);
 		}
 	}
 	return (new_str);
