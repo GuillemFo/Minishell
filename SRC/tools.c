@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 07:56:31 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:26:51 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int	errno_printer_export(char *com, char *error_txt, char *asked)
 	return (0);
 }
 
-char *trim_bef(char *str, char c) 
+
+char	*trim_bef(char *str, char c) 
 {
     int i = 0;
 	if (!str)
@@ -76,7 +77,7 @@ char *trim_bef(char *str, char c)
         return NULL;
     memcpy(new_str, str, i);
     new_str[i] = '\0';
-    return new_str;
+    return (new_str);
 }
 
 

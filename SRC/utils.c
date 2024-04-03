@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:12 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 07:56:43 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 08:49:09 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ long long	ft_check_arg_is_num(char *argv)
 		return (0);
 	return (1);
 }
+
 
 char	*clear_spaces(char *str)
 {

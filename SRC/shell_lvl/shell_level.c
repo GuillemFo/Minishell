@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 09:56:09 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 08:43:28 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:26:11 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	add_env_shell(t_env **env)
 	iter->next->is_hidden = false;
 	iter->next->next = NULL;
 }
+
 long long	holder_cal(long long holder, char *content)
 {
 	if (ft_check_arg_is_num(content) != 1)
