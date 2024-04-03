@@ -63,8 +63,8 @@ $(NAME): $(OBJ) libraries
 
 rdline:
 		@echo "$(CYAN)Compiling Readline$(RESET)"
-		@cd ./readline/ &> $./readline/rdcfg && ./configure &> $./readline/rdcfg
-		@make -C ./readline/ &> $./readline/rdcfg
+		@cd ./readline/ &> ./readline/rdcfg && ./configure &> ./readline/rdcfg
+		@make -C ./readline/ &> ./readline/rdcfg
 		@rm ./readline/rdcfg
 		@echo "$(GREEN)Readline compiled$(RESET)"
 
