@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 03:27:45 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/04 11:30:05 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/04 12:56:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*expand_str_extra(char *str, int exit_code)
 	free(str);
 	return (result);
 }
-
+//temporary inside find_dollar
 char *find_dollar_var(char *str, int exit_code)
 {
 	int		x;

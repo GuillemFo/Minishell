@@ -6,11 +6,17 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/04 12:09:07 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/04 12:53:16 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
+
+/*=======	WARNING, BE CAREFUL WHEN SPLEETING THIS FUNCTIONS	==========*/
+/*	try (export value and echo $value) (echo $USER$?)  (echo $? $USER) etc*/
+
 
 char	*expand_str(char *name, t_env *env, char *str)
 {
@@ -29,6 +35,8 @@ char	*expand_str(char *name, t_env *env, char *str)
 		return (result);
 	}
 	env_cont = ft_strdup(iter->content);
+	if (!env_cont)
+		return (free(str), ft_strdup(""));
 	result = trim_bef(str, '$');
 	tmp = ft_strjoini(result, env_cont);
 	free(result);
@@ -65,7 +73,8 @@ char	*get_env_name(char *str)
 }
 
 
-
+/* This works properly but causes leaks
+*/
 char	*find_dollar(char *str, t_env *env, int exit_code)
 {
 	int		x;
@@ -78,7 +87,7 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 	x = 0;
 	if (!str)
 		return NULL;
-	result = ft_strdup(str);
+	result = str;
 	if (!result)
 		return (NULL);
 	while (result[x]!= '\0')
@@ -103,69 +112,15 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 				tmp = trim_bef(result, '$');
 				free(result);
 				tmp2 = ft_strjoinplus(tmp, test1);
+				free(test1);
 				result = ft_strdup(tmp2);
+				free(tmp2);
 				x = -1;
 			}
 			free(env_name);
 		}
 		x++;
 	}
-	free(str);
 	return (result);
 }
 
-
-
-
-
-
-
-/*	THIS CODE WILL BREAK EXPANSIONS LIKE $HOME$? 
-
-//heavy changed at 1.23pm
-char	*call_expansion(t_env *env, char *env_name, char *result)
-{
-	char	*tmp;
-	char	*test1;
-	char	*tmp3;
-
-	if (env_exist(env, env_name) == true)
-		tmp3 = expand_str(env_name, env, result);
-	else
-	{
-		test1 = trim_after(result, '$');
-		tmp = trim_bef(result, '$');
-		free(result);
-		tmp3 = ft_strjoinplus(tmp, test1);
-		free(test1);
-	}
-	return (tmp3);
-}
-
-char	*find_dollar(char *str, t_env *env, int exit_code)
-{
-	int		x;
-	char	*env_name;
-	char	*result;
-
-	x = 0;
-	if (!str)
-		return (NULL);
-	result = str;
-	if (!result)
-		return (free(str), NULL);
-	while (result[x] != '\0')
-	{
-		result = find_dollar_var(result, exit_code);//leak	
-		if (result[x] && result[x] == '$' && result[x + 1] != '\0')	//why did i had a filter for accepted chars?
-		{
-			env_name = get_env_name(&result[x + 1]);
-			result = call_expansion(env, env_name, result);
-			free(env_name);
-			x = -1;
-		}
-		x++;
-	}
-	return (result);
-}
-*/
