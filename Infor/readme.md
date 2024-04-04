@@ -345,3 +345,4 @@ cleaning leaks from quotes. apparently there is a problem when encountering a nu
 Leaks on quotes.c line 148.
 
 still leak $? at find_dollar_var
+leaks ok but when var exist but has no value to expand, segfault.
