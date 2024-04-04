@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/04 05:04:12 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/04 11:12:06 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ char	*get_env_name(char *str)
 	if (!str)
 		return (NULL);
 	x = 0;
-	while (str[x] != '$' && (is_poss_char(str[x]) == 1) && str[x] != '\0')
+	while (str[x] != '$' && str[x] != '\0') //while (str[x] != '$' && (is_poss_char(str[x]) == 1) && str[x] != '\0')
 		x++;
 	name = malloc((x + 1) * sizeof(char));
 	if (!name)
 		return (NULL);
 	x = 0;
-	while (str[x] != '$' && (is_poss_char(str[x]) == 1) && str[x] != '\0')
+	while (str[x] != '$' && str[x] != '\0') //while (str[x] != '$' && (is_poss_char(str[x]) == 1) && str[x] != '\0')
 	{
 		name[x] = str[x];
 		x++;
@@ -91,7 +91,6 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 	int		x;
 	char	*env_name;
 	char	*result;
-	char	*tmp;
 
 	x = 0;
 	if (!str)
@@ -101,9 +100,8 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 		return (free(str), NULL);
 	while (result[x] != '\0')
 	{
-		result = find_dollar_var(result, exit_code);//leak
-		if (result[x] && result[x] == '$' && (is_poss_char(result[x + 1]) != 0)
-			&& result[x + 1] != '\0')
+		result = find_dollar_var(result, exit_code);//leak	
+		if (result[x] && result[x] == '$' && result[x + 1] != '\0')	//why did i had a filter for accepted chars?
 		{
 			env_name = get_env_name(&result[x + 1]);
 			result = call_expansion(env, env_name, result);

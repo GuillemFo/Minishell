@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 03:27:45 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/04 08:32:43 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/04 10:47:31 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ char	*expand_str_extra(char *str, int exit_code)
 	cont = ft_itoa(exit_code);
 	tmp2 = trim_bef(str, '$');
 	tmp = ft_strjoinplus(tmp2, cont);
-	free(tmp2);
 	tmp2 = trim_after(str, '$');
 	result = ft_strjoinplus(tmp, tmp2);
 	free(cont);
-	free(tmp);
+	free(str);
 	return (result);
 }
 

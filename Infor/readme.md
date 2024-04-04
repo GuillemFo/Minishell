@@ -343,3 +343,5 @@ unset leaks... // dealing with leaks from get_til_equal. 08.56 am. (codespace ne
 looks liek this is fixed. Export unset are ok?
 cleaning leaks from quotes. apparently there is a problem when encountering a null terminated bein a key to continue reading.
 Leaks on quotes.c line 148.
+
+still leak $? at find_dollar_var
