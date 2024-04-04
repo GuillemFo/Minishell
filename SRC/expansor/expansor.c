@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 16:10:18 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/04 12:02:17 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 	int		x;
 	char	*env_name;
 	char	*result;
-	char	*tmp;
+	//char	*tmp;
 
 	x = 0;
 	if (!str)
