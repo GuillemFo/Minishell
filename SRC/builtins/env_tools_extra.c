@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   env_tools_extra.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:36:16 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 07:51:38 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/04 06:36:32 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+bool	env_has_equal(char *var)
+{
+	int i;
+
+	i = 0;
+	while (var[i] != '=' && var[i] != '\0')
+		i++;
+	if (var[i] == '=')
+		return (true);
+	return (false);
+}
 
 int	is_poss_char(char c)
 {
@@ -29,7 +41,11 @@ bool	env_no_value(char *var)
 	while (var[i] != '=' && var[i] != '\0')
 		i++;
 	if (var[i] == '\0')
+	{
+		//ft_printf("no value true\n");	//reminder to delete this printf!!
 		return (true);
+	}
+	//ft_printf("no value false\n");
 	return (false);
 }
 

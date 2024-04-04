@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 14:32:42 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/04 05:04:12 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,5 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 		}
 		x++;
 	}
-	free(str);
 	return (result);
 }

@@ -13,7 +13,7 @@ RDLINE_PATH = readline/
 LIBFT_PATH = libft/
 
 
-SRC = minishell.c signals.c builtins/builtins.c tools.c builtins/env_1.c \
+SRC = minishell.c signals.c builtins/builtins.c tools.c builtins/load_env.c \
 	expansor/expansor.c quotes/quotes.c lexer/lexer_utils.c lexer/lexer.c lexer/split.c \
 	lexer/lexer_utils1.c parser/parser.c parser/parser_utils.c \
 	parser/parser_utils1.c executor/execute.c executor/execute_utils.c \

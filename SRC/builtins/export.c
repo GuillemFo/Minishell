@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 08:16:36 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 11:08:39 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/04 06:25:26 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		builtin_export(t_parser *parser, t_env **env, int *error)
 		tmp = get_til_equal(parser->cmd[i]);
 		if (env_exist(*env, tmp) == false)
 			builtin_helper(parser, i, env, error);
-		else if (equal_til_end(parser->cmd[i]))
+		else if (env_has_equal(parser->cmd[i]) == true)
 			edit_env(parser, env, i);
 		i++;
 		free(tmp);

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:32:24 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 13:26:30 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/04 06:52:58 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 void	del_env_first(t_parser *parser, t_env **env, int i)
 {
 	t_env	*prev;
+	char *tmp;
 	
-	if ((*env)->name != NULL && ft_strcmp((*env)->name,
-		get_til_equal(parser->cmd[i])) == 0)
+	tmp = get_til_equal(parser->cmd[i]);
+	if ((*env)->name != NULL && ft_strcmp((*env)->name, tmp) == 0)
 	{
 		prev = (*env);
 		(*env) = (*env)->next;
 		free(prev->name);
 		free(prev->content);
 		free(prev);
+		free(tmp);
 	}
 }
 
@@ -31,32 +33,35 @@ void	del_env(t_parser *parser, t_env **env, int i)
 {
 	t_env	*prev;
 	t_env	*iter;
+	char *tmp;
 
 	del_env_first(parser, env, i);
 	prev = NULL;
 	iter = *env;
 	while (iter != NULL)
 	{
-		if (iter->name != NULL && ft_strcmp(iter->name,
-				get_til_equal(parser->cmd[i])) == 0)
+		tmp = get_til_equal(parser->cmd[i]);
+		if (iter->name != NULL && ft_strcmp(iter->name, tmp) == 0)
 		{
-			if (prev == NULL)
+			if (prev == NULL)	// esto no tiene sentido creo.
 				(*env) = iter->next;
 			else
 				prev->next = iter->next;
 			free(iter->name);
 			free(iter->content);
 			free(iter);
-			break ;
+			break;
 		}
 		prev = iter;
 		iter = iter->next;
 	}
+	free(tmp);
 }
 
 void	edit_env(t_parser *parser, t_env **env, int i)
 {
 	t_env *iter;
+	char *tmp;
 
 	iter = *env;
 	while (iter)
@@ -65,7 +70,15 @@ void	edit_env(t_parser *parser, t_env **env, int i)
 				get_til_equal(parser->cmd[i])) == 0)
 		{
 			free(iter->content);
-			iter->content = equal_til_end(parser->cmd[i]);
+			tmp = equal_til_end(parser->cmd[i]);
+			if (env_has_equal(parser->cmd[i]) == 0)//before was !tmp
+			{
+				iter->content = NULL;
+				iter->is_hidden = true;//added this return to set proper values.
+				break;
+			}
+			iter->content = tmp;
+			iter->is_hidden = false;
 			break;
 		}
 		iter = iter->next;

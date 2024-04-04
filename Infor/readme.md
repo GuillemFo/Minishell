@@ -336,3 +336,7 @@ Known leaks:
 echo "a"
 echo $?
 get_til_equal
+
+
+From what i have now, if i try to edit an env already setted, wont change its value. // 08.23 seems fixed // load env not working properly 08.27
+unset leaks... // dealing with leaks from get_til_equal. 08.56 am. (codespace needs a restart).

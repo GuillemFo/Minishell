@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/03 14:59:50 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/04 05:41:49 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	del_env(t_parser *parser, t_env **env, int i);
 void	add_env(t_parser *parser, t_env **env, int i);
 void	edit_env(t_parser *parser, t_env **env, int i);
 char	*clear_spaces(char *str);
+bool	env_has_equal(char *var);
 
 /*				HEREDOCK		*/
 int	heredock(t_parser *parser, t_env *env, int exit_code);
