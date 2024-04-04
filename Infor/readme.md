@@ -346,3 +346,5 @@ Leaks on quotes.c line 148.
 
 still leak $? at find_dollar_var
 leaks ok but when var exist but has no value to expand, segfault.
+Some code broke when reducing the code so $HOME$? was not working.
+Now its ok but still same issue when var has no value to expand from.
