@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/04 11:12:06 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/04 11:30:22 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,13 @@ char	*get_env_name(char *str)
 	return (name);
 }
 
+
+//heavy changed at 1.23pm
 char	*call_expansion(t_env *env, char *env_name, char *result)
 {
 	char	*tmp;
 	char	*test1;
-	char	*tmp2;
-	char *tmp3;
+	char	*tmp3;
 
 	if (env_exist(env, env_name) == true)
 		tmp3 = expand_str(env_name, env, result);
@@ -78,10 +79,8 @@ char	*call_expansion(t_env *env, char *env_name, char *result)
 		test1 = trim_after(result, '$');
 		tmp = trim_bef(result, '$');
 		free(result);
-		tmp2 = ft_strjoinplus(tmp, test1);
+		tmp3 = ft_strjoinplus(tmp, test1);
 		free(test1);
-		tmp3 = ft_strdup(tmp2);
-		free(tmp2);
 	}
 	return (tmp3);
 }
