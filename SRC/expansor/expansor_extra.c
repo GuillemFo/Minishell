@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor_extra.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 03:27:45 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 07:53:11 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/03 13:01:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@ char	*expand_str_extra(char *str, int exit_code)
 {
 	char	*cont;
 	char	*tmp;
+	char *tmp2;
 	char	*result;
 
 	cont = ft_itoa(exit_code);
-	tmp = ft_strjoini(trim_bef(str, '$'), cont);
-	result = ft_strjoini(tmp, trim_after(str, '$'));
+	tmp2 = trim_bef(str, '$');
+	tmp = ft_strjoini(tmp2, cont);
+	free(tmp2);
+	tmp2 = trim_after(str, '$');
+	result = ft_strjoini(tmp, tmp2);
 	free(cont);
 	free(tmp);
 	return (result);
