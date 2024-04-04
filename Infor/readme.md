@@ -342,3 +342,4 @@ From what i have now, if i try to edit an env already setted, wont change its va
 unset leaks... // dealing with leaks from get_til_equal. 08.56 am. (codespace needs a restart).
 looks liek this is fixed. Export unset are ok?
 cleaning leaks from quotes. apparently there is a problem when encountering a null terminated bein a key to continue reading.
+Leaks on quotes.c line 148.

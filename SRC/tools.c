@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 16:07:10 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/04 08:40:47 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,7 @@ char	*trim_bef(char *str, char c)
 	if (!str)
 		return (NULL);
     while (str[i] != c && str[i] != '\0')
-	{
         i++;
-	}
 	new_str = malloc((i + 1) * sizeof(char));
     if (!new_str)
         return NULL;
