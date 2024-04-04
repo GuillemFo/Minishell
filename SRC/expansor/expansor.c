@@ -96,7 +96,7 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 	x = 0;
 	if (!str)
 		return (NULL);
-	result = ft_strdup(str);
+	result = str;
 	if (!result)
 		return (free(str), NULL);
 	while (result[x] != '\0')

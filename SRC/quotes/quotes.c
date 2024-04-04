@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/04 05:06:52 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/04 08:06:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	has_quotes(char *str)
 {
 	int	i;
 	i = 0;
+	if (!str)
+		return('\0');
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\"' || str[i] == '\'')
@@ -42,7 +44,10 @@ char	*cont_after_q(char *str, char c)
 		i++;
 	if (str[i] == c)
 		i++;
+	if (str[i] == '\0')	
+		return (ft_strdup(""));
 	len = ft_strlen(&str[i]);
+	ft_printf("cont after q:%c:\n", &str[i]);	//not null terminated?
 	res = malloc((len + 1) * sizeof(char));
 	res = ft_strncpy(res, &str[i], len);
 	return (res);
@@ -126,11 +131,11 @@ char	*clear_quotes(char *str, t_env *env, int exit_code, char *tmp_ex)
 		{
 			tmp_ex = cont_in_q(res, c);
 			tmp_cont = ft_strjoinplus(tmp_bef, find_dollar(tmp_ex, env, exit_code));
-			//free(tmp_ex); if i add this free its a double free, but if its not then its leak.
+			free(tmp_ex); //added at 09.41am, was commented before due it causing double free.
 		}
 		else if (c == '\'')
 				tmp_cont = ft_strjoinplus(tmp_bef, cont_in_q(res, c));
-		free(tmp_bef);
+//		free(tmp_bef);	//cause double free;
 		tmp_after = cont_after_q(res, c);
 		while ((c = has_quotes(tmp_after)) != '\0')
 		{
@@ -144,10 +149,7 @@ char	*clear_quotes(char *str, t_env *env, int exit_code, char *tmp_ex)
 			tmp_after = tmp_ex;
 			free(tmp_bef);
 		}
-		free(res);
 		res = ft_strjoinplus(tmp_cont, find_dollar(tmp_after, env, exit_code));
-		if (tmp_cont)
-			free(tmp_cont);
 	}
 	else
 	{

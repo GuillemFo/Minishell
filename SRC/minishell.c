@@ -31,7 +31,7 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 			while (iter->cmd && iter->cmd[i] != NULL)
 			{
 				tmp2 = clear_quotes(iter->cmd[i], env, exit_code, tmp_ex);
-				free(iter->cmd[i]);
+				//free(iter->cmd[i]);
 				iter->cmd[i] = tmp2;
 				i++;
 			}
@@ -39,7 +39,7 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 			while (tmp && tmp->dest)
 			{
 				tmp2 = clear_quotes(tmp->dest, env, exit_code, tmp_ex);
-				free(tmp->dest);
+				//free(tmp->dest);
 				tmp->dest = tmp2;
 				tmp = tmp->next;
 			}
