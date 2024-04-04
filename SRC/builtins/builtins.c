@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/04 06:52:09 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/04 07:27:04 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,16 @@ int		builtin_unset(t_parser *parser, t_env **env, int *error)
 	i = 1;
 	if (!parser->cmd[1])
 		return (1);
-	tmp = get_til_equal(parser->cmd[i]);
 	while (parser->cmd[i])
 	{
+		tmp = get_til_equal(parser->cmd[i]);
 		if (env_exist(*env, tmp) == false)
-		{
 			*error = 1;
-			return (*error);
-		}
 		else if (env_exist(*env, tmp) == true)
 			del_env(parser, env, i);
+		free(tmp);
 		i++;
 	}
-	free(tmp);
 	return (0);
 }
 
