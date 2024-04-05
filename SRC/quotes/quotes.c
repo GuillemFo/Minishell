@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/05 07:48:40 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/05 10:55:49 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ char	*clear_quotes(char *str, t_env *env, int exit_code, char *tmp_ex)
 	c = has_quotes(res);
 	if (c != '\0')
 	{
-		tmp_bef = find_dollar(cont_bef_q(res, c), env, exit_code);//no leaks
+		tmp_bef = find_dollar(cont_bef_q(res, c), env, exit_code);//no leaks ?? I think is the content befor q !!!
 		if (c == '\"')
 		{
 			tmp_ex = find_dollar(cont_in_q(res, c), env, exit_code);
@@ -166,7 +166,7 @@ char	*clear_quotes(char *str, t_env *env, int exit_code, char *tmp_ex)
 			if (c == '\"')
 			{
 				tmp_ex = find_dollar(cont_in_q(tmp_after, c), env, exit_code);
-				tmp_cont = ft_strjoinplus(tmp_bef, tmp_ex);
+				tmp_cont = ft_strjoinplus(tmp_bef, tmp_ex);		//leaks here always
 				free(tmp_ex);
 			}
 			else if (c == '\'')
