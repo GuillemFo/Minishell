@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/03 12:52:50 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/05 07:42:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 	return (parser);
 }
 
-
+//		NORMINETTE LIBFT!!!!!!!
 
 int	main(int ac, char **av, char **envp)
 {

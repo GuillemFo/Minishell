@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/04 07:27:04 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/05 08:09:25 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int built_echo(t_parser *parser)
     return (0);
 }
 
+
+this leaks !! getcwd allocates memory and also i should free the content im rewriting.
 t_env	**get_old_pwd(t_env **env)
 {
 	t_env *iter;
@@ -158,7 +160,11 @@ int	built_cd(t_parser *parser, t_env **env, int *error)
 
 int	built_pwd()
 {
-	ft_printf("%s\n", getcwd(NULL, MAXPATHLEN));
+	char	*tmp;
+
+	tmp = getcwd(NULL, MAXPATHLEN);
+	ft_printf("%s\n", tmp);
+	free (tmp);
 	return (0);
 }
 
