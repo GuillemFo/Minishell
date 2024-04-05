@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/04 05:41:49 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/05 09:46:11 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ bool	env_no_value(char *var);
 char	*get_til_equal(char *var);
 char	*equal_til_end(char	*var);
 char	*get_home(t_env *env);
-int		builtin_export(t_parser *parser, t_env **env, int *error);
-int		builtin_unset(t_parser *parser, t_env **env, int *error);
+int		builtin_export(t_parser *parser, t_env **env, int ret);
+int		builtin_unset(t_parser *parser, t_env **env);
 int	builtin_exit(t_parser *parser, int *error);
 /*-=-=-=-=-=-=-=-=-=-=-=ENV_TOOLS=-=-=-=-=-=-=-=-=-=-=-=*/
 void	shell_level(t_env **env);
@@ -123,6 +123,7 @@ char 				*find_dollar_var(char *str, int exit_code);
 char	*expand_str_extra(char *str, int exit_code);
 
 /*-=-=-=-=-=-=-=-=-=-=-=TOOLS=-=-=-=-=-=-=-=-=-=-=*/
+int	errno_printer_home(char *com, char *asked);
 int					errno_printer(char *com, char *error_txt, char *asked);
 int					errno_printer_2(char *com, char *error_txt, char *asked, int val);
 char				*trim_after(char *str, char c);

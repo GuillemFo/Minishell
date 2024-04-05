@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/04 11:30:14 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/05 09:45:18 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,16 @@ int	errno_printer_3(char *com, char *error_txt, char *asked, int val)
 	ft_putstr_fd(error_txt, 2);
 	write(2, "\n", 1);
 	return (val);
+}
+
+int	errno_printer_home(char *com, char *asked)
+{
+	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd(com, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(asked, 2);
+	write(2, "\n", 1);
+	return (0);
 }
 
 int	errno_printer_export(char *com, char *error_txt, char *asked)

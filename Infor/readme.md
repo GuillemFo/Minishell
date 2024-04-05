@@ -351,4 +351,5 @@ Now its ok but still same issue when var has no value to expand from.
 
 fixed pwd
 getcwd allocates memory and also i should free the content im rewriting. Leaks
-
+seems fixed, and bunch of others like return codes from cd pwd leaks etc.
+problem now is signals. control + l wont work;

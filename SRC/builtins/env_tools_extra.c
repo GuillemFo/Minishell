@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:36:16 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/04 06:36:32 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/05 09:39:02 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ char	*get_home(t_env *env)
 	while (iter != NULL)
 	{
 		if (ft_strcmp(iter->name, "HOME") == 0)
-			return (ft_strdup(iter->content));
+			return (iter->content);
 		iter = iter->next;
 	}
-	return (ft_strdup("ERROR"));
+	return (NULL);
 }
