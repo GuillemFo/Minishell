@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/06 16:32:22 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:36:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,8 @@ bool	env_has_equal(char *var);
 int	heredock(t_parser *parser, t_env *env, int exit_code);
 /*-=-=-=-=-=-=-=-=EXPANSOR=-=-=-=-=-=-=-=-=-=-=*/
 
-char				*find_dollar(char *str, t_env *env, int	exit_code);
-char 				*find_dollar_var(char *str, int exit_code);
+char				*fnd_dllr(char *str, t_env *env, int	exit_code);
+char 				*fnd_dllr_var(char *str, int exit_code);
 char	*expand_str_extra(char *str, int exit_code);
 
 /*-=-=-=-=-=-=-=-=-=-=-=TOOLS=-=-=-=-=-=-=-=-=-=-=*/

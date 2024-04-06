@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:19:06 by adanylev          #+#    #+#             */
-/*   Updated: 2024/04/06 16:20:15 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/06 16:56:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,23 @@ char	*ft_strjoini(char const *s1, char const *s2)
 //Reminder to do to_lower to all builtins before comparing
 int	is_builtin_or_not(t_parser *parser)
 {
-	if (ft_strncmp("echo", parser->cmd[0], 5) == 0)
+	if (parser->cmd[0])
+	{
+		if (ft_strncmp("echo", parser->cmd[0], 5) == 0)
+			return (1);
+		else if (ft_strncmp("cd", parser->cmd[0], 3) == 0)
+			return (1);
+		else if (ft_strncmp("pwd", parser->cmd[0], 4) == 0)
+			return (1);
+		else if (ft_strncmp("env", parser->cmd[0], 4) == 0)
+			return (1);
+		else if (ft_strncmp("exit", parser->cmd[0], 5) == 0)
+			return (1);
+		else if (ft_strncmp("export", parser->cmd[0], 7) == 0)
+			return (1);
+		else if (ft_strncmp("unset", parser->cmd[0], 6) == 0)
 		return (1);
-	else if (ft_strncmp("cd", parser->cmd[0], 3) == 0)
-		return (1);
-	else if (ft_strncmp("pwd", parser->cmd[0], 4) == 0)
-		return (1);
-	else if (ft_strncmp("env", parser->cmd[0], 4) == 0)
-		return (1);
-	else if (ft_strncmp("exit", parser->cmd[0], 5) == 0)
-		return (1);
-	else if (ft_strncmp("export", parser->cmd[0], 7) == 0)
-		return (1);
-	else if (ft_strncmp("unset", parser->cmd[0], 6) == 0)
-		return (1);
+	}
 	return (0);
 }
 

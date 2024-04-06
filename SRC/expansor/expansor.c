@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/06 16:50:28 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:36:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*get_env_name(char *str)
 
 /* This works properly but causes leaks
 */
-char	*find_dollar(char *str, t_env *env, int exit_code)
+char	*fnd_dllr(char *str, t_env *env, int exit_code)
 {
 	int		x;
 	char	*env_name;

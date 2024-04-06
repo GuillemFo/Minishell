@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredock.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 08:21:01 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/06 16:56:39 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/06 19:36:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	heredock(t_parser *parser, t_env *env, int exit_code)
 				nl_h = readline("> ");
 				while (nl_h && ft_strcmp(nl_h, tmp->dest) != 0)
 				{
-					nl_h = find_dollar(nl_h, env, exit_code);	//why will only expand once?
+					nl_h = fnd_dllr(nl_h, env, exit_code);	//why will only expand once?
 					nl_h = ft_strjoinplus(nl_h, "\n");
 					ft_putstr_fd(nl_h, fd);
 					free (nl_h);
