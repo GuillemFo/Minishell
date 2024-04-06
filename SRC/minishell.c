@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/03 12:52:50 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/06 15:31:58 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,7 @@ int	main(int ac, char **av, char **envp)
 				{
 					data = clean_input(data, env, exit_code);
 					//heredock(data, env, exit_code);
-					error = execute(data, &env, &error);
-					exit_code = error;
+					error = execute(data, &env, &exit_code);
 				}
 				exit_code = error;
 				free_parser(data);
