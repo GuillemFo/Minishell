@@ -39,5 +39,5 @@ int	print_env_lst(t_env *env)
 			ft_printf("%s=%s\n", iter->name, iter->content);
 		iter = iter->next;
 	}
-	return (1);
+	return (0);
 }

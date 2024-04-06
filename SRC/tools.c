@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 16:07:10 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/05 09:45:18 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,16 @@ int	errno_printer_3(char *com, char *error_txt, char *asked, int val)
 	return (val);
 }
 
+int	errno_printer_home(char *com, char *asked)
+{
+	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd(com, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(asked, 2);
+	write(2, "\n", 1);
+	return (0);
+}
+
 int	errno_printer_export(char *com, char *error_txt, char *asked)
 {
 	ft_putstr_fd("bash: ", 2);
@@ -90,6 +100,7 @@ char	*trim_support(char *str, char *new_str, int i, int x)
 		i++;
 		x++;
 	}
+	free(new_str);
 	new_str = my_malloc ((x + 1) * sizeof(char));
 	i = i - x;
 	x = 0;
@@ -112,13 +123,13 @@ char *trim_after(char *str, char c)
 		return (NULL);
 	i = 0;
 	x = 0;
-	new_str = ft_strdup("");
+	new_str = ft_strdup("");	//porque da leaks? y porque si lo pong null no va nada mas? que depende de esta fucion?
 	while (str[i] != c && str[i] != '\0')
 		i++;
 	if (str[i] == c)
 	{
 		i++;
-		while (str[i] != c && (is_poss_char(str[i]) != 0) && str[i] != '\0')
+		while (str[i] != '\0' && str[i] != c)
 			i++;
 		if (str[i] != '\0')
 			new_str = trim_support(str, new_str, i , x);

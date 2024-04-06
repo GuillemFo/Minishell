@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/06 14:54:25 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/06 15:35:30 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ bool	env_no_value(char *var);
 char	*get_til_equal(char *var);
 char	*equal_til_end(char	*var);
 char	*get_home(t_env *env);
-int		builtin_export(t_parser *parser, t_env **env, int *error);
-int		builtin_unset(t_parser *parser, t_env **env, int *error);
+int		builtin_export(t_parser *parser, t_env **env, int ret);
+int		builtin_unset(t_parser *parser, t_env **env);
 int	builtin_exit(t_parser *parser, int *error);
 /*-=-=-=-=-=-=-=-=-=-=-=ENV_TOOLS=-=-=-=-=-=-=-=-=-=-=-=*/
 void	shell_level(t_env **env);
@@ -112,6 +112,7 @@ void	del_env(t_parser *parser, t_env **env, int i);
 void	add_env(t_parser *parser, t_env **env, int i);
 void	edit_env(t_parser *parser, t_env **env, int i);
 char	*clear_spaces(char *str);
+bool	env_has_equal(char *var);
 
 /*				HEREDOCK		*/
 int	heredock(t_parser *parser, t_env *env, int exit_code);
@@ -122,6 +123,7 @@ char 				*find_dollar_var(char *str, int exit_code);
 char	*expand_str_extra(char *str, int exit_code);
 
 /*-=-=-=-=-=-=-=-=-=-=-=TOOLS=-=-=-=-=-=-=-=-=-=-=*/
+int	errno_printer_home(char *com, char *asked);
 int					errno_printer(char *com, char *error_txt, char *asked);
 int					errno_printer_2(char *com, char *error_txt, char *asked, int val);
 char				*trim_after(char *str, char c);
