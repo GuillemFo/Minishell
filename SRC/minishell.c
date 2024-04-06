@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/06 15:49:31 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/06 16:32:35 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	main(int ac, char **av, char **envp)
 				if (!error && data)
 				{
 					data = clean_input(data, env, exit_code);
-					heredock(data);	//heredock has to be expanded after clean_input;
+					heredock(data, env, exit_code);	//heredock has to be expanded after clean_input;
 					error = execute(data, &env, &exit_code);	//pasando exit code arreglamos cosas.
 					exit_code = error;
 				}

@@ -6,26 +6,21 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 08:21:01 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/06 15:53:44 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/06 16:56:39 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-open
-close
-
-
-key word
-*/
-int	heredock(t_parser *parser)
+int	heredock(t_parser *parser, t_env *env, int exit_code)
 {
 	t_parser *iter;
 	t_redir *tmp;
 	int		i;
 	char *nl_h;
 	char *filename;
+	char	*num;
+	int		fd;
 
 	i = 0;
 	iter = parser;
@@ -34,30 +29,28 @@ int	heredock(t_parser *parser)
 		tmp = iter->redir;
 		if (tmp && tmp->dest)
 		{
-
-			//call do_heredock function.
-			
 			if (tmp->sign == LESSLESS)
 			{
-				filename = ft_strjoin(, );
-				tmp->fd[i] = -1;
-				tmp->fd[i] = open(tmp->dest, O_CREAT | O_WRONLY | O_TRUNC, 0666));	//which one ??
-				//printf("#%s#\n", tmp->dest);
-				while (1)
+				num = ft_itoa(i);
+				filename = ft_strjoin("tmp/SRC/.hd", num);
+				free (num);
+				fd = -1;
+				fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+				nl_h = readline("> ");
+				while (nl_h && ft_strcmp(nl_h, tmp->dest) != 0)
 				{
-					nl_h = readline("> ");
-					//ft_printf("%s\n", nl_h);
-					if (ft_strcmp(nl_h, tmp->dest) == 0)
-						break;
-					//printf fd?? but need to expand??
-					nl_h = ft_strjoin(nl_h, "\n");
-					ft_putstr_fd(nl_h, tmp->fd[i]);
+					nl_h = find_dollar(nl_h, env, exit_code);	//why will only expand once?
+					nl_h = ft_strjoinplus(nl_h, "\n");
+					ft_putstr_fd(nl_h, fd);
 					free (nl_h);
+					nl_h = readline("> ");
 				}
-				close (tmp->fd[i]);
+				close (fd);
+				free(nl_h);
 			}
 			i++;
-			//tmp = tmp->next;
+			free(tmp->dest);
+			tmp->dest = filename;
 		}
 		iter = iter->next;
 	}

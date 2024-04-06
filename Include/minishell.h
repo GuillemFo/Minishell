@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/06 15:49:48 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/06 16:32:22 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ typedef struct s_redir
 {
 	t_sign			sign;
 	char			*dest;
-	int				*fd;
 	struct s_redir	*next;
 }					t_redir;
 
@@ -115,7 +114,7 @@ char	*clear_spaces(char *str);
 bool	env_has_equal(char *var);
 
 /*				HEREDOCK		*/
-int	heredock(t_parser *parser);
+int	heredock(t_parser *parser, t_env *env, int exit_code);
 /*-=-=-=-=-=-=-=-=EXPANSOR=-=-=-=-=-=-=-=-=-=-=*/
 
 char				*find_dollar(char *str, t_env *env, int	exit_code);
