@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/04 12:53:16 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/06 16:50:28 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 		return (NULL);
 	while (result[x]!= '\0')
 	{
-		
 		if (result[x] && result[x] == '$' && result[x + 1] == '?')
 		{
 			result = expand_str_extra(result, exit_code);
