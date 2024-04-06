@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/05 09:46:35 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/06 16:19:19 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ int	built_pwd()
 	return (0);
 }
 
+//Reminder to do to_lower to all builtins before comparing
 int	is_builtin_execute(t_parser *parser, t_env **env, int *error) 
 {
 	int	ret;

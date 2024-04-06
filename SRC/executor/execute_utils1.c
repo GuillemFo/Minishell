@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 12:19:06 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/27 20:54:04 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/06 16:20:15 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_strjoini(char const *s1, char const *s2)
 	join[i] = '\0';
 	return (join);
 }
-
+//Reminder to do to_lower to all builtins before comparing
 int	is_builtin_or_not(t_parser *parser)
 {
 	if (ft_strncmp("echo", parser->cmd[0], 5) == 0)

@@ -353,3 +353,7 @@ fixed pwd
 getcwd allocates memory and also i should free the content im rewriting. Leaks
 seems fixed, and bunch of others like return codes from cd pwd leaks etc.
 problem now is signals. control + l wont work;
+
+Heredock OK duno if expands ok tho;
+leaks when " "
+Reminder to do to_lower to all builtins
