@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:40:50 by adanylev          #+#    #+#             */
-/*   Updated: 2024/04/03 14:57:24 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:05:46 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_lexer	*ft_lexer(char *line)
 	lexer = NULL;
 	i = 0;
 	wc = 0;
-	if (line[0] == '\0')
+	if (ft_strcmp(line, "\"\"") == 0)
 		return (NULL);
 	while (line[i] && (line[i] == '\t' || line[i] == '\n' || line[i] == 32))
 		i++;
