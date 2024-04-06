@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 12:10:04 by gforns-s          #+#    #+#             */
-/*   Updated: 2023/10/25 19:17:32 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/05 10:51:23 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ char	*ft_strdupplus(char *s1)
 	s1l = ft_strlen(s1);
 	str = malloc ((s1l + 1) * sizeof(char));
 	if (!str)
-	{
-		free (s1);
-		return (0);
-	}
+		return (free (s1), NULL);
 	while (s1[i] != '\0')
 	{
 		str[i] = s1[i];
@@ -57,13 +54,11 @@ char	*ft_strjoinplus(char *s1, char *s2)
 
 	if (!s1)
 		return (ft_strdupplus(s2));
+	if (!s2)
+		return (ft_strdupplus(s1));
 	newstr = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!newstr)
-	{
-		free(s1);
-		free(s2);
-		return (0);
-	}
+		return (free (s1), free (s2), NULL);
 	i = -1;
 	while (s1[++i] != '\0')
 		newstr[i] = s1[i];

@@ -336,3 +336,20 @@ Known leaks:
 echo "a"
 echo $?
 get_til_equal
+
+
+From what i have now, if i try to edit an env already setted, wont change its value. // 08.23 seems fixed // load env not working properly 08.27
+unset leaks... // dealing with leaks from get_til_equal. 08.56 am. (codespace needs a restart).
+looks liek this is fixed. Export unset are ok?
+cleaning leaks from quotes. apparently there is a problem when encountering a null terminated bein a key to continue reading.
+Leaks on quotes.c line 148.
+
+still leak $? at find_dollar_var
+leaks ok but when var exist but has no value to expand, segfault.
+Some code broke when reducing the code so $HOME$? was not working.
+Now its ok but still same issue when var has no value to expand from.
+
+fixed pwd
+getcwd allocates memory and also i should free the content im rewriting. Leaks
+seems fixed, and bunch of others like return codes from cd pwd leaks etc.
+problem now is signals. control + l wont work;
