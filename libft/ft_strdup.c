@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 12:19:38 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/12 14:46:57 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:02:15 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strdup(const char *s1)
 	int		i;
 
 	if (s1 == NULL)
-		return(NULL);
+		return (NULL);
 	i = 0;
 	s1l = ft_strlen(s1);
 	str = malloc ((s1l + 1) * sizeof(char));

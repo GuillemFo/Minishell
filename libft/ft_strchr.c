@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:42:46 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/03/03 13:38:17 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:01:45 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strchr(const char *var, int c)
 	int	i;
 
 	i = 0;
-	if (!var || var[i]  == '\0')
+	if (!var || var[i] == '\0')
 		return (0);
 	while (var[i] != '\0' && var[i] != (char) c)
 		i++;

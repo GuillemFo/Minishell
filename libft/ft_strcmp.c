@@ -6,11 +6,12 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:42:02 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/19 13:13:31 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:01:53 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	int	i;
