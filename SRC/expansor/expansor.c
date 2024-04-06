@@ -80,7 +80,7 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 	int		x;
 	char	*env_name;
 	char	*result;
-	char	*tmp;
+	char	*tmp; //anna tenia esto comentado
 	char	*tmp2;
 	char *test1;
 
