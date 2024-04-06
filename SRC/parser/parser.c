@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 14:43:13 by adanylev          #+#    #+#             */
-/*   Updated: 2024/04/06 15:30:20 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/06 16:07:09 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_parser	*ft_parser(t_lexer *lexer, int *error)
 	if (lexer->sign == PIPE)
 	{
 		ft_other_error("Error: pipe not used correctly\n", error, 1);
+		free(parser);
 		break_free(lexer);
 		return (NULL);
 	}
