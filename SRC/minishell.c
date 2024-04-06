@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/06 17:36:36 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/06 20:56:02 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 			while (iter->cmd && iter->cmd[i] != NULL && iter->cmd[i][0] != '\0')
 			{
 				tmp2 = clear_quotes(iter->cmd[i], env, exit_code, tmp_ex);
-				free(iter->cmd[i]);
+				//free(iter->cmd[i]);
 				iter->cmd[i] = tmp2;
 				i++;
 			}

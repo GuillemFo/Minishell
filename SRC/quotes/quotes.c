@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/06 19:37:47 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/06 21:04:59 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char *cnt_b_q(char *str, char c)
 
 	i = 0;
 	if (str)
-	{
+	{//poner printf para saber que es c y ver porque falla
 		while (str[i] != c)
 			i++;
 		if (str[i] != c)
@@ -118,14 +118,20 @@ char	*clear_quotes(char *str, t_env *env, int exit_code, char *tmp_ex)
 	char	*tmp_cont;
 	char	*tmp_after;
 	char	*res;
+	(void)tmp_ex;
+	(void)res;
 	
 	if (str)
 		res = str;
+	printf("%s\n", str);
 	if (s_has_q(str) == 1)
 	{
 		tmp_bef = fnd_dllr(cnt_b_q(str, '\''), env, exit_code);
 		tmp_cont = fnd_dllr(cnt_in_q(str, '\''), env, exit_code);
 		tmp_after = fnd_dllr(cnt_aft_q(str, '\''), env, exit_code);
+		printf("%s\n", tmp_bef);
+		printf("%s\n", tmp_cont);
+		printf("%s\n", tmp_after);
 	}
 	else if (s_has_q(str) == 2)
 	{
@@ -135,6 +141,7 @@ char	*clear_quotes(char *str, t_env *env, int exit_code, char *tmp_ex)
 	}
 	else 
 		return (str);
+	return (str);
 }
 
 
