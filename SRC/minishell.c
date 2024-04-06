@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/06 14:05:19 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/06 15:49:31 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 			i = 0;
 			while (iter->cmd && iter->cmd[i] != NULL)
 			{
-				ft_printf("-%s-\n", iter->cmd[i]);
+				//ft_printf("-%s-\n", iter->cmd[i]);
 				tmp2 = clear_quotes(iter->cmd[i], env, exit_code, tmp_ex);
 				//free(iter->cmd[i]);
 				iter->cmd[i] = tmp2;
@@ -87,7 +87,7 @@ int	main(int ac, char **av, char **envp)
 				if (!error && data)
 				{
 					data = clean_input(data, env, exit_code);
-					//heredock(data, env, exit_code);
+					heredock(data);	//heredock has to be expanded after clean_input;
 					error = execute(data, &env, &exit_code);	//pasando exit code arreglamos cosas.
 					exit_code = error;
 				}

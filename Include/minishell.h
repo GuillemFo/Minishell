@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/05 09:46:11 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/06 15:49:48 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_redir
 {
 	t_sign			sign;
 	char			*dest;
-	int				fd[2];
+	int				*fd;
 	struct s_redir	*next;
 }					t_redir;
 
@@ -115,7 +115,7 @@ char	*clear_spaces(char *str);
 bool	env_has_equal(char *var);
 
 /*				HEREDOCK		*/
-int	heredock(t_parser *parser, t_env *env, int exit_code);
+int	heredock(t_parser *parser);
 /*-=-=-=-=-=-=-=-=EXPANSOR=-=-=-=-=-=-=-=-=-=-=*/
 
 char				*find_dollar(char *str, t_env *env, int	exit_code);

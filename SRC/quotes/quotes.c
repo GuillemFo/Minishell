@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/05 11:39:59 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/06 14:29:17 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ char	has_quotes(char *str)
 	i = 0;
 	if (!str)
 	{
-		ft_printf("fuck\n");
+	//	ft_printf("fuck\n");
 		return('\0');
 	}
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\"' || str[i] == '\'')
 		{
-			ft_printf("%c\n", str[i]);
+	//		ft_printf("%c\n", str[i]);
 			return (str[i]);
 		}
 		i++;
@@ -144,7 +144,7 @@ char	*clear_quotes(char *str, t_env *env, int exit_code, char *tmp_ex)
 		if (c == '\"')
 		{
 			tmp_ex = find_dollar(cont_in_q(res, c), env, exit_code);
-			ft_printf("%s\n", tmp_ex);
+			//ft_printf("%s\n", tmp_ex);
 			tmp_cont = ft_strjoinplus(tmp_bef, tmp_ex);		//leaks here always
 			free(tmp_ex);
 		}
