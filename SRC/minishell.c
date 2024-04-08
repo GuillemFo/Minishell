@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/06 20:56:02 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/08 10:18:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 			i = 0;
 			while (iter->cmd && iter->cmd[i] != NULL && iter->cmd[i][0] != '\0')
 			{
-				tmp2 = clear_quotes(iter->cmd[i], env, exit_code, tmp_ex);
-				//free(iter->cmd[i]);
+				tmp2 = clear_quotes(&(iter->cmd[i]), env, exit_code, tmp_ex);
+				free(iter->cmd[i]);
 				iter->cmd[i] = tmp2;
 				i++;
 			}
 			tmp = iter->redir;
 			while (tmp && tmp->dest)
 			{
-				tmp2 = clear_quotes(tmp->dest, env, exit_code, tmp_ex);
-				//free(tmp->dest);
+				tmp2 = clear_quotes(&(tmp->dest), env, exit_code, tmp_ex);
+				free(tmp->dest);
 				tmp->dest = tmp2;
 				tmp = tmp->next;
 			}
@@ -86,9 +86,9 @@ int	main(int ac, char **av, char **envp)
 				if (!error && data)
 				{
 					data = clean_input(data, env, exit_code);
-					//heredock(data, env, exit_code);	//heredock has to be expanded after clean_input;
-					//error = execute(data, &env, &exit_code);	//pasando exit code arreglamos cosas.
-					//exit_code = error;
+					heredock(data, env, exit_code);	//heredock has to be expanded after clean_input;
+					error = execute(data, &env, &exit_code);	//pasando exit code arreglamos cosas.
+					exit_code = error;
 				}
 				exit_code = error;
 				free_parser(data);

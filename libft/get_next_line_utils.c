@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 12:10:04 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/05 10:51:23 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/08 09:36:06 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,11 @@ char	*ft_strjoinplus(char *s1, char *s2)
 	if (!s1)
 		return (ft_strdupplus(s2));
 	if (!s2)
-		return (ft_strdupplus(s1));
+	{
+		newstr = ft_strdupplus(s1);
+		free(s1);
+		return (newstr);
+	}
 	newstr = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!newstr)
 		return (free (s1), free (s2), NULL);

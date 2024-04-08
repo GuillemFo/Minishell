@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/06 19:36:42 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/08 09:24:50 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int					errno_printer(char *com, char *error_txt, char *asked);
 int					errno_printer_2(char *com, char *error_txt, char *asked, int val);
 char				*trim_after(char *str, char c);
 char				*trim_bef(char *str, char c);
-char				*clear_quotes(char *str, t_env *env, int exit_code, char *tmp_ex);
+char				*clear_quotes(char **str, t_env *env, int exit_code, char *tmp_ex);
 int					is_poss_char(char c);
 long long	ft_check_arg_is_num(char *argv);
 long long	ft_check_max_min(char *argv);

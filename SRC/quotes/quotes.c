@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/08 05:27:59 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/08 10:55:29 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,26 @@ char *cnt_b_q(char *str, char c)
 
 	i = 0;
 	if (str)
-	{//poner printf para saber que es c y ver porque falla
+	{
 		while (str[i] != c)
 			i++;
 		if (str[i] != c)
 			return (NULL);
-		i++;	//issue here
-		while (str[i] != c)
-			i++;
-		if (str[i] == c)
+		if (str[i] != '\0')
 			res = malloc ((i + 1) * sizeof(char));
-		i = -1;
-		while (str[++i] != c)
+		i = 0;
+		while (str[i] != c && str[i] != '\0')
+		{
 			res[i] = str[i];
+			i++;
+		}
 		res[i] = '\0';
 		return (res);
 	}
 	return (NULL);
 }
+
+//	ft_printf("cont in q:%c:\n", str[i]);
 
 char	*cnt_in_q(char *str, char c)
 {
@@ -66,8 +68,10 @@ char	*cnt_in_q(char *str, char c)
 	while (str[i] != c)
 		i++;
 	i++;
+	if (str[i] == '\0')
+		return (NULL);
 	j = i;
-	while (str[i] != c)
+	while (str[i] != c && str[i] != '\0')
 		i++;
 	res = malloc (((i - j) + 1) *sizeof(char));
 	i = 0;
@@ -98,7 +102,7 @@ char	*cnt_aft_q(char *str, char c)
 	j = i;
 	while (str[i] != '\0')
 		i++;
-	res = malloc (((i - j) + 1) *sizeof(char));
+	res = malloc (((i - j) + 1) *sizeof(char));	//leaks!!
 	i = 0;
 	while (str[j] != '\0')
 	{
@@ -110,51 +114,7 @@ char	*cnt_aft_q(char *str, char c)
 	return (res);
 }
 
-// lets try recursive solution so if tmp_after has content, calls again the clear quotes;
 
-char	*clear_quotes(char *str, t_env *env, int exit_code, char *tmp_ex)
-{
-	char 	*tmp_bef;
-	char	*tmp_cont;
-	char	*tmp_after;
-	char	*res;
-	(void)tmp_ex;
-	(void)res;
-	
-	if (str)
-		res = str;
-	printf("%s\n", str);
-	if (s_has_q(str) == 1)
-	{
-		tmp_bef = fnd_dllr(cnt_b_q(str, '\''), env, exit_code);
-		tmp_cont = fnd_dllr(cnt_in_q(str, '\''), env, exit_code);
-		tmp_after = fnd_dllr(cnt_aft_q(str, '\''), env, exit_code);
-		printf("%s\n", tmp_bef);
-		printf("%s\n", tmp_cont);
-		printf("%s\n", tmp_after);
-	}
-	else if (s_has_q(str) == 2)
-	{
-		tmp_bef = cnt_b_q(str, '\"');
-		tmp_cont = cnt_in_q(str, '\"');
-		tmp_after = cnt_aft_q(str, '\"');
-	}
-	else 
-		return (str);
-	return (tmp_bef);
-}
-
-
-
-
-
-
-
-
-
-
-
-/*
 char	has_quotes(char *str)
 {
 	int	i;
@@ -175,6 +135,158 @@ char	has_quotes(char *str)
 	}
 	return ('\0');
 }
+
+char	*clear_quotes(char **str, t_env *env, int exit_code, char *tmp_ex)
+{
+	char 	*tmp_bef;
+	char	*tmp_cont;
+	char	*tmp_after;
+	char	*res;
+	char	c;
+	
+	(void)tmp_ex;
+	res = ft_strdup(*str);
+	c = has_quotes(res);
+	if (c != '\0')
+	{
+		tmp_bef = fnd_dllr(cnt_b_q(res, c), env, exit_code);
+		if (c == '\"')
+			tmp_cont = ft_strjoin(tmp_bef, fnd_dllr(cnt_in_q(res, c), env, exit_code));
+		else if (c == '\'')
+				tmp_cont = ft_strjoin(tmp_bef, cnt_in_q(res, c));
+		tmp_after = cnt_aft_q(res, c);
+		while ((c = has_quotes(tmp_after)) != '\0') // do the tmp_bef and tmp_cont and add it to old tmp_cont?? so it wont redo the other string and clean possible ' or " might encounter?
+		{
+			tmp_bef = ft_strjoin(tmp_cont, fnd_dllr(cnt_b_q(tmp_after, c),env, exit_code));
+			if (c == '\"')
+				tmp_cont = ft_strjoin(tmp_bef, fnd_dllr(cnt_in_q(tmp_after, c), env, exit_code));
+			else if (c == '\'')
+				tmp_cont = ft_strjoin(tmp_bef, cnt_in_q(tmp_after, c));
+			tmp_after = cnt_aft_q(tmp_after, c);
+		}
+		
+		res = ft_strjoin(tmp_cont, fnd_dllr(tmp_after, env, exit_code));
+	}
+	else
+		res = fnd_dllr(res, env, exit_code);
+	return (res);
+}
+
+
+/*
+
+lets try recursive solution so if tmp_after has content, calls again the clear quotes;
+
+char	*clear_quotes(char **str, t_env *env, int exit_code, char *tmp_ex)
+{
+	char 	*tmp_bef;
+	char	*tmp_cont;
+	char	*tmp_after;
+	char	*res;
+	char	*tmp_help;
+	tmp_help = NULL;
+	tmp_ex = NULL;
+	res = NULL;
+	// 
+	if (*str)
+		res = ft_strdup(*str);
+	if (s_has_q(res) != 0)
+	{
+		if (s_has_q(res) == 1)
+		{
+			tmp_bef = fnd_dllr(cnt_b_q(res, '\''), env, exit_code);
+			tmp_cont = cnt_in_q(res, '\'');
+			tmp_after = cnt_aft_q(res, '\'');
+			tmp_ex = ft_strjoinplus(tmp_bef, tmp_cont);
+			tmp_bef = NULL;
+			if (tmp_cont != NULL)
+			{
+				free(tmp_cont);
+				tmp_cont = NULL;
+			}
+
+		} 
+		else if (s_has_q(res) == 2)
+		{
+			tmp_bef = fnd_dllr(cnt_b_q(res, '\"'), env, exit_code);
+			tmp_cont = fnd_dllr(cnt_in_q(res, '\"'), env, exit_code);
+			tmp_after = cnt_aft_q(res, '\"');
+			tmp_ex = ft_strjoinplus(tmp_bef, tmp_cont);
+			tmp_bef = NULL;
+			if (tmp_cont != NULL)
+			{
+				free(tmp_cont);
+				tmp_cont = NULL;
+			}
+		}
+		if (tmp_after != NULL)
+		{
+			if (tmp_bef != NULL)
+			{
+				free(tmp_bef);
+				tmp_bef = NULL;
+			}
+			if (s_has_q(tmp_after) != 0)
+			{
+				if (tmp_cont != NULL)
+					free(tmp_cont);
+				tmp_cont = ft_strdup(tmp_ex);
+				if (tmp_ex)
+				{
+					free(tmp_ex);
+					tmp_ex = NULL;
+				}
+				tmp_help = clear_quotes(&tmp_after, env, exit_code, tmp_ex);
+				tmp_bef = ft_strjoin(tmp_cont, tmp_help);
+				if (tmp_after)
+				{
+					free(tmp_after);
+					tmp_after = NULL;
+				}
+				if (tmp_cont)
+				{
+					free(tmp_cont);
+					tmp_cont = NULL;
+				}
+				if (tmp_help)
+				{
+					free(tmp_help);
+					tmp_help = NULL;
+				}
+				tmp_ex = ft_strdup(tmp_bef);
+				free(tmp_bef);
+			}
+			else
+			{
+				tmp_bef = ft_strjoin(tmp_ex, tmp_after);
+				free(tmp_ex);
+				tmp_ex = NULL;
+				free(tmp_after);
+				tmp_after = NULL;
+				tmp_ex = ft_strdup(tmp_bef);
+				free(tmp_bef);
+			}
+		}
+		else if (!tmp_after)
+		{
+			tmp_help = ft_strdup(tmp_ex);
+			if (tmp_ex != NULL)
+				free(tmp_ex);
+			tmp_ex = ft_strdup(tmp_help);
+			free(tmp_help);
+		}
+	}
+	else
+		tmp_ex = fnd_dllr(res, env, exit_code);
+	if (res != NULL)
+	{
+		free(res);
+		res = NULL;
+	}
+	return (tmp_ex);
+}
+
+
 
 char	*cont_after_q(char *str, char c)
 {
@@ -268,70 +380,6 @@ char *cont_bef_q(char *res, char c) /// A CHUPARLA
 	else
 		return (NULL);	//(ft_strdup(""));
 	return (str);
-}
-
-
-char	*clear_quotes(char *str, t_env *env, int exit_code, char *tmp_ex)
-{
-	char 	*tmp_bef;
-	char	*tmp_cont;
-	char	*tmp_after;
-	char	*res;
-	char	c;
-	
-	if (str)
-		res = str;
-	else
-		return (NULL);
-	c = has_quotes(res);
-	if (c != '\0')
-	{
-		tmp_bef = fnd_dllr(cont_bef_q(res, c), env, exit_code);
-		if (c == '\"')
-		{
-			tmp_cont = cont_in_q(res, c);
-			if (!tmp_cont)
-				tmp_cont = NULL;
-			tmp_ex = fnd_dllr(tmp_cont, env, exit_code);
-			//free(tmp_cont);
-			if (tmp_bef && tmp_ex)
-			{
-				tmp_cont = ft_strjoinplus(tmp_bef, tmp_ex);
-				free(tmp_ex); //added at 09.41am, was commented before due it causin
-			}
-			else if (!tmp_ex)
-				tmp_cont = tmp_bef;
-			else if (!tmp_bef)
-				tmp_cont = tmp_ex;
-			else
-				tmp_cont = ft_strdup("");
-		}
-		else if (c == '\'')
-				tmp_cont = ft_strjoinplus(tmp_bef, cont_in_q(res, c));
-		if (tmp_bef)
-			free(tmp_bef);	//cause double free;
-		tmp_after = cont_after_q(res, c);
-		c = has_quotes(tmp_after);
-		while (tmp_after && c != '\0')
-		{
-			tmp_bef = ft_strjoinplus(tmp_cont, fnd_dllr(cont_bef_q(tmp_after, c), env, exit_code));
-			if (c == '\"')
-				tmp_cont = ft_strjoinplus(tmp_bef, fnd_dllr(cont_in_q(tmp_after, c), env, exit_code));
-			else if (c == '\'')
-				tmp_cont = ft_strjoinplus(tmp_bef, cont_in_q(tmp_after, c));
-			tmp_ex = cont_after_q(tmp_after, c);
-			free(tmp_after);
-			tmp_after = tmp_ex;
-			c = has_quotes(tmp_after);
-			free(tmp_bef);
-		}
-		res = ft_strjoinplus(tmp_cont, fnd_dllr(tmp_after, env, exit_code));
-	}
-	else
-	{
-		res = fnd_dllr(res, env, exit_code);
-	}
-	return (res);
 }
 
 */
