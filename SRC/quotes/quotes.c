@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/06 21:04:59 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/08 05:27:59 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char *cnt_b_q(char *str, char c)
 			i++;
 		if (str[i] != c)
 			return (NULL);
-		i++;
+		i++;	//issue here
 		while (str[i] != c)
 			i++;
 		if (str[i] == c)
@@ -141,7 +141,7 @@ char	*clear_quotes(char *str, t_env *env, int exit_code, char *tmp_ex)
 	}
 	else 
 		return (str);
-	return (str);
+	return (tmp_bef);
 }
 
 
