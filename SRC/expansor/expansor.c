@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/08 12:23:56 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/08 14:37:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 /*=======	WARNING, BE CAREFUL WHEN SPLEETING THIS FUNCTIONS	==========*/
 /*	try (export value and echo $value) (echo $USER$?)  (echo $? $USER) echo $'?' echo $"?"*/
 
-
+// CURRENTLY NOT WORKIN!!! echo "$USER $USER $USER" and so on, mess around inside double quotes
+//and apply fix to expand_str_extra
 char	*expand_str(char *name, t_env *env, char *str)
 {
 	t_env	*iter;
@@ -28,12 +29,12 @@ char	*expand_str(char *name, t_env *env, char *str)
 	iter = env;
 	while (iter && ft_strcmp(name, iter->name) != 0)
 		iter = iter->next;
-	if (!iter)
-	{
-		result = ft_strdup(str);
-		free(str);
-		return (result);
-	}
+	// if (!iter)
+	// {
+		// result = ft_strdup(str);
+		// free(str);
+		// return (result);
+	// }
 	env_cont = ft_strdup(iter->content);
 	if (!env_cont)
 		return (free(str), ft_strdup(""));
@@ -43,10 +44,7 @@ char	*expand_str(char *name, t_env *env, char *str)
 	free(env_cont);
 	env_cont = trim_after(str, '$');
 	result = ft_strjoini(tmp, env_cont);
-	free(env_cont);
-	free(tmp);
-	free(str);
-	return (result);
+	return (free(env_cont), free(tmp), free(str), result);
 }
 
 char	*get_env_name(char *str)

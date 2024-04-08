@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 08:21:01 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/06 19:36:42 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/08 14:06:18 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ int	heredock(t_parser *parser, t_env *env, int exit_code)
 				nl_h = readline("> ");
 				while (nl_h && ft_strcmp(nl_h, tmp->dest) != 0)
 				{
-					nl_h = fnd_dllr(nl_h, env, exit_code);	//why will only expand once?
-					nl_h = ft_strjoinplus(nl_h, "\n");
+					num = fnd_dllr(nl_h, env, exit_code);
+					nl_h = ft_strjoin(num, "\n");
 					ft_putstr_fd(nl_h, fd);
+					free(num);
 					free (nl_h);
 					nl_h = readline("> ");
 				}
@@ -49,7 +50,8 @@ int	heredock(t_parser *parser, t_env *env, int exit_code)
 				free(nl_h);
 			}
 			i++;
-			free(tmp->dest);
+			if (tmp->dest)
+				free(tmp->dest);
 			tmp->dest = filename;
 		}
 		iter = iter->next;
