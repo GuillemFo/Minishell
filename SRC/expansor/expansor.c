@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/06 19:36:42 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/08 12:23:56 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 
 /*=======	WARNING, BE CAREFUL WHEN SPLEETING THIS FUNCTIONS	==========*/
-/*	try (export value and echo $value) (echo $USER$?)  (echo $? $USER) etc*/
+/*	try (export value and echo $value) (echo $USER$?)  (echo $? $USER) echo $'?' echo $"?"*/
 
 
 char	*expand_str(char *name, t_env *env, char *str)
@@ -87,7 +87,8 @@ char	*fnd_dllr(char *str, t_env *env, int exit_code)
 	x = 0;
 	if (!str)
 		return NULL;
-	result = str;
+	result = ft_strdup(str);
+	free(str);
 	if (!result)
 		return (NULL);
 	while (result[x]!= '\0')
