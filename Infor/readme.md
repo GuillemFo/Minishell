@@ -260,7 +260,7 @@ Added clear_spaces on utils but not in use.
 
 have not fixed the error starting at 0 on the loop, maybe at expansor use error instead of exit_code.
 
-05:35 am still cant figure out how to sort $'a' or $"a" due me clearing quotes before. The idea i been trying to implement is to filter that type of possibilities at the find_dollar function. where i should not have any issue.
+05:35 am still cant figure out how to sort $'a' or $"a" due me clearing quotes before. The idea i been trying to implement is to filter that type of possibilities at the fnd_dllr function. where i should not have any issue.
 been trying for long time now and cant find a way.
 right now the code is working worse than before due not expanding the env correctly (forceing to do it first, but will do all)
 starting to not care so much about it since is not that big deal. Problem is, i have no idea if it might be a issue at some point apart than expanding on echo or not.
@@ -344,7 +344,7 @@ looks liek this is fixed. Export unset are ok?
 cleaning leaks from quotes. apparently there is a problem when encountering a null terminated bein a key to continue reading.
 Leaks on quotes.c line 148.
 
-still leak $? at find_dollar_var
+still leak $? at fnd_dllr_var
 leaks ok but when var exist but has no value to expand, segfault.
 Some code broke when reducing the code so $HOME$? was not working.
 Now its ok but still same issue when var has no value to expand from.
@@ -353,3 +353,7 @@ fixed pwd
 getcwd allocates memory and also i should free the content im rewriting. Leaks
 seems fixed, and bunch of others like return codes from cd pwd leaks etc.
 problem now is signals. control + l wont work;
+
+Heredock OK duno if expands ok tho;
+leaks when " "
+Reminder to do to_lower to all builtins

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/06 16:32:35 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:32:06 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 		while (iter)
 		{
 			i = 0;
-			while (iter->cmd && iter->cmd[i] != NULL)
+			while (iter->cmd && iter->cmd[i] != NULL && iter->cmd[i][0] != '\0')
 			{
-				//ft_printf("-%s-\n", iter->cmd[i]);
-				tmp2 = clear_quotes(iter->cmd[i], env, exit_code, tmp_ex);
-				//free(iter->cmd[i]);
-				iter->cmd[i] = tmp2;
+				tmp2 = clear_quotes(&(iter->cmd[i]), env, exit_code, tmp_ex);
+				free(iter->cmd[i]);
+				iter->cmd[i] = ft_strdup(tmp2);
+				free(tmp2);
 				i++;
 			}
 			tmp = iter->redir;
 			while (tmp && tmp->dest)
 			{
-				tmp2 = clear_quotes(tmp->dest, env, exit_code, tmp_ex);
-				//free(tmp->dest);
+				tmp2 = clear_quotes(&(tmp->dest), env, exit_code, tmp_ex);
+				free(tmp->dest);
 				tmp->dest = tmp2;
 				tmp = tmp->next;
 			}
@@ -59,10 +59,10 @@ int	main(int ac, char **av, char **envp)
 	t_env		*env;
 	int			error;
 	int			exit_code;
+	char *str;
 	
 	exit_code = 0;
 	error = 0;
-	char *str;
 	(void)av;
 	if (ac != 1)
 		return(1);
@@ -70,7 +70,8 @@ int	main(int ac, char **av, char **envp)
 	shell_level(&env);
 	
 	rl_catch_signals = 0;
-	signal(SIGINT, handle_sigint); //reminder that leaks atexit will kill program if use ctrl + c
+									//reminder that leaks atexit will kill program if use ctrl + c
+	signal(SIGINT, handle_sigint); 
 	signal(SIGQUIT, handle_sigquit);
 	str = readline(C_G "minishell: " C_RESET);
 	if (str)

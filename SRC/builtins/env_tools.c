@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:32:24 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/04 07:13:00 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/11 11:20:05 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,21 +74,22 @@ void	edit_env(t_parser *parser, t_env **env, int i)
 		{
 			free(iter->content);
 			tmp2 = equal_til_end(parser->cmd[i]);
-			if (env_has_equal(parser->cmd[i]) == 0)//before was !tmp
+			if (env_has_equal(parser->cmd[i]) == 0)
 			{
 				iter->content = NULL;
-				iter->is_hidden = true;//added this return to set proper values.
+				iter->is_hidden = true;
 				free(tmp2);
 				break;
 			}
 			iter->content = tmp2;
 			iter->is_hidden = false;
-			free(tmp);
 			break;
 		}
-		//might need a free for tmp??
+		free(tmp);
+		//tmp = NULL;
 		iter = iter->next;
 	}
+	free(tmp);
 }
 
 void	add_env(t_parser *parser, t_env **env, int i)

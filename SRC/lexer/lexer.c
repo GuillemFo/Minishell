@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:40:50 by adanylev          #+#    #+#             */
-/*   Updated: 2024/04/06 14:05:46 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:44:47 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_lexer	*ft_lexer(char *line)
 	i = 0;
 	wc = 0;
 	if (ft_strcmp(line, "\"\"") == 0)
+		return (NULL);
+	if (ft_strcmp(line, "\'\'") == 0)
 		return (NULL);
 	while (line[i] && (line[i] == '\t' || line[i] == '\n' || line[i] == 32))
 		i++;

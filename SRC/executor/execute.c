@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/27 23:56:39 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:48:38 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ int	execute(t_parser *parser, t_env **envi, int *error)
 		if (is_builtin_or_not(parser) && !parser->next)
 			return(is_lonely_builtin(parser, &pipex, envi, error));
 	}
+	signal(SIGINT, handle_sigint_child);
 	exec_start(&pipex, parser);
 	making_kids(parser, &pipex, envi, error);
 	waiting(&pipex, &status, pipex.num_cmds);
+	signal(SIGINT, handle_sigint);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	return (status);

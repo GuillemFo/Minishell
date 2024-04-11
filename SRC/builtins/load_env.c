@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/04 06:39:16 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/11 11:10:29 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,15 @@ char	*equal_til_end(char *var)
 	int	x;
 
 	x = 0;
-	while (var[x] != '\0' && var[x] != '=')//this will stop before =
+	while (var[x] != '\0' && var[x] != '=')
 		x++;
 	if (var[x] == '=' && var[x + 1] != '\0')
 	{
 		return (ft_strdup(var + x + 1));
 	}
-	// 08.19 igual con este filtro lo soluciono
 	else if (var[x] == '=' && var[x + 1] == '\0')
 		return (ft_strdup(""));
-	return (NULL);	//si devuelvo null me petan los siguientes?? De momento no funciona. 07.16 am 
+	return (NULL);
 }
 
 

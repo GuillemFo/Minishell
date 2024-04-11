@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/05 09:46:35 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/11 12:14:04 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ int		builtin_unset(t_parser *parser, t_env **env)
 	while (parser->cmd[i])
 	{
 		tmp = get_til_equal(parser->cmd[i]);
-		// if (env_exist(*env, tmp) == false)
-		// else if (env_exist(*env, tmp) == true)
-		// 	del_env(parser, env, i);
 		if (env_exist(*env, tmp) == true)
 			del_env(parser, env, i);
 		free(tmp);
@@ -166,7 +163,7 @@ int	built_cd(t_parser *parser, t_env **env, int ret)
 		errno_printer(parser->cmd[0], strerror(errno), parser->cmd[1]);
 		ret = 1;
 	}
-	get_pwd(env);	//check if it changes correctly or i need to equal to env;
+	get_pwd(env);
 	return (ret);
 }
 

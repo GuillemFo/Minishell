@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/06 16:50:28 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:22:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 
 /*=======	WARNING, BE CAREFUL WHEN SPLEETING THIS FUNCTIONS	==========*/
-/*	try (export value and echo $value) (echo $USER$?)  (echo $? $USER) etc*/
+/*	try (export value and echo $value) (echo $USER$?)  (echo $? $USER) echo $'?' echo $"?"*/
 
-
+// CURRENTLY NOT WORKIN!!! echo "$USER $USER $USER" and so on, mess around inside double quotes
+//and apply fix to expand_str_extra
 char	*expand_str(char *name, t_env *env, char *str)
 {
 	t_env	*iter;
@@ -29,24 +30,16 @@ char	*expand_str(char *name, t_env *env, char *str)
 	while (iter && ft_strcmp(name, iter->name) != 0)
 		iter = iter->next;
 	if (!iter)
-	{
-		result = ft_strdup(str);
-		free(str);
-		return (result);
-	}
+		return (NULL);
 	env_cont = ft_strdup(iter->content);
 	if (!env_cont)
 		return (free(str), ft_strdup(""));
 	result = trim_bef(str, '$');
-	tmp = ft_strjoini(result, env_cont);
-	free(result);
+	tmp = ft_strjoinplus(result, env_cont);
 	free(env_cont);
 	env_cont = trim_after(str, '$');
-	result = ft_strjoini(tmp, env_cont);
-	free(env_cont);
-	free(tmp);
-	free(str);
-	return (result);
+	result = ft_strjoinplus(tmp, env_cont);
+	return (free(env_cont), free(str), result);
 }
 
 char	*get_env_name(char *str)
@@ -57,13 +50,13 @@ char	*get_env_name(char *str)
 	if (!str)
 		return (NULL);
 	x = 0;
-	while (str[x] != '$' && str[x] != '\0') //while (str[x] != '$' && (is_poss_char(str[x]) == 1) && str[x] != '\0')
+	while (str[x] != '$' && (is_poss_char(str[x]) != 0) && str[x] != '\0')
 		x++;
 	name = malloc((x + 1) * sizeof(char));
 	if (!name)
 		return (NULL);
 	x = 0;
-	while (str[x] != '$' && str[x] != '\0') //while (str[x] != '$' && (is_poss_char(str[x]) == 1) && str[x] != '\0')
+	while (str[x] != '$' && (is_poss_char(str[x]) != 0) && str[x] != '\0')
 	{
 		name[x] = str[x];
 		x++;
@@ -73,24 +66,24 @@ char	*get_env_name(char *str)
 }
 
 
-/* This works properly but causes leaks
-*/
-char	*find_dollar(char *str, t_env *env, int exit_code)
+
+char	*fnd_dllr(char *str, t_env *env, int exit_code)
 {
 	int		x;
 	char	*env_name;
 	char	*result;
 	char	*tmp; //anna tenia esto comentado
 	char	*tmp2;
-	char *test1;
+	char 	*test1;
 
 	x = 0;
 	if (!str)
 		return NULL;
-	result = str;
+	result = ft_strdup(str);
+	free(str);
 	if (!result)
 		return (NULL);
-	while (result[x]!= '\0')
+	while (result[x] != '\0')
 	{
 		if (result[x] && result[x] == '$' && result[x + 1] == '?')
 		{
@@ -101,21 +94,18 @@ char	*find_dollar(char *str, t_env *env, int exit_code)
 		{
 			env_name = get_env_name(&result[x + 1]);
 			if (env_exist(env, env_name) == true)
-			{
 				result = expand_str(env_name, env, result);
-				x = -1;
-			}
 			else
 			{
-				test1 = trim_after(result, '$');
 				tmp = trim_bef(result, '$');
+				test1 = trim_after(result, '$');
 				free(result);
 				tmp2 = ft_strjoinplus(tmp, test1);
 				free(test1);
 				result = ft_strdup(tmp2);
 				free(tmp2);
-				x = -1;
 			}
+			x = -1;
 			free(env_name);
 		}
 		x++;

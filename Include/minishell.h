@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/06 16:32:22 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:19:15 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,8 @@ typedef struct s_parser
 
 void				handle_sigint(int sig);
 void				handle_sigquit(int sig);
+void 				handle_sigint_child(int sig);
 
-// NEEDS TO BE READAPTED TO ANNA'S CODE
-// so all info gonna be stored at parser->cmd[i] and next node when 
-//encountering pipes or redirections and so.
 /*-=-=-=-=-=-=-=-=-=-=-=BUILTINS=-=-=-=-=-=-=-=-=-=-=-=*/
 //
 int					is_builtin_execute(t_parser *token, t_env **env, int *error);
@@ -117,8 +115,8 @@ bool	env_has_equal(char *var);
 int	heredock(t_parser *parser, t_env *env, int exit_code);
 /*-=-=-=-=-=-=-=-=EXPANSOR=-=-=-=-=-=-=-=-=-=-=*/
 
-char				*find_dollar(char *str, t_env *env, int	exit_code);
-char 				*find_dollar_var(char *str, int exit_code);
+char				*fnd_dllr(char *str, t_env *env, int	exit_code);
+char 				*fnd_dllr_var(char *str, int exit_code);
 char	*expand_str_extra(char *str, int exit_code);
 
 /*-=-=-=-=-=-=-=-=-=-=-=TOOLS=-=-=-=-=-=-=-=-=-=-=*/
@@ -127,7 +125,8 @@ int					errno_printer(char *com, char *error_txt, char *asked);
 int					errno_printer_2(char *com, char *error_txt, char *asked, int val);
 char				*trim_after(char *str, char c);
 char				*trim_bef(char *str, char c);
-char				*clear_quotes(char *str, t_env *env, int exit_code, char *tmp_ex);
+char 				*trim_after_dlr(char *str, char c);
+char				*clear_quotes(char **str, t_env *env, int exit_code, char *tmp_ex);
 int					is_poss_char(char c);
 long long	ft_check_arg_is_num(char *argv);
 long long	ft_check_max_min(char *argv);
