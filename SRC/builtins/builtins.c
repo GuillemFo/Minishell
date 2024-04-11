@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/11 11:40:49 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/11 12:14:04 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ int		builtin_unset(t_parser *parser, t_env **env)
 	while (parser->cmd[i])
 	{
 		tmp = get_til_equal(parser->cmd[i]);
-		// if (env_exist(*env, tmp) == false)
-		// else if (env_exist(*env, tmp) == true)
-		// 	del_env(parser, env, i);
 		if (env_exist(*env, tmp) == true)
 			del_env(parser, env, i);
 		free(tmp);
@@ -166,7 +163,7 @@ int	built_cd(t_parser *parser, t_env **env, int ret)
 		errno_printer(parser->cmd[0], strerror(errno), parser->cmd[1]);
 		ret = 1;
 	}
-	get_pwd(env);	//check if it changes correctly or i need to equal to env;
+	get_pwd(env);
 	return (ret);
 }
 
@@ -180,12 +177,10 @@ int	built_pwd()
 	return (0);
 }
 
-//Reminder to do to_lower to all builtins before comparing
 int	is_builtin_execute(t_parser *parser, t_env **env, int *error) 
 {
 	int	ret;
 
-//comparar 1 a 1 los chars en char -32 y +32 
 	ret = 0;
 	if (ft_strcmp("echo", parser->cmd[0]) == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/11 09:32:40 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/11 12:19:15 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,8 @@ typedef struct s_parser
 
 void				handle_sigint(int sig);
 void				handle_sigquit(int sig);
+void 				handle_sigint_child(int sig);
 
-// NEEDS TO BE READAPTED TO ANNA'S CODE
-// so all info gonna be stored at parser->cmd[i] and next node when 
-//encountering pipes or redirections and so.
 /*-=-=-=-=-=-=-=-=-=-=-=BUILTINS=-=-=-=-=-=-=-=-=-=-=-=*/
 //
 int					is_builtin_execute(t_parser *token, t_env **env, int *error);

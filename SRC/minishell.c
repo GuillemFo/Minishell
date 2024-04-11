@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/08 11:47:29 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/11 12:32:06 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ int	main(int ac, char **av, char **envp)
 	t_env		*env;
 	int			error;
 	int			exit_code;
+	char *str;
 	
 	exit_code = 0;
 	error = 0;
-	char *str;
 	(void)av;
 	if (ac != 1)
 		return(1);
@@ -70,7 +70,8 @@ int	main(int ac, char **av, char **envp)
 	shell_level(&env);
 	
 	rl_catch_signals = 0;
-	signal(SIGINT, handle_sigint); //reminder that leaks atexit will kill program if use ctrl + c
+									//reminder that leaks atexit will kill program if use ctrl + c
+	signal(SIGINT, handle_sigint); 
 	signal(SIGQUIT, handle_sigquit);
 	str = readline(C_G "minishell: " C_RESET);
 	if (str)
