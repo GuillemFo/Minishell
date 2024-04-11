@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:10:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/06 16:19:19 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/11 11:40:49 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ int	is_builtin_execute(t_parser *parser, t_env **env, int *error)
 {
 	int	ret;
 
+//comparar 1 a 1 los chars en char -32 y +32 
 	ret = 0;
 	if (ft_strcmp("echo", parser->cmd[0]) == 0)
 	{
