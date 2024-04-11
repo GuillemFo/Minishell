@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:10 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/08 12:23:15 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/11 11:08:41 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,24 +91,23 @@ char	*trim_bef(char *str, char c)
     return (new_str);
 }
 
-char	*trim_support(char *str, char *new_str, int i, int x)
+char	*trim_support(char *str, char *new_str, int *i, int x)
 {
-	if (str[i] == '?')
-		i++;
-	while (str[i] != '\0')
+	if (str[*i] == '?')
+		*i = *i +1;
+	while (str[*i] != '\0')
 	{
-		i++;
+		*i = *i +1;
 		x++;
 	}
-	free(new_str);
 	new_str = my_malloc ((x + 1) * sizeof(char));
-	i = i - x;
+	*i = *i - x;
 	x = 0;
-	while (str[i] != '\0')
+	while (str[*i] != '\0')
 	{
-		new_str[x] = str[i];
+		new_str[x] = str[*i];
 		x++;
-		i++;
+		*i = *i +1;
 	}
 	new_str[x] = '\0';
 	return (new_str);
@@ -123,16 +122,16 @@ char *trim_after(char *str, char c)
 		return (NULL);
 	i = 0;
 	x = 0;
-	new_str = ft_strdup("");	//porque da leaks? y porque si lo pong null no va nada mas? que depende de esta fucion?
+	new_str = NULL;
 	while (str[i] != c && str[i] != '\0')
 		i++;
 	if (str[i] == c)
 	{
 		i++;
-		while (str[i] != '\0' && str[i] != c)
+		while (is_poss_char(str[i]) != 0)
 			i++;
 		if (str[i] != '\0')
-			new_str = trim_support(str, new_str, i , x);
+			new_str = trim_support(str, new_str, &i , x);
 	}
 	return (new_str);
 }

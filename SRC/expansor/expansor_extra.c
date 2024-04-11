@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 03:27:45 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/06 19:36:42 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/11 11:09:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*expand_str_extra(char *str, int exit_code)
 	free(str);
 	return (result);
 }
-//temporary inside fnd_dllr
+
 char *fnd_dllr_var(char *str, int exit_code)
 {
 	int		x;
