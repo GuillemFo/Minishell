@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:11:52 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/12 16:40:31 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 17:35:51 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void				set_null_hidden(t_env *iter);
 
 /*				HEREDOCK		*/
 
-int					heredock(t_parser *parser, t_env *env, int exit_code);
+int					heredock(t_parser **parser, t_env *env, int exit_code);
 
 /*-=-=-=-=-=-=-=-=EXPANSOR=-=-=-=-=-=-=-=-=-=-=*/
 

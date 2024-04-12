@@ -6,10 +6,9 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 08:21:01 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/12 17:25:43 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 18:00:54 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
@@ -45,7 +44,7 @@ void	do_heredock(t_redir *tmp, char *filename, t_env *env, int exit_code)
 	free(nl_h);
 }
 
-int	heredock(t_parser *parser, t_env *env, int exit_code)
+int	heredock(t_parser **parser, t_env *env, int exit_code)
 {
 	t_parser	*iter;
 	t_redir		*tmp;
@@ -53,7 +52,7 @@ int	heredock(t_parser *parser, t_env *env, int exit_code)
 	char		*filename;
 
 	i = -1;
-	iter = parser;
+	iter = *parser;
 	while (iter)
 	{
 		tmp = iter->redir;
@@ -63,10 +62,10 @@ int	heredock(t_parser *parser, t_env *env, int exit_code)
 			{
 				do_name(&filename, &i);
 				do_heredock(tmp, filename, env, exit_code);
-			}
-			if (tmp->dest)
+				if (tmp->dest)
 				free(tmp->dest);
-			tmp->dest = filename;
+				tmp->dest = filename;
+			}
 		}
 		iter = iter->next;
 	}
