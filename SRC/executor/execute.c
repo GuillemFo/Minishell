@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/04/11 12:48:38 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/11 15:10:38 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@ int	execute(t_parser *parser, t_env **envi, int *error)
 	signal(SIGINT, handle_sigint);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGINT)
+			return(130);
+		else if (WTERMSIG(status) == SIGQUIT)
+		{
+			return(131);
+			ft_printf("Quit: 3\n");
+		}
+	}
 	return (status);
 }
 
