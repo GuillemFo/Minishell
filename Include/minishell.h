@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:11:52 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/12 19:06:06 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 21:37:04 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ void				add_env_shell(t_env **env);
 void				del_env(t_parser *parser, t_env **env, int i);
 void				add_env(t_parser *parser, t_env **env, int i);
 void				edit_env(t_parser *parser, t_env **env, int i, char *tmp2);
-char				*clear_spaces(char *str);
 bool				env_has_equal(char *var);
 void				set_null_hidden(t_env *iter);
 
