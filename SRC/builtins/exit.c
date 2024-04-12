@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 07:58:02 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/12 22:58:13 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 23:02:45 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*value_clear(char *s)
 void	exit_support(t_parser *parser, int *error)
 {
 	char	*value;
+
 	value = value_clear(parser->cmd[1]);
 	if (ft_strlen(value) >= 19)
 	{
@@ -56,7 +57,6 @@ void	exit_support(t_parser *parser, int *error)
 
 int	builtin_exit(t_parser *parser, int *error)
 {
-
 	if (parser->cmd[1] && ft_check_arg_is_num(parser->cmd[1]) != 1)
 	{
 		errno_printer(" exit", "numeric argument required", parser->cmd[1]);
