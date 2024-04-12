@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 08:21:01 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/12 18:00:54 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 18:52:16 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ int	heredock(t_parser **parser, t_env *env, int exit_code)
 				do_name(&filename, &i);
 				do_heredock(tmp, filename, env, exit_code);
 				if (tmp->dest)
-				free(tmp->dest);
+					free(tmp->dest);
 				tmp->dest = filename;
+				iter->redir = tmp;
 			}
 		}
 		iter = iter->next;
