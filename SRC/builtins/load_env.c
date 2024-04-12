@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 08:34:19 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/11 11:10:29 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 15:24:02 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ bool	env_exist(t_env *env, char *str)
 	return (false);
 }
 
-
 char	*equal_til_end(char *var)
 {
 	int	x;
@@ -42,7 +41,6 @@ char	*equal_til_end(char *var)
 		return (ft_strdup(""));
 	return (NULL);
 }
-
 
 char	*get_til_equal(char *var)
 {
@@ -67,14 +65,13 @@ char	*get_til_equal(char *var)
 	return (name);
 }
 
-
 t_env	*load_env(char **envp)
 {
 	t_env	*env;
 	t_env	*start;
 	int		y;
 
-	if(envp == NULL || envp[0] == NULL)
+	if (envp == NULL || envp[0] == NULL)
 		return (NULL);
 	env = malloc(sizeof(t_env));
 	start = env;

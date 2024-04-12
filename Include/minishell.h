@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/12 14:19:32 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 15:07:20 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,10 @@ void	shell_level(t_env **env);
 void	add_env_shell(t_env **env);
 void	del_env(t_parser *parser, t_env **env, int i);
 void	add_env(t_parser *parser, t_env **env, int i);
-void	edit_env(t_parser *parser, t_env **env, int i);
+void	edit_env(t_parser *parser, t_env **env, int i, char *tmp2);
 char	*clear_spaces(char *str);
 bool	env_has_equal(char *var);
+void	set_null_hidden(t_env *iter);
 
 /*				HEREDOCK		*/
 int	heredock(t_parser *parser, t_env *env, int exit_code);
@@ -139,6 +140,7 @@ int	errno_printer_3(char *com, char *error_txt, char *asked, int val);
 void 	*free_env(t_env **env);
 long long	ft_atoll(char *str);
 void	*ft_free_split(char **s);
+void	three_free(void *one, void *two, void *three);
 
 /*==============================ANNA======================================*/
 void	ft_error(int ernu, char *msg, int *error);
