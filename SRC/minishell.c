@@ -5,26 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/11 12:32:06 by codespace        ###   ########.fr       */
+/*   Created: 2024/04/12 15:48:05 by codespace         #+#    #+#             */
+/*   Updated: 2024/04/12 15:52:23 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
 t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 {
-	int	i;
+	int			i;
 	t_parser	*iter;
-	t_redir	*tmp;
-	char	*tmp2;
-	char	*tmp_ex;
+	t_redir		*tmp;
+	char		*tmp2;
+	char		*tmp_ex;
 
-	tmp_ex = NULL;	
+	tmp_ex = NULL;
 	iter = parser;
 	if (iter != NULL)
-	{	
+	{
 		while (iter)
 		{
 			i = 0;
@@ -50,8 +49,6 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 	return (parser);
 }
 
-//		NORMINETTE LIBFT!!!!!!!
-
 int	main(int ac, char **av, char **envp)
 {
 	t_parser	*data;
@@ -59,28 +56,25 @@ int	main(int ac, char **av, char **envp)
 	t_env		*env;
 	int			error;
 	int			exit_code;
-	char *str;
-	
+	char		*str;
+
 	exit_code = 0;
 	error = 0;
 	(void)av;
 	if (ac != 1)
-		return(1);
+		return (1);
 	env = load_env(envp);
 	shell_level(&env);
-	
 	rl_catch_signals = 0;
-									//reminder that leaks atexit will kill program if use ctrl + c
-	signal(SIGINT, handle_sigint); 
+	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, handle_sigquit);
 	str = readline(C_G "minishell: " C_RESET);
 	if (str)
 	{
-
 		while (1)
 		{
 			add_history(str);
-			if (str) 
+			if (str)
 			{
 				error = 0;
 				input = ft_lexer(str);
@@ -88,8 +82,8 @@ int	main(int ac, char **av, char **envp)
 				if (!error && data)
 				{
 					data = clean_input(data, env, exit_code);
-					heredock(data, env, exit_code);	//heredock has to be expanded after clean_input;
-					error = execute(data, &env, &exit_code);	//pasando exit code arreglamos cosas.
+					heredock(data, env, exit_code);
+					error = execute(data, &env, &exit_code);
 					exit_code = error;
 				}
 				exit_code = error;
@@ -98,7 +92,7 @@ int	main(int ac, char **av, char **envp)
 				str = NULL;
 				str = readline(C_G "minishell: " C_RESET);
 				if (!str)
-					break;
+					break ;
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 03:27:45 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/11 11:09:33 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 15:32:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*expand_str_extra(char *str, int exit_code)
 {
 	char	*cont;
 	char	*tmp;
-	char 	*tmp2;
+	char	*tmp2;
 	char	*result;
 
 	cont = ft_itoa(exit_code);
@@ -30,14 +30,14 @@ char	*expand_str_extra(char *str, int exit_code)
 	return (result);
 }
 
-char *fnd_dllr_var(char *str, int exit_code)
+char	*fnd_dllr_var(char *str, int exit_code)
 {
 	int		x;
 	char	*result;
 
 	x = 0;
 	result = str;
-	while (result[x]!= '\0')
+	while (result[x] != '\0')
 	{
 		if (result[x] && result[x] == '$' && result[x + 1] == '?')
 		{

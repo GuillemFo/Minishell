@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/12 15:07:20 by codespace        ###   ########.fr       */
+/*   Created: 2024/04/12 16:11:52 by codespace         #+#    #+#             */
+/*   Updated: 2024/04/12 16:17:51 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -42,12 +41,12 @@
 
 /*-=-=-=-=-=-=-=-=STRUCTS=-=-=-=-=-=-=-=-*/
 
-typedef enum	e_sign
+typedef enum e_sign
 {
 	PIPE = 1,
 	GREATER,
 	LESS,
-	GREATER2, 
+	GREATER2,
 	LESSLESS,
 }					t_sign;
 
@@ -80,15 +79,27 @@ typedef struct s_parser
 	struct s_parser	*next;
 }					t_parser;
 
+typedef struct s_pipe
+{
+	int				num_cmds;
+	int				std_in;
+	int				std_out;
+	int				fd[2];
+	char			*path;
+	char			**paths;
+	pid_t			*children;
+}					t_pipe;
+
 /*-=-=-=-=-=-=-=-=-=-=-=SIGNALS=-=-=-=-=-=-=-=-=-=-=-=*/
 
 void				handle_sigint(int sig);
 void				handle_sigquit(int sig);
-void 				handle_sigint_child(int sig);
+void				handle_sigint_child(int sig);
 
 /*-=-=-=-=-=-=-=-=-=-=-=BUILTINS=-=-=-=-=-=-=-=-=-=-=-=*/
 //
-int					is_builtin_execute(t_parser *token, t_env **env, int *error);
+int					is_builtin_execute(t_parser *token, t_env **env,
+						int *error);
 int					built_ls(void);
 int					built_grep(void);
 t_env				*load_env(char **envp);
@@ -106,46 +117,54 @@ int					check_is_n(char *str);
 t_env				**get_pwd(t_env **env);
 int					built_pwd(void);
 t_env				**get_old_pwd(t_env **env);
+
 /*-=-=-=-=-=-=-=-=-=-=-=ENV_TOOLS=-=-=-=-=-=-=-=-=-=-=-=*/
-void	shell_level(t_env **env);
-void	add_env_shell(t_env **env);
-void	del_env(t_parser *parser, t_env **env, int i);
-void	add_env(t_parser *parser, t_env **env, int i);
-void	edit_env(t_parser *parser, t_env **env, int i, char *tmp2);
-char	*clear_spaces(char *str);
-bool	env_has_equal(char *var);
-void	set_null_hidden(t_env *iter);
+
+void				shell_level(t_env **env);
+void				add_env_shell(t_env **env);
+void				del_env(t_parser *parser, t_env **env, int i);
+void				add_env(t_parser *parser, t_env **env, int i);
+void				edit_env(t_parser *parser, t_env **env, int i, char *tmp2);
+char				*clear_spaces(char *str);
+bool				env_has_equal(char *var);
+void				set_null_hidden(t_env *iter);
 
 /*				HEREDOCK		*/
-int	heredock(t_parser *parser, t_env *env, int exit_code);
+
+int					heredock(t_parser *parser, t_env *env, int exit_code);
+
 /*-=-=-=-=-=-=-=-=EXPANSOR=-=-=-=-=-=-=-=-=-=-=*/
 
-char				*fnd_dllr(char *str, t_env *env, int	exit_code);
-char 				*fnd_dllr_var(char *str, int exit_code);
-char	*expand_str_extra(char *str, int exit_code);
+char				*fnd_dllr(char *str, t_env *env, int exit_code);
+char				*fnd_dllr_var(char *str, int exit_code);
+char				*expand_str_extra(char *str, int exit_code);
 
 /*-=-=-=-=-=-=-=-=-=-=-=TOOLS=-=-=-=-=-=-=-=-=-=-=*/
-int	errno_printer_home(char *com, char *asked);
+int					errno_printer_home(char *com, char *asked);
 int					errno_printer(char *com, char *error_txt, char *asked);
-int					errno_printer_2(char *com, char *error_txt, char *asked, int val);
+int					errno_printer_2(char *com, char *error_txt, char *asked,
+						int val);
 char				*trim_after(char *str, char c);
 char				*trim_bef(char *str, char c);
-char 				*trim_after_dlr(char *str, char c);
-char				*clear_quotes(char **str, t_env *env, int exit_code, char *tmp_ex);
+char				*trim_after_dlr(char *str, char c);
+char				*clear_quotes(char **str, t_env *env, int exit_code,
+						char *tmp_ex);
 int					is_poss_char(char c);
-long long	ft_check_arg_is_num(char *argv);
-long long	ft_check_max_min(char *argv);
-int	errno_printer_export(char *com, char *error_txt, char *asked);
-int	errno_printer_3(char *com, char *error_txt, char *asked, int val);
-void 	*free_env(t_env **env);
-long long	ft_atoll(char *str);
-void	*ft_free_split(char **s);
-void	three_free(void *one, void *two, void *three);
+long long			ft_check_arg_is_num(char *argv);
+long long			ft_check_max_min(char *argv);
+int					errno_printer_export(char *com, char *error_txt,
+						char *asked);
+int					errno_printer_3(char *com, char *error_txt,
+						char *asked, int val);
+void				*free_env(t_env **env);
+long long			ft_atoll(char *str);
+void				*ft_free_split(char **s);
+void				three_free(void *one, void *two, void *three);
 
 /*==============================ANNA======================================*/
-void	ft_error(int ernu, char *msg, int *error);
-void	ft_other_error(char *msg, int *error, int num);
-void	free_all(t_parser *data);
+void				ft_error(int ernu, char *msg, int *error);
+void				ft_other_error(char *msg, int *error, int num);
+void				free_all(t_parser *data);
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-LEXER-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
 int					is_redir(char c);
 void				lexer(char *line);
@@ -176,50 +195,42 @@ t_parser			*ft_parser(t_lexer *lexer, int *error);
 t_sign				get_sign(char *sign);
 t_parser			*parser_creator(void);
 void				error_parser(char *msg);
-void				parser_content(t_lexer *lexer, t_parser *parser, int i, int	*error);
-t_redir				*redir_creator();
+void				parser_content(t_lexer *lexer, t_parser *parser, int i,
+						int	*error);
+t_redir				*redir_creator(void);
 void				first_redir(t_lexer *lexer, t_parser *parser, int *error);
 char				**commands(t_lexer *lexer);
 
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=EXECUTOR-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
 
-typedef	struct s_pipe
-{
-	int		num_cmds;
-	int		std_in;
-	int		std_out;
-	int		fd[2];
-	char	*path;
-	char	**paths;
-	pid_t	*children;
-}			t_pipe;
-
-int			parser_size(t_parser *parser);
-char		*ft_strjoini(char const *s1, char const *s2);
-void		exec_error(char	*message);
-int			env_size(t_env *env);
-char		**env_to_char(t_env	*env);
-void		redir_manager(t_parser *parser);
-int			find_last_redir_in(t_redir *redir);
-int			find_last_redir_out(t_redir *redir);
-int			execute(t_parser *parser, t_env	**envi, int *error);
-void		child_process(t_pipe *pipex, t_parser *parser, t_env **envi, int *error);
-void		fd_situation(t_pipe *pipex, t_parser *parser);
-void		parse_path(char **envp, t_pipe *pipex);
-char		*find_command(t_pipe *pipex, t_parser *parser, int *error);
-int			matrix_size(char **pars_cmds);
-void		free_parser(t_parser *parser);
-void		free_parent(t_pipe *pipex);
-int			error_child(int ernu, char *msg, int excode);
-t_parser 	*parser_update(t_parser *parser, int *i, t_lexer *lexer);
-int			is_builtin_or_not(t_parser *parser);
-void		exec_start(t_pipe *pipex, t_parser *parser);
-void		exec_finish(t_pipe *pipex);
-void		waiting(t_pipe *pipex, int *status, int num_cmds);
-void		execute_fin(t_parser *parser);
-int			is_lonely_builtin(t_parser *parser, t_pipe *pipex, t_env **envi, int *error);
-void		making_kids(t_parser *parser, t_pipe *pipex, t_env **envi, int *error);
-void		get_token(t_parser *parser, t_lexer *lexer, t_redir *tmp);
-
+int					parser_size(t_parser *parser);
+char				*ft_strjoini(char const *s1, char const *s2);
+void				exec_error(char	*message);
+int					env_size(t_env *env);
+char				**env_to_char(t_env	*env);
+void				redir_manager(t_parser *parser);
+int					find_last_redir_in(t_redir *redir);
+int					find_last_redir_out(t_redir *redir);
+int					execute(t_parser *parser, t_env	**envi, int *error);
+void				child_process(t_pipe *pipex, t_parser *parser,
+						t_env **envi, int *error);
+void				fd_situation(t_pipe *pipex, t_parser *parser);
+void				parse_path(char **envp, t_pipe *pipex);
+char				*find_command(t_pipe *pipex, t_parser *parser, int *error);
+int					matrix_size(char **pars_cmds);
+void				free_parser(t_parser *parser);
+void				free_parent(t_pipe *pipex);
+int					error_child(int ernu, char *msg, int excode);
+t_parser			*parser_update(t_parser *parser, int *i, t_lexer *lexer);
+int					is_builtin_or_not(t_parser *parser);
+void				exec_start(t_pipe *pipex, t_parser *parser);
+void				exec_finish(t_pipe *pipex);
+void				waiting(t_pipe *pipex, int *status, int num_cmds);
+void				execute_fin(t_parser *parser);
+int					is_lonely_builtin(t_parser *parser, t_pipe *pipex,
+						t_env **envi, int *error);
+void				making_kids(t_parser *parser, t_pipe *pipex,
+						t_env **envi, int *error);
+void				get_token(t_parser *parser, t_lexer *lexer, t_redir *tmp);
 
 #endif

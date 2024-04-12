@@ -21,7 +21,7 @@ SRC = minishell.c signals.c builtins/builtins.c tools.c builtins/load_env.c \
 	executor/execute_utils2.c parser/parser_utils2.c heredock.c	builtins/exit.c \
 	shell_lvl/shell_level.c builtins/env_prints.c builtins/env_tools.c \
 	builtins/env_tools_extra.c utils.c expansor/expansor_extra.c free_tools.c \
-	builtins/export.c builtins/pwd.c
+	builtins/export.c builtins/pwd.c errors_2.c
 
 SRC_PREFIX = $(addprefix $(SRC_PATH),$(SRC))
 

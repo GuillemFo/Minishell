@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   shell_level.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 09:56:09 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/03 10:26:11 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/12 15:44:41 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	add_env_shell(t_env **env)
 {
@@ -24,7 +23,7 @@ void	add_env_shell(t_env **env)
 		(*env)->content = ft_strdup("1");
 		(*env)->is_hidden = false;
 		(*env)->next = NULL;
-		return;
+		return ;
 	}
 	iter = *env;
 	while (iter->next != NULL)
@@ -55,7 +54,7 @@ long long	holder_cal(long long holder, char *content)
 	if (holder > 1000)
 	{
 		errno_printer_3("warning: shell level",
-		"too high, resetting to 1", ft_itoa(holder), 0);
+			"too high, resetting to 1", ft_itoa(holder), 0);
 		holder = 1;
 	}
 	return (holder);
@@ -63,9 +62,9 @@ long long	holder_cal(long long holder, char *content)
 
 void	shell_level(t_env **env)
 {
-	t_env	*iter;
+	t_env		*iter;
 	long long	holder;
-	
+
 	holder = 0;
 	iter = *env;
 	if (env_exist(*env, "SHLVL") == false)
@@ -74,12 +73,12 @@ void	shell_level(t_env **env)
 	{
 		while (iter)
 		{
-			if ((ft_strcmp("SHLVL", iter->name))== 0)
+			if ((ft_strcmp("SHLVL", iter->name)) == 0)
 			{
-				holder = holder_cal(holder, iter->content);	
+				holder = holder_cal(holder, iter->content);
 				free(iter->content);
 				iter->content = ft_itoa(holder);
-				break;
+				break ;
 			}
 			iter = iter->next;
 		}
