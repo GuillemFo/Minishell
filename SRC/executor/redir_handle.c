@@ -16,7 +16,7 @@ void	redir_manager(t_parser *parser)
 {
 	int	f;
 
-	if (!parser->redir)
+	if (!parser->redir || parser->redir->sign == 5)
 		return ;
 	if (parser->redir->sign == 2 || parser->redir->sign == 4)
 	{
@@ -25,7 +25,7 @@ void	redir_manager(t_parser *parser)
 			error_child(1, parser->redir->dest, 1);
 		dup2(f, STDOUT_FILENO);
 	}
-	if (parser->redir->sign == 3 || parser->redir->sign == 5)
+	if (parser->redir->sign == 3)
 	{
 		f = find_last_redir_in(parser->redir);
 		if (f < 0)
@@ -65,7 +65,7 @@ int	find_last_redir_in(t_redir *redir)
 	{
 		if (access(redir->dest, F_OK) == -1)
 			error_child(3, redir->dest, 1);
-		if ((redir->sign == 3 || redir->sign == 5) && redir->dest != NULL)
+		if ((redir->sign == 3) && redir->dest != NULL)
 		{
 			fd = open(redir->dest, O_RDONLY);
 			if (fd == -1)

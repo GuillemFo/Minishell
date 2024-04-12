@@ -88,7 +88,7 @@ int	main(int ac, char **av, char **envp)
 				if (!error && data)
 				{
 					data = clean_input(data, env, exit_code);
-					heredock(data, env, exit_code);	//heredock has to be expanded after clean_input;
+					//heredock(data, env, exit_code);	//heredock has to be expanded after clean_input;
 					error = execute(data, &env, &exit_code);	//pasando exit code arreglamos cosas.
 					exit_code = error;
 				}
