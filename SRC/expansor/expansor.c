@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/12 15:31:42 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 22:25:19 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,36 @@ char	*get_env_name(char *str)
 	return (name);
 }
 
-char	*fnd_dllr(char *str, t_env *env, int exit_code)
+char	*dllr_support(char *result, t_env *env, int *x)
 {
-	int		x;
 	char	*env_name;
-	char	*result;
 	char	*tmp;
 	char	*tmp2;
 	char	*test1;
+
+	env_name = get_env_name(&result[*x + 1]);
+	if (env_exist(env, env_name) == true)
+		result = expand_str(env_name, env, result);
+	else
+	{
+		tmp = trim_bef(result, '$');
+		test1 = trim_after(result, '$');
+		free(result);
+		tmp2 = ft_strjoinplus(tmp, test1);
+		free(test1);
+		result = ft_strdup(tmp2);
+		free(tmp2);
+	}
+	*x = -1;
+	free(env_name);
+	return (result);
+}
+
+
+char	*fnd_dllr(char *str, t_env *env, int exit_code)
+{
+	int		x;
+	char	*result;
 
 	x = 0;
 	if (!str)
@@ -84,29 +106,10 @@ char	*fnd_dllr(char *str, t_env *env, int exit_code)
 	while (result[x] != '\0')
 	{
 		if (result[x] && result[x] == '$' && result[x + 1] == '?')
-		{
-			result = expand_str_extra(result, exit_code);
-			x = -1;
-		}
+			result = expand_str_extra(result, exit_code, &x);
 		else if (result[x] && result[x] == '$' && (is_poss_char(result[x + 1])
 				!= 0) && result[x + 1] != '\0')
-		{
-			env_name = get_env_name(&result[x + 1]);
-			if (env_exist(env, env_name) == true)
-				result = expand_str(env_name, env, result);
-			else
-			{
-				tmp = trim_bef(result, '$');
-				test1 = trim_after(result, '$');
-				free(result);
-				tmp2 = ft_strjoinplus(tmp, test1);
-				free(test1);
-				result = ft_strdup(tmp2);
-				free(tmp2);
-			}
-			x = -1;
-			free(env_name);
-		}
+			result = dllr_support(result, env, &x);
 		x++;
 	}
 	return (result);

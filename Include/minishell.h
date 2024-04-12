@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:11:52 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/12 21:37:04 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 22:12:45 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int					heredock(t_parser **parser, t_env *env, int exit_code);
 
 char				*fnd_dllr(char *str, t_env *env, int exit_code);
 char				*fnd_dllr_var(char *str, int exit_code);
-char				*expand_str_extra(char *str, int exit_code);
+char				*expand_str_extra(char *str, int exit_code, int *x);
 
 /*-=-=-=-=-=-=-=-=-=-=-=TOOLS=-=-=-=-=-=-=-=-=-=-=*/
 int					errno_printer_home(char *com, char *asked);

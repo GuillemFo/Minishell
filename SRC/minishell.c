@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:48:05 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/12 21:42:08 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 21:52:22 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	main(int ac, char **av, char **envp)
 				{
 					data = clean_input(data, env, exit_code);
 					heredock(&data, env, exit_code);
-					ft_printf("how?%s\n", data->redir->dest);
 					error = execute(data, &env, &exit_code);
 					exit_code = error;
 				}

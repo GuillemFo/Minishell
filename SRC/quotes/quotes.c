@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/12 15:38:12 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 22:06:57 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,7 @@ char	*cnt_aft_q(char *str, char c)
 	res = malloc (((i - j) + 1) * sizeof(char));
 	i = 0;
 	while (str[j] != '\0')
-	{
-		res[i] = str[j];
-		i++;
-		j++;
-	}
+		res[i++] = str[j++];
 	res[i] = '\0';
 	return (res);
 }
@@ -143,7 +139,6 @@ char	*clear_quotes(char **str, t_env *env, int exit_code, char *tmp_ex)
 	char	*tmp_help;
 	char	c;
 
-	(void)tmp_ex;
 	res = ft_strdup(*str);
 	c = has_quotes(res);
 	if (has_quotes(res) != '\0')
