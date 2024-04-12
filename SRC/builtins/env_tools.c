@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:32:24 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/11 11:20:05 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 15:14:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	del_env_first(t_parser *parser, t_env **env, int i)
 {
 	t_env	*prev;
-	char *tmp;
-	
+	char	*tmp;
+
 	tmp = get_til_equal(parser->cmd[i]);
 	if ((*env)->name != NULL && ft_strcmp((*env)->name, tmp) == 0)
 	{
@@ -26,15 +26,17 @@ void	del_env_first(t_parser *parser, t_env **env, int i)
 		free(prev->content);
 		free(prev);
 		free(tmp);
+		tmp = NULL;
 	}
-	free(tmp);
+	if (tmp != NULL)
+		free(tmp);
 }
 
 void	del_env(t_parser *parser, t_env **env, int i)
 {
 	t_env	*prev;
 	t_env	*iter;
-	char *tmp;
+	char	*tmp;
 
 	del_env_first(parser, env, i);
 	prev = NULL;
@@ -48,11 +50,9 @@ void	del_env(t_parser *parser, t_env **env, int i)
 				(*env) = iter->next;
 			else
 				prev->next = iter->next;
-			free(iter->name);
-			free(iter->content);
-			free(iter);
+			three_free(iter->name, iter->content, iter);
 			free(tmp);
-			break;
+			break ;
 		}
 		free(tmp);
 		prev = iter;
@@ -60,11 +60,10 @@ void	del_env(t_parser *parser, t_env **env, int i)
 	}
 }
 
-void	edit_env(t_parser *parser, t_env **env, int i)
+void	edit_env(t_parser *parser, t_env **env, int i, char *tmp2)
 {
-	t_env *iter;
-	char *tmp;
-	char *tmp2;
+	t_env	*iter;
+	char	*tmp;
 
 	iter = *env;
 	while (iter)
@@ -76,17 +75,15 @@ void	edit_env(t_parser *parser, t_env **env, int i)
 			tmp2 = equal_til_end(parser->cmd[i]);
 			if (env_has_equal(parser->cmd[i]) == 0)
 			{
-				iter->content = NULL;
-				iter->is_hidden = true;
+				set_null_hidden(iter);
 				free(tmp2);
-				break;
+				break ;
 			}
 			iter->content = tmp2;
 			iter->is_hidden = false;
-			break;
+			break ;
 		}
 		free(tmp);
-		//tmp = NULL;
 		iter = iter->next;
 	}
 	free(tmp);
@@ -103,7 +100,7 @@ void	add_env(t_parser *parser, t_env **env, int i)
 		(*env)->is_hidden = env_no_value(parser->cmd[i]);
 		(*env)->content = equal_til_end(parser->cmd[i]);
 		(*env)->next = NULL;
-		return;
+		return ;
 	}
 	iter = *env;
 	while (iter->next != NULL)

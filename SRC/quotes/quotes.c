@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/08 12:05:51 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 15:38:12 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	s_has_q(char *str)
 {
 	int	i;
+
 	i = 0;
 	if (str)
 	{
@@ -30,9 +31,9 @@ int	s_has_q(char *str)
 	return (0);
 }
 
-char *cnt_b_q(char *str, char c)
+char	*cnt_b_q(char *str, char c)
 {
-	int	i;
+	int		i;
 	char	*res;
 
 	i = 0;
@@ -56,12 +57,10 @@ char *cnt_b_q(char *str, char c)
 	return (NULL);
 }
 
-//	ft_printf("cont in q:%c:\n", str[i]);
-
 char	*cnt_in_q(char *str, char c)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*res;
 
 	i = 0;
@@ -73,7 +72,7 @@ char	*cnt_in_q(char *str, char c)
 	j = i;
 	while (str[i] != c && str[i] != '\0')
 		i++;
-	res = malloc (((i - j) + 1) *sizeof(char));
+	res = malloc (((i - j) + 1) * sizeof(char));
 	i = 0;
 	while (str[j] != c && str[j] != '\0')
 	{
@@ -87,8 +86,8 @@ char	*cnt_in_q(char *str, char c)
 
 char	*cnt_aft_q(char *str, char c)
 {
-	int	i;
-	int j;
+	int		i;
+	int		j;
 	char	*res;
 
 	i = 0;
@@ -103,7 +102,7 @@ char	*cnt_aft_q(char *str, char c)
 	j = i;
 	while (str[i] != '\0')
 		i++;
-	res = malloc (((i - j) + 1) *sizeof(char));	//leaks!!
+	res = malloc (((i - j) + 1) * sizeof(char));
 	i = 0;
 	while (str[j] != '\0')
 	{
@@ -115,14 +114,14 @@ char	*cnt_aft_q(char *str, char c)
 	return (res);
 }
 
-
 char	has_quotes(char *str)
 {
 	int	i;
+
 	i = 0;
 	if (!str)
 	{
-		return('\0');
+		return ('\0');
 	}
 	while (str[i] != '\0')
 	{
@@ -137,7 +136,7 @@ char	has_quotes(char *str)
 
 char	*clear_quotes(char **str, t_env *env, int exit_code, char *tmp_ex)
 {
-	char 	*tmp_bef;
+	char	*tmp_bef;
 	char	*tmp_cont;
 	char	*tmp_after;
 	char	*res;
@@ -165,7 +164,7 @@ char	*clear_quotes(char **str, t_env *env, int exit_code, char *tmp_ex)
 			tmp_bef = NULL;
 		}
 		tmp_after = cnt_aft_q(res, c);
-		while (has_quotes(tmp_after) != '\0') // do the tmp_bef and tmp_cont and add it to old tmp_cont?? so it wont redo the other string and clean possible ' or " might encounter?
+		while (has_quotes(tmp_after) != '\0')
 		{
 			c = has_quotes(tmp_after);
 			tmp_ex = cnt_b_q(tmp_after, c);
@@ -193,7 +192,6 @@ char	*clear_quotes(char **str, t_env *env, int exit_code, char *tmp_ex)
 		tmp_ex = fnd_dllr(tmp_after, env, exit_code);
 		res = ft_strjoinplus(tmp_cont, tmp_ex);
 		free(tmp_ex);
-	
 	}
 	else
 	{

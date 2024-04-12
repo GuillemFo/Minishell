@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:36:16 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/11 10:18:06 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 15:24:58 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	env_has_equal(char *var)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (var[i] != '=' && var[i] != '\0')
@@ -41,17 +41,13 @@ bool	env_no_value(char *var)
 	while (var[i] != '=' && var[i] != '\0')
 		i++;
 	if (var[i] == '\0')
-	{
-		//ft_printf("no value true\n");	//reminder to delete this printf!!
 		return (true);
-	}
-	//ft_printf("no value false\n");
 	return (false);
 }
 
 char	*get_home(t_env *env)
 {
-	t_env *iter;
+	t_env	*iter;
 
 	iter = env;
 	while (iter != NULL)

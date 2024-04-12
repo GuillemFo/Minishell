@@ -6,18 +6,18 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/11 11:22:14 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 15:31:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-
 /*=======	WARNING, BE CAREFUL WHEN SPLEETING THIS FUNCTIONS	==========*/
-/*	try (export value and echo $value) (echo $USER$?)  (echo $? $USER) echo $'?' echo $"?"*/
+/*	try (export value and echo $value) (echo $USER$?)  (echo $? $USER) 
+echo $'?' echo $"?"*/
 
-// CURRENTLY NOT WORKIN!!! echo "$USER $USER $USER" and so on, mess around inside double quotes
+// CURRENTLY NOT WORKIN!!! echo "$USER $USER $USER" and so on, mess around 
+//inside double quotes
 //and apply fix to expand_str_extra
 char	*expand_str(char *name, t_env *env, char *str)
 {
@@ -65,20 +65,18 @@ char	*get_env_name(char *str)
 	return (name);
 }
 
-
-
 char	*fnd_dllr(char *str, t_env *env, int exit_code)
 {
 	int		x;
 	char	*env_name;
 	char	*result;
-	char	*tmp; //anna tenia esto comentado
+	char	*tmp;
 	char	*tmp2;
-	char 	*test1;
+	char	*test1;
 
 	x = 0;
 	if (!str)
-		return NULL;
+		return (NULL);
 	result = ft_strdup(str);
 	free(str);
 	if (!result)
@@ -90,7 +88,8 @@ char	*fnd_dllr(char *str, t_env *env, int exit_code)
 			result = expand_str_extra(result, exit_code);
 			x = -1;
 		}
-		else if (result[x] && result[x] == '$' && (is_poss_char(result[x + 1]) != 0) && result[x + 1] != '\0')
+		else if (result[x] && result[x] == '$' && (is_poss_char(result[x + 1])
+				!= 0) && result[x + 1] != '\0')
 		{
 			env_name = get_env_name(&result[x + 1]);
 			if (env_exist(env, env_name) == true)
@@ -112,4 +111,3 @@ char	*fnd_dllr(char *str, t_env *env, int exit_code)
 	}
 	return (result);
 }
-

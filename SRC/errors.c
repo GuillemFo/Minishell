@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:43:57 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/28 17:15:56 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/12 13:54:57 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,3 @@ void	free_all(t_parser *data)
 	if (data)
 		free_parser(data);
 }
-
