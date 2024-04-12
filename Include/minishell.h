@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/04/11 12:19:15 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 14:19:32 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,17 @@ t_env				*load_env(char **envp);
 int					print_env_lst(t_env *env);
 int					print_hidden_lst(t_env *env);
 bool				env_exist(t_env *env, char *str);
-bool	env_no_value(char *var);
-char	*get_til_equal(char *var);
-char	*equal_til_end(char	*var);
-char	*get_home(t_env *env);
-int		builtin_export(t_parser *parser, t_env **env, int ret);
-int		builtin_unset(t_parser *parser, t_env **env);
-int	builtin_exit(t_parser *parser, int *error);
+bool				env_no_value(char *var);
+char				*get_til_equal(char *var);
+char				*equal_til_end(char	*var);
+char				*get_home(t_env *env);
+int					builtin_export(t_parser *parser, t_env **env, int ret);
+int					builtin_unset(t_parser *parser, t_env **env);
+int					builtin_exit(t_parser *parser, int *error);
+int					check_is_n(char *str);
+t_env				**get_pwd(t_env **env);
+int					built_pwd(void);
+t_env				**get_old_pwd(t_env **env);
 /*-=-=-=-=-=-=-=-=-=-=-=ENV_TOOLS=-=-=-=-=-=-=-=-=-=-=-=*/
 void	shell_level(t_env **env);
 void	add_env_shell(t_env **env);
