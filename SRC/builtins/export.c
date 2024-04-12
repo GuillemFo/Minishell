@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 08:16:36 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/12 15:17:20 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 16:30:20 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,6 @@ int	builtin_export(t_parser *parser, t_env **env, int ret)
 		free(tmp);
 	}
 	return (ret);
-}
-
-void	three_free(void *one, void *two, void *three)
-{
-	free(one);
-	free(two);
-	free(three);
 }
 
 void	set_null_hidden(t_env *iter)

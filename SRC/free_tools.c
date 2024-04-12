@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 06:44:25 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/12 15:45:18 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 16:31:18 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,17 @@ void	*ft_free_split(char **s)
 	}
 	free(s);
 	return (NULL);
+}
+
+void	two_free(void *one, void *two)
+{
+	free(one);
+	free(two);
+}
+
+void	three_free(void *one, void *two, void *three)
+{
+	free(one);
+	free(two);
+	free(three);
 }
