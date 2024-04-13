@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 12:22:21 by adanylev          #+#    #+#             */
-/*   Updated: 2024/03/27 22:45:09 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/13 12:10:19 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	parser_size(t_parser *parser)
 char	**env_to_char(t_env *env)
 {
 	char	**new_env;
-	char 	*tmp;
+	char	*tmp;
 	int		i;
 
 	i = 0;

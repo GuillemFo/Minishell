@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 16:21:15 by adanylev          #+#    #+#             */
-/*   Updated: 2024/04/06 16:06:12 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/13 12:03:00 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	free_parser(t_parser *parser)
 	while (parser)
 	{
 		if (tmp->cmd)
-		 	free_matrix(tmp->cmd, matrix_size(tmp->cmd));
+			free_matrix(tmp->cmd, matrix_size(tmp->cmd));
 		if (tmp->redir)
-		 	free_redir(tmp->redir);
+			free_redir(tmp->redir);
 		parser = parser->next;
 		free(tmp);
 		tmp = parser;

@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 11:35:16 by adanylev          #+#    #+#             */
-/*   Updated: 2024/04/03 14:56:24 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/13 12:02:21 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ t_lexer	*tokenize(t_lexer *lexer, char **split)
 	{
 		if (!is_sign(split[i][0]))
 		{
-			lexer->content = token(lexer->content, split[i],
-			ft_strlen(split[i]) + 1);
+			lexer->content = token(lexer->content, split[i], ft_strlen(split[i])
+					+ 1);
 			lexer->sign = 0;
 		}
 		else if (is_sign(split[i][0]))
@@ -43,7 +43,8 @@ t_lexer	*tokenize(t_lexer *lexer, char **split)
 void	sign(t_lexer *lexer, char *split)
 {
 	lexer->content = NULL;
-	if (split[1] && is_redir(split[0]) && is_redir(split[0]) == is_redir(split[1]))
+	if (split[1] && is_redir(split[0])
+		&& is_redir(split[0]) == is_redir(split[1]))
 	{
 		if (is_sign(split[0]) == 2)
 			lexer->sign = GREATER2;
@@ -70,4 +71,14 @@ t_lexer	*lexer_creator(void)
 	lexer->sign = 0;
 	lexer->next = NULL;
 	return (lexer);
+}
+
+int	is_redir(char c)
+{
+	if (c == '>')
+		return (2);
+	if (c == '<')
+		return (3);
+	else
+		return (0);
 }

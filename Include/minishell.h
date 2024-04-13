@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:11:52 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/12 17:35:51 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/13 15:17:21 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@
 # define C_RESET "\x1b[0m"
 
 /*-=-=-=-=-=-=-=-=STRUCTS=-=-=-=-=-=-=-=-*/
+
+typedef	struct	s_errors
+{
+	int	error;
+	int	exit_code;
+}				t_errors;		
 
 typedef enum e_sign
 {
@@ -203,6 +209,7 @@ char				**commands(t_lexer *lexer);
 
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=EXECUTOR-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
 
+int					status_situation(int status);
 int					parser_size(t_parser *parser);
 char				*ft_strjoini(char const *s1, char const *s2);
 void				exec_error(char	*message);
