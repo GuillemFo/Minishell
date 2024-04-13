@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:11:52 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/13 17:21:11 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:26:18 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,48 @@ typedef struct s_pipe
 	pid_t			*children;
 }					t_pipe;
 
+typedef struct s_tmp
+{
+	char			*tmp_ex;
+	char			*tmp_bef;
+	char			*tmp_cont;
+	char			*tmp_after;
+	char			*res;
+	char			*tmp_help;
+	char			c;
+}					t_tmp;
+
 /*-=-=-=-=-=-=-=-=-=-=-=SIGNALS=-=-=-=-=-=-=-=-=-=-=-=*/
 
 void				handle_sigint(int sig);
 void				handle_sigquit(int sig);
 void				handle_sigint_child(int sig);
 
+/*-=-=-=-=-=-=-=-=-=-=-=QUOTES=-=-=-=-=-=-=-=-=-=-=-=*/
+
+void				cl_quotes_s(t_redir **tmp, char **tmp2, t_env *env,
+						int exit_code);
+char				*clear_quotes(char **str, t_env *env, int exit_code);
+void				clear_q_1(t_tmp *tmp, char **res, t_env *env,
+						int exit_code);
+void				clear_q_2(t_tmp *tmp, char **res);
+void				clear_q_3(t_tmp *tmp, t_env *env, int exit_code);
+void				clear_q_4(t_tmp *tmp, t_env *env, int exit_code);
+void				clear_q_5(t_tmp *tmp);
+void				clear_q_6(t_tmp *tmp);
+void				clear_q_7(t_tmp *tmp, char **res, t_env *env,
+						int exit_code);
+void				clear_q_8(t_tmp *tmp, char **res, t_env *env,
+						int exit_code);
+void				multi_q(t_tmp *tmp, t_env *env, int exit_code);
+char				has_quotes(char *str);
+char				*cnt_b_q(char *str, char c);
+char				*cnt_in_q(char *str, char c);
+char				*cnt_aft_q(char *str, char c);
+int					errno_printer_quotes(char *com, char *error_txt,
+						int val);
 /*-=-=-=-=-=-=-=-=-=-=-=BUILTINS=-=-=-=-=-=-=-=-=-=-=-=*/
-//
+
 int					is_builtin_execute(t_parser *token, t_env **env,
 						int *error);
 int					built_ls(void);
@@ -132,7 +166,6 @@ void				add_env_shell(t_env **env);
 void				del_env(t_parser *parser, t_env **env, int i);
 void				add_env(t_parser *parser, t_env **env, int i);
 void				edit_env(t_parser *parser, t_env **env, int i, char *tmp2);
-char				*clear_spaces(char *str);
 bool				env_has_equal(char *var);
 void				set_null_hidden(t_env *iter);
 
@@ -144,7 +177,7 @@ int					heredock(t_parser **parser, t_env *env, int exit_code);
 
 char				*fnd_dllr(char *str, t_env *env, int exit_code);
 char				*fnd_dllr_var(char *str, int exit_code);
-char				*expand_str_extra(char *str, int exit_code);
+char				*expand_str_extra(char *str, int exit_code, int *x);
 
 /*-=-=-=-=-=-=-=-=-=-=-=TOOLS=-=-=-=-=-=-=-=-=-=-=*/
 int					errno_printer_home(char *com, char *asked);
@@ -154,8 +187,7 @@ int					errno_printer_2(char *com, char *error_txt, char *asked,
 char				*trim_after(char *str, char c);
 char				*trim_bef(char *str, char c);
 char				*trim_after_dlr(char *str, char c);
-char				*clear_quotes(char **str, t_env *env, int exit_code,
-						char *tmp_ex);
+
 int					is_poss_char(char c);
 long long			ft_check_arg_is_num(char *argv);
 long long			ft_check_max_min(char *argv);

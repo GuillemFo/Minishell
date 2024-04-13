@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:29:12 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/12 16:03:57 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/12 21:37:16 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,45 +65,6 @@ long long	ft_check_arg_is_num(char *argv)
 	if (ft_check_max_min(argv) == 0)
 		return (0);
 	return (1);
-}
-
-char	*clear_spaces(char *str)
-{
-	int		i;
-	int		j;
-	char	*new;
-
-	i = 0;
-	j = 0;
-	new = malloc(sizeof(char) * (ft_strlen(str) + 1));
-	if (!new)
-		return (NULL);
-	while (str[i] != '\0')
-	{
-		if (str[i] != ' ' && str[i + 1] != ' ')
-		{
-			new[j] = str[i];
-			j++;
-		}
-		else if (str[i] != ' ' && str[i + 1] == ' ')
-		{
-			new[j] = str[i];
-			j++;
-			if (str[i + 2] != '\0')
-			{
-				new[j] = str[i + 1];
-				j++;
-			}
-		}
-		else if (str[i] != ' ' && str[i + 1] == '\0')
-		{
-			new[j] = str[i];
-			j++;
-		}
-		i++;
-	}
-	new[j] = '\0';
-	return (new);
 }
 
 long long	ft_atoll(char *str)

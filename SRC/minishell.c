@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:48:05 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/13 17:21:19 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:25:12 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,27 @@
 t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 {
 	int			i;
-	t_parser	*iter;
+	t_parser	*itr;
 	t_redir		*tmp;
 	char		*tmp2;
-	char		*tmp_ex;
 
-	tmp_ex = NULL;
-	iter = parser;
-	if (iter != NULL)
+	itr = parser;
+	if (itr != NULL)
 	{
-		while (iter)
+		while (itr)
 		{
-			i = 0;
-			while (iter->cmd && iter->cmd[i] != NULL && iter->cmd[i][0] != '\0')
+			i = -1;
+			while (itr->cmd && itr->cmd[++i] != NULL && itr->cmd[i][0] != '\0')
 			{
-				tmp2 = clear_quotes(&(iter->cmd[i]), env, exit_code, tmp_ex);
-				free(iter->cmd[i]);
-				iter->cmd[i] = ft_strdup(tmp2);
+				tmp2 = clear_quotes(&(itr->cmd[i]), env, exit_code);
+				free(itr->cmd[i]);
+				itr->cmd[i] = ft_strdup(tmp2);
 				free(tmp2);
-				i++;
 			}
-			tmp = iter->redir;
+			tmp = itr->redir;
 			while (tmp && tmp->dest)
-			{
-				tmp2 = clear_quotes(&(tmp->dest), env, exit_code, tmp_ex);
-				free(tmp->dest);
-				tmp->dest = tmp2;
-				tmp = tmp->next;
-			}
-			iter = iter->next;
+				cl_quotes_s(&tmp, &tmp2, env, exit_code);	//test if heredock leaks with multiple ones, cat -e << EOF << EOF1 << EOF2
+			itr = itr->next;
 		}
 	}
 	return (parser);

@@ -6,30 +6,11 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/12 15:38:12 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/13 13:46:44 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	s_has_q(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str)
-	{
-		while (str[i] != '\0' && str[i] != '\'' && str[i] != '\"')
-			i++;
-		if (str[i] == '\0')
-			return (0);
-		else if (str[i] == '\'')
-			return (1);
-		else if (str[i] == '\"')
-			return (2);
-	}
-	return (0);
-}
 
 char	*cnt_b_q(char *str, char c)
 {
@@ -105,11 +86,7 @@ char	*cnt_aft_q(char *str, char c)
 	res = malloc (((i - j) + 1) * sizeof(char));
 	i = 0;
 	while (str[j] != '\0')
-	{
-		res[i] = str[j];
-		i++;
-		j++;
-	}
+		res[i++] = str[j++];
 	res[i] = '\0';
 	return (res);
 }
@@ -134,69 +111,26 @@ char	has_quotes(char *str)
 	return ('\0');
 }
 
-char	*clear_quotes(char **str, t_env *env, int exit_code, char *tmp_ex)
+char	*clear_quotes(char **str, t_env *env, int exit_code)
 {
-	char	*tmp_bef;
-	char	*tmp_cont;
-	char	*tmp_after;
+	t_tmp	tmp;
 	char	*res;
-	char	*tmp_help;
-	char	c;
 
-	(void)tmp_ex;
 	res = ft_strdup(*str);
-	c = has_quotes(res);
+	tmp.c = has_quotes(res);
 	if (has_quotes(res) != '\0')
 	{
-		tmp_bef = fnd_dllr(cnt_b_q(res, c), env, exit_code);
-		if (c == '\"')
-		{
-			tmp_ex = cnt_in_q(res, c);
-			tmp_help = fnd_dllr(tmp_ex, env, exit_code);
-			tmp_cont = ft_strjoinplus(tmp_bef, tmp_help);
-			free(tmp_help);
-		}
-		else if (c == '\'')
-		{
-			tmp_ex = cnt_in_q(res, c);
-			tmp_cont = ft_strjoinplus(tmp_bef, tmp_ex);
-			free(tmp_ex);
-			tmp_bef = NULL;
-		}
-		tmp_after = cnt_aft_q(res, c);
-		while (has_quotes(tmp_after) != '\0')
-		{
-			c = has_quotes(tmp_after);
-			tmp_ex = cnt_b_q(tmp_after, c);
-			tmp_help = fnd_dllr(tmp_ex, env, exit_code);
-			tmp_bef = ft_strjoinplus(tmp_cont, tmp_help);
-			free(tmp_help);
-			if (c == '\"')
-			{
-				tmp_ex = cnt_in_q(tmp_after, c);
-				tmp_help = fnd_dllr(tmp_ex, env, exit_code);
-				tmp_cont = ft_strjoinplus(tmp_bef, tmp_help);
-				free(tmp_help);
-			}
-			else if (c == '\'')
-			{
-				tmp_ex = cnt_in_q(tmp_after, c);
-				tmp_cont = ft_strjoinplus(tmp_bef, tmp_ex);
-				free(tmp_ex);
-			}
-			tmp_ex = cnt_aft_q(tmp_after, c);
-			free(tmp_after);
-			tmp_after = tmp_ex;
-		}
-		free(res);
-		tmp_ex = fnd_dllr(tmp_after, env, exit_code);
-		res = ft_strjoinplus(tmp_cont, tmp_ex);
-		free(tmp_ex);
+		tmp.tmp_bef = fnd_dllr(cnt_b_q(res, tmp.c), env, exit_code);
+		if (tmp.c == '\"')
+			clear_q_1(&tmp, &res, env, exit_code);
+		else if (tmp.c == '\'')
+			clear_q_2(&tmp, &res);
+		tmp.tmp_after = cnt_aft_q(res, tmp.c);
+		while (has_quotes(tmp.tmp_after) != '\0')
+			multi_q(&tmp, env, exit_code);
+		clear_q_7(&tmp, &res, env, exit_code);
 	}
 	else
-	{
-		tmp_ex = fnd_dllr(res, env, exit_code);
-		res = tmp_ex;
-	}
+		clear_q_8(&tmp, &res, env, exit_code);
 	return (res);
 }
