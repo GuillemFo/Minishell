@@ -67,11 +67,10 @@ rdline:
 		@cd ./readline/ && ./configure
 		@make -C ./readline
 		@echo "$(GREEN)Readline compiled$(RESET)"
-#@rm ./readline/rdcfg
 
 libraries:
 		@$(MAKE) -C $(LIBFT_PATH) bonus --no-print-directory
-#@$(MAKE) rdline --no-print-directory
+		@$(MAKE) rdline --no-print-directory
 
 $(OBJ_PATH)%.o:%.c Makefile $(LIB_A) $(INC)minishell.h
 		@mkdir	-p $(dir $@)
@@ -92,7 +91,7 @@ fclean:	clean
 		@rm -rf $(NAME)
 
 		@echo "$(CYAN)Minishell $(RED)deleted$(RESET)"
-#@$(MAKE) -s -C readline clean --no-print-directory
-#@echo "$(CYAN)Readline $(RED)deleted$(RESET)"
+		@$(MAKE) -s -C readline clean --no-print-directory
+		@echo "$(CYAN)Readline $(RED)deleted$(RESET)"
 
 .PHONY: all re clean fclean 

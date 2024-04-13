@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:48:05 by codespace         #+#    #+#             */
 /*   Updated: 2024/04/13 17:25:12 by adanylev         ###   ########.fr       */
@@ -34,7 +34,7 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 			}
 			tmp = itr->redir;
 			while (tmp && tmp->dest)
-				cl_quotes_s(&tmp, &tmp2, env, exit_code);	//test if heredock leaks with multiple ones, cat -e << EOF << EOF1 << EOF2
+				cl_quotes_s(&tmp, &tmp2, env, exit_code);
 			itr = itr->next;
 		}
 	}

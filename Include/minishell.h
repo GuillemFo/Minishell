@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:11:52 by codespace         #+#    #+#             */
 /*   Updated: 2024/04/13 17:26:18 by adanylev         ###   ########.fr       */
@@ -41,7 +41,7 @@
 
 /*-=-=-=-=-=-=-=-=STRUCTS=-=-=-=-=-=-=-=-*/
 
-typedef	struct	s_errors
+typedef struct s_errors
 {
 	int	error;
 	int	exit_code;
