@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:48:05 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/13 17:25:12 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/13 15:35:54 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 	return (parser);
 }
 
-t_env	*inition_signals_env(int *error, int *exit_code, char **envp, t_env *env)
+t_env	*inition_signals_env(int *error, int *exit_code, char **envp,
+		t_env *env)
 {
 	*error = 0;
 	*exit_code = 0;
@@ -60,8 +61,7 @@ void	executing(t_parser *data, t_env *env, t_errors *err)
 	err->error = execute(data, &env, &err->exit_code);
 }
 
-
-char *freestyle(int error, int *exit_code, t_parser *data, char *str)
+char	*freestyle(int error, int *exit_code, t_parser *data, char *str)
 {
 	*exit_code = error;
 	free_parser(data);
