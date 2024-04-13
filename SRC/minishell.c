@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:48:05 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/13 14:37:35 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/13 17:25:12 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,55 +41,66 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 	return (parser);
 }
 
+t_env	*inition_signals_env(int *error, int *exit_code, char **envp, t_env *env)
+{
+	*error = 0;
+	*exit_code = 0;
+	env = load_env(envp);
+	shell_level(&env);
+	rl_catch_signals = 0;
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, handle_sigquit);
+	return (env);
+}
+
+void	executing(t_parser *data, t_env *env, t_errors *err)
+{
+	data = clean_input(data, env, err->exit_code);
+	heredock(&data, env, err->exit_code);
+	err->error = execute(data, &env, &err->exit_code);
+}
+
+
+char *freestyle(int error, int *exit_code, t_parser *data, char *str)
+{
+	*exit_code = error;
+	free_parser(data);
+	free(str);
+	str = NULL;
+	return (readline(C_G "minishell: " C_RESET));
+}
 
 int	main(int ac, char **av, char **envp)
 {
 	t_parser	*data;
 	t_lexer		*input;		
 	t_env		*env;
-	int			error;
-	int			exit_code;
-	char		*str;
+	t_errors	err;
 
-	exit_code = 0;
-	error = 0;
 	(void)av;
 	if (ac != 1)
 		return (1);
-	env = load_env(envp);
-	shell_level(&env);
-	rl_catch_signals = 0;
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, handle_sigquit);
-	str = readline(C_G "minishell: " C_RESET);
-	if (str)
+	env = NULL;
+	env = inition_signals_env(&err.error, &err.exit_code, envp, env);
+	err.str = readline(C_G "minishell: " C_RESET);
+	if (err.str)
 	{
 		while (1)
 		{
-			add_history(str);
-			if (str)
+			add_history(err.str);
+			if (err.str)
 			{
-				error = 0;
-				input = ft_lexer(str);
-				data = ft_parser(input, &error);
-				if (!error && data)
-				{
-					data = clean_input(data, env, exit_code);
-					heredock(&data, env, exit_code);
-					//printf("hola\n");
-					error = execute(data, &env, &exit_code);
-					exit_code = error;
-				}
-				exit_code = error;
-				free_parser(data);
-				free(str);
-				str = NULL;
-				str = readline(C_G "minishell: " C_RESET);
-				if (!str)
+				err.error = 0;
+				input = ft_lexer(err.str);
+				data = ft_parser(input, &err.error);
+				if (!err.error && data)
+					executing(data, env, &err);
+				err.str = freestyle(err.error, &err.exit_code, data, err.str);
+				if (!err.str)
 					break ;
 			}
 		}
 	}
 	free_env(&env);
-	return (exit_code);
+	return (err.exit_code);
 }

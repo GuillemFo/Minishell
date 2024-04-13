@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:11:52 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/13 14:36:34 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/13 17:26:18 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_errors
 {
 	int	error;
 	int	exit_code;
+	char *str;
 }				t_errors;		
 
 typedef enum e_sign
@@ -271,5 +272,6 @@ int					is_lonely_builtin(t_parser *parser, t_pipe *pipex,
 void				making_kids(t_parser *parser, t_pipe *pipex,
 						t_env **envi, int *error);
 void				get_token(t_parser *parser, t_lexer *lexer, t_redir *tmp);
+
 
 #endif
