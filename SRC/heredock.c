@@ -3,24 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   heredock.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 08:21:01 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/13 10:39:26 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/13 14:30:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	unlink_heredocs(t_redir *red)
-{
-	while (red)
-	{
-		if (red->sign == LESSLESS)
-			unlink(red->dest);
-		red = red->next;
-	}
-}
 void	do_name(char **filename, int *i)
 {
 	char		*num;
@@ -74,13 +65,11 @@ int	heredock(t_parser **parser, t_env *env, int exit_code)
 				if (tmp->dest)
 					free(tmp->dest);
 				tmp->dest = filename;
-				//unlink_heredocs(iter->redir);
 			}
 			tmp = tmp->next;
 		}
 		iter = iter->next;
 	}
-	//unlink_heredocs(iter->redir);
 	return (0);
 }
 
