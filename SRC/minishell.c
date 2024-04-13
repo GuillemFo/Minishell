@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:48:05 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/13 12:32:39 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/13 16:10:09 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 	{
 		while (iter)
 		{
-			i = 0;
-			while (iter->cmd && iter->cmd[i] != NULL && iter->cmd[i][0] != '\0')
+			i = -1;
+			while (iter->cmd && iter->cmd[++i] != NULL && iter->cmd[i][0] != '\0')
 			{
 				tmp2 = clear_quotes(&(iter->cmd[i]), env, exit_code);
 				free(iter->cmd[i]);
@@ -35,12 +35,7 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 			}
 			tmp = iter->redir;
 			while (tmp && tmp->dest)
-			{
-				tmp2 = clear_quotes(&(tmp->dest), env, exit_code);
-				free(tmp->dest);
-				tmp->dest = tmp2;
-				tmp = tmp->next;
-			}
+				cl_quotes_s(tmp, &tmp2, env, exit_code);
 			iter = iter->next;
 		}
 	}
