@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_handle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:34:29 by adanylev          #+#    #+#             */
-/*   Updated: 2024/04/13 15:01:30 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/13 14:35:12 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	redir_manager(t_parser *parser)
 {
-	int	f;
+	int		f;
 	t_redir	*aux;
-	
+
 	aux = parser->redir;
 	while (aux)
 	{
@@ -72,7 +72,7 @@ int	find_last_redir_in(t_redir *redir)
 		if ((redir->sign == 3 || redir->sign == 5) && redir->dest != NULL)
 		{
 			if (access(redir->dest, F_OK) == -1)
-		 		error_child(3, redir->dest, 1);
+				error_child(3, redir->dest, 1);
 			fd = open(redir->dest, O_RDONLY);
 			if (fd == -1)
 				return (-1);
