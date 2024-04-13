@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:43:57 by adanylev          #+#    #+#             */
-/*   Updated: 2024/04/12 13:54:57 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/13 13:41:02 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,14 @@ void	free_all(t_parser *data)
 {
 	if (data)
 		free_parser(data);
+}
+
+int	errno_printer_quotes(char *com, char *error_txt, int val)
+{
+	ft_putstr_fd("bash: ", 2);
+	ft_putstr_fd(com, 2);
+	ft_putstr_fd(" ", 2);
+	ft_putstr_fd(error_txt, 2);
+	write(2, "\n", 1);
+	return (val);
 }

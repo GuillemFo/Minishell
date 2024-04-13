@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:48:05 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/13 10:49:14 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/13 12:32:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 	t_parser	*iter;
 	t_redir		*tmp;
 	char		*tmp2;
-	char		*tmp_ex;
 
-	tmp_ex = NULL;
 	iter = parser;
 	if (iter != NULL)
 	{
@@ -29,7 +27,7 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 			i = 0;
 			while (iter->cmd && iter->cmd[i] != NULL && iter->cmd[i][0] != '\0')
 			{
-				tmp2 = clear_quotes(&(iter->cmd[i]), env, exit_code, tmp_ex);
+				tmp2 = clear_quotes(&(iter->cmd[i]), env, exit_code);
 				free(iter->cmd[i]);
 				iter->cmd[i] = ft_strdup(tmp2);
 				free(tmp2);
@@ -38,7 +36,7 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 			tmp = iter->redir;
 			while (tmp && tmp->dest)
 			{
-				tmp2 = clear_quotes(&(tmp->dest), env, exit_code, tmp_ex);
+				tmp2 = clear_quotes(&(tmp->dest), env, exit_code);
 				free(tmp->dest);
 				tmp->dest = tmp2;
 				tmp = tmp->next;
@@ -83,7 +81,7 @@ int	main(int ac, char **av, char **envp)
 				{
 					data = clean_input(data, env, exit_code);
 					heredock(&data, env, exit_code);
-					printf("hola\n");
+					//printf("hola\n");
 					error = execute(data, &env, &exit_code);
 					exit_code = error;
 				}

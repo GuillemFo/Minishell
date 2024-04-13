@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 07:42:21 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/12 22:25:19 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/13 13:49:01 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ char	*dllr_support(char *result, t_env *env, int *x)
 	free(env_name);
 	return (result);
 }
-
 
 char	*fnd_dllr(char *str, t_env *env, int exit_code)
 {

@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:11:52 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/12 22:12:45 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/13 13:41:20 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,46 @@ typedef struct s_pipe
 	pid_t			*children;
 }					t_pipe;
 
+typedef struct s_tmp
+{
+	char			*tmp_ex;
+	char			*tmp_bef;
+	char			*tmp_cont;
+	char			*tmp_after;
+	char			*res;
+	char			*tmp_help;
+	char			c;
+}					t_tmp;
+
 /*-=-=-=-=-=-=-=-=-=-=-=SIGNALS=-=-=-=-=-=-=-=-=-=-=-=*/
 
 void				handle_sigint(int sig);
 void				handle_sigquit(int sig);
 void				handle_sigint_child(int sig);
 
+/*-=-=-=-=-=-=-=-=-=-=-=QUOTES=-=-=-=-=-=-=-=-=-=-=-=*/
+
+char				*clear_quotes(char **str, t_env *env, int exit_code);
+void				clear_q_1(t_tmp *tmp, char **res, t_env *env,
+						int exit_code);
+void				clear_q_2(t_tmp *tmp, char **res);
+void				clear_q_3(t_tmp *tmp, t_env *env, int exit_code);
+void				clear_q_4(t_tmp *tmp, t_env *env, int exit_code);
+void				clear_q_5(t_tmp *tmp);
+void				clear_q_6(t_tmp *tmp);
+void				clear_q_7(t_tmp *tmp, char **res, t_env *env,
+						int exit_code);
+void				clear_q_8(t_tmp *tmp, char **res, t_env *env,
+						int exit_code);
+void				multi_q(t_tmp *tmp, t_env *env, int exit_code);
+char				has_quotes(char *str);
+char				*cnt_b_q(char *str, char c);
+char				*cnt_in_q(char *str, char c);
+char				*cnt_aft_q(char *str, char c);
+int					errno_printer_quotes(char *com, char *error_txt,
+						int val);
 /*-=-=-=-=-=-=-=-=-=-=-=BUILTINS=-=-=-=-=-=-=-=-=-=-=-=*/
-//
+
 int					is_builtin_execute(t_parser *token, t_env **env,
 						int *error);
 int					built_ls(void);
@@ -146,8 +178,7 @@ int					errno_printer_2(char *com, char *error_txt, char *asked,
 char				*trim_after(char *str, char c);
 char				*trim_bef(char *str, char c);
 char				*trim_after_dlr(char *str, char c);
-char				*clear_quotes(char **str, t_env *env, int exit_code,
-						char *tmp_ex);
+
 int					is_poss_char(char c);
 long long			ft_check_arg_is_num(char *argv);
 long long			ft_check_max_min(char *argv);
