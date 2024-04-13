@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:11:52 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/13 17:26:18 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/13 16:36:28 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@
 
 typedef struct s_errors
 {
-	int	error;
-	int	exit_code;
-	char *str;
+	int			error;
+	int			exit_code;
+	char		*str;
 }				t_errors;		
 
 typedef enum e_sign
@@ -108,6 +108,16 @@ typedef struct s_tmp
 	char			c;
 }					t_tmp;
 
+/*-=-=-=-=-=-=-=-=-=-=-=MAIN=-=-=-=-=-=-=-=-=-=-=-=*/
+
+t_env				*inition_signals_env(int *error, int *exit_code,
+						char **envp, t_env *env);
+void				executing(t_parser *data, t_env *env, t_errors *err);
+char				*freestyle(int error, int *exit_code, t_parser *data,
+						char *str);
+void				my_add_history(char *str, char **av);
+int					returning(t_env *env, int exit_code);
+
 /*-=-=-=-=-=-=-=-=-=-=-=SIGNALS=-=-=-=-=-=-=-=-=-=-=-=*/
 
 void				handle_sigint(int sig);
@@ -116,6 +126,7 @@ void				handle_sigint_child(int sig);
 
 /*-=-=-=-=-=-=-=-=-=-=-=QUOTES=-=-=-=-=-=-=-=-=-=-=-=*/
 
+t_parser			*clean_input(t_parser *parser, t_env *env, int exit_code);
 void				cl_quotes_s(t_redir **tmp, char **tmp2, t_env *env,
 						int exit_code);
 char				*clear_quotes(char **str, t_env *env, int exit_code);
@@ -272,6 +283,5 @@ int					is_lonely_builtin(t_parser *parser, t_pipe *pipex,
 void				making_kids(t_parser *parser, t_pipe *pipex,
 						t_env **envi, int *error);
 void				get_token(t_parser *parser, t_lexer *lexer, t_redir *tmp);
-
 
 #endif

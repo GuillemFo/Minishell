@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:48:05 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/13 18:23:40 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/13 16:34:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,47 +41,6 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 	return (parser);
 }
 
-t_env	*inition_signals_env(int *error, int *exit_code, char **envp,
-		t_env *env)
-{
-	*error = 0;
-	*exit_code = 0;
-	env = load_env(envp);
-	shell_level(&env);
-	rl_catch_signals = 0;
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, handle_sigquit);
-	return (env);
-}
-
-void	executing(t_parser *data, t_env *env, t_errors *err)
-{
-	data = clean_input(data, env, err->exit_code);
-	heredock(&data, env, err->exit_code);
-	err->error = execute(data, &env, &err->exit_code);
-}
-
-char	*freestyle(int error, int *exit_code, t_parser *data, char *str)
-{
-	*exit_code = error;
-	free_parser(data);
-	free(str);
-	str = NULL;
-	return (readline(C_G "minishell: " C_RESET));
-}
-
-void my_add_history(char *str, char **av)
-{
-	(void)av;	
-	add_history(str);
-}
-
-int	returning(t_env *env, int exit_code)
-{
-	free_env(&env);
-	return (exit_code);
-}
-
 t_lexer	*function(int *error, char *str)
 {
 	*error = 0;
@@ -103,7 +62,7 @@ int	main(int ac, char **av, char **envp)
 	if (ac != 1)
 		return (1);
 	env = NULL;
- 	err.str = beginning(&env, &err.error, &err.exit_code, envp);
+	err.str = beginning(&env, &err.error, &err.exit_code, envp);
 	if (err.str)
 	{
 		while (1)
