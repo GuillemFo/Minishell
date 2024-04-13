@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:40:50 by adanylev          #+#    #+#             */
-/*   Updated: 2024/04/11 11:44:47 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/13 12:01:29 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	arg_count(char *line, int i, int wc)
 			i++;
 		else if (is_sign(line[i]))
 		{
-			if (line[i + 1] && is_redir(line[i]) && is_redir(line[i]) == is_redir(line[i + 1]))
+			if (line[i + 1] && is_redir(line[i])
+				&& is_redir(line[i]) == is_redir(line[i + 1]))
 				i++;
 			i++;
 			wc++;

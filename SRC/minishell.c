@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:48:05 by codespace         #+#    #+#             */
 /*   Updated: 2024/04/13 14:26:57 by codespace        ###   ########.fr       */
@@ -40,6 +40,7 @@ t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 	}
 	return (parser);
 }
+
 
 int	main(int ac, char **av, char **envp)
 {

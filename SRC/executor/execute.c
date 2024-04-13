@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 12:07:40 by adanylev          #+#    #+#             */
-/*   Updated: 2024/04/11 15:10:38 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/13 12:10:09 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,14 @@ int	execute(t_parser *parser, t_env **envi, int *error)
 	if (parser->cmd)
 	{
 		if (is_builtin_or_not(parser) && !parser->next)
-			return(is_lonely_builtin(parser, &pipex, envi, error));
+			return (is_lonely_builtin(parser, &pipex, envi, error));
 	}
 	signal(SIGINT, handle_sigint_child);
 	exec_start(&pipex, parser);
 	making_kids(parser, &pipex, envi, error);
 	waiting(&pipex, &status, pipex.num_cmds);
 	signal(SIGINT, handle_sigint);
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	else if (WIFSIGNALED(status))
-	{
-		if (WTERMSIG(status) == SIGINT)
-			return(130);
-		else if (WTERMSIG(status) == SIGQUIT)
-		{
-			return(131);
-			ft_printf("Quit: 3\n");
-		}
-	}
-	return (status);
+	return (status_situation(status));
 }
 
 void	child_process(t_pipe *pipex, t_parser *parser, t_env **envi, int *error)
