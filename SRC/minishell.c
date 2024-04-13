@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:48:05 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/13 16:10:09 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/13 14:26:57 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,27 @@
 t_parser	*clean_input(t_parser *parser, t_env *env, int exit_code)
 {
 	int			i;
-	t_parser	*iter;
+	t_parser	*itr;
 	t_redir		*tmp;
 	char		*tmp2;
 
-	iter = parser;
-	if (iter != NULL)
+	itr = parser;
+	if (itr != NULL)
 	{
-		while (iter)
+		while (itr)
 		{
 			i = -1;
-			while (iter->cmd && iter->cmd[++i] != NULL && iter->cmd[i][0] != '\0')
+			while (itr->cmd && itr->cmd[++i] != NULL && itr->cmd[i][0] != '\0')
 			{
-				tmp2 = clear_quotes(&(iter->cmd[i]), env, exit_code);
-				free(iter->cmd[i]);
-				iter->cmd[i] = ft_strdup(tmp2);
+				tmp2 = clear_quotes(&(itr->cmd[i]), env, exit_code);
+				free(itr->cmd[i]);
+				itr->cmd[i] = ft_strdup(tmp2);
 				free(tmp2);
-				i++;
 			}
-			tmp = iter->redir;
+			tmp = itr->redir;
 			while (tmp && tmp->dest)
-				cl_quotes_s(tmp, &tmp2, env, exit_code);
-			iter = iter->next;
+				cl_quotes_s(&tmp, &tmp2, env, exit_code);	//test if heredock leaks with multiple ones, cat -e << EOF << EOF1 << EOF2
+			itr = itr->next;
 		}
 	}
 	return (parser);

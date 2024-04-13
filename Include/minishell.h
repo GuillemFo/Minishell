@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 16:11:52 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/13 16:09:42 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/13 14:19:53 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void				handle_sigint_child(int sig);
 
 /*-=-=-=-=-=-=-=-=-=-=-=QUOTES=-=-=-=-=-=-=-=-=-=-=-=*/
 
-void				cl_quotes_s(t_redir *tmp, char **tmp2, t_env *env,
+void				cl_quotes_s(t_redir **tmp, char **tmp2, t_env *env,
 						int exit_code);
 char				*clear_quotes(char **str, t_env *env, int exit_code);
 void				clear_q_1(t_tmp *tmp, char **res, t_env *env,
