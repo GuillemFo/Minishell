@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   clean_input_support.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 16:27:28 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/02/09 14:10:06 by codespace        ###   ########.fr       */
+/*   Created: 2024/04/13 15:58:34 by gforns-s          #+#    #+#             */
+/*   Updated: 2024/04/13 14:23:32 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+void	cl_quotes_s(t_redir **tmp, char **tmp2, t_env *env, int exit_code)
 {
-	size_t			i;
-
-	i = 0;
-	while (i < n)
-	{
-		if (*((unsigned char *)s + i) == (unsigned char)c)
-			return ((void *)((char *)s + i));
-		i++;
-	}
-	return (NULL);
+	*tmp2 = clear_quotes(&(*tmp)->dest, env, exit_code);
+	free((*tmp)->dest);
+	(*tmp)->dest = *tmp2;
+	*tmp = (*tmp)->next;
 }

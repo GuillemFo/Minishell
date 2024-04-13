@@ -1,35 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/18 12:19:38 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/06 14:02:15 by gforns-s         ###   ########.fr       */
+/*   Created: 2024/03/09 17:37:54 by adanylev          #+#    #+#             */
+/*   Updated: 2024/04/13 12:03:13 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../Include/minishell.h"
 
-char	*ft_strdup(const char *s1)
+void	get_token(t_parser *parser, t_lexer *lexer, t_redir *tmp)
 {
-	size_t	s1l;
-	char	*str;
-	int		i;
-
-	if (s1 == NULL)
-		return (NULL);
-	i = 0;
-	s1l = ft_strlen(s1);
-	str = malloc ((s1l + 1) * sizeof(char));
-	if (!str)
-		return (0);
-	while (s1[i] != '\0')
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
+	parser->redir->next->dest = token(parser->redir->next->dest, lexer->content,
+			ft_strlen(lexer->content));
+	parser->redir = tmp;
 }

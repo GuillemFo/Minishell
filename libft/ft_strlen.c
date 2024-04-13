@@ -6,7 +6,7 @@
 /*   By: gforns-s <gforns-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:29:46 by gforns-s          #+#    #+#             */
-/*   Updated: 2023/10/25 19:32:02 by gforns-s         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:01:21 by gforns-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *var)
 	size_t	count;
 
 	count = 0;
+	if (var == NULL)
+		return (0);
 	while (var[count] != '\0')
 		count++;
 	return (count);

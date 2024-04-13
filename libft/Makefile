@@ -43,6 +43,7 @@ SRC	=	ft_isalnum.c\
 		ft_itoaprint.c \
 		get_next_line.c \
 		get_next_line_utils.c \
+		ft_strcmp.c \
 
 BONUS = ft_lstnew_bonus.c \
 		ft_lstsize_bonus.c\
@@ -58,7 +59,7 @@ OBJ = $(SRC:.c=.o)
 
 BON = $(BONUS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -I./libft.h
+CFLAGS = -Wall -Wextra -Werror -I./libft
 all: $(NAME)
 
 $(NAME): $(OBJ) 
