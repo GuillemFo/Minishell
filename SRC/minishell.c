@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 15:48:05 by codespace         #+#    #+#             */
-/*   Updated: 2024/04/13 17:25:12 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/13 18:23:40 by adanylev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,29 +70,48 @@ char *freestyle(int error, int *exit_code, t_parser *data, char *str)
 	return (readline(C_G "minishell: " C_RESET));
 }
 
+void my_add_history(char *str, char **av)
+{
+	(void)av;	
+	add_history(str);
+}
+
+int	returning(t_env *env, int exit_code)
+{
+	free_env(&env);
+	return (exit_code);
+}
+
+t_lexer	*function(int *error, char *str)
+{
+	*error = 0;
+	return (ft_lexer(str));
+}
+
+char	*beginning(t_env **env, int *error, int *exit_code, char **envp)
+{
+	*env = inition_signals_env(error, exit_code, envp, *env);
+	return (readline(C_G "minishell: " C_RESET));
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	t_parser	*data;
-	t_lexer		*input;		
 	t_env		*env;
 	t_errors	err;
 
-	(void)av;
 	if (ac != 1)
 		return (1);
 	env = NULL;
-	env = inition_signals_env(&err.error, &err.exit_code, envp, env);
-	err.str = readline(C_G "minishell: " C_RESET);
+ 	err.str = beginning(&env, &err.error, &err.exit_code, envp);
 	if (err.str)
 	{
 		while (1)
 		{
-			add_history(err.str);
+			my_add_history(err.str, av);
 			if (err.str)
 			{
-				err.error = 0;
-				input = ft_lexer(err.str);
-				data = ft_parser(input, &err.error);
+				data = ft_parser(function(&err.error, err.str), &err.error);
 				if (!err.error && data)
 					executing(data, env, &err);
 				err.str = freestyle(err.error, &err.exit_code, data, err.str);
@@ -101,6 +120,5 @@ int	main(int ac, char **av, char **envp)
 			}
 		}
 	}
-	free_env(&env);
-	return (err.exit_code);
+	return (returning(env, err.exit_code));
 }
