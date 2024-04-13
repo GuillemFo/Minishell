@@ -6,7 +6,7 @@
 /*   By: adanylev <adanylev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 08:21:01 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/13 12:15:53 by adanylev         ###   ########.fr       */
+/*   Updated: 2024/04/13 10:39:26 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,18 @@ int	heredock(t_parser **parser, t_env *env, int exit_code)
 	while (iter)
 	{
 		tmp = iter->redir;
-		if (tmp && tmp->dest)
+		while (tmp && tmp->dest)
 		{
 			if (tmp->sign == LESSLESS)
 			{
 				do_name(&filename, &i);
 				do_heredock(tmp, filename, env, exit_code);
 				if (tmp->dest)
-				free(tmp->dest);
+					free(tmp->dest);
 				tmp->dest = filename;
 				//unlink_heredocs(iter->redir);
 			}
+			tmp = tmp->next;
 		}
 		iter = iter->next;
 	}
