@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 11:09:33 by gforns-s          #+#    #+#             */
-/*   Updated: 2024/04/12 22:06:57 by codespace        ###   ########.fr       */
+/*   Updated: 2024/04/13 12:57:32 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,68 +130,94 @@ char	has_quotes(char *str)
 	return ('\0');
 }
 
-char	*clear_quotes(char **str, t_env *env, int exit_code, char *tmp_ex)
+void	clear_q_1(t_tmp *tmp, char **res, t_env *env, int exit_code)
 {
-	char	*tmp_bef;
-	char	*tmp_cont;
-	char	*tmp_after;
+	tmp->tmp_ex = cnt_in_q(*res, tmp->c);
+	tmp->tmp_help = fnd_dllr(tmp->tmp_ex, env, exit_code);
+	tmp->tmp_cont = ft_strjoinplus(tmp->tmp_bef, tmp->tmp_help);
+	free(tmp->tmp_help);
+}
+
+void	clear_q_2(t_tmp *tmp, char **res)
+{
+	tmp->tmp_ex = cnt_in_q(*res, tmp->c);
+	tmp->tmp_cont = ft_strjoinplus(tmp->tmp_bef, tmp->tmp_ex);
+	free(tmp->tmp_ex);
+	tmp->tmp_bef = NULL;
+}
+
+void	clear_q_3(t_tmp *tmp, t_env *env, int exit_code)
+{
+	tmp->c = has_quotes(tmp->tmp_after);
+	tmp->tmp_ex = cnt_b_q(tmp->tmp_after, tmp->c);
+	tmp->tmp_help = fnd_dllr(tmp->tmp_ex, env, exit_code);
+	tmp->tmp_bef = ft_strjoinplus(tmp->tmp_cont, tmp->tmp_help);
+	free(tmp->tmp_help);
+}
+
+void	clear_q_4(t_tmp *tmp, t_env *env, int exit_code)
+{
+	tmp->tmp_ex = cnt_in_q(tmp->tmp_after, tmp->c);
+	tmp->tmp_help = fnd_dllr(tmp->tmp_ex, env, exit_code);
+	tmp->tmp_cont = ft_strjoinplus(tmp->tmp_bef, tmp->tmp_help);
+	free(tmp->tmp_help);
+}
+
+void	clear_q_5(t_tmp *tmp)
+{
+	tmp->tmp_ex = cnt_in_q(tmp->tmp_after, tmp->c);
+	tmp->tmp_cont = ft_strjoinplus(tmp->tmp_bef, tmp->tmp_ex);
+	free(tmp->tmp_ex);
+}
+
+void	clear_q_6(t_tmp *tmp)
+{
+	tmp->tmp_ex = cnt_aft_q(tmp->tmp_after, tmp->c);
+	free(tmp->tmp_after);
+	tmp->tmp_after = tmp->tmp_ex;
+}
+
+void	clear_q_7(t_tmp *tmp, char **res, t_env *env, int exit_code)
+{
+	free(*res);
+	tmp->tmp_ex = fnd_dllr(tmp->tmp_after, env, exit_code);
+	*res = ft_strjoinplus(tmp->tmp_cont, tmp->tmp_ex);
+	free(tmp->tmp_ex);
+}
+
+void	clear_q_8(t_tmp *tmp, char **res, t_env *env, int exit_code)
+{
+	tmp->tmp_ex = fnd_dllr(*res, env, exit_code);
+	*res = tmp->tmp_ex;
+}
+
+char	*clear_quotes(char **str, t_env *env, int exit_code)
+{
+	t_tmp	tmp;
 	char	*res;
-	char	*tmp_help;
-	char	c;
 
 	res = ft_strdup(*str);
-	c = has_quotes(res);
+	tmp.c = has_quotes(res);
 	if (has_quotes(res) != '\0')
 	{
-		tmp_bef = fnd_dllr(cnt_b_q(res, c), env, exit_code);
-		if (c == '\"')
+		tmp.tmp_bef = fnd_dllr(cnt_b_q(res, tmp.c), env, exit_code);
+		if (tmp.c == '\"')
+			clear_q_1(&tmp, &res, env, exit_code);
+		else if (tmp.c == '\'')
+			clear_q_2(&tmp, &res);
+		tmp.tmp_after = cnt_aft_q(res, tmp.c);
+		while (has_quotes(tmp.tmp_after) != '\0')
 		{
-			tmp_ex = cnt_in_q(res, c);
-			tmp_help = fnd_dllr(tmp_ex, env, exit_code);
-			tmp_cont = ft_strjoinplus(tmp_bef, tmp_help);
-			free(tmp_help);
+			clear_q_3(&tmp, env, exit_code);
+			if (tmp.c == '\"')
+				clear_q_4(&tmp, env, exit_code);
+			else if (tmp.c == '\'')
+				clear_q_5(&tmp);
+			clear_q_6(&tmp);
 		}
-		else if (c == '\'')
-		{
-			tmp_ex = cnt_in_q(res, c);
-			tmp_cont = ft_strjoinplus(tmp_bef, tmp_ex);
-			free(tmp_ex);
-			tmp_bef = NULL;
-		}
-		tmp_after = cnt_aft_q(res, c);
-		while (has_quotes(tmp_after) != '\0')
-		{
-			c = has_quotes(tmp_after);
-			tmp_ex = cnt_b_q(tmp_after, c);
-			tmp_help = fnd_dllr(tmp_ex, env, exit_code);
-			tmp_bef = ft_strjoinplus(tmp_cont, tmp_help);
-			free(tmp_help);
-			if (c == '\"')
-			{
-				tmp_ex = cnt_in_q(tmp_after, c);
-				tmp_help = fnd_dllr(tmp_ex, env, exit_code);
-				tmp_cont = ft_strjoinplus(tmp_bef, tmp_help);
-				free(tmp_help);
-			}
-			else if (c == '\'')
-			{
-				tmp_ex = cnt_in_q(tmp_after, c);
-				tmp_cont = ft_strjoinplus(tmp_bef, tmp_ex);
-				free(tmp_ex);
-			}
-			tmp_ex = cnt_aft_q(tmp_after, c);
-			free(tmp_after);
-			tmp_after = tmp_ex;
-		}
-		free(res);
-		tmp_ex = fnd_dllr(tmp_after, env, exit_code);
-		res = ft_strjoinplus(tmp_cont, tmp_ex);
-		free(tmp_ex);
+		clear_q_7(&tmp, &res, env, exit_code);
 	}
 	else
-	{
-		tmp_ex = fnd_dllr(res, env, exit_code);
-		res = tmp_ex;
-	}
+		clear_q_8(&tmp, &res, env, exit_code);
 	return (res);
 }
