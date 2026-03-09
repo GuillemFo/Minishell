@@ -1,92 +1,208 @@
-# Minishell - As beautiful as a shell
+# Minishell — As Beautiful as a Shell
 
 ## 🎯 Project Overview
 
-**Minishell** is a project that involves creating your own simple shell - your own version of bash! You'll learn extensively about processes, file descriptors, and command-line interpretation while building a functional shell from scratch.
+**Minishell** is a system programming project that consists of building a **simple Unix shell** from scratch.
 
-> **Summary:** This project is about creating a simple shell. Yes, your own little bash. You will learn a lot about processes and file descriptors.
+The goal is to recreate the core behavior of a standard shell such as **bash**, including command execution, environment variable handling, pipes, and redirections.
+
+Through this project, you gain practical experience with:
+
+* **process management**
+* **file descriptor manipulation**
+* **command parsing**
+* **Unix signals**
+* **system calls**
+
+By implementing a shell yourself, you gain a deeper understanding of how operating systems execute programs and manage processes.
+
+---
 
 ## 💻 What is a Shell?
 
-A shell is a command-line interpreter that provides a user interface for accessing an operating system's services. Shells were created because communicating with computers using binary switches was impractical, and developers needed a more human-friendly way to interact with systems.
+A **shell** is a command-line interpreter that allows users to interact with the operating system by entering commands.
+
+Instead of interacting directly with the kernel, users type commands into the shell, which then:
+
+1. Parses the command
+2. Locates the corresponding executable
+3. Creates a process
+4. Executes the program
+5. Returns the result to the user
+
+Shells such as **bash**, **zsh**, and **sh** are essential tools in Unix-based systems and are widely used for system administration, development, and automation.
+
+---
 
 ## ⚙️ Technical Specifications
 
 ### Program Requirements
-| Component | Specification |
-|-----------|---------------|
-| **Program Name** | `minishell` |
-| **Language** | C |
-| **Compilation** | `cc` with `-Wall -Wextra -Werror` |
-| **External Functions** | Extensive list including `readline`, `fork`, `execve`, `pipe`, `dup2`, etc. |
-| **Libft** | Authorized |
+
+| Component              | Specification                                                 |
+| ---------------------- | ------------------------------------------------------------- |
+| **Program Name**       | `minishell`                                                   |
+| **Language**           | C                                                             |
+| **Compilation**        | `cc -Wall -Wextra -Werror`                                    |
+| **Authorized Library** | `libft`                                                       |
+| **External Functions** | `readline`, `fork`, `execve`, `pipe`, `dup2`, `waitpid`, etc. |
+
+---
 
 ### Key Constraints
-- ✅ **Only one global variable allowed** (for signals)
-- ✅ **No memory leaks** (except readline's inherent leaks)
-- ✅ **Norm-compliant code**
-- ✅ **No unexpected crashes**
-- ❌ **No interpretation of unclosed quotes or unnecessary special characters**
-- ❌ **Limited to subject requirements**
+
+* ✅ Only **one global variable** allowed (used for signal handling)
+* ✅ **No memory leaks** (except those caused internally by `readline`)
+* ✅ Code must follow the **42 Norm**
+* ✅ The program must **not crash under normal usage**
+* ❌ No interpretation of **unclosed quotes**
+* ❌ Only features required by the subject are implemented
+
+---
 
 ## 🔧 Core Features
 
-### Basic Functionality
-- **Display a prompt** when waiting for commands
-- **Working command history**
-- **Executable search** (PATH, relative, absolute paths)
-- **Signal handling** (ctrl-C, ctrl-D, ctrl-\)
+### Basic Shell Behavior
 
-### Quote Handling
-- **Single quotes ('')** - prevent interpretation of all meta-characters
-- **Double quotes ("")** - prevent interpretation except for `$` (dollar sign)
+* Display a **prompt** when waiting for user input
+* Maintain a **command history**
+* Execute binaries using:
 
-### Redirections
-- **<** - Redirect input
-- **>** - Redirect output
-- **<<** - Here document (read input until delimiter)
-- **>>** - Redirect output in append mode
+  * absolute paths
+  * relative paths
+  * executables found via `$PATH`
+* Proper **signal handling**
 
-### Pipes and Variables
-- **Pipes (|)** - Connect command output to next command's input
-- **Environment variables ($VAR)** - Expand to their values
-- **$?** - Expand to last command's exit status
+  * `Ctrl + C` — interrupt command
+  * `Ctrl + D` — exit shell
+  * `Ctrl + \` — ignored
 
-## 🛠️ Built-in Commands
+---
 
-Your shell must implement these built-in commands:
+## 🧾 Quote Handling
 
-- **echo** with `-n` option
-- **cd** with relative or absolute path
-- **pwd** with no options
-- **export** with no options
-- **unset** with no options
-- **env** with no options or arguments
-- **exit** with no options
+The shell must correctly interpret quotes:
 
-## 🛠️ Technical Implementation
+| Quote Type        | Behavior                                              |
+| ----------------- | ----------------------------------------------------- |
+| `'single quotes'` | Prevent interpretation of all special characters      |
+| `"double quotes"` | Allow `$` expansion but prevent other interpretations |
+
+---
+
+## 🔁 Redirections
+
+The shell supports the following redirection operators:
+
+| Operator | Description                                  |
+| -------- | -------------------------------------------- |
+| `<`      | Redirect input from a file                   |
+| `>`      | Redirect output to a file                    |
+| `>>`     | Append output to a file                      |
+| `<<`     | Here-document (read input until a delimiter) |
+
+---
+
+## 🔗 Pipes & Variables
+
+### Pipes
+
+Pipes (`|`) allow chaining commands by redirecting the output of one command to the input of another.
+
+Example:
+
+```
+ls -l | grep minishell
+```
+
+---
+
+### Environment Variables
+
+The shell must expand environment variables using `$`.
+
+Examples:
+
+```
+echo $HOME
+echo $PATH
+```
+
+Special variable:
+
+```
+$?
+```
+
+Expands to the **exit status of the last executed command**.
+
+---
+
+## 🛠 Built-in Commands
+
+The shell implements the following built-in commands:
+
+* `echo` (with `-n`)
+* `cd` (with relative or absolute paths)
+* `pwd`
+* `export`
+* `unset`
+* `env`
+* `exit`
+
+These commands are executed **directly by the shell**, without calling external programs.
+
+---
+
+## 🛠 Technical Implementation
 
 ### Process Management
-- **Forking** for command execution
-- **Process waiting** (`wait`, `waitpid`, `wait3`, `wait4`)
-- **Signal handling** (`signal`, `sigaction`, `kill`)
+
+* Command execution using **`fork()`**
+* Program execution using **`execve()`**
+* Process synchronization using:
+
+  * `wait()`
+  * `waitpid()`
+
+---
 
 ### File Descriptor Management
-- **Redirection handling** (`dup`, `dup2`)
-- **Pipe implementation** (`pipe`)
-- **File operations** (`open`, `close`, `read`, `write`)
 
-### Memory & Input
-- **Readline library** for input and history
-- **Proper memory management** (`malloc`, `free`)
-- **Environment variable handling** (`getenv`)
+* **Redirections** handled using `dup()` and `dup2()`
+* **Pipes** implemented using `pipe()`
+* File handling using:
+
+  * `open()`
+  * `close()`
+  * `read()`
+  * `write()`
+
+---
+
+### Input & Memory Management
+
+* **Readline library** used for command input and history
+* Dynamic memory allocation using:
+
+  * `malloc`
+  * `free`
+* Environment variable handling through `getenv`
+
+---
 
 ## 🎯 Learning Objectives
 
-- **Process Management**: Forking, execution, waiting
-- **File Descriptors**: Redirection, piping, duplication
-- **Signal Handling**: Interrupts and process control
-- **Command Parsing**: Lexical analysis and interpretation
-- **Memory Management**: Allocation and cleanup
-- **System Programming**: Low-level OS interactions  
-More info at `Infor` folder
+This project focuses on core concepts in **Unix system programming**:
+
+* **Process creation and control**
+* **File descriptor manipulation**
+* **Signal handling**
+* **Command parsing and tokenization**
+* **Memory management**
+* **Low-level operating system interaction**
+
+---
+
+## 📚 Additional Information
+
+More implementation details and documentation can be found in the **`Infor`** folder.
