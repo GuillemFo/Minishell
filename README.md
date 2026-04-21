@@ -1,3 +1,4 @@
+*****AI used to explain this project*****
 # Minishell — As Beautiful as a Shell
 
 ## 🎯 Project Overview
